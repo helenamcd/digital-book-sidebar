@@ -19,6 +19,8 @@ export const chapters: Chapter[] = [
       { id: "intro-sec1", title: "Lógica como base para modelos, regras e decisões" },
       { id: "intro-sec2", title: "Do raciocínio humano ao raciocínio computacional" },
       { id: "intro-sec3", title: "Por que aprender lógica no curso de Ciência de Dados?" },
+      { id: "intro-sec4", title: "Sentenças Lógicas na Ciência de Dados" },
+
     ],
   },
   {
