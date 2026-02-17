@@ -74,12 +74,9 @@ const BookSidebar = ({ activeChapter, onSelectChapter }: BookSidebarProps) => {
       <div className="flex items-center gap-3 px-5 py-5 border-b border-[hsl(var(--sidebar-border))]">
         <BookOpen size={24} className="text-[hsl(var(--sidebar-active))]" />
         <div>
-          <h1 className="text-base font-bold text-[hsl(var(--sidebar-active-fg))] font-serif-book">
-            Livro Digital
+          <h1 className="text-sm font-bold text-[hsl(var(--sidebar-active-fg))] font-serif-book leading-tight">
+            Fundamentos de Lógica Aplicada à Ciência de Dados
           </h1>
-          <p className="text-[10px] tracking-widest uppercase text-[hsl(var(--sidebar-heading))]">
-            Uma história
-          </p>
         </div>
       </div>
 
@@ -94,7 +91,7 @@ const BookSidebar = ({ activeChapter, onSelectChapter }: BookSidebarProps) => {
 
       <div className="px-5 py-4 border-t border-[hsl(var(--sidebar-border))]">
         <p className="text-[10px] text-[hsl(var(--sidebar-heading))] text-center">
-          © 2026 · Livro Digital
+          © 2026 · Fundamentos de Lógica
         </p>
       </div>
     </>
