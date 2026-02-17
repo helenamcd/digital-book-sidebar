@@ -51,15 +51,41 @@ export const chapters: Chapter[] = [
 ];
 
 export const chapterContents: Record<string, ChapterContent> = {
-  intro: {
-    id: "intro",
-    title: "Introdução",
-    subtitle: "Uma história sobre descobertas",
-    paragraphs: [
-      "Este livro digital foi criado para demonstrar como uma interface elegante pode transformar a experiência de leitura. Cada capítulo foi pensado para oferecer conforto visual e navegação intuitiva.",
-      "A tipografia cuidadosamente escolhida, o espaçamento generoso entre linhas e as margens amplas criam um ambiente de leitura que respeita os olhos e a mente do leitor.",
-      "Navegue pelos capítulos utilizando o menu lateral. Cada seção pode ser acessada diretamente, permitindo que você retome sua leitura exatamente de onde parou.",
-      "\"Um livro é um sonho que você segura nas mãos.\" — Neil Gaiman",
+intro: {
+  id: "intro",
+  title: "Introdução",
+  subtitle: "Por que lógica em Ciência de Dados?",
+  paragraphs: [
+    "A lógica é o estudo formal do raciocínio correto. Desde a Antiguidade, com Aristóteles, ela surgiu da tentativa de responder a uma pergunta fundamental: quando um argumento é válido? Ao longo dos séculos, a lógica evoluiu de um campo filosófico para um dos pilares do pensamento científico e computacional.",
+    
+    "Na ciência de dados, a lógica aparece de forma constante, mesmo quando não é explicitamente mencionada. Sempre que definimos condições, regras, hipóteses ou critérios de decisão, estamos lidando com proposições que podem ser verdadeiras ou falsas e com inferências que conectam essas proposições.",
+    
+    "Dados, por si só, não produzem conclusões. Eles precisam ser organizados, interpretados e conectados por regras de raciocínio. A lógica fornece exatamente esse arcabouço, permitindo transformar observações em decisões consistentes.",
+    
+    "Esse processo pode ser entendido como uma passagem gradual do raciocínio humano para o raciocínio computacional:",
+    
+    "Intuição humana\n↓\nExpressão lógica\n↓\nImplementação computacional",
+    
+    "Em aplicações de Ciência de Dados e Interação Humano-Computador, essa estrutura aparece com frequência. Por exemplo, um sistema pode decidir recomendar uma intervenção quando certas condições de uso são atendidas. Essa decisão segue uma forma lógica simples do tipo SE condição ENTÃO ação.",
+    
+    "Esse tipo de raciocínio pode ser representado da seguinte maneira:",
+    
+    "Interagiu com o sistema\n∧\nApresentou queda de desempenho\n↓\nRecomendar intervenção",
+    
+    "Ao explicitar essas relações, o cientista de dados consegue analisar se as condições são suficientes, se existem exceções e se a conclusão realmente se sustenta. Isso reduz ambiguidades e evita decisões automáticas mal fundamentadas.",
+    
+    "A lógica também é essencial para distinguir conceitos frequentemente confundidos, como correlação, implicação e causalidade. Dois eventos podem ocorrer juntos sem que um cause o outro. Compreender essas diferenças é fundamental para interpretar modelos e resultados de forma responsável.",
+    
+    "Em áreas como IHC, computação afetiva e sistemas educacionais inteligentes, a lógica tem um papel central. Sistemas que interagem com pessoas precisam tomar decisões compreensíveis, explicáveis e alinhadas às intenções do projeto. A lógica oferece a base para especificar esses comportamentos de maneira clara e verificável.",
+    
+    "Aprender lógica no curso de Ciência de Dados não significa apenas aprender símbolos ou regras formais. Significa desenvolver a capacidade de estruturar o pensamento, analisar suposições, justificar conclusões e comunicar decisões com clareza — habilidades essenciais no trabalho cotidiano com dados.",
+    
+    "Ao longo deste livro, a lógica será apresentada como uma ferramenta prática, conectada a exemplos reais da ciência de dados. O objetivo é mostrar que pensar logicamente é tão fundamental quanto programar, modelar dados ou visualizar informações.",
+    
+    "Referência: Stanford University. Introduction to Logic, Capítulo 1 – Introduction. Disponível em: http://intrologic.stanford.edu/chapters/chapter_01.html",
+
+    "\"Dados não pensam sozinhos. É a lógica que dá sentido às conclusões.\""
+
     ],
   },
   cap1: {
