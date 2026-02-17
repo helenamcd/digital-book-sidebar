@@ -21,6 +21,8 @@ export const chapters: Chapter[] = [
       { id: "intro-sec3", title: "Por que aprender lógica no curso de Ciência de Dados?" },
       { id: "intro-sec4", title: "Sentenças Lógicas na Ciência de Dados" },
       { id: "intro-sec5", title: "Mundos possíveis e dados" },
+      { id: "intro-sec6", title: "Sentenças como restrições sobre os dados" },
+      { id: "intro-sec7", title: "Conhecimento incompleto e raciocínio lógico" },
 
     ],
   },
@@ -109,7 +111,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     ],
   },
 
-    "intro-sec4": {
+  "intro-sec4": {
     id: "intro-sec4",
     title: "Sentenças Lógicas na Ciência de Dados",
     subtitle: "Introdução",
@@ -121,20 +123,48 @@ export const chapterContents: Record<string, ChapterContent> = {
     ],
   },
 
-    "intro-sec5": {
+  "intro-sec5": {
     id: "intro-sec5",
     title: "Mundos possíveis e dados",
     subtitle: "Introdução",
     paragraphs: [
-      "Considere um sistema interativo analisado por uma equipe de ciência de dados em um contexto de IHC. Suponha que estamos observando quatro usuários — U1, U2, U3 e U4 — e queremos modelar se cada usuário:",
+      "Considere um sistema interativo analisado por uma equipe de ciência de dados em um contexto de IHC. Suponha que estamos observando quatro usuários (**U1, U2, U3 e U4**) e queremos modelar se cada usuário:",
       "- clicou no botão de ajuda;\n- apresentou erro na tarefa;\n- concluiu a atividade.",
-      "Cada uma dessas relações pode ser verdadeira ou falsa para cada usuário. Assim como no exemplo clássico de relações interpessoais, não conhecemos inicialmente o estado real do sistema, apenas sabemos que existem várias configurações possíveis.",
-      "Cada configuração possível desses fatos corresponde a um mundo possível. Um mundo é simplesmente uma maneira específica de o sistema estar naquele momento.",
+      "Cada uma dessas relações pode ser verdadeira ou falsa para cada usuário. Assim como no exemplo clássico de relações interpessoais, **não conhecemos inicialmente o estado real do sistema**, apenas sabemos que existem várias configurações possíveis.",
+      "Cada configuração possível desses fatos corresponde a um **mundo possível**. Um mundo é simplesmente uma maneira específica de o sistema estar naquele momento.",
       "Por exemplo:",
       "- Em um mundo possível, U1 clicou no botão de ajuda e concluiu a tarefa sem erros.\n- Em outro, U1 não clicou no botão de ajuda e abandonou a tarefa após vários erros.",
-      "A ciência de dados raramente começa sabendo qual desses mundos é o real. Em vez disso, começamos com dados parciais, registros incompletos e observações limitadas.",
+      "A ciência de dados raramente começa sabendo qual desses mundos é o real. Em vez disso, começamos com **dados parciais**, registros incompletos e observações limitadas.",
     ],
   },
+
+  "intro-sec6": {
+    id: "intro-sec6",
+    title: "Sentenças como restrições sobre os dados",
+    subtitle: "Introdução",
+    paragraphs: [
+      "É nesse ponto que as sentenças lógicas passam a desempenhar um papel central na ciência de dados. Cada sentença lógica expressa uma **restrição** sobre quais mundos possíveis são compatíveis com aquilo que sabemos a partir dos dados.",
+      "Considere as seguintes sentenças em um sistema educacional digital:",
+      "- O usuário U2 concluiu a tarefa.\n- O usuário U3 não clicou no botão de ajuda.\n- O usuário U1 apresentou erro ou abandonou a tarefa.\n- Todo usuário que apresentou erro recebeu uma mensagem de apoio.\n- Nenhum usuário recebe mensagem de apoio sem ter apresentado erro.",
+      "Cada uma dessas sentenças elimina certos mundos possíveis e mantém outros. Por exemplo, qualquer mundo em que U2 não tenha concluído a tarefa é automaticamente descartado se acreditamos na primeira sentença.",
+      "Acreditar em uma sentença equivale a afirmar que o mundo real está **entre aqueles em que essa sentença é verdadeira**. Assim, as sentenças funcionam como filtros: elas reduzem o espaço de possibilidades compatíveis com os dados observados.",
+      "Quando combinamos várias sentenças, o conjunto de mundos possíveis vai se tornando cada vez menor. Cada nova informação adiciona uma nova restrição, refinando nossa compreensão do sistema.",
+      "O mundo real, portanto, deve estar na **interseção dos mundos compatíveis com todas as sentenças conhecidas**. Esse processo de restrição progressiva está na base do raciocínio lógico, da inferência e, mais adiante, da modelagem estatística e probabilística em ciência de dados.",
+    ],
+  },
+
+"intro-sec7": {
+  id: "intro-sec7",
+  title: "Conhecimento incompleto e raciocínio lógico",
+  subtitle: "Introdução",
+  paragraphs: [
+    "Um ponto central da ciência de dados é o fato de que **raramente dispomos de todas as informações relevantes** sobre um fenômeno. Em muitos cenários, sabemos apenas parte do que ocorreu: por exemplo, podemos identificar que um usuário apresentou erro durante uma tarefa, mas não saber se ele buscou ajuda no sistema ou tentou resolver o problema de forma autônoma.",
+    "A lógica oferece um **instrumento fundamental para lidar com esse tipo de situação**, pois permite expressar com precisão não apenas **o que sabemos**, mas também **aquilo que permanece desconhecido**. Essa distinção é crucial para evitar interpretações equivocadas dos dados e para preservar a **integridade do raciocínio analítico**.",
+    "Ao explicitar os **limites do nosso conhecimento**, a lógica sustenta atividades essenciais da ciência de dados, como:",
+    "- a interpretação correta de logs de interação;\n- a definição de regras de decisão em sistemas adaptativos;\n- a construção de modelos mais **transparentes e explicáveis**;\n- a prevenção de **inferências indevidas** baseadas em informações incompletas.",
+    "Em vez de impor conclusões apressadas, o **raciocínio lógico** orienta o analista a trabalhar com **conjuntos de possibilidades** consistentes com as evidências disponíveis, mantendo abertas apenas aquelas que **não entram em contradição com os dados observados**.",
+  ],
+},
 
 
   cap1: {
