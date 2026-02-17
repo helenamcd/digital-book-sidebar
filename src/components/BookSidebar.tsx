@@ -56,7 +56,7 @@ const BookSidebar = ({ activeChapter, onSelectChapter }: BookSidebarProps) => {
             {chapter.sections!.map((section) => (
               <li key={section.id}>
                 <button
-                  onClick={() => handleSelect(chapter.id)}
+                  onClick={() => handleSelect(section.id)}
                   className="w-full text-left px-3 py-1.5 text-xs text-[hsl(var(--sidebar-heading))] hover:text-[hsl(var(--sidebar-active))] transition-colors rounded"
                 >
                   {section.title}
