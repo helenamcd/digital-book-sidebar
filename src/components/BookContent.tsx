@@ -6,6 +6,55 @@ interface BookContentProps {
   onNavigate: (id: string) => void;
 }
 
+const renderInlineMarkdown = (text: string) => {
+  // Split by **bold**, *italic*, and inline `code`
+  const parts: React.ReactNode[] = [];
+  let remaining = text;
+  let key = 0;
+
+  while (remaining.length > 0) {
+    // Check for **bold**
+    const boldMatch = remaining.match(/\*\*(.+?)\*\*/);
+    // Check for *text*
+    const italicMatch = remaining.match(/\*(.+?)\*/);
+    // Check for inline `code`
+    const codeMatch = remaining.match(/`(.+?)`/);
+
+    const matches = [
+      boldMatch ? { type: 'bold', match: boldMatch, index: boldMatch.index! } : null,
+      italicMatch && (!boldMatch || italicMatch.index! < boldMatch.index!) ? { type: 'italic', match: italicMatch, index: italicMatch.index! } : null,
+      codeMatch ? { type: 'code', match: codeMatch, index: codeMatch.index! } : null,
+    ].filter(Boolean).sort((a, b) => a!.index - b!.index);
+
+    if (matches.length === 0) {
+      parts.push(remaining);
+      break;
+    }
+
+    const first = matches[0]!;
+    if (first.index > 0) {
+      parts.push(remaining.slice(0, first.index));
+    }
+
+    if (first.type === 'bold') {
+      parts.push(<strong key={key++} className="font-bold">{first.match![1]}</strong>);
+      remaining = remaining.slice(first.index + first.match![0].length);
+    } else if (first.type === 'italic') {
+      parts.push(<em key={key++} className="italic">{first.match![1]}</em>);
+      remaining = remaining.slice(first.index + first.match![0].length);
+    } else if (first.type === 'code') {
+      parts.push(
+        <code key={key++} className="bg-muted px-1.5 py-0.5 rounded text-[0.85em] font-mono text-accent">
+          {first.match![1]}
+        </code>
+      );
+      remaining = remaining.slice(first.index + first.match![0].length);
+    }
+  }
+
+  return parts;
+};
+
 const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
   const content = chapterContents[activeChapter];
   const currentIndex = chapters.findIndex((c) => c.id === activeChapter);
@@ -29,30 +78,74 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
         <div className="w-16 h-0.5 bg-accent mb-10" />
 
         {/* Paragraphs */}
-        <article className="space-y-6">
+        <article className="space-y-5">
           {content.paragraphs.map((p, i) => {
+            // Code block
+            if (p.startsWith("```")) {
+              const code = p.replace(/^```\\n?/, "").replace(/\\n```$/, "").replace(/```$/, "");
+              const lines = code.split("\\n");
+              return (
+                <pre
+                  key={i}
+                  className="bg-muted rounded-lg p-4 overflow-x-auto font-mono text-xs md:text-sm text-[hsl(var(--book-text))] leading-relaxed border border-border"
+                >
+                  {lines.map((line, li) => (
+                    <div key={li}>{line}</div>
+                  ))}
+                </pre>
+              );
+            }
+
+            // Heading ###
+            if (p.startsWith("### ")) {
+              return (
+                <h3
+                  key={i}
+                  className="font-serif-book text-lg md:text-xl font-bold text-[hsl(var(--book-heading))] mt-8 mb-2"
+                >
+                  {p.replace("### ", "")}
+                </h3>
+              );
+            }
+
+            // List items (lines starting with -)
+            if (p.includes("\n- ") || p.startsWith("- ")) {
+              const lines = p.split("\n");
+              return (
+                <ul key={i} className="list-disc list-inside space-y-1.5 font-serif-book text-sm md:text-[0.95rem] text-[hsl(var(--book-text))] leading-[1.8] pl-2">
+                  {lines.map((line, li) => {
+                    const content = line.replace(/^- /, "");
+                    return (
+                      <li key={li}>{renderInlineMarkdown(content)}</li>
+                    );
+                  })}
+                </ul>
+              );
+            }
+
             const isQuote = p.startsWith('"') && p.includes("—");
             if (isQuote) {
               return (
                 <blockquote
                   key={i}
-                  className="border-l-4 border-accent pl-6 py-2 italic font-serif-book text-muted-foreground text-lg leading-relaxed"
+                  className="border-l-4 border-accent pl-6 py-2 italic font-serif-book text-muted-foreground text-base leading-relaxed"
                 >
                   {p}
                 </blockquote>
               );
             }
+
             const isFinalWord = p === "Fim.";
             return (
               <p
                 key={i}
                 className={`
-                  font-serif-book leading-[1.9] text-[hsl(var(--book-text))]
-                  ${isFinalWord ? "text-center text-2xl font-bold mt-12 text-accent" : "text-base md:text-[1.05rem]"}
-                  ${i === 0 ? "first-letter:text-5xl first-letter:font-bold first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:text-accent first-letter:leading-none" : ""}
+                  font-serif-book leading-[1.85] text-[hsl(var(--book-text))]
+                  ${isFinalWord ? "text-center text-2xl font-bold mt-12 text-accent" : "text-sm md:text-[0.95rem]"}
+                  ${i === 0 ? "first-letter:text-4xl first-letter:font-bold first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:text-accent first-letter:leading-none" : ""}
                 `}
               >
-                {p}
+                {renderInlineMarkdown(p)}
               </p>
             );
           })}
