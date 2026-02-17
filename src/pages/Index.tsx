@@ -1,12 +1,19 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import BookSidebar from "@/components/BookSidebar";
+import BookContent from "@/components/BookContent";
 
 const Index = () => {
+  const [activeChapter, setActiveChapter] = useState("intro");
+
+  const handleNavigate = (id: string) => {
+    setActiveChapter(id);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="flex min-h-screen">
+      <BookSidebar activeChapter={activeChapter} onSelectChapter={handleNavigate} />
+      <BookContent activeChapter={activeChapter} onNavigate={handleNavigate} />
     </div>
   );
 };
