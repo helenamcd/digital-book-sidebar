@@ -20,6 +20,7 @@ export const chapters: Chapter[] = [
       { id: "intro-sec2", title: "Do raciocínio humano ao raciocínio computacional" },
       { id: "intro-sec3", title: "Por que aprender lógica no curso de Ciência de Dados?" },
       { id: "intro-sec4", title: "Sentenças Lógicas na Ciência de Dados" },
+      { id: "intro-sec5", title: "Mundos possíveis e dados" },
 
     ],
   },
@@ -61,7 +62,7 @@ export const chapterContents: Record<string, ChapterContent> = {
   intro: {
     id: "intro",
     title: "Introdução",
-    subtitle: "Uma história sobre descobertas",
+    subtitle: "Da intuição ao raciocínio estruturado",
     paragraphs: [
       "A lógica é o estudo formal do raciocínio correto. Desde a Antiguidade, com Aristóteles, ela surgiu como uma tentativa de responder a uma pergunta simples e poderosa: **quando um argumento é válido?** Ao longo dos séculos, esse estudo evoluiu para sistemas formais capazes de representar afirmações, relações e inferências de maneira precisa. Hoje, embora muitas vezes invisível, a lógica está no coração dos sistemas computacionais, dos algoritmos de aprendizado de máquina e das decisões automatizadas que moldam a ciência de dados.",
       "Na ciência de dados, raramente lidamos apenas com números. Lidamos com **afirmações sobre dados**, **condições**, **regras**, **hipóteses** e **conclusões**. Sempre que um cientista de dados escreve uma regra de filtragem, define critérios para classificar usuários ou interpreta a saída de um modelo, está implicitamente usando lógica. Por exemplo, ao definir que *\"usuários que interagiram com o sistema e apresentaram queda de desempenho devem receber uma intervenção\"*, estamos lidando com uma estrutura lógica do tipo **SE condição ENTÃO ação**. Entender essa estrutura de forma explícita ajuda a evitar erros, ambiguidades e inferências incorretas.",
@@ -108,17 +109,32 @@ export const chapterContents: Record<string, ChapterContent> = {
     ],
   },
 
-  "intro-sec4": {
-  id: "intro-sec4",
-  title: "Sentenças Lógicas na Ciência de Dados",
-  subtitle: "Introdução",
-  paragraphs: [
-    "Para muitos estudantes, a lógica ainda parece um tema distante e excessivamente teórico, associada apenas a demonstrações matemáticas formais ou a provas abstratas sem ligação aparente com a prática profissional. Na ciência de dados, porém, essa percepção não poderia estar mais equivocada. Sempre que lidamos com dados reais, estamos cercados por **incerteza, múltiplas possibilidades e informação incompleta** — exatamente o tipo de cenário para o qual as sentenças lógicas foram criadas.",
-    "Na ciência de dados, uma **sentença lógica** é uma afirmação que pode ser verdadeira ou falsa sobre o mundo representado pelos dados. Por exemplo:",
-    "- *“O usuário clicou no botão de ajuda”\n- “O tempo de execução da tarefa foi maior que o esperado”\n- “O modelo classificou o usuário como em risco de evasão”*.",
-    "Cada uma dessas afirmações descreve um aspecto do sistema ou do comportamento do usuário e, assim como na lógica clássica, pode ser avaliada como verdadeira ou falsa em diferentes situações.",
-  ],
-},
+    "intro-sec4": {
+    id: "intro-sec4",
+    title: "Sentenças Lógicas na Ciência de Dados",
+    subtitle: "Introdução",
+    paragraphs: [
+      "Para muitos estudantes, a lógica ainda parece um tema distante e excessivamente teórico, associada apenas a demonstrações matemáticas formais ou a provas abstratas sem ligação aparente com a prática profissional. Na ciência de dados, porém, essa percepção não poderia estar mais equivocada. Sempre que lidamos com dados reais, estamos cercados por **incerteza, múltiplas possibilidades e informação incompleta** — exatamente o tipo de cenário para o qual as sentenças lógicas foram criadas.",
+      "Na ciência de dados, uma **sentença lógica** é uma afirmação que pode ser verdadeira ou falsa sobre o mundo representado pelos dados. Por exemplo:",
+      "- “O usuário clicou no botão de ajuda”\n- “O tempo de execução da tarefa foi maior que o esperado”\n- “O modelo classificou o usuário como em risco de evasão”.",
+      "Cada uma dessas afirmações descreve um aspecto do sistema ou do comportamento do usuário e, assim como na lógica clássica, pode ser avaliada como verdadeira ou falsa em diferentes situações.",
+    ],
+  },
+
+    "intro-sec5": {
+    id: "intro-sec5",
+    title: "Mundos possíveis e dados",
+    subtitle: "Introdução",
+    paragraphs: [
+      "Considere um sistema interativo analisado por uma equipe de ciência de dados em um contexto de IHC. Suponha que estamos observando quatro usuários — U1, U2, U3 e U4 — e queremos modelar se cada usuário:",
+      "- clicou no botão de ajuda;\n- apresentou erro na tarefa;\n- concluiu a atividade.",
+      "Cada uma dessas relações pode ser verdadeira ou falsa para cada usuário. Assim como no exemplo clássico de relações interpessoais, não conhecemos inicialmente o estado real do sistema, apenas sabemos que existem várias configurações possíveis.",
+      "Cada configuração possível desses fatos corresponde a um mundo possível. Um mundo é simplesmente uma maneira específica de o sistema estar naquele momento.",
+      "Por exemplo:",
+      "- Em um mundo possível, U1 clicou no botão de ajuda e concluiu a tarefa sem erros.\n- Em outro, U1 não clicou no botão de ajuda e abandonou a tarefa após vários erros.",
+      "A ciência de dados raramente começa sabendo qual desses mundos é o real. Em vez disso, começamos com dados parciais, registros incompletos e observações limitadas.",
+    ],
+  },
 
 
   cap1: {
