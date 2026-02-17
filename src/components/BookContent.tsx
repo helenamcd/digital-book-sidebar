@@ -55,11 +55,20 @@ const renderInlineMarkdown = (text: string) => {
   return parts;
 };
 
+// Build flat list of all navigable pages (chapters + sections)
+const allPages = chapters.flatMap((ch) => {
+  const pages = [{ id: ch.id, title: ch.title }];
+  if (ch.sections) {
+    pages.push(...ch.sections.map((s) => ({ id: s.id, title: s.title })));
+  }
+  return pages;
+});
+
 const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
   const content = chapterContents[activeChapter];
-  const currentIndex = chapters.findIndex((c) => c.id === activeChapter);
-  const prevChapter = currentIndex > 0 ? chapters[currentIndex - 1] : null;
-  const nextChapter = currentIndex < chapters.length - 1 ? chapters[currentIndex + 1] : null;
+  const currentIndex = allPages.findIndex((p) => p.id === activeChapter);
+  const prevChapter = currentIndex > 0 ? allPages[currentIndex - 1] : null;
+  const nextChapter = currentIndex < allPages.length - 1 ? allPages[currentIndex + 1] : null;
 
   if (!content) return null;
 
