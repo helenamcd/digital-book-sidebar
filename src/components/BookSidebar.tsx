@@ -8,7 +8,7 @@ interface BookSidebarProps {
 }
 
 const BookSidebar = ({ activeChapter, onSelectChapter }: BookSidebarProps) => {
-  const [expandedChapters, setExpandedChapters] = useState<string[]>(["cap1"]);
+  const [expandedChapters, setExpandedChapters] = useState<string[]>(["intro"]);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const toggleExpand = (id: string) => {
