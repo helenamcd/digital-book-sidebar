@@ -18,6 +18,7 @@ export const chapters: Chapter[] = [
     sections: [
       { id: "intro-sec1", title: "Sentenças Lógicas" },
       { id: "intro-sec2", title: "Implicação Lógica" },
+      { id: "intro-sec3", title: "Demonstrações Lógicas" },
     ],
   },
   {
@@ -169,6 +170,51 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Uma maneira conceitual de verificar implicação lógica é examinar **todos os mundos possíveis compatíveis com os dados** e verificar se a conclusão vale em todos eles. Esse procedimento é conhecido como **verificação de modelos**.",
       "Em problemas pequenos — com poucas variáveis e poucas sentenças — essa abordagem é viável e até intuitiva. No entanto, em ciência de dados real, o número de mundos possíveis cresce rapidamente e pode se tornar **enorme ou até infinito**. Nesse ponto, não é possível enumerar todos os cenários.",
       "É por isso que, em vez de listar mundos, recorremos ao **raciocínio lógico**: usamos **regras formais de inferência** para demonstrar que uma conclusão é implicada pelas premissas, sem precisar examinar todos os casos possíveis.",
+
+    ],
+  },
+
+    "intro-sec3": {
+    id: "intro-sec3",
+    title: "Demonstrações Lógicas",
+    subtitle: "Introdução",
+    paragraphs: [
+
+      "##Demonstrações lógicas na ciência de dados",
+      "Na ciência de dados, muitas perguntas podem ser respondidas de duas maneiras distintas. Podemos tentar testar todos os cenários possíveis ou podemos **raciocinar logicamente** a partir de regras já conhecidas. As **demonstrações lógicas** surgem como uma alternativa mais eficiente ao exame exaustivo de possibilidades.",
+      "Esse raciocínio é análogo ao que fazemos em álgebra. Em vez de testar valores aleatórios até encontrar uma solução, manipulamos simbolicamente as equações. De forma semelhante, em lógica, partimos de **premissas** e aplicamos **regras formais de inferência** para obter conclusões que já estão implicitamente contidas nessas premissas.",
+
+      "##Regras de inferência e padrões de raciocínio",
+      "Uma contribuição central da lógica clássica foi a identificação de **regras de inferência** — padrões corretos de raciocínio que preservam a verdade.",
+      "Considere um exemplo simples em ciência de dados educacionais:",
+      "- Todo estudante que cometeu erro recebeu feedback automático.\n- Todo estudante que recebeu feedback automático teve sua atividade registrada no log.",
+      "Portanto:\n- Todo estudante que cometeu erro teve sua atividade registrada no log.",
+      "Essa conclusão decorre apenas da **estrutura lógica** das sentenças.",
+      "O mesmo raciocínio pode ser expresso de forma abstrata:",
+      "- Todos os x são y.\n- Todos os y são z.\n- Portanto, todos os x são z.",
+
+      "##Correção lógica não depende do conteúdo",
+      "A correção do raciocínio lógico é determinada pela **forma das sentenças**, e não pelos objetos específicos nelas mencionados. Se as premissas forem verdadeiras, a conclusão obtida por uma regra dedutiva correta **necessariamente será verdadeira**.",
+
+      "##Padrões corretos e padrões incorretos",
+      "Nem todo padrão de raciocínio é válido. Alguns parecem intuitivos, mas podem levar a conclusões incorretas.",
+      "Considere o seguinte padrão:",
+      "- Todos os x são y.\n- Alguns y são z.\n- Portanto, alguns x são z.",
+      "Esse padrão **não garante** conclusões corretas em todos os casos. Um raciocínio só é dedutivamente válido se **nunca produzir conclusões falsas quando as premissas forem verdadeiras**.",
+
+      "##Dedução, indução e ciência de dados",
+      "Na ciência de dados, utilizamos diferentes formas de raciocínio para compreender fenômenos e tomar decisões. Entre elas, destacam-se a **dedução** e a **indução**, que desempenham papéis distintos.",
+      "A **dedução** parte de princípios gerais ou regras já aceitas e chega a conclusões específicas. Quando as premissas são verdadeiras e o raciocínio é válido, a conclusão é **garantidamente verdadeira**. Por esse motivo, a dedução é o objeto central de estudo da Lógica.",
+      "A **indução**, por outro lado, parte de observações particulares para formular generalizações. Por exemplo:",
+      "- Observei muitos usuários com esse comportamento.\n- Nunca observei um caso contrário.\n- Portanto, esse comportamento sempre ocorre.",
+      "Esse tipo de raciocínio é a base da **Ciência empírica e da aprendizagem de máquina**. No entanto, quando a indução é incompleta — isto é, quando não observamos todos os casos possíveis —, ela **não oferece garantias absolutas**. Sempre pode existir um caso ainda não observado que contradiga a conclusão.",
+      "Essa distinção esteve no cerne de uma famosa divergência entre o físico **Albert Einstein** e seu contemporâneo **Niels Bohr**. Bohr ridicularizou a ênfase de Einstein na dedução em vez da indução, afirmando: *“Você não está pensando; você está apenas sendo lógico”*. Bohr defendia a indução como motor da descoberta científica, enquanto Einstein atribuía grande valor à dedução e à coerência lógica.",
+      "Na ciência de dados, essa tensão permanece atual: **a indução permite descobrir padrões**, enquanto **a dedução garante a correção das conclusões extraídas a partir de regras e modelos**.",
+
+      "##Demonstrações, implicação lógica e mundos possíveis",
+      "Uma conclusão é **logicamente implicada** quando é verdadeira em todos os mundos possíveis compatíveis com as premissas.",
+      "Uma conclusão é **demonstrável** quando pode ser obtida por uma sequência finita de aplicações de regras de inferência.",
+      "Em sistemas lógicos bem definidos, essas duas noções coincidem, permitindo verificar implicações **sem enumerar todos os mundos possíveis**, mesmo quando esse conjunto é enorme ou infinito.",
 
     ],
   },
