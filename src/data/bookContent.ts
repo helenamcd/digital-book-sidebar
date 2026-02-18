@@ -16,7 +16,8 @@ export const chapters: Chapter[] = [
     id: "intro",
     title: "Introdução",
     sections: [
-      { id: "intro-sec1", title: "Sentenças Lógicas na Ciência de Dados" },
+      { id: "intro-sec1", title: "Sentenças Lógicas" },
+      { id: "intro-sec2", title: "Implicação Lógica" },
     ],
   },
   {
@@ -133,6 +134,44 @@ export const chapterContents: Record<string, ChapterContent> = {
   },
 
 
+  "intro-sec2": {
+    id: "intro-sec2",
+    title: "Implicação Lógica",
+    subtitle: "Introdução",
+    paragraphs: [
+
+      "##Implicação lógica na ciência de dados",
+      "Na ciência de dados, raramente trabalhamos com informações completas. Em geral, temos um conjunto de **sentenças extraídas dos dados** — registros, logs, rótulos ou regras — que descrevem parcialmente o sistema que estamos analisando. A partir dessas sentenças, queremos responder perguntas: *o que pode ser concluído com certeza?* O que é apenas possível? E o que não pode ser verdadeiro de forma alguma?",
+      "É nesse contexto que surge a **implicação lógica**.",
+      "Considere um sistema educacional digital no qual observamos o comportamento de estudantes durante uma atividade. Suponha que, a partir dos dados coletados, sabemos que:",
+      "- Todo estudante que apresentou erro recebeu uma mensagem de apoio.\n- O estudante U2 recebeu uma mensagem de apoio.\n- O estudante U3 não recebeu mensagem de apoio.",
+      "Mesmo que os dados **não afirmem explicitamente** que U2 apresentou erro, podemos concluir algo importante:\nse todo erro gera mensagem de apoio, e U2 recebeu essa mensagem, então **U2 necessariamente apresentou erro**. Essa conclusão não está escrita nos dados, mas é **implicada logicamente** por eles.",
+      "Esse tipo de inferência **não depende de probabilidades nem de modelos estatísticos** — depende apenas da **estrutura lógica das sentenças envolvidas**.",
+
+      "##Quando os dados não determinam um único cenário",
+      "Na prática, um conjunto de sentenças raramente determina um único estado possível do sistema. Em vez disso, ele costuma ser compatível com **vários mundos possíveis**. Cada mundo representa uma forma coerente de os dados serem verdadeiros ao mesmo tempo.",
+      "Por exemplo, suponha que os dados indiquem apenas que:",
+      "- U1 apresentou erro ou abandonou a tarefa.\n- U1 não recebeu mensagem de apoio.",
+      "Essas informações permitem mais de um cenário:",
+      "- Em um mundo possível, U1 apresentou erro, mas o sistema falhou em enviar a mensagem.\n- Em outro, U1 abandonou a tarefa antes de qualquer erro ser registrado.\n- Em outro ainda, houve erro de registro nos logs.",
+      "Como existem vários mundos compatíveis com os dados, **nem toda pergunta pode ser respondida com certeza**. Ainda assim, **algumas conclusões podem ser verdadeiras em todos esses mundos** — e são exatamente essas conclusões que interessam à implicação lógica.",
+
+      "##O que significa implicação lógica",
+      "Dizemos que um conjunto de sentenças **implica logicamente** uma conclusão quando **essa conclusão é verdadeira em todos os mundos possíveis compatíveis com as sentenças conhecidas**.",
+      "Em termos de ciência de dados, isso significa:",
+      "- Uma conclusão é logicamente implicada se **não existe nenhum cenário coerente com os dados em que essa conclusão seja falsa**.",
+      "Por exemplo:",
+      "- Se em todos os mundos possíveis U2 apresentou erro, então podemos afirmar com certeza que U2 apresentou erro.\n- Se em alguns mundos U3 concluiu a tarefa e em outros não, então não podemos afirmar nem que concluiu nem que não concluiu — apenas que **é possível**.",
+      "Assim, a implicação lógica separa claramente três situações comuns na análise de dados:",
+      "- conclusões **certas** (verdadeiras em todos os mundos);\n- conclusões **impossíveis** (falsas em todos os mundos);\n- conclusões **indeterminadas** (verdadeiras em alguns mundos e falsas em outros).",
+
+      "##Implicação lógica e verificação de modelos",
+      "Uma maneira conceitual de verificar implicação lógica é examinar **todos os mundos possíveis compatíveis com os dados** e verificar se a conclusão vale em todos eles. Esse procedimento é conhecido como **verificação de modelos**.",
+      "Em problemas pequenos — com poucas variáveis e poucas sentenças — essa abordagem é viável e até intuitiva. No entanto, em ciência de dados real, o número de mundos possíveis cresce rapidamente e pode se tornar **enorme ou até infinito**. Nesse ponto, não é possível enumerar todos os cenários.",
+      "É por isso que, em vez de listar mundos, recorremos ao **raciocínio lógico**: usamos **regras formais de inferência** para demonstrar que uma conclusão é implicada pelas premissas, sem precisar examinar todos os casos possíveis.",
+
+    ],
+  },
 
 
   cap1: {
