@@ -221,43 +221,41 @@ export const chapterContents: Record<string, ChapterContent> = {
 
   "intro-sec4": {
     id: "intro-sec4",
-    title: "Lógica Simbólica",
+    title: "Formalização Simbólica e Implicação Lógica",
     subtitle: "Introdução",
-    paragraphs:[
-      "##Lógica simbólica na ciência de dados",
-      "Até aqui, muitos exemplos de lógica podem ser expressos em linguagem natural. Em ciência de dados, é comum descrevemos situações usando frases como *“o usuário apresentou erro”* ou *“o modelo classificou o aluno como em risco”*. Embora a linguagem natural seja conveniente, ela apresenta **ambiguidade, imprecisão e interpretações não intencionais**.",
-      "Esses problemas afetam diretamente o **raciocínio lógico** e podem levar a conclusões incorretas.",
+    paragraphs: [
 
-      "##Ambiguidade e erros de inferência",
-      "Considere a afirmação:",
-      "- “O aluno recebeu feedback após errar a atividade.”",
-      "Essa frase pode ter interpretações distintas, levando analistas diferentes a conclusões diferentes. A lógica simbólica surge para **eliminar esse tipo de ambiguidade**.",
+      "##Formalização simbólica em ciência de dados",
+      "Assim como em problemas algébricos, o primeiro passo para o raciocínio lógico rigoroso em ciência de dados é a **formalização**. Em vez de trabalhar diretamente com frases em linguagem natural, identificamos os fatos relevantes e os representamos por **símbolos**.",
 
-      "##Formalização: transformando frases em símbolos",
-      "A lógica simbólica substitui frases vagas por **símbolos bem definidos**, conectados por operadores lógicos.",
-      "Por exemplo:",
-      "- e: o estudante apresentou erro\n- f: o estudante recebeu feedback\n- a: o estudante abandonou a atividade",
-      "Com isso, podemos escrever sentenças como:",
-      "- e ⇒ f\n- (e ∨ a) ⇒ i",
-      "Uma vez formalizadas, essas sentenças permitem definir com precisão **quais conclusões são logicamente implicadas**.",
+      "Considere as seguintes definições:",
+      "- e: o estudante apresentou erro\n- f: o estudante recebeu feedback\n- a: o estudante abandonou a atividade\n- r: o registro foi armazenado no log",
 
-      "##Implicação lógica depende da forma, não do conteúdo",
-      "A correção do raciocínio lógico depende da **estrutura das sentenças**, e não do significado concreto dos termos.",
-      "Por exemplo:",
-      "- x ⇒ y\n- y ⇒ z\n- Portanto, x ⇒ z",
-      "Esse padrão vale independentemente do domínio, inclusive em ciência de dados.",
+      "Com essas abreviações, podemos escrever sentenças como:",
+      "``` \ne ⇒ f\nf ⇒ r\n```",
 
-      "##Quando a linguagem natural engana",
-      "A linguagem natural pode induzir a erros quando termos ambíguos são tratados como entidades lógicas comuns.",
-      "A lógica simbólica evita esses problemas ao exigir **definições precisas e consistentes**.",
+      "##Implicação lógica como encadeamento simbólico",
+      "A lógica permite encadear implicações por meio de regras de inferência. Um exemplo clássico é a transitividade:",
+      "``` \np ⇒ q\nq ⇒ s\n────────\np ⇒ s\n```",
 
-      "##Lógica simbólica, implicação e demonstrações",
-      "Uma conclusão é **logicamente implicada** quando é verdadeira em todos os cenários compatíveis com as premissas.",
-      "As **demonstrações lógicas** permitem chegar a essas conclusões por meio de regras formais, sem enumerar todos os cenários possíveis.",
+      "Aplicando ao contexto de ciência de dados:",
+      "``` \ne ⇒ f\nf ⇒ r\n────────\ne ⇒ r\n```",
+      "Isso significa que, se o estudante apresentou erro, então sua interação foi registrada.",
 
-      "##Por que lógica simbólica é essencial em ciência de dados",
-      "A lógica simbólica é essencial para:",
-      "- eliminar ambiguidades;\n- justificar conclusões;\n- apoiar sistemas baseados em regras;\n- construir modelos mais **explicáveis e confiáveis**.",
+      "##Conjunções e disjunções",
+      "Muitos cenários envolvem múltiplas condições. Por exemplo:",
+      "``` \n(e ∧ a) ⇒ i\ni ⇒ r\n```",
+      "Nesse caso, concluímos:",
+      "``` \n(e ∧ a) ⇒ r\n```",
+
+      "Também podemos representar alternativas:",
+      "``` \n(e ∨ a) ⇒ i\n```",
+
+      "##Esquema geral de inferência",
+      "De forma abstrata, podemos representar um padrão geral de raciocínio:",
+      "``` \np₁ ∧ … ∧ pₖ ⇒ q₁ ∨ … ∨ qₗ\nr₁ ∧ … ∧ rₘ ⇒ s₁ ∨ … ∨ sₙ\n────────────────────────\np₁ ∧ … ∧ pₖ ∧ r₁ ∧ … ∧ rₘ ⇒ q₁ ∨ … ∨ qₗ ∨ s₁ ∨ … ∨ sₙ\n```",
+
+      "Esse tipo de formalização permite aplicar a lógica a **regras, logs, sistemas educacionais e modelos de decisão**, eliminando ambiguidades e garantindo conclusões corretas.",
 
     ],
   },
