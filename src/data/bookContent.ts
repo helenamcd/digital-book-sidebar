@@ -17,7 +17,7 @@ export const chapters: Chapter[] = [
     title: "Introdução",
     sections: [
       { id: "intro-sec1", title: "Sentenças Lógicas" },
-      { id: "intro-sec2", title: "Implicação Lógica" },
+      { id: "intro-sec2", title: "Consequência lógica" },
       { id: "intro-sec3", title: "Demonstrações Lógicas" },
       { id: "intro-sec4", title: "Lógica Simbólica" },
       { id: "intro-sec5", title: "Automação do Raciocínio Lógico" },
@@ -140,16 +140,16 @@ export const chapterContents: Record<string, ChapterContent> = {
 
   "intro-sec2": {
     id: "intro-sec2",
-    title: "Implicação Lógica",
+    title: "Consequência lógica",
     subtitle: "Introdução",
     paragraphs: [
-      "##Implicação lógica (consequência lógica) na ciência de dados",
+      "##Consequência lógica na ciência de dados",
       "Na ciência de dados, raramente trabalhamos com informações completas. Em geral, temos um conjunto de **sentenças extraídas dos dados** — registros, logs, rótulos ou regras — que descrevem apenas parcialmente o sistema que estamos analisando. A partir dessas sentenças, queremos responder perguntas fundamentais: *o que pode ser concluído com certeza?* O que é apenas possível? E o que não pode ser verdadeiro de forma alguma?",
-      "É nesse contexto que surge a noção de **implicação lógica**, entendida tecnicamente como **consequência lógica**.",
-      "Considere um sistema educacional digital no qual observamos o comportamento de estudantes durante uma atividade. Suponha que, a partir dos dados coletados, sabemos que:",
-      "- Todo estudante que apresentou erro recebeu uma mensagem de apoio.\n- Todo estudante que recebeu mensagem de apoio apresentou erro.\n- O estudante U2 recebeu uma mensagem de apoio.\n- O estudante U3 não recebeu mensagem de apoio.",
+      "É nesse contexto que surge a noção de **implicação lógica**, entendida aqui como consequência lógica, e não apenas como o conectivo ‘se… então’",
+      "Considere um sistema educacional digital idealizado, no qual observamos o comportamento de estudantes durante uma atividade e no qual mensagens de apoio são enviadas exatamente e apenas quando ocorre um erro. Suponha que, a partir dos dados coletados, sabemos que:",
+      "- Todo estudante que apresentou erro recebeu uma mensagem de apoio.\n- Todo estudante que recebeu mensagem de apoio apresentou erro.\n- O estudante U2 recebeu uma mensagem de apoio.",
       "Essas sentenças não descrevem completamente o sistema, mas impõem restrições claras sobre os cenários possíveis. Mesmo que os dados **não afirmem explicitamente** que U2 apresentou erro, podemos concluir algo importante: se todo erro gera mensagem de apoio, e somente estudantes que erraram recebem essa mensagem, então **U2 necessariamente apresentou erro**. Essa conclusão não está escrita nos dados, mas é uma **consequência lógica** das sentenças conhecidas.",
-      "Esse tipo de inferência **não depende de probabilidades nem de modelos estatísticos** — depende apenas da **estrutura lógica das sentenças envolvidas**.",
+      "Esse tipo de inferência não depende de probabilidades, modelos estatísticos ou aprendizado de máquina — depende apenas da estrutura lógica das sentenças envolvidas.",
       "Formalmente, se denotarmos o conjunto de sentenças conhecidas por Γ e a conclusão por φ, dizemos que φ é consequência lógica de Γ quando:\nΓ ⊨ φ\nisto é, quando φ é verdadeira em **todos os mundos possíveis** que satisfazem Γ.",
 
       "##Quando os dados não determinam um único cenário",
@@ -170,7 +170,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Assim, a consequência lógica separa claramente três situações comuns na análise de dados: conclusões **certas**, **impossíveis** e **indeterminadas**.",
 
       "##Consequência lógica e verificação de modelos",
-      "Uma maneira conceitual de verificar consequência lógica é examinar **todos os mundos possíveis compatíveis com os dados** e verificar se a conclusão é verdadeira em todos eles. Esse procedimento é conhecido como **verificação de modelos** (*model checking*).",
+      "Uma maneira conceitual de verificar consequência lógica é examinar **todos os mundos possíveis compatíveis com os dados** e verificar se a conclusão é verdadeira em todos eles.Esse procedimento corresponde à ideia central da verificação semântica de modelos, que está na base do que mais tarde se formaliza como *model checking*.",
       "Em problemas pequenos — com poucas variáveis e poucas sentenças — essa abordagem é viável e até intuitiva. No entanto, em ciência de dados real, o número de mundos possíveis cresce rapidamente e pode se tornar **enorme ou até infinito**, tornando inviável a enumeração explícita de todos os cenários.",
       "É por isso que, em vez de listar mundos, recorremos ao **raciocínio lógico**: usamos **regras formais de inferência e provas lógicas** para demonstrar que uma conclusão é consequência das premissas, sem precisar examinar cada mundo possível individualmente."
     ],
