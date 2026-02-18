@@ -1,6 +1,7 @@
 import { useState } from "react";
 import BookSidebar from "@/components/BookSidebar";
 import BookContent from "@/components/BookContent";
+import GlossaryContent from "@/components/GlossaryContent";
 
 const Index = () => {
   const [activeChapter, setActiveChapter] = useState("intro");
@@ -13,7 +14,11 @@ const Index = () => {
   return (
     <div className="flex min-h-screen">
       <BookSidebar activeChapter={activeChapter} onSelectChapter={handleNavigate} />
-      <BookContent activeChapter={activeChapter} onNavigate={handleNavigate} />
+      {activeChapter === "glossario" ? (
+        <GlossaryContent onNavigate={handleNavigate} />
+      ) : (
+        <BookContent activeChapter={activeChapter} onNavigate={handleNavigate} />
+      )}
     </div>
   );
 };
