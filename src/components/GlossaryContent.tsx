@@ -23,6 +23,16 @@ export const glossaryTerms: GlossaryTerm[] = [
     definition:
       "Função que mede o quão compatíveis são os dados observados com um determinado conjunto de parâmetros de um modelo estatístico. Diferente da probabilidade, que vai do modelo para os dados, a verossimilhança vai dos dados para o modelo.",
   },
+  {
+    term: "Indução",
+    definition:
+      "Método de raciocínio que parte de observações particulares para formular uma conclusão geral. Por exemplo: ao observar que todos os cisnes encontrados até agora são brancos, conclui-se que \"todos os cisnes são brancos\". A indução não garante a verdade da conclusão, apenas a torna provável com base nas evidências disponíveis.",
+  },
+  {
+    term: "Dedução",
+    definition:
+      "Método de raciocínio que parte de premissas gerais para chegar a uma conclusão particular necessariamente verdadeira, desde que as premissas sejam verdadeiras. Por exemplo: \"Todo ser humano é mortal. Sócrates é um ser humano. Logo, Sócrates é mortal.\" A dedução preserva a verdade das premissas na conclusão.",
+  },
 ];
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
