@@ -105,6 +105,18 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
               );
             }
 
+            // Heading ## (bigger)
+            if (p.startsWith("## ") && !p.startsWith("### ")) {
+              return (
+                <h2
+                  key={i}
+                  className="font-serif-book text-xl md:text-2xl font-bold text-[hsl(var(--book-heading))] mt-10 mb-3"
+                >
+                  {p.replace("## ", "")}
+                </h2>
+              );
+            }
+
             // Heading ###
             if (p.startsWith("### ")) {
               return (
