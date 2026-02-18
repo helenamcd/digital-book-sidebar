@@ -18,7 +18,12 @@ export const chapters: Chapter[] = [
     sections: [
       { id: "intro-sec1", title: "Sentenças Lógicas" },
       { id: "intro-sec2", title: "Implicação Lógica" },
+<<<<<<< HEAD
+      { id: "intro-sec4", title: "Lógica Simbólica" },
+
+=======
       { id: "intro-sec3", title: "Demonstrações Lógicas" },
+>>>>>>> 0c26e80e81df57d10346c4c8371fb1d9980d3bb1
     ],
   },
   {
@@ -174,12 +179,61 @@ export const chapterContents: Record<string, ChapterContent> = {
     ],
   },
 
+<<<<<<< HEAD
+  "intro-sec4": {
+    id: "intro-sec4",
+    title: "Lógica Simbólica",
+    subtitle: "Introdução",
+    paragraphs: [
+=======
     "intro-sec3": {
     id: "intro-sec3",
     title: "Demonstrações Lógicas",
     subtitle: "Introdução",
     paragraphs: [
+>>>>>>> 0c26e80e81df57d10346c4c8371fb1d9980d3bb1
 
+<<<<<<< HEAD
+      "##Lógica simbólica na ciência de dados",
+      "Até aqui, muitos exemplos de lógica podem ser expressos em linguagem natural. Em ciência de dados, é comum descrevemos situações usando frases como *“o usuário apresentou erro”* ou *“o modelo classificou o aluno como em risco”*. Embora a linguagem natural seja conveniente, ela apresenta **ambiguidade, imprecisão e interpretações não intencionais**.",
+      "Esses problemas afetam diretamente o **raciocínio lógico** e podem levar a conclusões incorretas.",
+
+      "##Ambiguidade e erros de inferência",
+      "Considere a afirmação:",
+      "- “O aluno recebeu feedback após errar a atividade.”",
+      "Essa frase pode ter interpretações distintas, levando analistas diferentes a conclusões diferentes. A lógica simbólica surge para **eliminar esse tipo de ambiguidade**.",
+
+      "##Formalização: transformando frases em símbolos",
+      "A lógica simbólica substitui frases vagas por **símbolos bem definidos**, conectados por operadores lógicos.",
+      "Por exemplo:",
+      "- e: o estudante apresentou erro\n- f: o estudante recebeu feedback\n- a: o estudante abandonou a atividade",
+      "Com isso, podemos escrever sentenças como:",
+      "- e ⇒ f\n- (e ∨ a) ⇒ i",
+      "Uma vez formalizadas, essas sentenças permitem definir com precisão **quais conclusões são logicamente implicadas**.",
+
+      "##Implicação lógica depende da forma, não do conteúdo",
+      "A correção do raciocínio lógico depende da **estrutura das sentenças**, e não do significado concreto dos termos.",
+      "Por exemplo:",
+      "- x ⇒ y\n- y ⇒ z\n- Portanto, x ⇒ z",
+      "Esse padrão vale independentemente do domínio, inclusive em ciência de dados.",
+
+      "##Quando a linguagem natural engana",
+      "A linguagem natural pode induzir a erros quando termos ambíguos são tratados como entidades lógicas comuns.",
+      "A lógica simbólica evita esses problemas ao exigir **definições precisas e consistentes**.",
+
+      "##Lógica simbólica, implicação e demonstrações",
+      "Uma conclusão é **logicamente implicada** quando é verdadeira em todos os cenários compatíveis com as premissas.",
+      "As **demonstrações lógicas** permitem chegar a essas conclusões por meio de regras formais, sem enumerar todos os cenários possíveis.",
+
+      "##Por que lógica simbólica é essencial em ciência de dados",
+      "A lógica simbólica é essencial para:",
+      "- eliminar ambiguidades;\n- justificar conclusões;\n- apoiar sistemas baseados em regras;\n- construir modelos mais **explicáveis e confiáveis**.",
+
+    ],
+  },
+
+
+=======
       "##Demonstrações lógicas na ciência de dados",
       "Na ciência de dados, muitas perguntas podem ser respondidas de duas maneiras distintas. Podemos tentar testar todos os cenários possíveis ou podemos **raciocinar logicamente** a partir de regras já conhecidas. As **demonstrações lógicas** surgem como uma alternativa mais eficiente ao exame exaustivo de possibilidades.",
       "Esse raciocínio é análogo ao que fazemos em álgebra. Em vez de testar valores aleatórios até encontrar uma solução, manipulamos simbolicamente as equações. De forma semelhante, em lógica, partimos de **premissas** e aplicamos **regras formais de inferência** para obter conclusões que já estão implicitamente contidas nessas premissas.",
@@ -220,6 +274,7 @@ export const chapterContents: Record<string, ChapterContent> = {
   },
 
 
+>>>>>>> 0c26e80e81df57d10346c4c8371fb1d9980d3bb1
   cap1: {
     id: "cap1",
     title: "O Despertar",
