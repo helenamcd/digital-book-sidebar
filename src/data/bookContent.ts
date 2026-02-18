@@ -18,8 +18,8 @@ export const chapters: Chapter[] = [
     sections: [
       { id: "intro-sec1", title: "Sentenças Lógicas" },
       { id: "intro-sec2", title: "Implicação Lógica" },
-      { id: "intro-sec4", title: "Lógica Simbólica" },
       { id: "intro-sec3", title: "Demonstrações Lógicas" },
+      { id: "intro-sec4", title: "Lógica Simbólica" },
     ],
   },
   {
