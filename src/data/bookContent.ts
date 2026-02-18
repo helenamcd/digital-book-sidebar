@@ -20,6 +20,8 @@ export const chapters: Chapter[] = [
       { id: "intro-sec2", title: "Implicação Lógica" },
       { id: "intro-sec3", title: "Demonstrações Lógicas" },
       { id: "intro-sec4", title: "Lógica Simbólica" },
+      { id: "intro-sec5", title: "Automação do Raciocínio Lógico" },
+      { id: "intro-sec6", title: "Guia de Leitura" },
     ],
   },
   {
@@ -260,7 +262,77 @@ export const chapterContents: Record<string, ChapterContent> = {
     ],
   },
 
+"intro-sec5": {
+  id: "intro-sec5",
+  title: "Automação do Raciocínio Lógico",
+  subtitle: "Introdução",
+  paragraphs: [
 
+    "##Automação do raciocínio lógico",
+    "A existência de uma **linguagem formal** combinada com um conjunto de **regras mecânicas de inferência** torna possível a **automação do raciocínio lógico** por meio de computadores.",
+    "Em ciência de dados, isso significa que fatos, regras e hipóteses podem ser representados simbolicamente e processados de forma automática para gerar conclusões.",
+
+    "##Automação como verificação de implicação lógica",
+    "Considere as seguintes definições:",
+    "- e(x): o estudante x apresentou erro\n- f(x): o estudante x recebeu feedback\n- a(x): o estudante x abandonou a atividade",
+    "E as regras:",
+    "``` \n∀x ( e(x) ⇒ f(x) )\n∀x ( f(x) ⇒ ¬a(x) )\n```",
+    "Se os dados indicam:",
+    "``` \ne(U2)\n```",
+    "Um sistema automatizado pode concluir:",
+    "``` \nf(U2)\n¬a(U2)\n```",
+    "Essas conclusões são **logicicamente implicadas** pelas premissas.",
+
+    "##Da história à prática",
+    "A ideia de automatizar o raciocínio lógico remonta a **Leibniz**, que sonhava com uma álgebra universal capaz de mecanizar o pensamento.",
+    "**Boole** forneceu as bases formais com a álgebra booleana, e avanços posteriores em lógica e computação tornaram a automação viável.",
+
+    "##Aplicações em ciência de dados",
+    "A automação do raciocínio lógico é aplicada em:",
+    "- bancos de dados;\n- integração de dados;\n- sistemas baseados em regras;\n- planilhas lógicas;\n- análise de normas e regulamentos.",
+
+    "##Automação e explicabilidade",
+    "A lógica automatizada complementa métodos estatísticos ao garantir que certas conclusões sejam **necessariamente verdadeiras**, e não apenas prováveis.",
+    "Isso contribui para sistemas de ciência de dados **mais explicáveis, auditáveis e confiáveis**.",
+
+  ],
+},
+
+  "intro-sec6": {
+    id: "intro-sec6",
+    title: "Guia de Leitura",
+    subtitle: "Introdução",
+    paragraphs: [
+
+      "##Um guia para as lógicas estudadas",
+      "Embora a lógica seja frequentemente apresentada como um único campo, existem **vários sistemas lógicos distintos**, cada um com capacidades e limitações próprias. Neste livro, exploramos três grandes famílias de lógica, organizadas de forma progressiva.",
+
+      "##Lógica Proposicional",
+      "A **Lógica Proposicional** é a lógica das proposições, nas quais símbolos representam **condições globais sobre o mundo**.",
+      "Em ciência de dados, ela aparece naturalmente em regras IF–THEN, árvores de decisão, validações e sistemas baseados em regras.",
+      "Essa lógica é computacionalmente bem comportada e totalmente decidível.",
+
+      "##Lógica Relacional",
+      "A **Lógica Relacional** amplia a lógica proposicional ao permitir falar sobre **objetos individuais e suas relações**.",
+      "Ela introduz variáveis, quantificadores e predicados, sendo fundamental para modelar bases de dados e regras gerais.",
+
+      "##Lógica Funcional",
+      "A **Lógica Funcional** permite descrever mundos com **infinitos objetos**, aumentando significativamente o poder expressivo da linguagem.",
+      "Esse ganho vem acompanhado de um custo: algumas propriedades computacionais desejáveis são perdidas.",
+
+      "##Expressividade versus complexidade",
+      "Todas essas lógicas compartilham uma linguagem formal, uma semântica precisa e uma noção clara de **implicação lógica**.",
+      "Elas ilustram o trade-off fundamental entre **o que pode ser expresso** e **o que pode ser computado**.",
+
+      "##Tópicos fora do escopo",
+      "Alguns temas relevantes, como probabilidade, indução, paradoxos e raciocínio não monotônico, não são tratados em profundidade neste livro, embora estejam intimamente ligados à ciência de dados.",
+
+      "##Uma observação final",
+      "Este livro opera em um nível meta-lógico: contém sentenças sobre sentenças e provas sobre provas.",
+      "Estamos usando a **lógica para estudar a própria lógica**, o que pode gerar confusão, mas também evidencia seu poder como ferramenta intelectual.",
+
+    ],
+  },
 
   cap1: {
     id: "cap1",
