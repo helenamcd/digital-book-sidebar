@@ -619,6 +619,76 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
+"cap1-sec5": {
+    id: "cap1-sec5",
+    title: "Exemplos",
+    subtitle: "Capítulo 1",
+    paragraphs: [
+      "Para consolidar os conceitos de **sintaxe, semântica, avaliação e satisfatibilidade**, é essencial observar como a Lógica Proposicional pode ser aplicada a situações concretas. Nesta seção, veremos dois tipos clássicos de exemplos: a formalização de sentenças em **linguagem natural** e a modelagem de **sistemas digitais**.",
+
+      "Esses exemplos ilustram como sentenças aparentemente informais podem ser traduzidas para uma linguagem formal precisa, permitindo análise lógica rigorosa e avaliação automática.",
+
+      "##Exemplo 1: Linguagem natural",
+      "Considere três propriedades associadas ao comportamento de uma pessoa (ou, em ciência de dados, a atributos observáveis):",
+      "- **c**: a pessoa é considerada confiável\n- **f**: a pessoa é considerada flexível\n- **p**: a pessoa é considerada produtiva",
+
+      "Essas propriedades são representadas por **símbolos proposicionais**, cada um assumindo valor verdadeiro (1) ou falso (0) em um dado cenário.",
+
+      "### Tradução de sentenças",
+      "Considere a frase: *Se uma pessoa é confiável ou flexível, então ela é produtiva.*",
+      "O uso de *se... então* indica uma **implicação**, enquanto *ou* indica uma **disjunção**:",
+      "```\\nc ∨ f ⇒ p\\n```",
+
+      "Agora considere: *Uma pessoa é produtiva somente se ela for confiável ou flexível.*",
+      "A expressão *somente se* inverte a direção da implicação:",
+      "```\\np ⇒ c ∨ f\\n```",
+
+      "A frase *Uma pessoa é produtiva se, e somente se, ela for confiável ou flexível* indica uma equivalência lógica:",
+      "```\\np ⇔ c ∨ f\\n```",
+
+      "Por fim, considere a frase negativa: *Não existe pessoa que seja confiável e flexível ao mesmo tempo.*",
+      "Reescrevendo como *não é o caso que alguém seja confiável e flexível*, obtemos:",
+      "```\\n¬(c ∧ f)\\n```",
+
+      "### Avaliação de um cenário",
+      "Suponha agora um cenário em que:",
+      "- c = 1 (confiável)\n- f = 1 (flexível)\n- p = 1 (produtiva)",
+
+      "Avaliação das sentenças:",
+      "```\\nc ∨ f ⇒ p\\n(1 ∨ 1) ⇒ 1\\n1 ⇒ 1\\n1\\n```",
+      "```\\np ⇒ c ∨ f\\n1 ⇒ (1 ∨ 1)\\n1 ⇒ 1\\n1\\n```",
+      "```\\np ⇔ c ∨ f\\n1 ⇔ (1 ∨ 1)\\n1 ⇔ 1\\n1\\n```",
+      "```\\n¬(c ∧ f)\\n¬(1 ∧ 1)\\n¬1\\n0\\n```",
+
+      "Nesse cenário, três sentenças são verdadeiras e uma é falsa. Isso mostra que **nem toda formalização é automaticamente verdadeira** — a lógica nos permite testar explicitamente a coerência entre regras e dados.",
+
+      "##Exemplo 2: Circuitos digitais",
+      "A Lógica Proposicional também é amplamente utilizada para modelar sistemas físicos determinísticos, como **circuitos digitais**. Em ciência de dados e computação, isso é particularmente relevante para entender o funcionamento de hardware, arquiteturas lógicas e sistemas de decisão binários.",
+
+      "Em um circuito digital, cada nó pode estar **ligado** ou **desligado**, o que corresponde naturalmente aos valores verdadeiro (1) e falso (0). Assim, cada nó pode ser representado por um símbolo proposicional.",
+
+      "### Modelando portas lógicas",
+      "Considere os seguintes comportamentos:",
+      "- Uma porta **AND** é verdadeira se, e somente se, ambas as entradas forem verdadeiras.\n- Uma porta **OR** é verdadeira se pelo menos uma entrada for verdadeira.\n- Uma porta **XOR** é verdadeira se as entradas forem diferentes.",
+
+      "Esses comportamentos podem ser formalizados como sentenças lógicas. Por exemplo:",
+      "```\\n(p ∧ ¬q) ∨ (¬p ∧ q) ⇔ o\\n```",
+      "Essa sentença descreve exatamente o comportamento de uma porta XOR.",
+
+      "Outros exemplos de formalização de portas e conexões:",
+      "```\\nr ∧ o ⇔ a\\n```",
+      "```\\np ∧ q ⇔ b\\n```",
+      "```\\n(o ∧ ¬r) ∨ (¬o ∧ r) ⇔ s\\n```",
+      "```\\na ∨ b ⇔ c\\n```",
+
+      "### Análise lógica do circuito",
+      "Uma vez que o circuito é descrito por sentenças lógicas, podemos usar **avaliação** e **satisfatibilidade** para:",
+      "- verificar se o circuito atende a uma especificação;\n- testar comportamentos para entradas específicas;\n- diagnosticar falhas;\n- analisar a coerência entre diferentes partes do sistema.",
+
+      "Esse tipo de modelagem ilustra como a Lógica Proposicional funciona como uma **ponte entre abstrações formais e sistemas reais**, sendo aplicada tanto em ciência de dados quanto em computação, engenharia e inteligência artificial."
+    ]
+  },
+
   cap2: {
     id: "cap2",
     title: "Caminhos",
