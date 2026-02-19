@@ -105,6 +105,30 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
               );
             }
 
+            // Heading #### (smallest)
+            if (p.startsWith("#### ")) {
+              return (
+                <h4
+                  key={i}
+                  className="font-serif-book text-base md:text-lg font-semibold text-[hsl(var(--book-heading))] mt-6 mb-1.5"
+                >
+                  {p.replace("#### ", "")}
+                </h4>
+              );
+            }
+
+            // Heading ### 
+            if (p.startsWith("### ")) {
+              return (
+                <h3
+                  key={i}
+                  className="font-serif-book text-lg md:text-xl font-bold text-[hsl(var(--book-heading))] mt-8 mb-2"
+                >
+                  {p.replace("### ", "")}
+                </h3>
+              );
+            }
+
             // Heading ## (bigger)
             if (p.startsWith("##") && !p.startsWith("###")) {
               return (
@@ -114,18 +138,6 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
                 >
                   {p.replace(/^##\s*/, "")}
                 </h2>
-              );
-            }
-
-            // Heading ###
-            if (p.startsWith("### ")) {
-              return (
-                <h3
-                  key={i}
-                  className="font-serif-book text-lg md:text-xl font-bold text-[hsl(var(--book-heading))] mt-8 mb-2"
-                >
-                  {p.replace("### ", "")}
-                </h3>
               );
             }
 
