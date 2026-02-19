@@ -479,7 +479,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "##Negação (¬)",
       "A negação inverte o valor de verdade da sentença original:",
       
-      "```md\n| φ | ¬φ |\n|---|----|\n| 1 | 0  |\n| 0 | 1  |\n```",
+      "```\\n| φ | ¬φ |\n|---|----|\n| 1 | 0  |\n| 0 | 1  |\\n```",
       
       "*Exemplo em ciência de dados:* se “o estudante apresentou erro” é verdadeiro, então “o estudante não apresentou erro” é falso.",
 
@@ -526,7 +526,7 @@ export const chapterContents: Record<string, ChapterContent> = {
 
   "cap1-sec3": {
     id: "cap1-sec3",
-    title: "Avaliação",
+    title: "Avaliação ou Interpretação",
     subtitle: "Capítulo 1",
     paragraphs: [
       "A **avaliação** é o processo de determinar o valor de verdade de uma sentença lógica composta a partir de uma atribuição de valores de verdade às proposições atômicas. Em ciência de dados, isso corresponde a responder perguntas como: **essa regra é verdadeira para este conjunto de dados?** ou **este registro atende à condição definida por uma regra?**",
@@ -554,9 +554,9 @@ export const chapterContents: Record<string, ChapterContent> = {
 
       "##Um segundo exemplo de avaliação",
       "Agora considere outra atribuição de valores (atribuição *j*):",
-      "```md\np = 0\nq = 1\nr = 0\\n```",
+      "```\\np = 0\nq = 1\nr = 0\\n```",
       "Avaliando a mesma sentença:",
-      "```md\n(p ∨ q) ∧ (¬q ∨ r)\n(0 ∨ 1) ∧ (¬1 ∨ 0)\n1 ∧ (0 ∨ 0)\n1 ∧ 0\n0\n```",
+      "```\\n(p ∨ q) ∧ (¬q ∨ r)\n(0 ∨ 1) ∧ (¬1 ∨ 0)\n1 ∧ (0 ∨ 0)\n1 ∧ 0\n0\n```",
       "Nesse caso, a sentença avalia como **falsa**. A mesma regra lógica, aplicada a valores diferentes, pode produzir resultados diferentes — e isso é central em ciência de dados: **a validade de uma regra depende do estado dos dados**, não da regra isoladamente.",
 
       "##Avaliação como processo computacional",
