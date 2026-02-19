@@ -437,6 +437,94 @@ export const chapterContents: Record<string, ChapterContent> = {
   },
 
 
+"cap1-sec2": {
+  id: "cap1-sec2",
+  title: "Semântica",
+  subtitle: "Capítulo 1",
+  paragraphs: [
+    "A **semântica** trata do significado formal das sentenças lógicas. Em lógica, assim como em álgebra, esse significado não está relacionado ao conteúdo concreto das variáveis, mas às **relações entre seus valores**.",
+    
+    "Na álgebra, não nos importamos se uma variável representa idade, temperatura ou dinheiro. O que importa são as relações expressas pelas equações. De modo análogo, na **Lógica Proposicional**, não nos interessa o significado real das proposições, mas **como os valores de verdade das sentenças simples determinam o valor de verdade das sentenças compostas**.",
+    
+    "Essa abstração é fundamental para a **ciência de dados**. Ela permite que regras, modelos simbólicos e sistemas de decisão sejam avaliados de forma **independente do domínio específico**, garantindo consistência, verificabilidade e automatização do raciocínio.",
+
+    "##Proposições e atribuições de verdade",
+    "Uma **proposição** representa uma possibilidade sobre o estado do mundo que pode ser avaliada como verdadeira ou falsa em um determinado cenário. A lógica não fixa se uma proposição é verdadeira ou falsa — isso depende do contexto observado ou assumido.",
+    
+    "Para tornar esse contexto explícito, utilizamos o conceito de **atribuição de verdade**.",
+    
+    "Formalmente, uma atribuição de verdade associa a cada símbolo proposicional um valor de verdade. Neste livro, adotamos a convenção:",
+    
+    "- **1** para verdadeiro\n- **0** para falso",
+    
+    "Considere os seguintes símbolos proposicionais em um sistema educacional digital:",
+    
+    "- **e**: o estudante apresentou erro\n- **f**: o estudante recebeu feedback\n- **r**: a interação foi registrada no log",
+    
+    "Uma possível atribuição de verdade pode ser:",
+    
+    "- e = 1\n- f = 0\n- r = 1",
+    
+    "Outra atribuição, igualmente válida do ponto de vista lógico, poderia ser:",
+    
+    "- e = 0\n- f = 0\n- r = 1",
+    
+    "Essas atribuições **não são sentenças da lógica proposicional**, mas afirmações em nível meta (isto é, estamos falando *sobre* a lógica). Ainda assim, elas são essenciais para compreender a semântica.",
+
+    "##Avaliação semântica de sentenças compostas",
+    "Embora a lógica não determine os valores das proposições simples, **ela determina completamente o valor de qualquer sentença composta**, uma vez que a atribuição de verdade esteja definida.",
+    
+    "Essa avaliação é feita por meio de regras semânticas, tradicionalmente representadas por **tabelas-verdade**.",
+
+    "##Negação (¬)",
+    "A negação inverte o valor de verdade da sentença original:",
+    
+    "| φ | ¬φ |\n|---|----|\n| 1 | 0  |\n| 0 | 1  |",
+    
+    "*Exemplo em ciência de dados:* se “o estudante apresentou erro” é verdadeiro, então “o estudante não apresentou erro” é falso.",
+
+    "##Conjunção (∧)",
+    "Uma conjunção é verdadeira **somente quando todas as sentenças envolvidas são verdadeiras**:",
+    
+    "| φ | ψ | φ ∧ ψ |\n|---|---|-------|\n| 1 | 1 | 1     |\n| 1 | 0 | 0     |\n| 0 | 1 | 0     |\n| 0 | 0 | 0     |",
+    
+    "*Exemplo:* “O estudante apresentou erro **e** abandonou a atividade” só é verdadeiro se ambos os eventos ocorreram.",
+
+    "##Disjunção (∨)",
+    "Uma disjunção é verdadeira quando **ao menos uma** das sentenças é verdadeira. Trata-se do **ou inclusivo**:",
+    
+    "| φ | ψ | φ ∨ ψ |\n|---|---|-------|\n| 1 | 1 | 1     |\n| 1 | 0 | 1     |\n| 0 | 1 | 1     |\n| 0 | 0 | 0     |",
+    
+    "*Exemplo:* “O estudante apresentou erro **ou** abandonou a atividade” é verdadeiro se qualquer uma das situações ocorreu.",
+
+    "##Implicação (⇒)",
+    "A implicação é falsa **apenas quando o antecedente é verdadeiro e o consequente é falso**. Em todos os outros casos, ela é verdadeira. Essa definição é conhecida como **implicação material**:",
+    
+    "| φ | ψ | φ ⇒ ψ |\n|---|---|-------|\n| 1 | 1 | 1     |\n| 1 | 0 | 0     |\n| 0 | 1 | 1     |\n| 0 | 0 | 1     |",
+    
+    "*Exemplo:* “Se o estudante apresentou erro, então recebeu feedback”. A lógica não afirma que o erro ocorreu — apenas verifica se, **caso tenha ocorrido**, a consequência foi respeitada.",
+
+    "##Bicondicional (⇔)",
+    "O bicondicional é verdadeiro quando as duas sentenças possuem **o mesmo valor de verdade**:",
+    
+    "| φ | ψ | φ ⇔ ψ |\n|---|---|-------|\n| 1 | 1 | 1     |\n| 1 | 0 | 0     |\n| 0 | 1 | 0     |\n| 0 | 0 | 1     |",
+    
+    "*Exemplo em ciência de dados educacionais:* “O estudante está aprovado **se, e somente se**, a média final é maior ou igual a 7”.",
+
+    "##Satisfação e falsificação",
+    "Dizemos que uma atribuição de verdade **satisfaz** uma sentença quando essa sentença é avaliada como verdadeira sob aquela atribuição. Da mesma forma, uma atribuição **falsifica** uma sentença quando ela é avaliada como falsa.",
+    
+    "Uma atribuição satisfaz um **conjunto de sentenças** se satisfaz todas elas simultaneamente. Se falsificar ao menos uma, o conjunto como um todo não é satisfeito.",
+
+    "Esses conceitos são centrais para atividades como:",
+    
+    "- verificação de consistência de regras\n- validação de modelos simbólicos\n- análise de hipóteses em ciência de dados\n- explicabilidade de sistemas baseados em regras",
+
+    "Ao separar **forma lógica** de **conteúdo empírico**, a semântica torna possível automatizar o raciocínio, auditar decisões e construir sistemas de ciência de dados mais **transparentes, confiáveis e explicáveis**."
+  ]
+}
+
+
   cap2: {
     id: "cap2",
     title: "Caminhos",
