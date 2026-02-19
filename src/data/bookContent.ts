@@ -377,54 +377,54 @@ export const chapterContents: Record<string, ChapterContent> = {
 
       "###Negação",
       "A negação inverte o valor lógico de uma sentença.",
-      "```text\n¬erro\n```",
+      "`\n¬erro\n```",
       "(é falso que o estudante cometeu erro)",
 
       "###Conjunção",
       "A conjunção representa a ocorrência simultânea de condições.",
-      "```text\n(erro ∧ ajuda)\n```",
+      "`\n(erro ∧ ajuda)\n```",
       "(o estudante cometeu erro e clicou no botão de ajuda)",
 
       "###Disjunção",
       "A disjunção representa alternativas possíveis.",
-      "```text\n(erro ∨ abandono)\n```",
+      "`\n(erro ∨ abandono)\n```",
       "(o estudante cometeu erro ou abandonou a atividade)",
 
       "###Implicação",
       "A implicação expressa relações condicionais entre sentenças.",
-      "```text\n(erro ⇒ ajuda)\n```",
+      "`\n(erro ⇒ ajuda)\n```",
       "(se o estudante cometeu erro, então recebeu ajuda)",
 
       "###Bicondicional",
       "O bicondicional expressa equivalência lógica entre sentenças.",
-      "```text\n(aprovado ⇔ media≥7)\n```",
+      "`\n(aprovado ⇔ media≥7)\n```",
       "(o estudante está aprovado se, e somente se, a média é maior ou igual a 7)",
 
       "##Composição e aninhamento de sentenças",
       "Uma característica importante da sintaxe da Lógica Proposicional é que sentenças compostas podem ser usadas como partes de outras sentenças compostas. Isso permite construir expressões complexas que modelam situações realistas em ciência de dados.",
 
       "Exemplo:",
-      "```text\n((erro ∨ abandono) ⇒ log)\n```",
+      "`\n((erro ∨ abandono) ⇒ log)\n```",
       "Essa sentença afirma que, se ocorreu erro ou abandono, então houve registro no log.",
 
       "##Parênteses e ambiguidade",
       "Os parênteses desempenham um papel crucial na sintaxe, pois indicam explicitamente como as sentenças devem ser agrupadas. Sem eles, muitas expressões se tornam ambíguas.",
 
       "Considere a expressão:",
-      "```text\nerro ∨ ajuda ⇒ log\n```",
+      "`\nerro ∨ ajuda ⇒ log\n```",
       "Ela pode representar estruturas distintas:",
-      "```text\n((erro ∨ ajuda) ⇒ log)\n```",
+      "`\n((erro ∨ ajuda) ⇒ log)\n```",
       "ou",
-      "```text\n(erro ∨ (ajuda ⇒ log))\n```",
+      "`\n(erro ∨ (ajuda ⇒ log))\n```",
       "Como essas leituras têm significados diferentes, a sintaxe exige regras adicionais para evitar ambiguidades.",
 
       "##Precedência e associatividade",
       "Para reduzir o uso excessivo de parênteses, a Lógica Proposicional adota regras de precedência entre os conectivos. A ordem usual (da maior para a menor precedência) é:",
-      "```text\n¬\n∧\n∨\n⇒\n⇔\n```",
+      "`\n¬\n∧\n∨\n⇒\n⇔\n```",
       "Essa convenção é amplamente adotada, mas o uso explícito de parênteses é sempre recomendado quando houver qualquer dúvida sobre a estrutura da sentença.",
 
       "Exemplos:",
-      "```text\n¬ erro ∧ ajuda     ≡ ((¬ erro) ∧ ajuda)\nerro ∧ ajuda ∨ log ≡ ((erro ∧ ajuda) ∨ log)\nerro ⇒ ajuda ⇔ log ≡ ((erro ⇒ ajuda) ⇔ log)\n```",
+      "`\n¬ erro ∧ ajuda     ≡ ((¬ erro) ∧ ajuda)\nerro ∧ ajuda ∨ log ≡ ((erro ∧ ajuda) ∨ log)\nerro ⇒ ajuda ⇔ log ≡ ((erro ⇒ ajuda) ⇔ log)\n```",
 
       "Quando operadores de mesma precedência aparecem em sequência, adotam-se **convenções de associatividade (à esquerda ou à direita)**, garantindo uma interpretação única da sentença.",
 
