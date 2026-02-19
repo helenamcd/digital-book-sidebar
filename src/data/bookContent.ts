@@ -75,7 +75,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "A lógica é o estudo formal do raciocínio correto. Desde a Antiguidade, com Aristóteles, ela surgiu como uma tentativa de responder a uma pergunta simples e poderosa: **quando um argumento é válido?** Ao longo dos séculos, esse estudo evoluiu para sistemas formais capazes de representar afirmações, relações e inferências de maneira precisa. Hoje, embora muitas vezes invisível, a lógica está no coração dos sistemas computacionais, dos algoritmos de aprendizado de máquina e das decisões automatizadas que moldam a ciência de dados.",
       "Na ciência de dados, raramente lidamos apenas com números. Lidamos com **afirmações sobre dados**, **condições**, **regras**, **hipóteses** e **conclusões**. Sempre que um cientista de dados escreve uma regra de filtragem, define critérios para classificar usuários ou interpreta a saída de um modelo, está implicitamente usando lógica. Por exemplo, ao definir que *\"usuários que interagiram com o sistema e apresentaram queda de desempenho devem receber uma intervenção\"*, estamos lidando com uma estrutura lógica do tipo **SE condição ENTÃO ação**. Entender essa estrutura de forma explícita ajuda a evitar erros, ambiguidades e inferências incorretas.",
       "Podemos representar esse tipo de raciocínio de maneira simples:",
-      "```\\nInteragiu_com_o_sistema  ∧  Queda_de_desempenho\\n                ↓\\n        Recomendar_intervenção\\n```",
+      "```\\nInteragiu_com_o_sistema  ∧  Queda_de_desempenho\\n                ↓\\n        Recomendar_intervenção\\\n```",
       "Esse diagrama mostra algo fundamental: **dados não 'falam sozinhos'**. Eles precisam ser organizados em proposições e conectados por regras de inferência. A lógica fornece exatamente esse arcabouço.",
     
       "##Lógica como base para modelos, regras e decisões",
@@ -382,49 +382,49 @@ export const chapterContents: Record<string, ChapterContent> = {
 
       "###Conjunção",
       "A conjunção representa a ocorrência simultânea de condições.",
-      "```text\n(erro ∧ ajuda)\n```",
+      "```\\(erro ∧ ajuda)\n```",
       "(o estudante cometeu erro e clicou no botão de ajuda)",
 
       "###Disjunção",
       "A disjunção representa alternativas possíveis.",
-      "```text\n(erro ∨ abandono)\n```",
+      "```\\(erro ∨ abandono)\\n```",
       "(o estudante cometeu erro ou abandonou a atividade)",
 
       "###Implicação",
       "A implicação expressa relações condicionais entre sentenças.",
-      "```text\n(erro ⇒ ajuda)\n```",
+      "```\\(erro ⇒ ajuda)\\n```",
       "(se o estudante cometeu erro, então recebeu ajuda)",
 
       "###Bicondicional",
       "O bicondicional expressa equivalência lógica entre sentenças.",
-      "```text\n(aprovado ⇔ media≥7)\n```",
+      "```\\(aprovado ⇔ media≥7)\\n```",
       "(o estudante está aprovado se, e somente se, a média é maior ou igual a 7)",
 
       "##Composição e aninhamento de sentenças",
       "Uma característica importante da sintaxe da Lógica Proposicional é que sentenças compostas podem ser usadas como partes de outras sentenças compostas. Isso permite construir expressões complexas que modelam situações realistas em ciência de dados.",
 
       "Exemplo:",
-      "```text\n((erro ∨ abandono) ⇒ log)\n```",
+      "```\\((erro ∨ abandono) ⇒ log)\\n```",
       "Essa sentença afirma que, se ocorreu erro ou abandono, então houve registro no log.",
 
       "##Parênteses e ambiguidade",
       "Os parênteses desempenham um papel crucial na sintaxe, pois indicam explicitamente como as sentenças devem ser agrupadas. Sem eles, muitas expressões se tornam ambíguas.",
 
       "Considere a expressão:",
-      "```text\nerro ∨ ajuda ⇒ log\n```",
+      "```\\erro ∨ ajuda ⇒ log\\n```",
       "Ela pode representar estruturas distintas:",
-      "```text\n((erro ∨ ajuda) ⇒ log)\n```",
+      "```\\((erro ∨ ajuda) ⇒ log)\\n```",
       "ou",
-      "```text\n(erro ∨ (ajuda ⇒ log))\n```",
+      "```\\(erro ∨ (ajuda ⇒ log))\\n```",
       "Como essas leituras têm significados diferentes, a sintaxe exige regras adicionais para evitar ambiguidades.",
 
       "##Precedência e associatividade",
       "Para reduzir o uso excessivo de parênteses, a Lógica Proposicional adota regras de precedência entre os conectivos. A ordem usual (da maior para a menor precedência) é:",
-      "```text\n¬\n∧\n∨\n⇒\n⇔\n```",
+      "```\\¬\n∧\n∨\n⇒\n⇔\\n```",
       "Essa convenção é amplamente adotada, mas o uso explícito de parênteses é sempre recomendado quando houver qualquer dúvida sobre a estrutura da sentença.",
 
       "Exemplos:",
-      "```text\n¬ erro ∧ ajuda     ≡ ((¬ erro) ∧ ajuda)\nerro ∧ ajuda ∨ log ≡ ((erro ∧ ajuda) ∨ log)\nerro ⇒ ajuda ⇔ log ≡ ((erro ⇒ ajuda) ⇔ log)\n```",
+      "```\\¬ erro ∧ ajuda     ≡ ((¬ erro) ∧ ajuda)\nerro ∧ ajuda ∨ log ≡ ((erro ∧ ajuda) ∨ log)\nerro ⇒ ajuda ⇔ log ≡ ((erro ⇒ ajuda) ⇔ log)\\n```",
 
       "Quando operadores de mesma precedência aparecem em sequência, adotam-se **convenções de associatividade (à esquerda ou à direita)**, garantindo uma interpretação única da sentença.",
 
