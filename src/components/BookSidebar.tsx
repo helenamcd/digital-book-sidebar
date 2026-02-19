@@ -121,7 +121,7 @@ const BookSidebar = ({ activeChapter, onSelectChapter }: BookSidebarProps) => {
           fixed top-0 left-0 z-40 h-screen w-72 flex flex-col
           bg-[hsl(var(--sidebar-bg))] text-[hsl(var(--sidebar-fg))]
           transition-transform duration-300 ease-in-out
-          md:translate-x-0 md:static md:z-auto
+          md:translate-x-0 md:sticky md:top-0 md:z-auto
           ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
