@@ -26,10 +26,14 @@ export const chapters: Chapter[] = [
   },
   {
     id: "cap1",
-    title: "Capítulo 1 — O Despertar",
+    title: "Capítulo 1 — Lógica Proposicional",
     sections: [
-      { id: "cap1-sec1", title: "A manhã silenciosa" },
-      { id: "cap1-sec2", title: "Primeiros sinais" },
+      { id: "cap1-sec1", title: "Sintaxe" },
+      { id: "cap1-sec2", title: "Semântica" },
+      { id: "cap1-sec3", title: "Avaliação ou Interpretação" },
+      { id: "cap1-sec4", title: "Satisfatibilidade" },
+      { id: "cap1-sec5", title: "Exemplos" },
+
     ],
   },
   {
@@ -335,7 +339,7 @@ export const chapterContents: Record<string, ChapterContent> = {
 
   cap1: {
     id: "cap1",
-    title: "O Despertar",
+    title: "Lógica Proposicional",
     subtitle: "Capítulo 1",
     paragraphs: [
       "O sol nascia lentamente por trás das montanhas, pintando o céu com tons de dourado e carmesim. Era uma manhã como tantas outras, mas algo no ar sugeria que aquele dia seria diferente.",
@@ -345,6 +349,47 @@ export const chapterContents: Record<string, ChapterContent> = {
       "As mãos tremeram levemente ao pegar o envelope. O papel era grosso, de uma qualidade que há muito não se via, e o selo de cera cedia sob seus dedos com um estalo satisfatório.",
     ],
   },
+
+  "cap1-sec1": {
+    id: "cap1-sec1",
+    title: "Sintaxe",
+    subtitle: "Capítulo 1",
+    paragraphs: [
+      "Para muitos estudantes, a lógica ainda parece um tema distante e excessivamente teórico, associada apenas a demonstrações matemáticas formais ou a provas abstratas sem ligação aparente com a prática profissional. Na ciência de dados, porém, essa percepção não poderia estar mais equivocada. Sempre que lidamos com dados reais, estamos cercados por **incerteza, múltiplas possibilidades e informação incompleta** — exatamente o tipo de cenário para o qual as sentenças lógicas foram criadas.",
+      "Na ciência de dados, uma **sentença lógica** é uma afirmação que pode ser verdadeira ou falsa sobre o mundo representado pelos dados. Por exemplo:",
+      "- “O usuário clicou no botão de ajuda”\n- “O tempo de execução da tarefa foi maior que o esperado”\n- “O modelo classificou o usuário como em risco de evasão”.",
+      "Cada uma dessas afirmações descreve um aspecto do sistema ou do comportamento do usuário e, assim como na lógica clássica, pode ser avaliada como verdadeira ou falsa em diferentes situações.",
+    
+      "##Mundos possíveis e dados",
+      "Considere um sistema interativo analisado por uma equipe de ciência de dados em um contexto de IHC. Suponha que estamos observando quatro usuários (**U1, U2, U3 e U4**) e queremos modelar se cada usuário:",
+      "- clicou no botão de ajuda;\n- apresentou erro na tarefa;\n- concluiu a atividade.",
+      "Cada uma dessas relações pode ser verdadeira ou falsa para cada usuário. Assim como no exemplo clássico de relações interpessoais, **não conhecemos inicialmente o estado real do sistema**, apenas sabemos que existem várias configurações possíveis.",
+      "Cada configuração possível desses fatos corresponde a um **mundo possível**. Um mundo é simplesmente uma maneira específica de o sistema estar naquele momento.",
+      "Por exemplo:",
+      "- Em um mundo possível, U1 clicou no botão de ajuda e concluiu a tarefa sem erros.\n- Em outro, U1 não clicou no botão de ajuda e abandonou a tarefa após vários erros.",
+      "A ciência de dados raramente começa sabendo qual desses mundos é o real. Em vez disso, começamos com **dados parciais**, registros incompletos e observações limitadas.",
+    
+      "##Sentenças como restrições sobre os dados",
+      "É nesse ponto que as sentenças lógicas passam a desempenhar um papel central na ciência de dados. Cada sentença lógica expressa uma **restrição** sobre quais mundos possíveis são compatíveis com aquilo que sabemos a partir dos dados.",
+      "Considere as seguintes sentenças em um sistema educacional digital:",
+      "- O usuário U2 concluiu a tarefa.\n- O usuário U3 não clicou no botão de ajuda.\n- O usuário U1 apresentou erro ou abandonou a tarefa.\n- Todo usuário que apresentou erro recebeu uma mensagem de apoio.\n- Nenhum usuário recebe mensagem de apoio sem ter apresentado erro.",
+      "Cada uma dessas sentenças elimina certos mundos possíveis e mantém outros. Por exemplo, qualquer mundo em que U2 não tenha concluído a tarefa é automaticamente descartado se acreditamos na primeira sentença.",
+      "Acreditar em uma sentença equivale a afirmar que o mundo real está **entre aqueles em que essa sentença é verdadeira**. Assim, as sentenças funcionam como filtros: elas reduzem o espaço de possibilidades compatíveis com os dados observados.",
+      "Quando combinamos várias sentenças, o conjunto de mundos possíveis vai se tornando cada vez menor. Cada nova informação adiciona uma nova restrição, refinando nossa compreensão do sistema.",
+      "O mundo real, portanto, deve estar na **interseção dos mundos compatíveis com todas as sentenças conhecidas**. Esse processo de restrição progressiva está na base do raciocínio lógico, da inferência e, mais adiante, da modelagem estatística e probabilística em ciência de dados.",
+      
+      "##Conhecimento incompleto e raciocínio lógico",
+      "Um ponto central da ciência de dados é o fato de que **raramente dispomos de todas as informações relevantes** sobre um fenômeno. Em muitos cenários, sabemos apenas parte do que ocorreu: por exemplo, podemos identificar que um usuário apresentou erro durante uma tarefa, mas não saber se ele buscou ajuda no sistema ou tentou resolver o problema de forma autônoma.",
+      "A lógica oferece um **instrumento fundamental para lidar com esse tipo de situação**, pois permite expressar com precisão não apenas **o que sabemos**, mas também **aquilo que permanece desconhecido**. Essa distinção é crucial para evitar interpretações equivocadas dos dados e para preservar a **integridade do raciocínio analítico**.",
+      "Ao explicitar os **limites do nosso conhecimento**, a lógica sustenta atividades essenciais da ciência de dados, como:",
+      "- a interpretação correta de logs de interação;\n- a definição de regras de decisão em sistemas adaptativos;\n- a construção de modelos mais **transparentes e explicáveis**;\n- a prevenção de **inferências indevidas** baseadas em informações incompletas.",
+      "Em vez de impor conclusões apressadas, o **raciocínio lógico** orienta o analista a trabalhar com **conjuntos de possibilidades** consistentes com as evidências disponíveis, mantendo abertas apenas aquelas que **não entram em contradição com os dados observados**.",
+      
+    ],
+  },
+
+
+
   cap2: {
     id: "cap2",
     title: "Caminhos",
