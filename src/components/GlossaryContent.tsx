@@ -33,6 +33,51 @@ export const glossaryTerms: GlossaryTerm[] = [
     definition:
       "Método de raciocínio que parte de premissas gerais para chegar a uma conclusão particular necessariamente verdadeira, desde que as premissas sejam verdadeiras. Por exemplo: \"Todo ser humano é mortal. Sócrates é um ser humano. Logo, Sócrates é mortal.\" A dedução preserva a verdade das premissas na conclusão.",
   },
+  {
+    term: "Hipótese",
+    definition:
+      "Suposição provisória que serve como ponto de partida para uma investigação. É uma afirmação que pode ser testada e verificada por meio de evidências ou experimentos. Se confirmada, pode se tornar parte de uma teoria; se refutada, é descartada ou revisada.",
+  },
+  {
+    term: "Inferência",
+    definition:
+      "Processo de chegar a uma conclusão a partir de premissas ou evidências disponíveis. É o ato de raciocinar logicamente, extraindo informações novas a partir do que já se sabe. Pode ser dedutiva, indutiva ou abdutiva.",
+  },
+  {
+    term: "Implicação lógica válida",
+    definition:
+      "Relação entre premissas e conclusão em que, se todas as premissas forem verdadeiras, a conclusão é necessariamente verdadeira. Diferente da implicação material, aqui há uma conexão lógica genuína entre antecedente e consequente.",
+  },
+  {
+    term: "Implicação material",
+    definition:
+      "Conectivo lógico (→) que é falso apenas quando o antecedente é verdadeiro e o consequente é falso. Diferente da implicação do dia a dia, não exige relação de causa entre as proposições — basta que a combinação V→F não ocorra.",
+  },
+  {
+    term: "Tautologia",
+    definition:
+      "Proposição composta que é sempre verdadeira, independentemente dos valores lógicos de suas partes. Por exemplo: \"Chove ou não chove\" (P ∨ ¬P) é verdadeira em qualquer situação. Tautologias são fundamentais para identificar leis lógicas universais.",
+  },
+  {
+    term: "Inferência indutiva",
+    definition:
+      "Tipo de inferência que generaliza a partir de casos particulares observados. Não garante certeza, mas oferece conclusões prováveis. Exemplo: após observar vários dias de sol no verão, infere-se que \"no verão geralmente faz sol\".",
+  },
+  {
+    term: "Inferência abdutiva",
+    definition:
+      "Tipo de inferência que busca a melhor explicação para um fato observado. Parte de um efeito para propor a causa mais provável. Exemplo: \"A rua está molhada, então provavelmente choveu.\" É muito usada em diagnósticos e investigações.",
+  },
+  {
+    term: "Implicação causal",
+    definition:
+      "Relação em que um evento (causa) produz ou influencia diretamente outro evento (efeito). Diferente da implicação lógica, exige uma conexão real de causa e efeito no mundo. Exemplo: \"Aquecer água a 100 °C causa sua ebulição.\"",
+  },
+  {
+    term: "Demonstração",
+    definition:
+      "Sequência rigorosa de passos lógicos que parte de premissas aceitas (axiomas ou teoremas já provados) para estabelecer a verdade de uma conclusão. É o método formal usado em matemática e lógica para provar que algo é necessariamente verdadeiro.",
+  },
 ];
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
