@@ -762,7 +762,6 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
-
   "cap2-sec2": {
     id: "cap2-sec2",
     title: "Equivalência Lógica",
@@ -807,6 +806,76 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Essa capacidade de reescrita controlada é a base de técnicas de otimização lógica, verificação automática e engenharia de conhecimento, que exploraremos mais adiante. É importante notar que, em lógicas mais expressivas, como a Lógica de Predicados, a substituibilidade exige cuidados adicionais."
     ]
   },
+
+  "cap2-sec3": {
+    id: "cap2-sec3",
+    title: "Consequência Lógica",
+    subtitle: "O que os Dados Garantem",
+    paragraphs: [
+      "Em Ciência de Dados, frequentemente partimos de um conjunto de premissas: regras conhecidas, hipóteses assumidas, restrições do domínio ou resultados observados. A partir delas, queremos saber o que pode ser afirmado com garantia lógica. A noção que formaliza essa ideia é chamada de **consequência lógica**.",
+      "Dizemos que uma sentença φ **logicamente implica** (ou **acarreta**) uma sentença ψ, e escrevemos φ ⊨ ψ, quando toda atribuição de valores de verdade que satisfaz φ também satisfaz ψ. Em outras palavras, sempre que φ é verdadeira, ψ necessariamente também é.",
+      "De forma mais geral, dizemos que um conjunto de sentenças Δ **logicamente implica** uma sentença ψ, escrito Δ ⊨ ψ, quando toda atribuição que satisfaz simultaneamente todas as sentenças de Δ também satisfaz ψ. Esse é exatamente o tipo de raciocínio usado quando inferimos novas conclusões a partir de um conjunto de regras ou dados conhecidos.",
+
+      "###Consequência lógica como garantia",
+      "Considere a sentença:",
+      "```\\\np\n```",
+      "Ela logicamente implica a sentença:",
+      "```\\\np ∨ q\n```",
+      "Sempre que **p** for verdadeiro, a disjunção **p ∨ q** também será verdadeira, independentemente do valor de **q**. Em termos práticos, isso equivale a dizer que um critério mais forte garante automaticamente um critério mais fraco.",
+      "Por outro lado, a sentença **p** não implica logicamente:",
+      "```\\\np ∧ q\n```",
+      "pois é possível que **p** seja verdadeiro enquanto **q** seja falso. Assim, a conjunção falha mesmo quando a premissa é satisfeita.",
+
+      "###Importante: consequência lógica não é verdade empírica",
+      "A consequência lógica é uma relação puramente formal. Se uma premissa não implica logicamente uma conclusão, isso não significa que a conclusão seja falsa — apenas que ela não é garantida.",
+      "Por exemplo, embora **p** não implique logicamente **p ∧ q**, é perfeitamente possível que, em um conjunto específico de dados, tanto **p** quanto **q** sejam verdadeiros. A diferença é que a lógica se preocupa com o que é **necessariamente verdadeiro em todos os cenários possíveis**, e não apenas com o que acontece em um caso observado.",
+
+      "###Conjuntos de premissas",
+      "A consequência lógica se torna mais expressiva quando trabalhamos com conjuntos de sentenças. Considere o conjunto:",
+      "```\\\n{p, q}\n```",
+      "Esse conjunto logicamente implica:",
+      "```\\\np ∧ q\n```",
+      "pois qualquer atribuição que satisfaça simultaneamente **p** e **q** necessariamente satisfaz a conjunção. Aqui, a conclusão é garantida pelo conjunto completo de premissas.",
+      "Esse tipo de raciocínio é comum em Ciência de Dados quando múltiplas condições precisam ser satisfeitas simultaneamente para justificar uma decisão, classificação ou inferência.",
+
+      "###Verificando consequência lógica com tabelas-verdade",
+      "Assim como na equivalência lógica, a consequência lógica pode ser verificada por meio do **método da tabela-verdade**. O procedimento é o seguinte: (1) listamos todas as possíveis atribuições para as variáveis envolvidas; (2) avaliamos as premissas; (3) avaliamos a conclusão; e (4) verificamos se toda atribuição que satisfaz as premissas também satisfaz a conclusão.",
+      "Se existir ao menos um cenário em que as premissas sejam verdadeiras e a conclusão seja falsa, então a consequência lógica não vale.",
+
+      "###Exemplo com uma premissa",
+      "A tabela a seguir ilustra que **p** implica logicamente **p ∨ q**:",
+      "```\\\np  q  p  p ∨ q\n1  1  1    1\n1  0  1    1\n0  1  0    1\n0  0  0    0\n```",
+      "Observa-se que toda linha que satisfaz a premissa **p** também satisfaz a conclusão.",
+
+      "###Exemplo sem consequência lógica",
+      "Agora considere a tentativa de derivar **p ∧ q** a partir de **p**:",
+      "```\\\np  q  p  p ∧ q\n1  1  1    1\n1  0  1    0\n0  1  0    0\n0  0  0    0\n```",
+      "Na segunda linha, a premissa é satisfeita, mas a conclusão não. Logo, não há consequência lógica.",
+
+      "###Exemplo com múltiplas premissas",
+      "Considere agora o conjunto de premissas {p, q} e a conclusão **p ∧ q**:",
+      "```\\\np  q  p  q  p ∧ q\n1  1  1  1    1\n1  0  1  0    0\n0  1  0  1    0\n0  0  0  0    0\n```",
+      "A única atribuição que satisfaz ambas as premissas também satisfaz a conclusão. Portanto, a consequência lógica vale.",
+
+      "###Exemplo aplicado: inferência segura em regras",
+      "Considere as seguintes regras:",
+      "- se um evento ocorre na segunda-feira, então uma ação A ou B acontece;\n- se a ação A acontece, então a ação B acontece.",
+      "Essas regras podem ser formalizadas como:",
+      "```\\\nm ⇒ (p ∨ q)\np ⇒ q\n```",
+      "A partir delas, podemos garantir logicamente que:",
+      "```\\\nm ⇒ q\n```",
+      "Toda atribuição que satisfaz as duas premissas também satisfaz essa conclusão. Isso ilustra como a consequência lógica formaliza inferências seguras a partir de regras encadeadas.",
+
+      "###Consequência lógica versus equivalência",
+      "É importante distinguir consequência lógica de equivalência lógica. Se φ e ψ são logicamente equivalentes, então φ implica ψ e ψ implica φ. No entanto, a implicação lógica não é simétrica.",
+      "A relação φ ⊨ ψ é mais próxima de uma desigualdade do que de uma igualdade: ela expressa inclusão de comportamentos, e não identidade.",
+
+      "###Relevância para Ciência de Dados",
+      "A consequência lógica fornece a base formal para responder perguntas como: *essa conclusão é garantida pelas regras do modelo?*, *essa inferência é segura sob todos os dados possíveis?* e *essa decisão decorre necessariamente das hipóteses assumidas?*.",
+      "Em sistemas baseados em regras, validação de políticas, explicabilidade de modelos e verificação automática, compreender consequência lógica é essencial para separar correlações observadas de garantias formais."
+    ]
+  },
+  
 
   cap3: {
     id: "cap3",
