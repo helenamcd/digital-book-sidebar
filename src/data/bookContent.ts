@@ -763,8 +763,8 @@ export const chapterContents: Record<string, ChapterContent> = {
   },
 
 
-  "cap2-sec3": {
-    id: "cap2-sec3",
+  "cap2-sec2": {
+    id: "cap2-sec2",
     title: "Equivalência Lógica",
     subtitle: "Diferentes Expressões, Mesmo Comportamento",
     paragraphs: [
