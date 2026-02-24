@@ -38,10 +38,14 @@ export const chapters: Chapter[] = [
   },
   {
     id: "cap2",
-    title: "Capítulo 2 — Caminhos",
+    title: "Capítulo 2 — Análise Proposicional",
     sections: [
-      { id: "cap2-sec1", title: "A encruzilhada" },
-      { id: "cap2-sec2", title: "Decisões" },
+      { id: "cap2-sec1", title: "Propriedades Lógicas" },
+      { id: "cap2-sec2", title: "Equivalência Lógica" },
+      { id: "cap2-sec3", title: "Consequência Lógica" },
+      { id: "cap2-sec4", title: "Consistência Lógica" },
+      { id: "cap2-sec5", title: "Relações entre Propriedades Lógicas" },
+      { id: "cap2-sec6", title: "Reescritas por Equivalência" },
     ],
   },
   {
@@ -705,16 +709,59 @@ export const chapterContents: Record<string, ChapterContent> = {
 
   cap2: {
     id: "cap2",
-    title: "Caminhos",
+    title: "Propriedades e Relações Lógicas",
     subtitle: "Capítulo 2",
     paragraphs: [
-      "A carta continha apenas um endereço e uma data — hoje. Maria releu as palavras várias vezes, tentando encontrar alguma pista sobre o remetente, mas o texto era tão misterioso quanto o próprio envelope.",
-      "Ela conhecia a rua mencionada na carta. Ficava no bairro antigo da cidade, onde as construções coloniais resistiam ao tempo como monumentos silenciosos de uma época esquecida. Era uma região que ela evitava — não por medo, mas por uma sensação inexplicável que a acometia sempre que se aproximava daquelas ruas estreitas.",
-      "\"Talvez seja hora de enfrentar o que tenho evitado\", pensou, enquanto vestia o casaco e guardava a carta no bolso. O café foi deixado pela metade. Algumas decisões não esperam.",
-      "A caminhada até o bairro antigo levou cerca de vinte minutos. Com cada passo, o cenário mudava sutilmente: o asfalto dava lugar a paralelepípedos, os prédios modernos cediam espaço para fachadas com azulejos portugueses desbotados pelo sol de décadas.",
-      "Ao chegar ao endereço indicado, Maria encontrou uma livraria que não estava ali na última vez que passara por aquela rua — ou pelo menos ela não se lembrava de tê-la visto. A fachada era discreta, quase invisível entre os edifícios vizinhos, com uma porta de madeira escura e uma pequena placa de bronze: \"Livraria dos Caminhos\".",
-    ],
+      "No capítulo anterior, aprendemos a avaliar sentenças lógicas a partir de atribuições específicas de valores de verdade. Dado um cenário particular, era possível determinar se uma fórmula era verdadeira ou falsa naquele contexto. Esse tipo de análise é fundamental, mas naturalmente levanta uma nova questão: o que podemos afirmar sobre uma sentença independentemente do cenário considerado?",
+      "Na prática científica (especialmente na Ciência de Dados) raramente estamos interessados apenas em um único conjunto de valores. Modelos, regras, hipóteses e critérios precisam manter certas propriedades sob diferentes condições. Por isso, a lógica passa a olhar menos para avaliações pontuais e mais para características que se mantêm ao longo de todas as possíveis atribuições.",
+      "Neste capítulo, começamos examinando propriedades lógicas de sentenças individuais. Algumas sentenças são verdadeiras em todos os cenários possíveis; outras são verdadeiras em alguns casos e falsas em outros; e há ainda aquelas que nunca podem ser verdadeiras. Essas distinções nos conduzem às noções de validade, contingência e insatisfatibilidade.",
+      "Em seguida, ampliamos o foco para relações entre sentenças. Em vez de analisar fórmulas isoladamente, passamos a investigar como elas se comportam em conjunto: quando uma sentença é consequência lógica de outra, quando duas sentenças são logicamente equivalentes e quando um conjunto de sentenças é logicamente consistente.",
+      "Encerramos o capítulo conectando esses dois níveis de análise — propriedades individuais e relações entre sentenças. Veremos que conceitos como validade, consequência lógica, equivalência e consistência não são ideias independentes, mas aspectos complementares de uma mesma estrutura lógica, essencial para sustentar raciocínios corretos e modelos confiáveis."
+    ]
   },
+
+  "cap2-sec1": {
+    id: "cap2-sec1",
+    title: "Propriedades Lógicas das Sentenças",
+    subtitle: "Validade, Contingência e Insatisfatibilidade",
+    paragraphs: [
+      "No capítulo anterior, vimos que uma mesma sentença lógica pode ser verdadeira em alguns cenários e falsa em outros, dependendo da atribuição de valores de verdade às variáveis proposicionais. Esse tipo de análise é útil para entender comportamentos pontuais, mas, em Ciência de Dados, muitas vezes estamos interessados em propriedades mais gerais.",
+      "Regras de validação, restrições de integridade, hipóteses de modelos e critérios de decisão precisam funcionar de forma consistente sob diferentes conjuntos de dados. Por isso, torna-se essencial classificar sentenças não apenas pelo seu valor em um cenário específico, mas pelo seu comportamento ao longo de **todas as possíveis atribuições**.",
+      "A partir dessa perspectiva, as sentenças lógicas podem ser organizadas em três categorias mutuamente exclusivas, chamadas de **propriedades lógicas**: validade, insatisfatibilidade e contingência.",
+
+      "###Sentenças válidas",
+      "Uma sentença é dita **válida** quando é satisfeita por **todas** as atribuições de valores de verdade. Em termos práticos, isso significa que a sentença nunca falha, independentemente dos dados observados.",
+      "Por exemplo, a sentença:",
+      "```\\\np ∨ ¬p\n```",
+      "é válida. Se o atributo **p** for verdadeiro, a disjunção é verdadeira; se **p** for falso, sua negação é verdadeira. Não existe nenhum conjunto de dados possível em que essa sentença seja falsa.",
+      "Em Ciência de Dados, sentenças válidas se comportam como **tautologias estruturais**: elas não impõem restrições reais sobre os dados e, por isso, não ajudam a discriminar cenários ou detectar inconsistências.",
+
+      "###Sentenças insatisfatíveis",
+      "Uma sentença é **insatisfatível** quando **nenhuma** atribuição de valores de verdade consegue torná-la verdadeira. Independentemente dos dados observados, a sentença sempre falha.",
+      "Considere a sentença:",
+      "```\\\np ∧ ¬p\n```",
+      "Não importa como os dados sejam organizados: o atributo **p** não pode ser verdadeiro e falso ao mesmo tempo. Logo, essa sentença é sempre falsa.",
+      "Em aplicações práticas, sentenças insatisfatíveis indicam **contradições lógicas**. Em Ciência de Dados, elas costumam sinalizar erros de modelagem, regras incompatíveis ou restrições impossíveis de serem satisfeitas.",
+
+      "###Sentenças contingentes",
+      "Uma sentença é **contingente** quando é verdadeira em alguns cenários e falsa em outros. Ou seja, seu valor de verdade depende efetivamente dos dados.",
+      "Por exemplo:",
+      "```\\\np ∧ q\n```",
+      "é verdadeira quando **p** e **q** são verdadeiros, e falsa quando pelo menos um deles é falso.",
+      "Do ponto de vista da Ciência de Dados, sentenças contingentes são as mais informativas. Elas representam regras, padrões ou hipóteses que **filtram cenários**, distinguindo situações aceitáveis de situações problemáticas.",
+
+      "###Utilidade prática das propriedades lógicas",
+      "Sob a perspectiva empírica, sentenças válidas e insatisfatíveis parecem pouco úteis: as primeiras aceitam todos os cenários, e as segundas rejeitam todos. Nenhuma delas ajuda a explicar ou classificar dados reais.",
+      "No entanto, do ponto de vista lógico e computacional, essas sentenças são extremamente importantes. Elas servem como base para **transformações corretas**, **simplificações algébricas** e **verificações automáticas**, que veremos ao longo do capítulo.",
+
+      "###Satisfatibilidade e falsificabilidade",
+      "Para muitos propósitos práticos, é conveniente agrupar essas propriedades em dois conceitos mais gerais.",
+      "Dizemos que uma sentença é **satisfatível** se existe pelo menos uma atribuição de valores que a torna verdadeira. Isso inclui tanto sentenças válidas quanto sentenças contingentes.",
+      "De forma dual, dizemos que uma sentença é **falsificável** se existe pelo menos uma atribuição que a torna falsa. Isso inclui sentenças contingentes e sentenças insatisfatíveis.",
+      "Essas noções são particularmente relevantes em Ciência de Dados, pois permitem responder perguntas como: *existe algum cenário plausível em que esse modelo funcione?* ou *é possível produzir dados que violem essa regra?*."
+    ]
+  },
+
   cap3: {
     id: "cap3",
     title: "A Jornada",
