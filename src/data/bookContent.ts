@@ -876,6 +876,47 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
   
+  "cap2-sec4": {
+    id: "cap2-sec4",
+    title: "Consistência Lógica",
+    subtitle: "Quando Regras Podem Coexistir",
+    paragraphs: [
+      "Em Ciência de Dados, raramente lidamos com uma única regra isolada. Modelos, políticas, hipóteses e validações costumam aparecer em conjunto. Antes mesmo de perguntar o que pode ser inferido a partir dessas regras, é essencial verificar algo mais básico: **elas podem coexistir sem contradição?**. Essa pergunta é formalizada pela noção de **consistência lógica**.",
+      "Dizemos que uma sentença φ é **logicamente consistente** com uma sentença ψ se existe pelo menos uma atribuição de valores de verdade que satisfaz ambas simultaneamente. De forma mais geral, dizemos que uma sentença ψ é consistente com um conjunto de sentenças Δ se existe alguma atribuição que satisfaz todas as sentenças de Δ e também ψ.",
+      "Intuitivamente, consistência significa que **há pelo menos um cenário possível** em que todas as regras consideradas são verdadeiras ao mesmo tempo.",
+
+      "###Exemplos de consistência e inconsistência",
+      "Considere as sentenças:",
+      "```\\\np ∨ q\n```",
+      "e",
+      "```\\\n¬p ∨ ¬q\n```",
+      "Essas duas sentenças são logicamente consistentes. Por exemplo, se **p = 1** e **q = 0**, ambas são verdadeiras. Isso significa que existe um conjunto de dados possível que satisfaz simultaneamente as duas regras.",
+      "Por outro lado, a sentença:",
+      "```\\\n¬p ∧ ¬q\n```",
+      "não é consistente com **p ∨ q**. Sempre que **p ∨ q** é verdadeira, pelo menos uma das variáveis é verdadeira; já **¬p ∧ ¬q** exige que ambas sejam falsas. Não existe nenhum cenário que satisfaça as duas ao mesmo tempo.",
+
+      "###Verificando consistência com tabelas-verdade",
+      "Assim como nas noções de equivalência e consequência lógica, a consistência pode ser verificada por meio do método da tabela-verdade. Avaliamos todas as atribuições possíveis e verificamos se existe ao menos uma linha em que todas as sentenças envolvidas sejam verdadeiras simultaneamente.",
+      "A tabela a seguir ilustra os exemplos anteriores:",
+      "```\\\np  q  p ∨ q  ¬p ∨ ¬q  ¬p ∧ ¬q\n1  1    1      0          0\n1  0    1      1          0\n0  1    1      1          0\n0  0    0      1          1\n```",
+      "Observa-se que há atribuições que satisfazem **p ∨ q** e **¬p ∨ ¬q** simultaneamente, mas nenhuma que satisfaça **p ∨ q** e **¬p ∧ ¬q** ao mesmo tempo.",
+
+      "###Consistência não é equivalência nem consequência",
+      "A distinção entre consistência, equivalência e consequência lógica é sutil, mas fundamental. O fato de duas sentenças serem consistentes não significa que elas sejam logicamente equivalentes, nem que uma implique a outra.",
+      "No exemplo anterior, **p ∨ q** é consistente com **¬p ∨ ¬q**, mas as duas sentenças claramente não são equivalentes e nenhuma delas implica logicamente a outra. Elas apenas conseguem coexistir em alguns cenários.",
+      "Em termos práticos, isso corresponde a duas regras que podem ser verdadeiras ao mesmo tempo, mas que não dizem a mesma coisa e não garantem uma à outra.",
+
+      "###Consequência lógica sem consistência",
+      "De forma talvez contraintuitiva, a consequência lógica também não garante consistência. Isso ocorre quando uma das sentenças envolvidas é **insatisfatível**.",
+      "Se uma sentença é insatisfatível, não existe nenhuma atribuição que a torne verdadeira. Por definição, toda atribuição que satisfaz essa sentença (não existe nenhuma) satisfaz qualquer outra sentença. Assim, uma sentença insatisfatível implica logicamente qualquer conclusão.",
+      "Esse fato leva a uma consequência curiosa: **qualquer sentença insatisfatível, ou conjunto insatisfatível de sentenças, implica logicamente tudo**. Embora pareça estranho, isso decorre diretamente das definições formais.",
+
+      "###Por que evitar inconsistência em Ciência de Dados",
+      "Esse comportamento deixa claro por que conjuntos inconsistentes de regras são perigosos. Um sistema inconsistente permite inferir qualquer coisa, tornando o raciocínio inútil.",
+      "Em Ciência de Dados, inconsistência costuma indicar problemas sérios: regras incompatíveis, hipóteses conflitantes, validações impossíveis de serem satisfeitas ou falhas de modelagem.",
+      "Por isso, verificar a **consistência lógica** é um passo fundamental antes de realizar inferências, otimizações ou explicações baseadas em regras. Sem consistência, não há garantia, nem significado, nas conclusões obtidas."
+    ]
+  },
 
   cap3: {
     id: "cap3",
