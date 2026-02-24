@@ -762,6 +762,52 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
+
+  "cap2-sec3": {
+    id: "cap2-sec3",
+    title: "Equivalência Lógica",
+    subtitle: "Diferentes Expressões, Mesmo Comportamento",
+    paragraphs: [
+      "Intuitivamente, dizemos que duas sentenças são equivalentes quando expressam a mesma ideia, ainda que escritas de formas diferentes. Em termos lógicos, isso significa que elas são verdadeiras exatamente nos mesmos cenários. Para a Ciência de Dados, essa noção é fundamental: regras distintas podem produzir o mesmo efeito sobre os dados, e reconhecê-las como equivalentes evita redundância e inconsistência.",
+      "De forma mais precisa, dizemos que uma sentença φ é **logicamente equivalente** a uma sentença ψ se, e somente se, toda atribuição de valores de verdade que satisfaz φ também satisfaz ψ, e toda atribuição que satisfaz ψ também satisfaz φ. Ou seja, as duas sentenças aceitam e rejeitam exatamente os mesmos cenários.",
+      
+      "###Equivalência como identidade comportamental",
+      "Considere as sentenças:",
+      "```\\\n¬(p ∨ q)\n```",
+      "e",
+      "```\\\n¬p ∧ ¬q\n```",
+      "Embora tenham estruturas sintáticas diferentes, ambas descrevem o mesmo comportamento lógico. Se **p** e **q** forem verdadeiros, ambas são falsas. Se pelo menos um deles for verdadeiro, ambas continuam falsas. Somente quando **p** e **q** são falsos as duas sentenças se tornam verdadeiras.",
+      "Como essas sentenças são satisfeitas exatamente pelas mesmas atribuições, elas são logicamente equivalentes. Em Ciência de Dados, isso é análogo a duas regras de filtragem diferentes que selecionam exatamente o mesmo subconjunto de registros.",
+      
+      "###Exemplo de não equivalência",
+      "Nem toda semelhança sintática implica equivalência lógica. Considere as sentenças:",
+      "```\\\np ∧ q\n```",
+      "e",
+      "```\\\np ∨ q\n```",
+      "A conjunção exige que **p** e **q** sejam verdadeiros simultaneamente, enquanto a disjunção aceita cenários em que apenas um deles seja verdadeiro. Como existem atribuições que satisfazem a segunda sentença, mas não a primeira, elas não são logicamente equivalentes.",
+      "Do ponto de vista prático, isso corresponde à diferença entre uma regra restritiva e uma regra permissiva em um sistema de decisão ou classificação.",
+      
+      "###Verificando equivalência com tabelas-verdade",
+      "Uma forma sistemática de verificar se duas sentenças são logicamente equivalentes é por meio do **método da tabela-verdade**. Esse método é especialmente útil em contextos computacionais, pois pode ser automatizado.",
+      "O procedimento consiste em três passos: (1) listar todas as possíveis atribuições de valores de verdade para as variáveis envolvidas; (2) avaliar cada sentença em todos esses cenários; e (3) comparar os resultados. Se os valores obtidos para as duas sentenças coincidirem em todas as linhas da tabela, então elas são logicamente equivalentes.",
+      
+      "###Exemplo com equivalência",
+      "A tabela abaixo mostra a avaliação das sentenças ¬(p ∨ q) e ¬p ∧ ¬q:",
+      "```\\\np  q  ¬(p ∨ q)  ¬p ∧ ¬q\n1  1     0          0\n1  0     0          0\n0  1     0          0\n0  0     1          1\n```",
+      "Como os valores coincidem em todas as linhas, as sentenças são logicamente equivalentes.",
+      
+      "###Exemplo com não equivalência",
+      "A tabela a seguir compara (p ∧ q) e (p ∨ q):",
+      "```\\\np  q  p ∧ q  p ∨ q\n1  1    1      1\n1  0    0      1\n0  1    0      1\n0  0    0      0\n```",
+      "Nesse caso, os resultados diferem em várias linhas, mostrando que as sentenças não são equivalentes.",
+      
+      "###Substituibilidade e reescrita de regras",
+      "Uma propriedade central da equivalência lógica é a **substituibilidade**. Se duas sentenças são logicamente equivalentes, então uma pode substituir a outra em qualquer expressão proposicional sem alterar o comportamento lógico do sistema.",
+      "Em Ciência de Dados, essa propriedade permite reescrever regras, simplificar expressões, otimizar validações e melhorar a interpretabilidade de modelos, mantendo exatamente o mesmo conjunto de cenários aceitos.",
+      "Essa capacidade de reescrita controlada é a base de técnicas de otimização lógica, verificação automática e engenharia de conhecimento, que exploraremos mais adiante. É importante notar que, em lógicas mais expressivas, como a Lógica de Predicados, a substituibilidade exige cuidados adicionais."
+    ]
+  },
+
   cap3: {
     id: "cap3",
     title: "A Jornada",
