@@ -893,7 +893,7 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap2-sec5": {
     id: "cap2-sec5",
     title: "Conexões entre Propriedades e Relações Lógicas",
-    subtitle: "Unificando Validade, Equivalência, Consequência e Consistência",
+    subtitle: "Capítulo 2",
     paragraphs: [
       "As propriedades lógicas (validade, satisfatibilidade, insatisfatibilidade) e as relações lógicas (equivalência, consequência, consistência) se conectam de forma direta. Essas conexões permitem reduzir perguntas sobre relações entre sentenças a perguntas sobre propriedades de sentenças compostas, o que facilita verificação automática.",
 
@@ -929,7 +929,7 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap2-sec6": {
     id: "cap2-sec6",
     title: "Reescritas por Equivalência",
-    subtitle: "Transformando Problemas Lógicos sem Alterar o Comportamento",
+    subtitle: "Capítulo 2",
     paragraphs: [
       "As conexões do capítulo permitem transformar um tipo de problema em outro equivalente. Por exemplo, para verificar a validade de",
       "```\\\nφ ⇒ ψ\n```",
