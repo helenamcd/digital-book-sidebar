@@ -713,10 +713,10 @@ export const chapterContents: Record<string, ChapterContent> = {
     subtitle: "Capítulo 2",
     paragraphs: [
       "No capítulo anterior, aprendemos a avaliar sentenças lógicas a partir de atribuições específicas de valores de verdade. Dado um cenário particular, era possível determinar se uma fórmula era verdadeira ou falsa naquele contexto. Esse tipo de análise é fundamental, mas naturalmente levanta uma nova questão: *o que podemos afirmar sobre uma sentença independentemente do cenário considerado?*",
-      "Na prática científica (especialmente na Ciência de Dados) raramente estamos interessados apenas em um único conjunto de valores. Modelos, regras, hipóteses e critérios precisam manter certas propriedades sob diferentes condições. Por isso, a lógica passa a olhar menos para avaliações pontuais e mais para características que se mantêm ao longo de todas as possíveis atribuições.",
-      "Neste capítulo, começamos examinando propriedades lógicas de sentenças individuais. Algumas sentenças são verdadeiras em todos os cenários possíveis; outras são verdadeiras em alguns casos e falsas em outros; e há ainda aquelas que nunca podem ser verdadeiras. Essas distinções nos conduzem às noções de **validade**, **contingência** e **insatisfatibilidade**.",
-      "Em seguida, ampliamos o foco para relações entre sentenças. Em vez de analisar fórmulas isoladamente, passamos a investigar como elas se comportam em conjunto: quando uma sentença é consequência lógica de outra, quando duas sentenças são logicamente equivalentes e quando um conjunto de sentenças é logicamente consistente.",
-      "Encerramos o capítulo conectando esses dois níveis de análise — propriedades individuais e relações entre sentenças. Veremos que conceitos como validade, consequência lógica, equivalência e consistência não são ideias independentes, mas aspectos complementares de uma mesma estrutura lógica, essencial para sustentar raciocínios corretos e modelos confiáveis."
+      "Na prática científica — especialmente na Ciência de Dados — raramente estamos interessados em um único conjunto de valores. Modelos, regras e critérios precisam manter propriedades sob diferentes condições; por isso, a lógica passa a olhar menos para avaliações pontuais e mais para características que se preservam ao longo de todas as possíveis atribuições.",
+      "Neste capítulo, começamos examinando propriedades lógicas de sentenças individuais. Algumas sentenças são verdadeiras em todos os cenários; outras variam conforme os dados; e há ainda aquelas que nunca podem ser verdadeiras. Essas distinções nos conduzem às noções de **validade**, **contingência** e **insatisfatibilidade**.",
+      "Em seguida, ampliamos o foco para relações entre sentenças: quando uma sentença é consequência lógica de outra, quando duas sentenças são logicamente equivalentes e quando um conjunto de sentenças é logicamente consistente.",
+      "Encerramos conectando propriedades e relações. Veremos que validade, consequência lógica, equivalência e consistência são aspectos complementares de uma mesma estrutura, importante para sustentar raciocínios corretos e modelos confiáveis."
     ]
   },
 
@@ -725,40 +725,40 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Propriedades Lógicas das Sentenças",
     subtitle: "Validade, Contingência e Insatisfatibilidade",
     paragraphs: [
-      "No capítulo anterior, vimos que uma mesma sentença lógica pode ser verdadeira em alguns cenários e falsa em outros, dependendo da atribuição de valores de verdade às variáveis proposicionais. Esse tipo de análise é útil para entender comportamentos pontuais, mas, em Ciência de Dados, muitas vezes estamos interessados em propriedades mais gerais.",
-      "Regras de validação, restrições de integridade, hipóteses de modelos e critérios de decisão precisam funcionar de forma consistente sob diferentes conjuntos de dados. Por isso, torna-se essencial classificar sentenças não apenas pelo seu valor em um cenário específico, mas pelo seu comportamento ao longo de **todas as possíveis atribuições**.",
-      "A partir dessa perspectiva, as sentenças lógicas podem ser organizadas em três categorias mutuamente exclusivas, chamadas de **propriedades lógicas**: validade, insatisfatibilidade e contingência.",
+      "No capítulo anterior, vimos que uma mesma sentença pode ser verdadeira em alguns cenários e falsa em outros, dependendo da atribuição de valores às variáveis proposicionais. Aqui, vamos além: queremos classificar sentenças pelo seu comportamento ao longo de **todas** as atribuições possíveis.",
+      "Essa classificação é útil para Ciência de Dados porque regras de validação, restrições e critérios de decisão precisam ser analisados não apenas em um caso observado, mas em termos do que eles permitem (ou impedem) em geral.",
+      "A partir dessa perspectiva, as sentenças se organizam em três categorias mutuamente exclusivas, chamadas de **propriedades lógicas**: validade, insatisfatibilidade e contingência.",
 
       "###Sentenças válidas",
-      "Uma sentença é dita **válida** quando é satisfeita por **todas** as atribuições de valores de verdade. Em termos práticos, isso significa que a sentença nunca falha, independentemente dos dados observados.",
-      "Por exemplo, a sentença:",
+      "Uma sentença é **válida** quando é satisfeita por **todas** as atribuições de valores de verdade. Em termos práticos, isso significa que ela nunca falha, independentemente do cenário.",
+      "Por exemplo:",
       "```\\\np ∨ ¬p\n```",
-      "é válida. Se o atributo **p** for verdadeiro, a disjunção é verdadeira; se **p** for falso, sua negação é verdadeira. Não existe nenhum conjunto de dados possível em que essa sentença seja falsa.",
-      "Em Ciência de Dados, sentenças válidas se comportam como **tautologias estruturais**: elas não impõem restrições reais sobre os dados e, por isso, não ajudam a discriminar cenários ou detectar inconsistências.",
+      "é válida: se **p** for verdadeiro, a disjunção é verdadeira; se **p** for falso, **¬p** é verdadeiro.",
+      "Do ponto de vista aplicado, sentenças válidas se comportam como tautologias: não impõem restrições reais e, portanto, não ajudam a discriminar cenários ou detectar inconsistências.",
 
       "###Sentenças insatisfatíveis",
-      "Uma sentença é **insatisfatível** quando **nenhuma** atribuição de valores de verdade consegue torná-la verdadeira. Independentemente dos dados observados, a sentença sempre falha.",
-      "Considere a sentença:",
+      "Uma sentença é **insatisfatível** quando nenhuma atribuição consegue torná-la verdadeira; ela falha em qualquer cenário possível.",
+      "Considere:",
       "```\\\np ∧ ¬p\n```",
-      "Não importa como os dados sejam organizados: o atributo **p** não pode ser verdadeiro e falso ao mesmo tempo. Logo, essa sentença é sempre falsa.",
-      "Em aplicações práticas, sentenças insatisfatíveis indicam **contradições lógicas**. Em Ciência de Dados, elas costumam sinalizar erros de modelagem, regras incompatíveis ou restrições impossíveis de serem satisfeitas.",
+      "Não importa como o cenário seja definido: **p** não pode ser verdadeiro e falso ao mesmo tempo.",
+      "Em aplicações, insatisfatibilidade indica contradição: regras incompatíveis, restrições impossíveis ou erros de modelagem.",
 
       "###Sentenças contingentes",
-      "Uma sentença é **contingente** quando é verdadeira em alguns cenários e falsa em outros. Ou seja, seu valor de verdade depende efetivamente dos dados.",
+      "Uma sentença é **contingente** quando é verdadeira em alguns cenários e falsa em outros; seu valor depende efetivamente dos dados.",
       "Por exemplo:",
       "```\\\np ∧ q\n```",
-      "é verdadeira quando **p** e **q** são verdadeiros, e falsa quando pelo menos um deles é falso.",
-      "Do ponto de vista da Ciência de Dados, sentenças contingentes são as mais informativas. Elas representam regras, padrões ou hipóteses que **filtram cenários**, distinguindo situações aceitáveis de situações problemáticas.",
+      "é verdadeira quando **p** e **q** são verdadeiros e falsa quando pelo menos um deles é falso.",
+      "Essas sentenças são as mais informativas, pois filtram cenários e distinguem situações aceitáveis de situações problemáticas.",
 
       "###Utilidade prática das propriedades lógicas",
-      "Sob a perspectiva empírica, sentenças válidas e insatisfatíveis parecem pouco úteis: as primeiras aceitam todos os cenários, e as segundas rejeitam todos. Nenhuma delas ajuda a explicar ou classificar dados reais.",
-      "No entanto, do ponto de vista lógico e computacional, essas sentenças são extremamente importantes. Elas servem como base para **transformações corretas**, **simplificações algébricas** e **verificações automáticas**, que veremos ao longo do capítulo.",
+      "Sob uma perspectiva empírica, sentenças válidas e insatisfatíveis parecem pouco úteis: as primeiras aceitam tudo; as segundas rejeitam tudo.",
+      "Ainda assim, elas são importantes do ponto de vista lógico e computacional, pois servem como base para transformações corretas, simplificações e verificações automáticas.",
 
       "###Satisfatibilidade e falsificabilidade",
-      "Para muitos propósitos práticos, é conveniente agrupar essas propriedades em dois conceitos mais gerais.",
-      "Dizemos que uma sentença é **satisfatível** se existe pelo menos uma atribuição de valores que a torna verdadeira. Isso inclui tanto sentenças válidas quanto sentenças contingentes.",
-      "De forma dual, dizemos que uma sentença é **falsificável** se existe pelo menos uma atribuição que a torna falsa. Isso inclui sentenças contingentes e sentenças insatisfatíveis.",
-      "Essas noções são particularmente relevantes em Ciência de Dados, pois permitem responder perguntas como: *existe algum cenário plausível em que esse modelo funcione?* ou *é possível produzir dados que violem essa regra?*."
+      "Para muitos propósitos, agrupamos essas propriedades em dois conceitos mais gerais.",
+      "Uma sentença é **satisfatível** se existe pelo menos uma atribuição que a torna verdadeira (inclui válidas e contingentes).",
+      "Uma sentença é **falsificável** se existe pelo menos uma atribuição que a torna falsa (inclui contingentes e insatisfatíveis).",
+      "Essas noções ajudam a responder perguntas práticas como: *existe algum cenário em que esta regra funciona?* e *é possível violar esta restrição?*."
     ]
   },
 
@@ -767,43 +767,38 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Equivalência Lógica",
     subtitle: "Diferentes Expressões, Mesmo Comportamento",
     paragraphs: [
-      "Intuitivamente, dizemos que duas sentenças são equivalentes quando expressam a mesma ideia, ainda que escritas de formas diferentes. Em termos lógicos, isso significa que elas são verdadeiras exatamente nos mesmos cenários. Para a Ciência de Dados, essa noção é fundamental: regras distintas podem produzir o mesmo efeito sobre os dados, e reconhecê-las como equivalentes evita redundância e inconsistência.",
-      "De forma mais precisa, dizemos que uma sentença φ é **logicamente equivalente** a uma sentença ψ se, e somente se, toda atribuição de valores de verdade que satisfaz φ também satisfaz ψ, e toda atribuição que satisfaz ψ também satisfaz φ. Ou seja, as duas sentenças aceitam e rejeitam exatamente os mesmos cenários.",
+      "Dizemos que duas sentenças são equivalentes quando expressam a mesma ideia, ainda que escritas de formas diferentes. Em termos formais, isso significa que elas são verdadeiras exatamente nos mesmos cenários.",
+      "Mais precisamente, uma sentença φ é **logicamente equivalente** a uma sentença ψ se, e somente se, toda atribuição que satisfaz φ também satisfaz ψ, e vice-versa. Assim, as duas sentenças aceitam e rejeitam exatamente os mesmos cenários.",
       
       "###Equivalência como identidade comportamental",
-      "Considere as sentenças:",
+      "Considere:",
       "```\\\n¬(p ∨ q)\n```",
       "e",
       "```\\\n¬p ∧ ¬q\n```",
-      "Embora tenham estruturas sintáticas diferentes, ambas descrevem o mesmo comportamento lógico. Se **p** e **q** forem verdadeiros, ambas são falsas. Se pelo menos um deles for verdadeiro, ambas continuam falsas. Somente quando **p** e **q** são falsos as duas sentenças se tornam verdadeiras.",
-      "Como essas sentenças são satisfeitas exatamente pelas mesmas atribuições, elas são logicamente equivalentes. Em Ciência de Dados, isso é análogo a duas regras de filtragem diferentes que selecionam exatamente o mesmo subconjunto de registros.",
+      "Ambas são verdadeiras somente quando **p** e **q** são falsos; nos demais casos, são falsas. Como são satisfeitas pelas mesmas atribuições, são logicamente equivalentes.",
+      "Em termos aplicados, isso corresponde a duas regras de filtragem distintas que selecionam exatamente o mesmo subconjunto de registros.",
       
       "###Exemplo de não equivalência",
-      "Nem toda semelhança sintática implica equivalência lógica. Considere as sentenças:",
+      "Considere:",
       "```\\\np ∧ q\n```",
       "e",
       "```\\\np ∨ q\n```",
-      "A conjunção exige que **p** e **q** sejam verdadeiros simultaneamente, enquanto a disjunção aceita cenários em que apenas um deles seja verdadeiro. Como existem atribuições que satisfazem a segunda sentença, mas não a primeira, elas não são logicamente equivalentes.",
-      "Do ponto de vista prático, isso corresponde à diferença entre uma regra restritiva e uma regra permissiva em um sistema de decisão ou classificação.",
+      "A conjunção exige que ambas sejam verdadeiras; a disjunção exige apenas uma. Como os conjuntos de atribuições que as satisfazem diferem, elas não são equivalentes.",
       
       "###Verificando equivalência com tabelas-verdade",
-      "Uma forma sistemática de verificar se duas sentenças são logicamente equivalentes é por meio do **método da tabela-verdade**. Esse método é especialmente útil em contextos computacionais, pois pode ser automatizado.",
-      "O procedimento consiste em três passos: (1) listar todas as possíveis atribuições de valores de verdade para as variáveis envolvidas; (2) avaliar cada sentença em todos esses cenários; e (3) comparar os resultados. Se os valores obtidos para as duas sentenças coincidirem em todas as linhas da tabela, então elas são logicamente equivalentes.",
+      "Podemos testar equivalência com o **método da tabela-verdade**: listamos todas as atribuições possíveis, avaliamos as sentenças e comparamos coluna a coluna. Se os valores coincidirem em todas as linhas, há equivalência.",
       
       "###Exemplo com equivalência",
-      "A tabela abaixo mostra a avaliação das sentenças ¬(p ∨ q) e ¬p ∧ ¬q:",
       "```\\\np  q  ¬(p ∨ q)  ¬p ∧ ¬q\n1  1     0          0\n1  0     0          0\n0  1     0          0\n0  0     1          1\n```",
-      "Como os valores coincidem em todas as linhas, as sentenças são logicamente equivalentes.",
+      "As colunas coincidem em todas as linhas; portanto, as sentenças são equivalentes.",
       
       "###Exemplo com não equivalência",
-      "A tabela a seguir compara (p ∧ q) e (p ∨ q):",
       "```\\\np  q  p ∧ q  p ∨ q\n1  1    1      1\n1  0    0      1\n0  1    0      1\n0  0    0      0\n```",
-      "Nesse caso, os resultados diferem em várias linhas, mostrando que as sentenças não são equivalentes.",
+      "As colunas diferem; portanto, não há equivalência.",
       
       "###Substituibilidade e reescrita de regras",
-      "Uma propriedade central da equivalência lógica é a **substituibilidade**. Se duas sentenças são logicamente equivalentes, então uma pode substituir a outra em qualquer expressão proposicional sem alterar o comportamento lógico do sistema.",
-      "Em Ciência de Dados, essa propriedade permite reescrever regras, simplificar expressões, otimizar validações e melhorar a interpretabilidade de modelos, mantendo exatamente o mesmo conjunto de cenários aceitos.",
-      "Essa capacidade de reescrita controlada é a base de técnicas de otimização lógica, verificação automática e engenharia de conhecimento, que exploraremos mais adiante. É importante notar que, em lógicas mais expressivas, como a Lógica de Predicados, a substituibilidade exige cuidados adicionais."
+      "Uma propriedade central da equivalência é a **substituibilidade**: se φ ⇔ ψ, podemos trocar uma pela outra dentro de qualquer expressão proposicional sem alterar o comportamento lógico do sistema.",
+      "Isso permite reescrever regras, simplificar expressões e otimizar validações, mantendo exatamente o mesmo conjunto de cenários aceitos. (Em lógicas mais expressivas, como a de predicados, essa substituição exige cuidados adicionais.)"
     ]
   },
 
@@ -812,109 +807,154 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Consequência Lógica",
     subtitle: "O que os Dados Garantem",
     paragraphs: [
-      "Em Ciência de Dados, frequentemente partimos de um conjunto de premissas: regras conhecidas, hipóteses assumidas, restrições do domínio ou resultados observados. A partir delas, queremos saber o que pode ser afirmado com garantia lógica. A noção que formaliza essa ideia é chamada de **consequência lógica**.",
-      "Dizemos que uma sentença φ **logicamente implica** (ou **acarreta**) uma sentença ψ, e escrevemos φ ⊨ ψ, quando toda atribuição de valores de verdade que satisfaz φ também satisfaz ψ. Em outras palavras, sempre que φ é verdadeira, ψ necessariamente também é.",
-      "De forma mais geral, dizemos que um conjunto de sentenças Δ **logicamente implica** uma sentença ψ, escrito Δ ⊨ ψ, quando toda atribuição que satisfaz simultaneamente todas as sentenças de Δ também satisfaz ψ. Esse é exatamente o tipo de raciocínio usado quando inferimos novas conclusões a partir de um conjunto de regras ou dados conhecidos.",
+      "Em Ciência de Dados, partimos frequentemente de premissas (regras, hipóteses, restrições) e queremos saber o que pode ser afirmado com garantia. A noção que formaliza isso é a **consequência lógica**.",
+      "Dizemos que φ **logicamente implica** ψ (φ ⊨ ψ) quando toda atribuição que satisfaz φ também satisfaz ψ. Mais geralmente, um conjunto Δ implica ψ (Δ ⊨ ψ) quando toda atribuição que satisfaz todas as sentenças em Δ também satisfaz ψ.",
 
       "###Consequência lógica como garantia",
-      "Considere a sentença:",
+      "Considere:",
       "```\\\np\n```",
-      "Ela logicamente implica a sentença:",
+      "Ela implica:",
       "```\\\np ∨ q\n```",
-      "Sempre que **p** for verdadeiro, a disjunção **p ∨ q** também será verdadeira, independentemente do valor de **q**. Em termos práticos, isso equivale a dizer que um critério mais forte garante automaticamente um critério mais fraco.",
-      "Por outro lado, a sentença **p** não implica logicamente:",
+      "pois sempre que **p** é verdadeiro, a disjunção também é, independentemente de **q**.",
+      "Por outro lado, **p** não implica:",
       "```\\\np ∧ q\n```",
-      "pois é possível que **p** seja verdadeiro enquanto **q** seja falso. Assim, a conjunção falha mesmo quando a premissa é satisfeita.",
+      "já que **q** pode ser falso.",
 
-      "###Importante: consequência lógica não é verdade empírica",
-      "A consequência lógica é uma relação puramente formal. Se uma premissa não implica logicamente uma conclusão, isso não significa que a conclusão seja falsa — apenas que ela não é garantida.",
-      "Por exemplo, embora **p** não implique logicamente **p ∧ q**, é perfeitamente possível que, em um conjunto específico de dados, tanto **p** quanto **q** sejam verdadeiros. A diferença é que a lógica se preocupa com o que é **necessariamente verdadeiro em todos os cenários possíveis**, e não apenas com o que acontece em um caso observado.",
+      "###Consequência lógica não é verdade empírica",
+      "Se uma premissa não implica uma conclusão, isso não torna a conclusão falsa; apenas significa que ela não é garantida em todos os cenários. É possível que a conclusão seja verdadeira em um conjunto de dados específico, mas falhe em outro.",
 
       "###Conjuntos de premissas",
-      "A consequência lógica se torna mais expressiva quando trabalhamos com conjuntos de sentenças. Considere o conjunto:",
+      "O conjunto:",
       "```\\\n{p, q}\n```",
-      "Esse conjunto logicamente implica:",
+      "implica:",
       "```\\\np ∧ q\n```",
-      "pois qualquer atribuição que satisfaça simultaneamente **p** e **q** necessariamente satisfaz a conjunção. Aqui, a conclusão é garantida pelo conjunto completo de premissas.",
-      "Esse tipo de raciocínio é comum em Ciência de Dados quando múltiplas condições precisam ser satisfeitas simultaneamente para justificar uma decisão, classificação ou inferência.",
+      "pois qualquer atribuição que satisfaça **p** e **q** simultaneamente satisfaz a conjunção.",
 
       "###Verificando consequência lógica com tabelas-verdade",
-      "Assim como na equivalência lógica, a consequência lógica pode ser verificada por meio do **método da tabela-verdade**. O procedimento é o seguinte: (1) listamos todas as possíveis atribuições para as variáveis envolvidas; (2) avaliamos as premissas; (3) avaliamos a conclusão; e (4) verificamos se toda atribuição que satisfaz as premissas também satisfaz a conclusão.",
-      "Se existir ao menos um cenário em que as premissas sejam verdadeiras e a conclusão seja falsa, então a consequência lógica não vale.",
+      "O método da tabela-verdade pode ser usado para verificar consequência: avaliamos premissas e conclusão em todas as atribuições e verificamos se existe alguma linha em que as premissas sejam verdadeiras e a conclusão seja falsa.",
 
-      "###Exemplo com uma premissa",
-      "A tabela a seguir ilustra que **p** implica logicamente **p ∨ q**:",
+      "###Exemplo: p ⊨ (p ∨ q)",
       "```\\\np  q  p  p ∨ q\n1  1  1    1\n1  0  1    1\n0  1  0    1\n0  0  0    0\n```",
-      "Observa-se que toda linha que satisfaz a premissa **p** também satisfaz a conclusão.",
 
-      "###Exemplo sem consequência lógica",
-      "Agora considere a tentativa de derivar **p ∧ q** a partir de **p**:",
+      "###Exemplo: p ⊭ (p ∧ q)",
       "```\\\np  q  p  p ∧ q\n1  1  1    1\n1  0  1    0\n0  1  0    0\n0  0  0    0\n```",
-      "Na segunda linha, a premissa é satisfeita, mas a conclusão não. Logo, não há consequência lógica.",
+      "A segunda linha mostra a falha: a premissa é verdadeira e a conclusão é falsa.",
 
       "###Exemplo com múltiplas premissas",
-      "Considere agora o conjunto de premissas {p, q} e a conclusão **p ∧ q**:",
       "```\\\np  q  p  q  p ∧ q\n1  1  1  1    1\n1  0  1  0    0\n0  1  0  1    0\n0  0  0  0    0\n```",
-      "A única atribuição que satisfaz ambas as premissas também satisfaz a conclusão. Portanto, a consequência lógica vale.",
+      "A única atribuição que satisfaz ambas as premissas satisfaz também a conclusão; portanto, a consequência lógica vale.",
 
       "###Exemplo aplicado: inferência segura em regras",
-      "Considere as seguintes regras:",
-      "- se um evento ocorre na segunda-feira, então uma ação A ou B acontece;\n- se a ação A acontece, então a ação B acontece.",
-      "Essas regras podem ser formalizadas como:",
+      "Considere:",
       "```\\\nm ⇒ (p ∨ q)\np ⇒ q\n```",
-      "A partir delas, podemos garantir logicamente que:",
+      "Podemos concluir:",
       "```\\\nm ⇒ q\n```",
-      "Toda atribuição que satisfaz as duas premissas também satisfaz essa conclusão. Isso ilustra como a consequência lógica formaliza inferências seguras a partir de regras encadeadas.",
+      "pois toda atribuição que satisfaz as duas premissas torna a conclusão verdadeira.",
 
       "###Consequência lógica versus equivalência",
-      "É importante distinguir consequência lógica de equivalência lógica. Se φ e ψ são logicamente equivalentes, então φ implica ψ e ψ implica φ. No entanto, a implicação lógica não é simétrica.",
-      "A relação φ ⊨ ψ é mais próxima de uma desigualdade do que de uma igualdade: ela expressa inclusão de comportamentos, e não identidade.",
-
-      "###Relevância para Ciência de Dados",
-      "A consequência lógica fornece a base formal para responder perguntas como: *essa conclusão é garantida pelas regras do modelo?*, *essa inferência é segura sob todos os dados possíveis?* e *essa decisão decorre necessariamente das hipóteses assumidas?*.",
-      "Em sistemas baseados em regras, validação de políticas, explicabilidade de modelos e verificação automática, compreender consequência lógica é essencial para separar correlações observadas de garantias formais."
+      "Consequência lógica não é simétrica: φ ⊨ ψ não implica ψ ⊨ φ. A relação expressa inclusão de comportamentos (mais próxima de uma desigualdade do que de uma igualdade)."
     ]
   },
-  
+
   "cap2-sec4": {
     id: "cap2-sec4",
     title: "Consistência Lógica",
     subtitle: "Quando Regras Podem Coexistir",
     paragraphs: [
-      "Em Ciência de Dados, raramente lidamos com uma única regra isolada. Modelos, políticas, hipóteses e validações costumam aparecer em conjunto. Antes mesmo de perguntar o que pode ser inferido a partir dessas regras, é essencial verificar algo mais básico: **elas podem coexistir sem contradição?**. Essa pergunta é formalizada pela noção de **consistência lógica**.",
-      "Dizemos que uma sentença φ é **logicamente consistente** com uma sentença ψ se existe pelo menos uma atribuição de valores de verdade que satisfaz ambas simultaneamente. De forma mais geral, dizemos que uma sentença ψ é consistente com um conjunto de sentenças Δ se existe alguma atribuição que satisfaz todas as sentenças de Δ e também ψ.",
-      "Intuitivamente, consistência significa que **há pelo menos um cenário possível** em que todas as regras consideradas são verdadeiras ao mesmo tempo.",
+      "Modelos, políticas, hipóteses e validações costumam aparecer em conjunto. Antes de inferir conclusões, é essencial verificar algo mais básico: **as regras são compatíveis?**. Essa pergunta é formalizada pela noção de **consistência lógica**.",
+      "Uma sentença φ é consistente com ψ se existe pelo menos uma atribuição que satisfaz ambas. Mais geralmente, ψ é consistente com um conjunto Δ se existe alguma atribuição que satisfaz todas as sentenças de Δ e também ψ.",
 
       "###Exemplos de consistência e inconsistência",
-      "Considere as sentenças:",
+      "Considere:",
       "```\\\np ∨ q\n```",
       "e",
       "```\\\n¬p ∨ ¬q\n```",
-      "Essas duas sentenças são logicamente consistentes. Por exemplo, se **p = 1** e **q = 0**, ambas são verdadeiras. Isso significa que existe um conjunto de dados possível que satisfaz simultaneamente as duas regras.",
-      "Por outro lado, a sentença:",
+      "Elas são consistentes: por exemplo, com **p = 1** e **q = 0**, ambas ficam verdadeiras.",
+      "Já:",
       "```\\\n¬p ∧ ¬q\n```",
-      "não é consistente com **p ∨ q**. Sempre que **p ∨ q** é verdadeira, pelo menos uma das variáveis é verdadeira; já **¬p ∧ ¬q** exige que ambas sejam falsas. Não existe nenhum cenário que satisfaça as duas ao mesmo tempo.",
+      "não é consistente com **p ∨ q**, pois não existe cenário em que as duas sejam verdadeiras simultaneamente.",
 
       "###Verificando consistência com tabelas-verdade",
-      "Assim como nas noções de equivalência e consequência lógica, a consistência pode ser verificada por meio do método da tabela-verdade. Avaliamos todas as atribuições possíveis e verificamos se existe ao menos uma linha em que todas as sentenças envolvidas sejam verdadeiras simultaneamente.",
-      "A tabela a seguir ilustra os exemplos anteriores:",
       "```\\\np  q  p ∨ q  ¬p ∨ ¬q  ¬p ∧ ¬q\n1  1    1      0          0\n1  0    1      1          0\n0  1    1      1          0\n0  0    0      1          1\n```",
-      "Observa-se que há atribuições que satisfazem **p ∨ q** e **¬p ∨ ¬q** simultaneamente, mas nenhuma que satisfaça **p ∨ q** e **¬p ∧ ¬q** ao mesmo tempo.",
+      "Há linhas em que **p ∨ q** e **¬p ∨ ¬q** são verdadeiras ao mesmo tempo, mas nenhuma em que **p ∨ q** e **¬p ∧ ¬q** coincidam como verdade.",
 
       "###Consistência não é equivalência nem consequência",
-      "A distinção entre consistência, equivalência e consequência lógica é sutil, mas fundamental. O fato de duas sentenças serem consistentes não significa que elas sejam logicamente equivalentes, nem que uma implique a outra.",
-      "No exemplo anterior, **p ∨ q** é consistente com **¬p ∨ ¬q**, mas as duas sentenças claramente não são equivalentes e nenhuma delas implica logicamente a outra. Elas apenas conseguem coexistir em alguns cenários.",
-      "Em termos práticos, isso corresponde a duas regras que podem ser verdadeiras ao mesmo tempo, mas que não dizem a mesma coisa e não garantem uma à outra.",
+      "Duas sentenças podem ser consistentes sem serem equivalentes e sem que uma implique a outra. No exemplo anterior, **p ∨ q** e **¬p ∨ ¬q** coexistem em alguns cenários, mas não dizem a mesma coisa e não garantem uma à outra.",
 
       "###Consequência lógica sem consistência",
-      "De forma talvez contraintuitiva, a consequência lógica também não garante consistência. Isso ocorre quando uma das sentenças envolvidas é **insatisfatível**.",
-      "Se uma sentença é insatisfatível, não existe nenhuma atribuição que a torne verdadeira. Por definição, toda atribuição que satisfaz essa sentença (não existe nenhuma) satisfaz qualquer outra sentença. Assim, uma sentença insatisfatível implica logicamente qualquer conclusão.",
-      "Esse fato leva a uma consequência curiosa: **qualquer sentença insatisfatível, ou conjunto insatisfatível de sentenças, implica logicamente tudo**. Embora pareça estranho, isso decorre diretamente das definições formais.",
+      "A consequência lógica pode ocorrer mesmo sem consistência quando alguma premissa é insatisfatível. Se uma sentença é insatisfatível, não existe atribuição que a satisfaça; por isso, ela implica logicamente qualquer conclusão (um caso de implicação vacuamente verdadeira).",
+      "Isso mostra por que conjuntos inconsistentes são perigosos: deles é possível inferir qualquer coisa, tornando o raciocínio inútil.",
 
       "###Por que evitar inconsistência em Ciência de Dados",
-      "Esse comportamento deixa claro por que conjuntos inconsistentes de regras são perigosos. Um sistema inconsistente permite inferir qualquer coisa, tornando o raciocínio inútil.",
-      "Em Ciência de Dados, inconsistência costuma indicar problemas sérios: regras incompatíveis, hipóteses conflitantes, validações impossíveis de serem satisfeitas ou falhas de modelagem.",
-      "Por isso, verificar a **consistência lógica** é um passo fundamental antes de realizar inferências, otimizações ou explicações baseadas em regras. Sem consistência, não há garantia, nem significado, nas conclusões obtidas."
+      "Inconsistência costuma indicar regras incompatíveis, restrições impossíveis ou falhas de modelagem. Por isso, checar consistência é um passo fundamental antes de inferir, otimizar ou explicar regras."
+    ]
+  },
+
+  "cap2-sec5": {
+    id: "cap2-sec5",
+    title: "Conexões entre Propriedades e Relações Lógicas",
+    subtitle: "Unificando Validade, Equivalência, Consequência e Consistência",
+    paragraphs: [
+      "As propriedades lógicas (validade, satisfatibilidade, insatisfatibilidade) e as relações lógicas (equivalência, consequência, consistência) se conectam de forma direta. Essas conexões permitem reduzir perguntas sobre relações entre sentenças a perguntas sobre propriedades de sentenças compostas, o que facilita verificação automática.",
+
+      "###Equivalência lógica e validade",
+      "**Teorema da Equivalência:** φ e ψ são logicamente equivalentes se, e somente se,",
+      "```\\\nφ ⇔ ψ\n```",
+      "for válida.",
+
+      "###Consequência lógica e validade",
+      "**Teorema da Dedução:** φ ⊨ ψ se, e somente se,",
+      "```\\\nφ ⇒ ψ\n```",
+      "for válida. Para um conjunto finito {φ₁, …, φₙ}, temos {φ₁, …, φₙ} ⊨ ψ se, e somente se,",
+      "```\\\n(φ₁ ∧ … ∧ φₙ) ⇒ ψ\n```",
+      "for válida.",
+
+      "###Consequência lógica e insatisfatibilidade",
+      "**Teorema da Insatisfatibilidade:** Δ ⊨ φ se, e somente se,",
+      "```\\\nΔ ∪ {¬φ}\n```",
+      "for insatisfatível.",
+
+      "###Consistência lógica e satisfatibilidade",
+      "**Teorema da Consistência:** φ é consistente com ψ se, e somente se,",
+      "```\\\nφ ∧ ψ\n```",
+      "for satisfatível. Para {φ₁, …, φₙ}, φ é consistente com o conjunto se, e somente se,",
+      "```\\\nφ₁ ∧ … ∧ φₙ ∧ φ\n```",
+      "for satisfatível.",
+
+      "###Nível lógico versus metanível",
+      "Propriedades e relações são afirmações de **metanível** (falamos *sobre* sentenças). Já ∧, ∨, ⇒ e ⇔ pertencem à linguagem formal (usamos *dentro* das sentenças). O ponto central é que podemos representar relações do metanível indiretamente construindo sentenças compostas e verificando suas propriedades."
+    ]
+  },
+
+  "cap2-sec6": {
+    id: "cap2-sec6",
+    title: "Reescritas por Equivalência",
+    subtitle: "Transformando Problemas Lógicos sem Alterar o Comportamento",
+    paragraphs: [
+      "As conexões do capítulo permitem transformar um tipo de problema em outro equivalente. Por exemplo, para verificar a validade de",
+      "```\\\nφ ⇒ ψ\n```",
+      "podemos usar o Teorema da Dedução e verificar se φ ⊨ ψ. Isso foca a análise apenas nos cenários em que φ é verdadeira.",
+      
+      "###Reescrevendo sentenças em formas equivalentes",
+      "Também podemos transformar um problema em outro do mesmo tipo reescrevendo sentenças por equivalência. Considere:",
+      "```\\\n((¬p ∨ q) ⇒ (p ⇒ q)) ∧ q\n```",
+      "Como ¬p ∨ q é equivalente a p ⇒ q, reescrevemos como:",
+      "```\\\n((p ⇒ q) ⇒ (p ⇒ q)) ∧ q\n```",
+      "A primeira parte é válida; **q** é contingente; logo, a sentença completa é contingente.",
+
+      "###Equivalências lógicas fundamentais",
+      "```\\\n¬¬φ ⇔ φ\n¬(φ ∧ ψ) ⇔ (¬φ ∨ ¬ψ)\n¬(φ ∨ ψ) ⇔ (¬φ ∧ ¬ψ)\n(φ ⇒ ψ) ⇔ (¬φ ∨ ψ)\n(φ ⇔ ψ) ⇔ (φ ⇒ ψ) ∧ (ψ ⇒ φ)\n```",
+      "Essas equivalências são base para normalização e conversão para formas padronizadas, como a forma clausal.",
+
+      "###Reescritas aplicadas a conjuntos de sentenças",
+      "Também é possível reescrever conjuntos. Por exemplo,",
+      "```\\\n{p, p ⇒ q}\n```",
+      "é equivalente a",
+      "```\\\n{p, q}\n```",
+      "o que reduz redundância sem mudar o significado lógico.",
+
+      "###Reescritas, provas e métodos automáticos",
+      "Provas podem ser vistas como um caso especial desse processo: começamos com premissas e adicionamos consequências até obter a conclusão. A resolução segue a mesma ideia, adicionando consequências até produzir uma contradição explícita ao testar insatisfatibilidade."
     ]
   },
 
