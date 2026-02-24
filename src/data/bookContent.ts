@@ -723,7 +723,7 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap2-sec1": {
     id: "cap2-sec1",
     title: "Propriedades Lógicas das Sentenças",
-    subtitle: "Validade, Contingência e Insatisfatibilidade",
+    subtitle: "Capítulo 2",
     paragraphs: [
       "No capítulo anterior, vimos que uma mesma sentença pode ser verdadeira em alguns cenários e falsa em outros, dependendo da atribuição de valores às variáveis proposicionais. Aqui, vamos além: queremos classificar sentenças pelo seu comportamento ao longo de **todas** as atribuições possíveis.",
       "Essa classificação é útil para Ciência de Dados porque regras de validação, restrições e critérios de decisão precisam ser analisados não apenas em um caso observado, mas em termos do que eles permitem (ou impedem) em geral.",
@@ -765,7 +765,7 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap2-sec2": {
     id: "cap2-sec2",
     title: "Equivalência Lógica",
-    subtitle: "Diferentes Expressões, Mesmo Comportamento",
+    subtitle: "Capítulo 2",
     paragraphs: [
       "Dizemos que duas sentenças são equivalentes quando expressam a mesma ideia, ainda que escritas de formas diferentes. Em termos formais, isso significa que elas são verdadeiras exatamente nos mesmos cenários.",
       "Mais precisamente, uma sentença φ é **logicamente equivalente** a uma sentença ψ se, e somente se, toda atribuição que satisfaz φ também satisfaz ψ, e vice-versa. Assim, as duas sentenças aceitam e rejeitam exatamente os mesmos cenários.",
@@ -805,7 +805,7 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap2-sec3": {
     id: "cap2-sec3",
     title: "Consequência Lógica",
-    subtitle: "O que os Dados Garantem",
+    subtitle: "Capítulo 2",
     paragraphs: [
       "Em Ciência de Dados, partimos frequentemente de premissas (regras, hipóteses, restrições) e queremos saber o que pode ser afirmado com garantia. A noção que formaliza isso é a **consequência lógica**.",
       "Dizemos que φ **logicamente implica** ψ (φ ⊨ ψ) quando toda atribuição que satisfaz φ também satisfaz ψ. Mais geralmente, um conjunto Δ implica ψ (Δ ⊨ ψ) quando toda atribuição que satisfaz todas as sentenças em Δ também satisfaz ψ.",
@@ -859,7 +859,7 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap2-sec4": {
     id: "cap2-sec4",
     title: "Consistência Lógica",
-    subtitle: "Quando Regras Podem Coexistir",
+    subtitle: "Capítulo 2",
     paragraphs: [
       "Modelos, políticas, hipóteses e validações costumam aparecer em conjunto. Antes de inferir conclusões, é essencial verificar algo mais básico: **as regras são compatíveis?**. Essa pergunta é formalizada pela noção de **consistência lógica**.",
       "Uma sentença φ é consistente com ψ se existe pelo menos uma atribuição que satisfaz ambas. Mais geralmente, ψ é consistente com um conjunto Δ se existe alguma atribuição que satisfaz todas as sentenças de Δ e também ψ.",
