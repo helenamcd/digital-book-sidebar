@@ -75,13 +75,27 @@ export const chapters: Chapter[] = [
   },
   {
     id: "cap5",
-    title: "Capítulo 5 - Provas por Resolução",
+    title: "Capítulo 5 — Provas por Resolução",
       "sections": [
       { "id": "cap5-sec1", "title": "Forma Clausal" },
       { "id": "cap5-sec2", "title": "Conversão para Forma Clausal" },
       { "id": "cap5-sec3", "title": "O Princípio da Resolução" },
       { "id": "cap5-sec4", "title": "Resolução como Processo de Raciocínio" },
       { "id": "cap5-sec5", "title": "Provas por Contradição com Resolução" },
+    ]
+  },
+
+  {
+    id: "cap6",
+    title: "Capítulo 6 — Lógica Relacional",
+    sections: [
+      { id: "cap6-sec1", title: "Por que a Lógica Proposicional não basta em Ciência de Dados" },
+      { id: "cap6-sec2", title: "Sintaxe" },
+      { id: "cap6-sec3", title: "Semântica" },
+      { id: "cap6-sec4", title: "Avaliação" },
+      { id: "cap6-sec5", title: "Satisfatibilidade" },
+      { id: "cap6-sec6", title: "Exemplos em Ciência de Dados" },
+      { id: "cap6-sec7", title: "Fechamento" }
     ]
   },
   {
@@ -1382,6 +1396,149 @@ export const chapterContents: Record<string, ChapterContent> = {
       "###Por que a resolução é tão usada",
       "A resolução é local, mecânica e finita. Não exige escolher instâncias nem explorar infinitos cenários.",
       "Por isso, ela está na base de verificadores automáticos, SAT solvers e sistemas de prova usados em verificação, IA simbólica e raciocínio explicável."
+    ]
+  },
+
+
+  "cap6": {
+    "id": "cap6-intro",
+    "title": "Lógica relacional",
+    "subtitle": "Capítulo 6",
+    "paragraphs": [
+      "Na **Lógica Proposicional**, cada afirmação é tratada como um bloco indivisível: *“o usuário está confuso”*, *“houve erro”*, *“o sistema exibiu ajuda”*. Isso é suficiente quando queremos raciocinar sobre poucas proposições bem definidas.",
+      "Em ciência de dados, porém, quase sempre precisamos falar de **muitos objetos** (usuários, sessões, itens, mensagens, eventos) e de **relações entre eles** (clicou, acessou, respondeu, comprou, recebeu feedback). Aí surge um problema: a lógica proposicional não consegue expressar de forma compacta frases do tipo *“para qualquer usuário, se acontecer X então acontece Y”* sem listar usuário por usuário.",
+      "A **Lógica Relacional (Relational Logic)** resolve isso ao adicionar duas ferramentas essenciais: **variáveis** (para representar “um usuário qualquer”, “um evento qualquer”) e **quantificadores** (para dizer “para todo” e “existe”). Com isso, conseguimos escrever regras gerais que se aplicam ao dataset inteiro, sem enumerar casos.",
+      "Pense na diferença prática: em vez de criar uma proposição para cada usuário (*U1_errou*, *U2_errou*, *U3_errou*...), escrevemos uma única regra:",
+      "```\\n∀x.(Erro(x) ⇒ RecebeuFeedback(x))\\n```",
+      "Esse tipo de sentença é extremamente próximo do dia a dia em ciência de dados: **regras de qualidade**, **validação de logs**, **critérios de segmentação**, **sistemas explicáveis** e até **consultas em bancos de dados**.",
+      "Ao longo deste capítulo, vamos construir essa linguagem passo a passo: sintaxe (como escrever), semântica (como interpretar em dados), avaliação (como calcular verdadeiro/falso) e exemplos reais com cara de ciência de dados."
+    ]
+  },
+
+  "cap6-sec1": {
+    id: "cap6-sec1",
+    title: "Sintaxe",
+    subtitle: "Como escrever sentenças sobre dados, objetos e relações",
+    paragraphs: [
+      "Na Lógica Relacional, não usamos proposições atômicas como \(p, q\). Em vez disso, trabalhamos com:",
+      "- **Constantes de objeto**: representam entidades específicas (*ana*, *bruno*, *sessao17*, *item42*).\n- **Variáveis**: representam entidades genéricas (*x, y, z*).\n- **Constantes de relação (predicados)**: representam propriedades e relações (*Ativo(x)*, *Comprou(x,y)*, *Acessou(x,y)*).",
+      "Uma relação tem **aridade**: quantos argumentos recebe. Em ciência de dados, isso costuma aparecer naturalmente:",
+      "- **Unária (1 argumento)**: `Ativo(x)`, `Confuso(x)`, `Evadido(x)`.\n- **Binária (2 argumentos)**: `Acessou(x,s)`, `Comprou(x,item)`, `Segue(x,y)`.\n- **Ternária (3 argumentos)**: `Avaliou(x,item,nota)`, `Ocorreu(evento,usuario,tempo)`.",
+      "Chamamos de **termo** qualquer variável ou constante. E chamamos de **átomo** uma relação aplicada a termos. Exemplos:",
+      "```\\nAtivo(ana)\\nAcessou(ana, sessao17)\\nComprou(x, item42)\\n```",
+      "A partir dos átomos, construímos sentenças com os mesmos conectivos de antes: **¬, ∧, ∨, ⇒, ⇔**. Exemplo de regra de validação (muito comum em dados):",
+      "```\\nPago(pedido) ⇒ TemDataPagamento(pedido)\\n```",
+      "Por fim, entram os quantificadores:",
+      "- **Universal**: `∀x` (para todo x)\n- **Existencial**: `∃x` (existe algum x)",
+      "Exemplos no estilo ciência de dados:",
+      "```\\n∀x.(Ativo(x) ⇒ ∃s.Acessou(x,s))\\n```",
+      "Leitura: *Todo usuário ativo tem pelo menos um acesso registrado.*",
+      "```\\n∃x.(Ativo(x) ∧ ¬∃s.Acessou(x,s))\\n```",
+      "Leitura: *Existe usuário ativo sem nenhum acesso (possível problema de log, cadastro ou evento faltando).*"
+    ]
+  },
+
+  "cap6-sec2": {
+    id: "cap6-sec2",
+    title: "Semântica",
+    subtitle: "Como a lógica vira verdadeiro ou falso a partir de um dataset",
+    paragraphs: [
+      "Escrever fórmulas é só metade do caminho. A pergunta central é: **como uma sentença lógica é avaliada usando dados reais?**",
+      "Vamos usar a ideia de **semântica de Herbrand**, que combina muito bem com ciência de dados quando temos um conjunto finito de objetos (usuários, itens, eventos).",
+      "Dado um vocabulário com constantes e relações, formamos a **Base de Herbrand**: o conjunto de todos os átomos **sem variáveis** (ground) que podem ser construídos.",
+      "Exemplo: constantes `{ana, bruno}` e relações `Ativo(x)` (unária) e `Acessou(x,s)` (binária), com sessões `{s1, s2}`.",
+      "A Base de Herbrand inclui átomos como:",
+      "```\\nAtivo(ana), Ativo(bruno)\\nAcessou(ana,s1), Acessou(ana,s2), Acessou(bruno,s1), Acessou(bruno,s2)\\n```",
+      "Um **dataset** funciona como uma atribuição de verdade para esses átomos: ele diz quais fatos são verdadeiros (presentes) e quais são falsos (ausentes).",
+      "Exemplo de atribuição (pense como uma tabela de fatos):",
+      "```\\nAtivo(ana)=1\\nAtivo(bruno)=0\\nAcessou(ana,s1)=1\\nAcessou(ana,s2)=0\\nAcessou(bruno,s1)=0\\nAcessou(bruno,s2)=0\\n```",
+      "Com essa base, os conectivos funcionam como na lógica proposicional, e os quantificadores são avaliados por **instâncias**: substituímos variáveis por constantes e verificamos o resultado."
+    ]
+  },
+
+  "cap6-sec3": {
+    id: "cap6-sec3",
+    title: "Avaliação",
+    subtitle: "Quantificadores como checagens de consistência e detecção de anomalias",
+    paragraphs: [
+      "Em ciência de dados, duas perguntas aparecem o tempo todo:",
+      "- **Regra global (para todo)**: *isso vale para todos os registros?*\n- **Detecção (existe)**: *existe algum caso que viola a regra?*",
+      "Isso é exatamente a diferença entre `∀` e `∃`.",
+      "### A implicação como regra (com tabela-verdade)",
+      "A implicação é o conectivo mais usado em regras. A única violação é quando a condição acontece e a consequência não acontece:",
+      "```\\nTabela-verdade de p ⇒ q\\n\\np  q  p⇒q\\n1  1   1\\n1  0   0   ← violação\\n0  1   1\\n0  0   1\\n```",
+      "Exemplo de regra de qualidade:",
+      "```\\nPago(p) ⇒ TemDataPagamento(p)\\n```",
+      "Violação: existe pedido `p` tal que `Pago(p)=1` e `TemDataPagamento(p)=0`.",
+      "### Exemplo 1 — Regra universal (contrato de dados)",
+      "Regra: *Todo usuário ativo tem pelo menos um acesso.*",
+      "```\\n∀x.(Ativo(x) ⇒ ∃s.Acessou(x,s))\\n```",
+      "Como avaliar: para cada usuário `x`, se `Ativo(x)` for verdadeiro, procure ao menos uma sessão `s` com `Acessou(x,s)` verdadeiro. Se falhar para algum ativo, a sentença toda é falsa.",
+      "### Exemplo 2 — Detecção existencial (alerta)",
+      "Pergunta: *Existe usuário ativo sem acesso?*",
+      "```\\n∃x.(Ativo(x) ∧ ¬∃s.Acessou(x,s))\\n```",
+      "Aqui basta **um único caso** para a sentença ser verdadeira — e isso já acende um alerta no pipeline de dados."
+    ]
+  },
+
+  "cap6-sec4": {
+    id: "cap6-sec4",
+    title: "Satisfatibilidade e tabelas em miniatura",
+    subtitle: "Quando os dados permitem múltiplos “mundos” coerentes",
+    paragraphs: [
+      "Em dados reais, muitas vezes não sabemos tudo. Falta log, há atraso de sincronização, eventos podem ser perdidos. A lógica ajuda a separar três situações:",
+      "- **Certo**: verdadeiro em todos os mundos compatíveis.\n- **Impossível**: falso em todos os mundos compatíveis.\n- **Indeterminado**: verdadeiro em alguns e falso em outros.",
+      "Vamos usar um cenário pequeno (para caber numa tabela) e ver como isso funciona.",
+      "Considere constantes `{ana, bruno}` e relações unárias `Erro(x)` e `RecebeuFeedback(x)`.",
+      "E considere o conjunto de sentenças (regras + fatos parciais):",
+      "1) `Erro(ana) ∨ Erro(bruno)`\n2) `∀x.(Erro(x) ⇒ RecebeuFeedback(x))`\n3) `∃x.RecebeuFeedback(x)`",
+      "A Base de Herbrand aqui é `{Erro(ana), Erro(bruno), RecebeuFeedback(ana), RecebeuFeedback(bruno)}`. Podemos montar uma tabela de verdade pequena e identificar quais atribuições satisfazem o conjunto. A ideia prática é: **nem toda combinação de valores é permitida**, porque a regra (2) corta mundos inconsistentes.",
+      "Em pipelines, isso aparece como: *“meus dados podem estar assim?”* Se um ‘mundo’ viola regras de negócio, ele é descartado."
+    ]
+  },
+
+  "cap6-sec5": {
+    id: "cap6-sec5",
+    title: "Exemplos em Ciência de Dados",
+    subtitle: "Regras sobre logs, usuários e decisões explicáveis",
+    paragraphs: [
+      "Vamos trabalhar com um exemplo bem típico em plataformas educacionais (LMS), análise de comportamento e IHC.",
+      "### Vocabulário (entidades e relações)",
+      "Constantes de objeto (exemplos): usuários `u1, u2, u3`, atividades `a1`, mensagens `m1`.",
+      "Relações (predicados):\n- `Erro(u,a)` — usuário `u` cometeu erro na atividade `a`\n- `Apoio(u,a)` — sistema enviou apoio para `u` em `a`\n- `Abandonou(u,a)` — usuário abandonou\n- `Concluiu(u,a)` — usuário concluiu\n- `Confuso(u)` — rótulo (manual ou inferido) de confusão",
+      "### Exemplo 1 — Sistema “apoio quando há erro” (bidirecional)",
+      "Regra forte (equivalência):",
+      "```\\n∀u∀a.(Apoio(u,a) ⇔ Erro(u,a))\\n```",
+      "Leitura: *o sistema envia apoio exatamente e apenas quando ocorre erro*. Isso é útil para auditoria: se a equivalência falhar, ou o apoio está sendo disparado indevidamente, ou erros não estão sendo tratados.",
+      "Forma de detecção de problema (bem usada em dados):",
+      "```\\n∃u∃a.(Apoio(u,a) ∧ ¬Erro(u,a))\\n```",
+      "Leitura: *existe apoio sem erro* (falso positivo do gatilho, ou erro de log).",
+      "E o outro lado:",
+      "```\\n∃u∃a.(Erro(u,a) ∧ ¬Apoio(u,a))\\n```",
+      "Leitura: *existe erro sem apoio* (falha no disparo, evento perdido ou regra incompleta).",
+      "### Exemplo 2 — Regra de interpretação (explicabilidade)",
+      "Uma regra explicável típica em análise de interação:",
+      "```\\n∀u.( (∃a.Erro(u,a)) ∧ (∃a.Abandonou(u,a)) ⇒ Confuso(u) )\\n```",
+      "Leitura: *se o usuário tem evidência de erro e abandono, classificamos como confuso.*",
+      "Aqui vale a reflexão lógica (muito importante): essa regra define uma **condição suficiente** para `Confuso(u)`, mas não diz que é a única causa. O aluno aprende a perguntar: o inverso vale? Provavelmente não.",
+      "### Exemplo 3 — “Existe uma atividade problemática” (analytics)",
+      "Pergunta investigativa:",
+      "```\\n∃a.∀u.( Matriculado(u,a) ⇒ ¬Concluiu(u,a) )\\n```",
+      "Leitura: *existe uma atividade em que ninguém conclui*. Isso pode indicar problema de design, enunciado confuso ou bug."
+    ]
+  },
+
+  "cap6-sec6": {
+    id: "cap6-sec6",
+    title: "Fechamento",
+    subtitle: "Do formalismo à prática: regras, consultas e qualidade de dados",
+    paragraphs: [
+      "A Lógica Relacional é, na prática, uma linguagem de alto nível para falar de **estruturas de dados** e **regras sobre registros**.",
+      "O que você deve levar deste capítulo:",
+      "- `∀` aparece como **contrato de consistência** (*para todo registro…*).\n- `∃` aparece como **detector de exceção** (*existe algum registro que…*).\n- Implicação modela regras e a tabela-verdade mostra exatamente quando há violação.\n- Muitas tarefas de ciência de dados (qualidade, auditoria, regras explicáveis) são naturalmente expressas nessa linguagem.",
+      "Uma forma útil de pensar é: **toda regra universal tem uma forma existencial de violação**. Isso conecta lógica diretamente a monitoramento de pipelines:",
+      "```\\nRegra:  ∀x.(P(x) ⇒ Q(x))\\nErro:   ∃x.(P(x) ∧ ¬Q(x))\\n```",
+      "No próximo capítulo, isso vai nos ajudar a formalizar melhor inferências e a discutir quando uma conclusão é realmente garantida pelos dados e regras — e quando é apenas uma hipótese."
     ]
   },
 
