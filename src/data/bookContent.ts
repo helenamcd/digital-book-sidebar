@@ -75,7 +75,14 @@ export const chapters: Chapter[] = [
   },
   {
     id: "cap5",
-    title: "Capítulo 5 — O Retorno",
+    title: "Capítulo 5 - Provas por Resolução",
+      "sections": [
+      { "id": "cap5-sec1", "title": "Forma Clausal" },
+      { "id": "cap5-sec2", "title": "Conversão para Forma Clausal" },
+      { "id": "cap5-sec3", "title": "O Princípio da Resolução" },
+      { "id": "cap5-sec4", "title": "Resolução como Processo de Raciocínio" },
+      { "id": "cap5-sec5", "title": "Provas por Contradição com Resolução" },
+    ]
   },
   {
     id: "glossario",
@@ -1204,20 +1211,180 @@ export const chapterContents: Record<string, ChapterContent> = {
   },
 
 
-
   cap5: {
     id: "cap5",
-    title: "O Retorno",
+    title: "Provas por Resolução",
     subtitle: "Capítulo 5",
-    paragraphs: [
-      "Maria saiu da livraria carregando consigo mais do que um livro. Carregava uma certeza que antes lhe era estranha: a de que as histórias que contamos sobre nós mesmos são, ao mesmo tempo, a coisa mais verdadeira e mais inventada que possuímos.",
-      "A cidade parecia diferente agora. As mesmas ruas de sempre, os mesmos edifícios, as mesmas pessoas apressadas — mas tudo havia ganhado uma textura nova, como se uma camada de verniz tivesse sido removida revelando cores mais vivas por baixo.",
-      "Ela voltou para casa pelo caminho mais longo, passando por parques e praças que costumava ignorar. Em cada banco, em cada esquina, imaginava as histórias não contadas das pessoas que passavam por ali todos os dias.",
-      "Ao chegar em casa, colocou o livro azul na estante, ao lado dos outros que colecionava desde a infância. Mas antes, abriu o envelope que trazia no bolso — um dos muitos que encontrara sobre o balcão da livraria — e copiou o endereço em uma folha de papel.",
-      "Amanhã, pensou, seria a vez de outra pessoa receber sua carta. E assim a história continuaria, como sempre continua — passando de mãos em mãos, de coração em coração, infinitamente.",
-      "Fim.",
-    ],
+    "paragraphs": [
+      "A **Resolução Proposicional** é uma das regras de inferência mais importantes da Lógica Proposicional. Com ela, é possível construir procedimentos automáticos de prova que são **corretos** (sound) e **completos** para toda a lógica proposicional.",
+      "Do ponto de vista computacional, a resolução é especialmente atraente porque reduz drasticamente o espaço de busca quando comparada a métodos baseados em tabelas-verdade ou enumeração explícita de cenários.",
+      "Em Ciência de Dados, a resolução aparece implicitamente em tarefas como verificação automática de regras, detecção de inconsistências em políticas, validação de constraints e checagem de hipóteses lógicas em sistemas explicáveis.",
+      "Neste capítulo, estudamos a resolução passo a passo. Começamos pela **forma clausal**, depois apresentamos o **princípio da resolução** e, por fim, mostramos como a resolução pode ser usada como um **método de prova por contradição**, inclusive sem premissas explícitas."
+    ]
   },
+
+  "cap5-sec1": {
+    "id": "cap5-sec1",
+    "title": "Forma Clausal",
+    "subtitle": "Capítulo 5",
+    "paragraphs": [
+      "A Resolução Proposicional opera apenas sobre expressões em **forma clausal**. Antes de aplicar a regra, todas as sentenças precisam ser convertidas para esse formato.",
+      "Essa restrição não é uma limitação prática, pois existe um procedimento sistemático que transforma qualquer sentença proposicional em um conjunto equivalente de cláusulas.",
+
+      "###Literais",
+      "Um **literal** é uma proposição atômica ou a negação de uma proposição atômica.",
+      "Por exemplo, se:",
+      "```\\\nfraude\n```",
+      "representa *\"o registro é fraudulento\"*, então os literais são:",
+      "```\\\nfraude\n¬fraude\n```",
+
+      "###Sentenças clausais",
+      "Uma **sentença clausal** é um literal isolado ou uma disjunção de literais.",
+      "Exemplos:",
+      "```\\\nfraude\n¬fraude ∨ alerta\n```",
+      "onde **alerta** pode significar *\"o sistema gera um alerta\"*.",
+
+      "###Cláusulas",
+      "Uma **cláusula** é o conjunto de literais que compõem uma sentença clausal.",
+      "Os exemplos anteriores correspondem às cláusulas:",
+      "```\\\n{fraude}\n{¬fraude, alerta}\n```",
+
+      "###A cláusula vazia",
+      "O conjunto vazio:",
+      "```\\\n{}\n```",
+      "é uma cláusula especial. Ela representa uma disjunção vazia e é **insatisfatível**.",
+      "Na resolução, derivar a cláusula vazia significa que o conjunto de regras contém uma **contradição explícita**."
+    ]
+  },
+
+  "cap5-sec2": {
+    "id": "cap5-sec2",
+    "title": "Conversão para Forma Clausal",
+    "subtitle": "Capítulo 5",
+    "paragraphs": [
+      "A conversão para forma clausal segue quatro etapas aplicadas em ordem fixa: eliminação de implicações, empurrar negações, distribuir disjunções e, por fim, extrair cláusulas.",
+
+      "###1. Eliminação de implicações (I)",
+      "```\\\nφ ⇒ ψ   →   ¬φ ∨ ψ\nφ ⇔ ψ   →   (¬φ ∨ ψ) ∧ (φ ∨ ¬ψ)\n```",
+
+      "###2. Tratamento de negações (N)",
+      "```\\\n¬¬φ        → φ\n¬(φ ∧ ψ)   → ¬φ ∨ ¬ψ\n¬(φ ∨ ψ)   → ¬φ ∧ ¬ψ\n```",
+
+      "###3. Distribuição (D)",
+      "```\\\nφ ∨ (ψ ∧ χ) → (φ ∨ ψ) ∧ (φ ∨ χ)\n```",
+
+      "###4. Extração de cláusulas (O)",
+      "```\\\nφ₁ ∨ ... ∨ φₙ → {φ₁, ..., φₙ}\nφ₁ ∧ ... ∧ φₙ → {φ₁}, ..., {φₙ}\n```",
+
+      "###Exemplo aplicado",
+      "Considere a regra:",
+      "```\\\ndados_completos ∧ (modelo_treinado ⇒ previsao_confiavel)\n```",
+      "Após eliminação da implicação:",
+      "```\\\ndados_completos ∧ (¬modelo_treinado ∨ previsao_confiavel)\n```",
+      "A forma clausal final é:",
+      "```\\\n{dados_completos}\n{¬modelo_treinado, previsao_confiavel}\n```",
+
+      "Mesmo pequenas variações sintáticas podem gerar cláusulas bem diferentes, o que afeta diretamente o processo de resolução."
+    ]
+  },
+
+  "cap5-sec3": {
+    "id": "cap5-sec3",
+    "title": "O Princípio da Resolução",
+    "subtitle": "Capítulo 3",
+    "paragraphs": [
+      "O **Princípio da Resolução** formaliza um raciocínio simples: se uma cláusula afirma que algo é verdadeiro *ou* outra coisa é verdadeira, e outra cláusula afirma que essa segunda coisa é falsa *ou* uma terceira coisa é verdadeira, então podemos eliminar a incerteza intermediária.",
+
+      "Formalmente, dadas as cláusulas:",
+      "```\\\n{φ₁, ..., χ, ..., φₘ}\n{ψ₁, ..., ¬χ, ..., ψₙ}\n```",
+      "podemos inferir:",
+      "```\\\n{φ₁, ..., φₘ, ψ₁, ..., ψₙ}\n```",
+
+      "###Exemplo em Ciência de Dados",
+      "```\\\n{erro_dados, outlier}\n{¬outlier, remover_registro}\n```",
+      "Podemos resolver sobre **outlier** e obter:",
+      "```\\\n{erro_dados, remover_registro}\n```",
+
+      "Isso expressa uma inferência segura: se o registro não for um outlier, então ele deve ser removido; se for, há erro nos dados.",
+
+      "###Resolução com cláusulas unitárias",
+      "```\\\n{modelo_viesado, dados_insuficientes}\n{¬modelo_viesado}\n```",
+      "Resolvendo, obtemos:",
+      "```\\\n{dados_insuficientes}\n```",
+
+      "###A cláusula vazia",
+      "```\\\n{fraude}\n{¬fraude}\n{}\n```",
+      "A derivação da cláusula vazia indica que o conjunto de regras é inconsistente."
+    ]
+  },
+
+  "cap5-sec4": {
+    "id": "cap5-sec4",
+    "title": "Resolução como Processo de Raciocínio",
+    "subtitle": "Capítulo 3",
+    "paragraphs": [
+      "Raciocinar com resolução significa aplicar repetidamente o princípio da resolução a cláusulas existentes até que uma conclusão seja obtida ou que nenhuma nova cláusula possa ser gerada.",
+      "Uma **derivação por resolução** é uma sequência finita de cláusulas em que cada cláusula é uma premissa ou o resultado da resolução de cláusulas anteriores.",
+
+      "###Exemplo",
+      "Considere:",
+      "```\\\n{¬erro, alerta}\n{¬outlier, alerta}\n{erro, outlier}\n```",
+      "Derivação:",
+      "```\\\n1. {¬erro, alerta}\n2. {¬outlier, alerta}\n3. {erro, outlier}\n4. {outlier, alerta}   (1,3)\n5. {alerta}            (2,4)\n```",
+
+      "O resultado mostra que, independentemente de erro ou outlier, o sistema **necessariamente gera um alerta**.",
+
+      "###Limitação importante",
+      "A resolução não é generativamente completa: nem toda cláusula logicamente implicada pode ser derivada.",
+      "Por exemplo, de:",
+      "```\\\n{p}\n{q}\n```",
+      "não é possível derivar:",
+      "```\\\n{p, q}\n```",
+
+      "Ainda assim, a resolução é suficiente para detectar inconsistência — e isso é o ponto crucial."
+    ]
+  },
+
+  "cap5-sec5": {
+    "id": "cap5-sec5",
+    "title": "Provas por Contradição com Resolução",
+    "subtitle": "Capítulo 3",
+    "paragraphs": [
+      "O poder real da resolução aparece quando combinamos esse método com o **Teorema da Insatisfatibilidade**.",
+      "Um conjunto Δ implica logicamente φ se, e somente se, o conjunto Δ ∪ {¬φ} é insatisfatível.",
+
+      "###Definição",
+      "Uma **prova por resolução** de φ a partir de Δ é uma derivação da cláusula vazia a partir da forma clausal de Δ ∪ {¬φ}.",
+
+      "###Exemplo aplicado",
+      "Premissas:",
+      "```\\\ndados_validos\n(dados_validos ⇒ modelo_confiavel)\n(modelo_confiavel ⇒ decisao_segura)\n```",
+      "Queremos provar:",
+      "```\\\ndecisao_segura\n```",
+
+      "Negamos o objetivo:",
+      "```\\\n¬decisao_segura\n```",
+
+      "Forma clausal:",
+      "```\\\n{dados_validos}\n{¬dados_validos, modelo_confiavel}\n{¬modelo_confiavel, decisao_segura}\n{¬decisao_segura}\n```",
+
+      "Derivação:",
+      "```\\\n{modelo_confiavel}\n{decisao_segura}\n{}\n```",
+
+      "A cláusula vazia confirma que **decisao_segura é logicamente implicada** pelas premissas.",
+
+      "###Validade sem premissas",
+      "A resolução também permite provar sentenças válidas sem premissas.",
+      "Por exemplo:",
+      "```\\\nmodelo ⇒ (dados ⇒ modelo)\n```",
+      "Negando e convertendo para cláusulas, obtemos um conjunto inconsistente, o que confirma a validade da sentença.",
+
+      "###Por que a resolução é tão usada",
+      "A resolução é local, mecânica e finita. Não exige escolher instâncias nem explorar infinitos cenários.",
+      "Por isso, ela está na base de verificadores automáticos, SAT solvers e sistemas de prova usados em verificação, IA simbólica e raciocínio explicável."
+    ]
+  },
+
   glossario: {
     id: "glossario",
     title: "Glossário",
