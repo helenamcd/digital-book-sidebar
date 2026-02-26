@@ -50,11 +50,16 @@ export const chapters: Chapter[] = [
   },
   {
     id: "cap3",
-    title: "Capítulo 3 — A Jornada",
+    title: "Capítulo 3 — Provas em Lógica Proposicional",
     sections: [
-      { id: "cap3-sec1", title: "Terras desconhecidas" },
-      { id: "cap3-sec2", title: "Companheiros de viagem" },
-    ],
+      { id: "cap3-sec1", title: "Esquemas de Axiomas" },
+      { id: "cap3-sec2", title: "Regras de Inferência" },
+      { id: "cap3-sec3", title: "Provas Diretas" },
+      { id: "cap3-sec4", title: "Sistemas de Prova" },
+      { id: "cap3-sec5", title: "O Sistema de Hilbert" },
+      { id: "cap3-sec6", title: "Correção e Completude" },
+      { id: "cap3-sec7", title: "Resumo do Capítulo" }
+    ]
   },
   {
     id: "cap4",
