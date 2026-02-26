@@ -89,13 +89,12 @@ export const chapters: Chapter[] = [
     id: "cap6",
     title: "Capítulo 6 — Lógica Relacional",
     sections: [
-      { id: "cap6-sec1", title: "Por que a Lógica Proposicional não basta em Ciência de Dados" },
-      { id: "cap6-sec2", title: "Sintaxe" },
-      { id: "cap6-sec3", title: "Semântica" },
-      { id: "cap6-sec4", title: "Avaliação" },
-      { id: "cap6-sec5", title: "Satisfatibilidade" },
-      { id: "cap6-sec6", title: "Exemplos em Ciência de Dados" },
-      { id: "cap6-sec7", title: "Fechamento" }
+      { id: "cap6-sec1", title: "Sintaxe" },
+      { id: "cap6-sec2", title: "Semântica" },
+      { id: "cap6-sec3", title: "Avaliação" },
+      { id: "cap6-sec4", title: "Satisfatibilidade" },
+      { id: "cap6-sec5", title: "Exemplos em Ciência de Dados" },
+      { id: "cap6-sec6", title: "Fechamento" },
     ]
   },
   {
