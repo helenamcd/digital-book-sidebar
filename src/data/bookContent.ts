@@ -1105,27 +1105,47 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
+  "cap4": {
+      "id": "cap4",
+      "title": "Dedução Natural",
+      "subtitle": "Capítulo 4",
+      "paragraphs": [
+        "Nos capítulos anteriores, estudamos métodos de **avaliação semântica**, como tabelas-verdade, e métodos iniciais de **dedução direta**, baseados na aplicação sequencial de regras de inferência. Esses métodos possuem a vantagem de serem conceitualmente simples, mas rapidamente se tornam pouco práticos à medida que o número de proposições e conectivos cresce.",
+        "Em particular, a construção de tabelas-verdade sofre de um crescimento exponencial no número de cenários possíveis, enquanto provas diretas podem se tornar longas, repetitivas e difíceis de organizar. Essas limitações motivam a busca por métodos de prova mais estruturados e próximos do raciocínio humano.",
+        "O **Teorema da Dedução** fornece uma importante garantia teórica: se uma conclusão pode ser provada a partir de um conjunto de premissas, então a implicação correspondente também pode ser provada. No entanto, esse resultado é de natureza **meta-lógica** — ele afirma que a prova existe, mas não descreve como construí-la passo a passo.",
+        "A **Dedução Natural** resolve essa lacuna ao introduzir um sistema de provas que permite trabalhar explicitamente com **assunções temporárias**, organizadas em **subprovas**. A partir dessas assunções, derivamos conclusões locais e, ao final, descarregamos as assunções na forma de implicações ou negações.",
+        "Esse estilo de prova aproxima a lógica formal do raciocínio cotidiano: *assumir uma hipótese*, *explorar suas consequências* e *retirar conclusões condicionais*. Por esse motivo, a Dedução Natural é amplamente utilizada tanto no ensino de lógica quanto na formalização de argumentos em matemática, computação e inteligência artificial.",
+        "Neste capítulo, iniciamos com o conceito de **provas condicionais**, apresentamos a estrutura de **subprovas**, introduzimos o **sistema de Fitch** e suas regras de inferência, discutimos os conceitos de **correção (soundness)** e **completude (completeness)** e encerramos com **estratégias práticas** para a construção de provas."
+      ]
+    },
+
+
   "cap4-sec1": {
     "id": "cap4-sec1",
     "title": "Provas Condicionais",
     "subtitle": "Capítulo 4",
     "paragraphs": [
       "As **provas condicionais** estendem a ideia de prova direta ao permitir a introdução explícita de **suposições temporárias**. Diferentemente das provas diretas, uma prova condicional possui uma estrutura hierárquica, composta por **subprovas** aninhadas dentro de uma prova principal.",
-      "Em uma prova condicional, podemos assumir uma sentença φ, derivar uma sentença ψ a partir dessa suposição e, então, concluir fora da subprova que **φ implica ψ**. Esse passo é formalizado pela regra de **Introdução da Implicação**.",
-      "O uso de suposições não contamina a prova global, pois essas suposições só podem ser utilizadas dentro da subprova em que foram introduzidas. Fora dela, seu único efeito permitido é a geração de uma implicação.",
-      "Esse mecanismo torna explícito um padrão comum de raciocínio informal: *“se φ fosse verdade, então ψ se seguiria; logo, φ ⇒ ψ”*."
+      "A ideia central é a seguinte: se, ao **assumir temporariamente** uma sentença φ, conseguimos derivar uma sentença ψ, então podemos concluir fora dessa suposição que **φ ⇒ ψ**. Essa passagem é formalizada pela regra de **Introdução da Implicação**.",
+      "O esquema geral de uma prova condicional pode ser representado da seguinte forma:",
+      "```text\n1.  φ            Assumption\n   ...\n   ψ\n---------------------------\n   φ ⇒ ψ        Implication Introduction\n```",
+      "Um exemplo concreto ilustra esse mecanismo. Suponha que temos como premissas `p ⇒ q` e `q ⇒ r` e queremos provar `p ⇒ r`.",
+      "```text\n1.  p ⇒ q        Premise\n2.  q ⇒ r        Premise\n3.  p            Assumption\n4.  q            Implication Elimination: 3, 1\n5.  r            Implication Elimination: 4, 2\n6.  p ⇒ r        Implication Introduction: 3–5\n```",
+      "Note que `p` **não é uma premissa global**: ela só vale dentro da subprova. Fora dela, seu único efeito legítimo é aparecer como antecedente da implicação `p ⇒ r`."
     ]
   },
 
   "cap4-sec2": {
     "id": "cap4-sec2",
-    "title": "Estrutura de Subprovas",
+    "title": "Escopo e Subprovas",
     "subtitle": "Capítulo 4",
     "paragraphs": [
-      "Uma característica central da Dedução Natural é o uso de **subprovas**. Uma subprova começa com uma suposição e termina quando essa suposição é descarregada por meio de uma regra condicional.",
-      "Dentro de uma subprova, é permitido utilizar sentenças da própria subprova e de qualquer **superprova** que a contenha. No entanto, não é permitido utilizar sentenças provenientes de subprovas paralelas ou internas que já tenham sido encerradas.",
-      "Essa restrição garante que o escopo das suposições seja respeitado, evitando inferências inválidas. Ela desempenha um papel semelhante ao escopo de variáveis em linguagens de programação.",
-      "Erros comuns em provas condicionais surgem exatamente da violação dessas regras de escopo, como tentar usar um resultado derivado em uma subprova já encerrada como premissa em uma prova externa."
+      "Uma subprova define um **escopo lógico**. Dentro desse escopo, podemos usar suposições locais e todas as sentenças das superprovas que a contêm.",
+      "Entretanto, **não é permitido** usar sentenças derivadas dentro de uma subprova como premissas em níveis externos, exceto por meio de regras condicionais apropriadas.",
+      "O exemplo abaixo ilustra um **erro comum**. A linha final tenta usar uma sentença derivada dentro da subprova como premissa no nível superior — o que é inválido.",
+      "```text\n1.  p ⇒ q        Premise\n2.  q ⇒ r        Premise\n3.  p            Assumption\n4.  q            Implication Elimination: 3, 1\n5.  r            Implication Elimination: 4, 2\n6.  p ⇒ r        Implication Introduction: 3–5\n7.  r            ❌ INVALID: uso indevido da subprova\n```",
+      "Esse tipo de erro viola a regra fundamental de escopo: **resultados locais não vazam para fora da subprova**.",
+      "Essa disciplina é diretamente análoga ao escopo de variáveis em linguagens de programação, onde valores definidos dentro de um bloco não podem ser acessados fora dele."
     ]
   },
 
@@ -1134,10 +1154,11 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "O Sistema de Fitch",
     "subtitle": "Capítulo 4",
     "paragraphs": [
-      "O **sistema de Fitch** é um sistema de dedução natural amplamente utilizado por combinar **expressividade**, **simplicidade** e **clareza estrutural**. Ele se baseia no uso de subprovas e inclui regras ordinárias e regras condicionais.",
-      "As regras ordinárias permitem manipular diretamente conectivos lógicos como conjunção, disjunção, negação, implicação e bicondicional. A principal regra condicional do sistema é a **Introdução da Implicação**, que permite sair de uma subprova.",
-      "O sistema de Fitch é particularmente adequado para representar raciocínios explicáveis, pois cada passo da prova deixa claro **quais hipóteses estão em jogo** e **como cada conclusão foi obtida**.",
-      "Além das regras formais, editores e ambientes de Fitch costumam incluir operações auxiliares como introdução de premissas, reiteração de sentenças e remoção de linhas desnecessárias, facilitando a construção e leitura das provas."
+      "O **sistema de Fitch** é um sistema de Dedução Natural que torna explícita a estrutura de subprovas por meio de indentação e marcação visual.",
+      "Ele combina **regras ordinárias**, que operam dentro de um mesmo escopo, e **regras condicionais**, que permitem sair de subprovas de forma controlada.",
+      "Um exemplo típico em Fitch é a prova de uma implicação trivial, como `p ⇒ q`, a partir da premissa `q`.",
+      "```text\n1.  q            Premise\n2.  p            Assumption\n3.  q            Reiteration: 1\n4.  p ⇒ q        Implication Introduction: 2–3\n```",
+      "Esse padrão aparece com frequência: para provar uma implicação, assume-se o antecedente, deriva-se o consequente e então fecha-se a subprova."
     ]
   },
 
@@ -1146,10 +1167,14 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Regras de Inferência na Dedução Natural",
     "subtitle": "Capítulo 4",
     "paragraphs": [
-      "O sistema de Fitch inclui regras de **introdução** e **eliminação** para cada conectivo lógico. As regras de introdução mostram como construir uma sentença com determinado conectivo; as regras de eliminação mostram como extrair informação de uma sentença já construída.",
-      "Por exemplo, a introdução da conjunção permite inferir φ ∧ ψ a partir de φ e ψ. A eliminação da conjunção permite inferir qualquer um dos seus componentes.",
-      "A disjunção possui regras assimétricas: para introduzi-la, basta provar um dos disjuntos; para eliminá-la, é necessário mostrar que todos os disjuntos levam à mesma conclusão.",
-      "A negação é tratada por meio de provas por contradição, em que assumir φ leva simultaneamente a ψ e ¬ψ, permitindo concluir ¬φ."
+      "Cada conectivo lógico possui regras de **introdução** e **eliminação**, que controlam como ele pode ser criado e utilizado em provas.",
+      "Por exemplo, a conjunção é introduzida a partir de seus componentes:",
+      "```text\nφ\nψ\n-----\nφ ∧ ψ    And Introduction\n```",
+      "E eliminada da seguinte forma:",
+      "```text\nφ ∧ ψ\n-----\nφ        And Elimination\n```",
+      "A disjunção exige mais cuidado. Para eliminá-la, é necessário mostrar que **todos os casos possíveis** levam à mesma conclusão.",
+      "```text\nφ ∨ ψ\nφ ⇒ χ\nψ ⇒ χ\n--------\nχ        Or Elimination\n```",
+      "Esse cuidado reflete o fato de que não sabemos qual disjuntor é verdadeiro."
     ]
   },
 
@@ -1158,22 +1183,23 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Correção e Completude",
     "subtitle": "Capítulo 4",
     "paragraphs": [
-      "Ao estudar um sistema de provas, distinguimos duas noções fundamentais: **consequência lógica** e **provabilidade**. A primeira é definida semanticamente; a segunda, sintaticamente.",
-      "Um sistema de prova é **correto (sound)** se tudo o que pode ser provado a partir de um conjunto de premissas é de fato uma consequência lógica dessas premissas. Formalmente, se Δ ⊢ φ, então Δ ⊨ φ.",
-      "Um sistema de prova é **completo** se toda consequência lógica pode ser provada no sistema. Formalmente, se Δ ⊨ φ, então Δ ⊢ φ.",
-      "O sistema de Fitch é **correto e completo** para a lógica proposicional, o que significa que provar e implicar logicamente são, nesse sistema, exatamente a mesma coisa."
+      "Na lógica, distinguimos **consequência lógica** (semântica) e **provabilidade** (sintática).",
+      "Um sistema é **correto (sound)** se tudo o que ele prova é semanticamente válido. Formalmente: se Δ ⊢ φ, então Δ ⊨ φ.",
+      "Um sistema é **completo** se tudo o que é semanticamente válido pode ser provado no sistema. Formalmente: se Δ ⊨ φ, então Δ ⊢ φ.",
+      "O sistema de Fitch é **correto e completo** para a lógica proposicional, garantindo que provas e tabelas-verdade capturam exatamente as mesmas relações lógicas."
     ]
   },
 
   "cap4-sec6": {
     "id": "cap4-sec6",
-    "title": "Estratégias para Encontrar Provas",
+    "title": "Estratégias de Raciocínio em Fitch",
     "subtitle": "Capítulo 4",
     "paragraphs": [
-      "Embora as regras da Dedução Natural sejam simples, encontrar uma prova pode ser desafiador. Uma estratégia eficaz é observar a **forma da conclusão desejada** e escolher a regra de introdução correspondente.",
-      "Se o objetivo é uma implicação, assume-se o antecedente e tenta-se provar o consequente. Se o objetivo é uma conjunção, prova-se cada componente separadamente. Se o objetivo é uma disjunção, basta provar um dos disjuntos.",
-      "Também é útil observar a forma das premissas disponíveis. Implicações sugerem tentar provar seus antecedentes; disjunções sugerem o uso de eliminação por casos.",
-      "Em provas mais complexas, é comum trabalhar **de trás para frente**, decompondo a conclusão em subobjetivos menores e, em seguida, conectando essas partes em uma prova única e coerente."
+      "Embora as regras sejam simples, encontrar uma prova exige estratégia. Uma heurística fundamental é observar a **forma da conclusão desejada**.",
+      "Se o objetivo é uma implicação, assume-se o antecedente. Se o objetivo é uma conjunção, prova-se cada parte. Se é uma disjunção, basta provar um dos disjuntos.",
+      "Para negações, é comum usar **prova por contradição**: assume-se φ, deriva-se uma contradição e conclui-se ¬φ.",
+      "```text\n1.  p ∧ ¬p       Assumption\n2.  p            And Elimination\n3.  ¬p           And Elimination\n4.  false        Contradiction\n5.  ¬(p ∧ ¬p)    Negation Introduction\n```",
+      "Em provas longas, é frequentemente eficaz trabalhar **de trás para frente**, decompondo o objetivo em subobjetivos menores."
     ]
   },
 
