@@ -713,7 +713,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     subtitle: "Capítulo 2",
     paragraphs: [
       "No capítulo anterior, aprendemos a avaliar sentenças lógicas a partir de atribuições específicas de valores de verdade. Dado um cenário particular, era possível determinar se uma fórmula era verdadeira ou falsa naquele contexto. Esse tipo de análise é fundamental, mas naturalmente levanta uma nova questão: *o que podemos afirmar sobre uma sentença independentemente do cenário considerado?*",
-      "Na prática científica — especialmente na Ciência de Dados — raramente estamos interessados em um único conjunto de valores. Modelos, regras e critérios precisam manter propriedades sob diferentes condições; por isso, a lógica passa a olhar menos para avaliações pontuais e mais para características que se preservam ao longo de todas as possíveis atribuições.",
+      "Na prática científica (especialmente na Ciência de Dados) raramente estamos interessados em um único conjunto de valores. Modelos, regras e critérios precisam manter propriedades sob diferentes condições; por isso, a lógica passa a olhar menos para avaliações pontuais e mais para características que se preservam ao longo de todas as possíveis atribuições.",
       "Neste capítulo, começamos examinando propriedades lógicas de sentenças individuais. Algumas sentenças são verdadeiras em todos os cenários; outras variam conforme os dados; e há ainda aquelas que nunca podem ser verdadeiras. Essas distinções nos conduzem às noções de **validade**, **contingência** e **insatisfatibilidade**.",
       "Em seguida, ampliamos o foco para relações entre sentenças: quando uma sentença é consequência lógica de outra, quando duas sentenças são logicamente equivalentes e quando um conjunto de sentenças é logicamente consistente.",
       "Encerramos conectando propriedades e relações. Veremos que validade, consequência lógica, equivalência e consistência são aspectos complementares de uma mesma estrutura, importante para sustentar raciocínios corretos e modelos confiáveis."
@@ -958,18 +958,141 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
-  cap3: {
-    id: "cap3",
-    title: "A Jornada",
-    subtitle: "Capítulo 3",
-    paragraphs: [
-      "O interior da livraria era maior do que a fachada sugeria — muito maior. Prateleiras de mogno se estendiam do chão ao teto, carregadas de livros de todas as épocas e tamanhos. O ar tinha cheiro de papel antigo e baunilha, uma combinação que Maria associava imediatamente a conforto.",
-      "\"Eu estava esperando por você\", disse uma voz suave. Atrás do balcão, um homem idoso a observava com olhos que pareciam conter bibliotecas inteiras. Seus cabelos brancos emolduravam um rosto marcado pelo tempo, mas iluminado por um sorriso acolhedor.",
-      "\"Cada livro nesta livraria contém um caminho\", explicou o livreiro, fazendo um gesto amplo que abarcava toda a loja. \"Não são apenas histórias — são mapas. E você, minha cara, está prestes a descobrir o seu.\"",
-      "Maria quis perguntar como ele sabia seu nome, como a carta havia chegado à sua mesa, por que ela havia sido escolhida. Mas antes que pudesse formular qualquer pergunta, o livreiro colocou em suas mãos um volume fino, encadernado em couro azul-marinho.",
-      "\"Este é o seu\", disse ele simplesmente. \"As respostas estão dentro — mas lembre-se: ler é apenas o primeiro passo. O verdadeiro caminho começa quando você fecha o livro e abre os olhos.\"",
-    ],
+  "cap3": {
+    "id": "cap3",
+    "title": "Provas em Lógica Proposicional",
+    "subtitle": "Capítulo 3",
+    "paragraphs": [
+      "Até aqui, usamos principalmente **tabelas-verdade** para verificar propriedades e relações lógicas, como **consequência lógica** (⊨), **equivalência** e **satisfatibilidade**. Esse método é conceitualmente simples: basta enumerar todas as atribuições possíveis e verificar o comportamento das sentenças em cada cenário.",
+      "O problema é que o número de cenários cresce muito rápido. Para *n* proposições atômicas, existem **2ⁿ** atribuições possíveis. Quando *n* é grande, construir e checar uma tabela-verdade completa pode ser impraticável (ou até impossível) em termos de tempo e memória.",
+      "Para lidar com isso, introduzimos **métodos de prova**. Em vez de explorar todos os cenários, uma prova trabalha por **manipulação simbólica**, aplicando regras formais que preservam a verdade: começamos com premissas e derivamos conclusões passo a passo.",
+      "Na prática, muitas vezes é possível produzir uma prova **muito menor** do que a tabela-verdade correspondente. Além disso, provas são naturalmente explicáveis: elas mostram *por que* uma conclusão segue das premissas.",
+      "Neste capítulo, vamos construir esse caminho com calma. Primeiro, definimos **esquemas de axiomas** e **regras de inferência**. Depois, formalizamos o que é uma **prova direta** e apresentamos um sistema clássico de prova: o **Sistema de Hilbert**. Por fim, discutimos os critérios que julgam um sistema de prova: **correção (soundness)** e **completude (completeness)**."
+    ]
   },
+
+  "cap3-sec1": {
+    "id": "cap3-sec1",
+    "title": "Esquemas de Axiomas",
+    "subtitle": "Capítulo 3",
+    "paragraphs": [
+      "Um **esquema de axioma** (ou *axiom schema*) é uma expressão que segue as regras gramaticais da nossa linguagem, exceto pelo uso de **metavariáveis** (normalmente letras gregas) no lugar de partes da expressão.",
+      "As metavariáveis funcionam como “espaços reservados”: podemos substituí-las por sentenças quaisquer, desde que a substituição seja feita de forma **consistente** (a mesma metavariável deve virar a mesma sentença em todas as ocorrências).",
+      "Exemplo de esquema:",
+      "```\\nφ ⇒ (ψ ⇒ φ)\\n```",
+      "Algumas instâncias (substituindo φ e ψ por sentenças concretas):",
+      "```\\np ⇒ (q ⇒ p)\np ⇒ (p ⇒ p)\n¬p ⇒ (q ⇒ ¬p)\n(p ⇒ q) ⇒ ((q ⇒ r) ⇒ (p ⇒ q))\\n```",
+      "Um esquema é dito **válido** quando **todas** as suas instâncias são sentenças válidas (isto é, verdadeiras em todas as atribuições). O esquema acima é válido.",
+      "Outros exemplos de esquemas úteis (muitos deles válidos):",
+      "- **Reflexividade:** `φ ⇒ φ`\n- **Eliminação da dupla negação:** `¬¬φ ⇒ φ`\n- **Introdução da dupla negação:** `φ ⇒ ¬¬φ`\n- **Tautologia (terceiro excluído):** `φ ∨ ¬φ`",
+      "Ao longo do capítulo, vamos usar esquemas válidos como “blocos de construção” dentro de provas."
+    ]
+  },
+
+  "cap3-sec2": {
+    "id": "cap3-sec2",
+    "title": "Regras de Inferência",
+    "subtitle": "Capítulo 3",
+    "paragraphs": [
+      "Uma **regra de inferência** é um padrão de raciocínio que permite derivar uma conclusão a partir de premissas. Assim como nos esquemas, usamos metavariáveis para descrever o padrão geral.",
+      "Escrevemos uma regra com as premissas “em cima da linha” e a conclusão “embaixo da linha”. Por exemplo, a regra abaixo é chamada **Eliminação da Implicação** (ou *Modus Ponens*):",
+      "```\\nφ ⇒ ψ\nφ\n——————\nψ\\n```",
+      "A leitura é: se temos `φ ⇒ ψ` e também temos `φ`, então podemos concluir `ψ`.",
+      "Aqui estão outras regras importantes (apresentadas como padrões):",
+      "###Criação da Implicação (IC)",
+      "```\\nψ\n——————\nφ ⇒ ψ\\n```",
+      "Ideia: se `ψ` é verdadeiro, então `φ ⇒ ψ` é verdadeiro para qualquer `φ`.",
+      "###Distribuição da Implicação (ID)",
+      "```\\nφ ⇒ (ψ ⇒ χ)\n———————————————\n(φ ⇒ ψ) ⇒ (φ ⇒ χ)\\n```",
+      "###Reversão da Implicação (IR) (contraposição como regra)",
+      "```\\n¬ψ ⇒ ¬φ\n———————\nφ ⇒ ψ\\n```",
+      "Uma **instância** de uma regra é obtida substituindo as metavariáveis por sentenças concretas, de forma consistente. Exemplo de instância de IE:",
+      "```\\np ⇒ q\np\n———\nq\\n```",
+      "Um ponto crucial: **regras de inferência aplicam-se a sentenças no nível mais externo** (top-level), não a pedaços internos de uma fórmula.",
+      "Exemplo de aplicação incorreta (um erro comum): alguém vê `p ⇒ q` e `p ⇒ r` e tenta “cancelar o p” para concluir `q ⇒ r`. Isso é **inválido**. A regra IE não permite esse tipo de manipulação interna."
+    ]
+  },
+
+  "cap3-sec3": {
+    "id": "cap3-sec3",
+    "title": "Provas Diretas",
+    "subtitle": "Capítulo 3",
+    "paragraphs": [
+      "Aplicando regras de inferência e adicionando instâncias de esquemas de axiomas, conseguimos derivar conclusões que não surgem em um único passo. Isso nos leva ao conceito de **prova direta**.",
+      "**Definição (Prova Direta).** Uma prova direta de uma conclusão a partir de um conjunto de premissas é uma sequência de sentenças que termina na conclusão, em que cada linha é:",
+      "1) uma **premissa**;\n2) uma **instância de um esquema de axioma**;\n3) o resultado de aplicar uma **regra de inferência** a linhas anteriores.",
+      "###Exemplo 1",
+      "Premissas: `p`, `p ⇒ q`, `(p ⇒ q) ⇒ (q ⇒ r)`.\nObjetivo: provar `r`.",
+      "```\\n1. p                         Premissa\n2. p ⇒ q                     Premissa\n3. (p ⇒ q) ⇒ (q ⇒ r)         Premissa\n4. q                         IE: 2, 1\n5. q ⇒ r                     IE: 3, 2\n6. r                         IE: 5, 4\\n```",
+      "###Exemplo 2",
+      "Premissas: `p ⇒ q` e `q ⇒ r`.\nObjetivo: provar `p ⇒ r`.",
+      "A ideia é “encadear” as implicações, mas formalmente usamos regras permitidas:",
+      "```\\n1. p ⇒ q                     Premissa\n2. q ⇒ r                     Premissa\n3. p ⇒ (q ⇒ r)               IC: 2\n4. (p ⇒ q) ⇒ (p ⇒ r)         ID: 3\n5. p ⇒ r                     IE: 4, 1\\n```",
+      "Quando existe uma prova de `φ` a partir de `Δ` usando um conjunto de regras `R`, dizemos que `φ` é **provável** a partir de `Δ` e escrevemos:",
+      "```\\nΔ ⊢_R φ\\n```",
+      "Quando o conjunto de regras é claro pelo contexto, omitimos o índice e escrevemos apenas:",
+      "```\\nΔ ⊢ φ\\n```"
+    ]
+  },
+
+  "cap3-sec4": {
+    "id": "cap3-sec4",
+    "title": "Sistemas de Prova",
+    "subtitle": "Capítulo 3",
+    "paragraphs": [
+      "Um **sistema de prova** é um conjunto finito de **esquemas de axiomas** e **regras de inferência**. Ele define formalmente o que conta como uma derivação válida.",
+      "É possível imaginar sistemas “estranhos” (com axiomas não válidos ou regras não corretas), mas aqui vamos focar em sistemas que queremos usar de forma confiável: aqueles com axiomas válidos e regras corretas.",
+      "Entre os sistemas clássicos para Lógica Proposicional, um dos mais conhecidos é o **Sistema de Hilbert**."
+    ]
+  },
+
+  "cap3-sec5": {
+    "id": "cap3-sec5",
+    "title": "O Sistema de Hilbert",
+    "subtitle": "Capítulo 3",
+    "paragraphs": [
+      "O **Sistema de Hilbert** é interessante porque é extremamente compacto: ele usa apenas **uma regra de inferência** e um pequeno conjunto de **esquemas de axiomas**.",
+      "A única regra é a **Eliminação da Implicação (IE)**:",
+      "```\\nφ ⇒ ψ\nφ\n——————\nψ\\n```",
+      "Além disso, o sistema usa três esquemas de axiomas (que capturam versões “axiomatizadas” de regras conhecidas):",
+      "- **IC (Criação da Implicação):** `φ ⇒ (ψ ⇒ φ)`\n- **ID (Distribuição da Implicação):** `(φ ⇒ (ψ ⇒ χ)) ⇒ ((φ ⇒ ψ) ⇒ (φ ⇒ χ))`\n- **IR (Reversão da Implicação):** `(¬ψ ⇒ ¬φ) ⇒ (φ ⇒ ψ)`",
+      "###Exemplo (Hilbert em ação)",
+      "Premissas: `(p ⇒ q)` e `(q ⇒ r)`.\nObjetivo: provar `(p ⇒ r)`.",
+      "```\\n1. p ⇒ q                                         Premissa\n2. q ⇒ r                                         Premissa\n3. (q ⇒ r) ⇒ (p ⇒ (q ⇒ r))                       IC\n4. p ⇒ (q ⇒ r)                                   IE: 3, 2\n5. (p ⇒ (q ⇒ r)) ⇒ ((p ⇒ q) ⇒ (p ⇒ r))           ID\n6. (p ⇒ q) ⇒ (p ⇒ r)                             IE: 5, 4\n7. p ⇒ r                                         IE: 6, 1\\n```",
+      "Mesmo com poucas ferramentas, conseguimos provar resultados importantes. E, como veremos depois, existe uma técnica para reescrever sentenças proposicionais usando apenas `¬` e `⇒`, o que torna o Hilbert ainda mais relevante."
+    ]
+  },
+
+  "cap3-sec6": {
+    "id": "cap3-sec6",
+    "title": "Correção e Completude",
+    "subtitle": "Capítulo 3",
+    "paragraphs": [
+      "A partir daqui, passamos a lidar com **duas noções** diferentes para conectar premissas e conclusão:",
+      "- **Consequência lógica** (semântica): `Δ ⊨ φ`\n- **Provabilidade** (sintática): `Δ ⊢ φ`",
+      "A primeira fala de *todas as atribuições possíveis* (tabelas-verdade e semântica). A segunda fala de *existência de uma prova finita* (regras e manipulação simbólica).",
+      "Um sistema de prova é **correto** (*sound*) se tudo que ele prova é de fato uma consequência lógica. Formalmente:",
+      "```\\nSe Δ ⊢ φ, então Δ ⊨ φ\\n```",
+      "Um sistema é **completo** (*complete*) se toda consequência lógica pode ser provada dentro do sistema. Formalmente:",
+      "```\\nSe Δ ⊨ φ, então Δ ⊢ φ\\n```",
+      "O **Sistema de Hilbert** é **correto e completo** para a Lógica Proposicional. Isso significa que, nesse sistema, **provabilidade e consequência lógica coincidem**: provar e verificar por tabela-verdade chegam às mesmas conclusões (embora por caminhos diferentes).",
+      "O resultado é importante porque, em problemas grandes, um método de prova pode ser mais viável do que percorrer uma tabela-verdade gigantesca. (Ainda assim, no pior caso, provas podem ser longas — mas em muitos casos práticos são bem menores.)"
+    ]
+  },
+
+  "cap3-sec7": {
+    "id": "cap3-sec7",
+    "title": "Resumo do Capítulo",
+    "subtitle": "Capítulo 3",
+    "paragraphs": [
+      "Neste capítulo, saímos do método puramente semântico das tabelas-verdade e entramos no universo das **provas formais**.",
+      "Vimos que:",
+      "- **Esquemas** são “moldes” para gerar sentenças.\n- **Regras de inferência** descrevem padrões válidos de derivação.\n- Uma **prova direta** encadeia premissas, instâncias de axiomas e aplicações de regras.\n- Um **sistema de prova** define formalmente o que conta como derivação.\n- O **Sistema de Hilbert** é um sistema clássico, compacto e poderoso.\n- **Correção** e **completude** conectam provabilidade (⊢) e consequência lógica (⊨).",
+      "No próximo capítulo, vamos avançar para formas mais estruturadas de prova e para técnicas que tornam provas mais práticas (inclusive quando a linguagem cresce)."
+    ]
+  },
+
+  
   cap4: {
     id: "cap4",
     title: "Revelações",
