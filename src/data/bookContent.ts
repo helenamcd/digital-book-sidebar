@@ -62,8 +62,16 @@ export const chapters: Chapter[] = [
     ]
   },
   {
-    id: "cap4",
-    title: "Capítulo 4 — Revelações",
+    "id": "cap4",
+    "title": "Capítulo 4 — Dedução Natural",
+    "sections": [
+      { "id": "cap4-sec1", "title": "Provas condicionais" },
+      { "id": "cap4-sec2", "title": "Estrutura de subprovas" },
+      { "id": "cap4-sec3", "title": "O sistema de Fitch" },
+      { "id": "cap4-sec4", "title": "Regras de inferência na dedução natural" },
+      { "id": "cap4-sec5", "title": "Correção e completude" },
+      { "id": "cap4-sec6", "title": "Estratégias para encontrar provas" }
+    ]
   },
   {
     id: "cap5",
@@ -1097,19 +1105,93 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
-  
-  cap4: {
-    id: "cap4",
-    title: "Revelações",
-    subtitle: "Capítulo 4",
-    paragraphs: [
-      "O livro azul continha páginas que pareciam escritas especialmente para ela. Cada linha descrevia momentos de sua vida que ela pensava ter esquecido — tardes de infância, conversas com avós já falecidos, sonhos abandonados que ainda pulsavam em algum canto escondido de sua memória.",
-      "Mas havia mais. Entre as memórias familiares, surgiam passagens sobre lugares que ela nunca visitou e pessoas que nunca conheceu, escritas com a mesma intimidade e verdade. Era como se o livro conhecesse não apenas seu passado, mas todos os futuros que ela poderia ter vivido.",
-      "\"Isso é impossível\", sussurrou, mas suas mãos se recusavam a fechar o livro. A cada página virada, uma nova camada de compreensão se revelava, como se toda a sua vida fosse um palimpsesto — texto sobre texto, história sobre história.",
-      "Quando finalmente chegou à última página, encontrou apenas uma frase, escrita em uma caligrafia diferente do resto: \"A história nunca termina — ela apenas muda de narrador.\"",
-      "Maria fechou o livro e olhou ao redor. A livraria estava vazia. O livreiro havia desaparecido, mas em seu lugar, sobre o balcão, havia dezenas de envelopes selados com cera vermelha, cada um esperando para ser entregue.",
-    ],
+  "cap4": {
+    "id": "cap4",
+    "title": "Dedução Natural",
+    "subtitle": "Capítulo 4",
+    "paragraphs": [
+      "Nos capítulos anteriores, estudamos métodos formais para analisar consequências lógicas por meio de **tabelas-verdade** e **provas diretas**. Embora conceitualmente simples, esses métodos rapidamente se tornam impraticáveis à medida que o número de proposições cresce ou quando as provas envolvem muitas etapas intermediárias.",
+      "A **Dedução Natural** surge como uma alternativa mais estruturada e próxima do raciocínio humano. Em vez de depender apenas de regras globais ou de enumeração exaustiva de cenários, ela permite construir provas de maneira **local**, **modular** e **hierárquica**, organizando o raciocínio em blocos bem definidos.",
+      "A ideia central da Dedução Natural é permitir que façamos **suposições temporárias**, exploremos suas consequências e, em seguida, descarreguemos essas suposições para obter conclusões condicionais. Esse mecanismo resolve uma limitação fundamental das provas diretas: a dificuldade de justificar formalmente o uso de hipóteses auxiliares.",
+      "Neste capítulo, introduzimos o conceito de **provas condicionais**, mostramos como elas são organizadas por meio de **subprovas**, e apresentamos o **sistema de Fitch**, um dos sistemas de dedução natural mais utilizados no ensino e na prática da lógica.",
+      "Também discutimos as propriedades fundamentais do sistema — **correção (soundness)** e **completude (completeness)** — e apresentamos estratégias práticas para encontrar provas de forma mais eficiente. Ao final, o leitor estará apto a construir e interpretar provas formais de maneira sistemática e explicável, um aspecto essencial para aplicações em ciência de dados, verificação de regras e sistemas baseados em lógica."
+    ]
   },
+
+  "cap4-sec1": {
+    "id": "cap4-sec1",
+    "title": "Provas Condicionais",
+    "subtitle": "Capítulo 4",
+    "paragraphs": [
+      "As **provas condicionais** estendem a ideia de prova direta ao permitir a introdução explícita de **suposições temporárias**. Diferentemente das provas diretas, uma prova condicional possui uma estrutura hierárquica, composta por **subprovas** aninhadas dentro de uma prova principal.",
+      "Em uma prova condicional, podemos assumir uma sentença φ, derivar uma sentença ψ a partir dessa suposição e, então, concluir fora da subprova que **φ implica ψ**. Esse passo é formalizado pela regra de **Introdução da Implicação**.",
+      "O uso de suposições não contamina a prova global, pois essas suposições só podem ser utilizadas dentro da subprova em que foram introduzidas. Fora dela, seu único efeito permitido é a geração de uma implicação.",
+      "Esse mecanismo torna explícito um padrão comum de raciocínio informal: *\"se φ fosse verdade, então ψ se seguiria; logo, φ ⇒ ψ\"*."
+    ]
+  },
+
+  "cap4-sec2": {
+    "id": "cap4-sec2",
+    "title": "Estrutura de Subprovas",
+    "subtitle": "Capítulo 4",
+    "paragraphs": [
+      "Uma característica central da Dedução Natural é o uso de **subprovas**. Uma subprova começa com uma suposição e termina quando essa suposição é descarregada por meio de uma regra condicional.",
+      "Dentro de uma subprova, é permitido utilizar sentenças da própria subprova e de qualquer **superprova** que a contenha. No entanto, não é permitido utilizar sentenças provenientes de subprovas paralelas ou internas que já tenham sido encerradas.",
+      "Essa restrição garante que o escopo das suposições seja respeitado, evitando inferências inválidas. Ela desempenha um papel semelhante ao escopo de variáveis em linguagens de programação.",
+      "Erros comuns em provas condicionais surgem exatamente da violação dessas regras de escopo, como tentar usar um resultado derivado em uma subprova já encerrada como premissa em uma prova externa."
+    ]
+  },
+
+  "cap4-sec3": {
+    "id": "cap4-sec3",
+    "title": "O Sistema de Fitch",
+    "subtitle": "Capítulo 4",
+    "paragraphs": [
+      "O **sistema de Fitch** é um sistema de dedução natural amplamente utilizado por combinar **expressividade**, **simplicidade** e **clareza estrutural**. Ele se baseia no uso de subprovas e inclui regras ordinárias e regras condicionais.",
+      "As regras ordinárias permitem manipular diretamente conectivos lógicos como conjunção, disjunção, negação, implicação e bicondicional. A principal regra condicional do sistema é a **Introdução da Implicação**, que permite sair de uma subprova.",
+      "O sistema de Fitch é particularmente adequado para representar raciocínios explicáveis, pois cada passo da prova deixa claro **quais hipóteses estão em jogo** e **como cada conclusão foi obtida**.",
+      "Além das regras formais, editores e ambientes de Fitch costumam incluir operações auxiliares como introdução de premissas, reiteração de sentenças e remoção de linhas desnecessárias, facilitando a construção e leitura das provas."
+    ]
+  },
+
+  "cap4-sec4": {
+    "id": "cap4-sec4",
+    "title": "Regras de Inferência na Dedução Natural",
+    "subtitle": "Capítulo 4",
+    "paragraphs": [
+      "O sistema de Fitch inclui regras de **introdução** e **eliminação** para cada conectivo lógico. As regras de introdução mostram como construir uma sentença com determinado conectivo; as regras de eliminação mostram como extrair informação de uma sentença já construída.",
+      "Por exemplo, a introdução da conjunção permite inferir φ ∧ ψ a partir de φ e ψ. A eliminação da conjunção permite inferir qualquer um dos seus componentes.",
+      "A disjunção possui regras assimétricas: para introduzi-la, basta provar um dos disjuntos; para eliminá-la, é necessário mostrar que todos os disjuntos levam à mesma conclusão.",
+      "A negação é tratada por meio de provas por contradição, em que assumir φ leva simultaneamente a ψ e ¬ψ, permitindo concluir ¬φ."
+    ]
+  },
+
+  "cap4-sec5": {
+    "id": "cap4-sec5",
+    "title": "Correção e Completude",
+    "subtitle": "Capítulo 4",
+    "paragraphs": [
+      "Ao estudar um sistema de provas, distinguimos duas noções fundamentais: **consequência lógica** e **provabilidade**. A primeira é definida semanticamente; a segunda, sintaticamente.",
+      "Um sistema de prova é **correto (sound)** se tudo o que pode ser provado a partir de um conjunto de premissas é de fato uma consequência lógica dessas premissas. Formalmente, se Δ ⊢ φ, então Δ ⊨ φ.",
+      "Um sistema de prova é **completo** se toda consequência lógica pode ser provada no sistema. Formalmente, se Δ ⊨ φ, então Δ ⊢ φ.",
+      "O sistema de Fitch é **correto e completo** para a lógica proposicional, o que significa que provar e implicar logicamente são, nesse sistema, exatamente a mesma coisa."
+    ]
+  },
+
+  "cap4-sec6": {
+    "id": "cap4-sec6",
+    "title": "Estratégias para Encontrar Provas",
+    "subtitle": "Capítulo 4",
+    "paragraphs": [
+      "Embora as regras da Dedução Natural sejam simples, encontrar uma prova pode ser desafiador. Uma estratégia eficaz é observar a **forma da conclusão desejada** e escolher a regra de introdução correspondente.",
+      "Se o objetivo é uma implicação, assume-se o antecedente e tenta-se provar o consequente. Se o objetivo é uma conjunção, prova-se cada componente separadamente. Se o objetivo é uma disjunção, basta provar um dos disjuntos.",
+      "Também é útil observar a forma das premissas disponíveis. Implicações sugerem tentar provar seus antecedentes; disjunções sugerem o uso de eliminação por casos.",
+      "Em provas mais complexas, é comum trabalhar **de trás para frente**, decompondo a conclusão em subobjetivos menores e, em seguida, conectando essas partes em uma prova única e coerente."
+    ]
+  },
+
+
+
   cap5: {
     id: "cap5",
     title: "O Retorno",
