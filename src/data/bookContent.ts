@@ -1105,19 +1105,6 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
-  "cap4": {
-      "id": "cap4",
-      "title": "Dedução Natural",
-      "subtitle": "Capítulo 4",
-      "paragraphs": [
-        "Nos capítulos anteriores, estudamos métodos formais para analisar consequências lógicas por meio de **tabelas-verdade** e **provas diretas**. Embora conceitualmente simples, esses métodos rapidamente se tornam impraticáveis à medida que o número de proposições cresce ou quando as provas envolvem muitas etapas intermediárias.",
-        "A **Dedução Natural** surge como uma alternativa mais estruturada e próxima do raciocínio humano. Em vez de depender apenas de regras globais ou de enumeração exaustiva de cenários, ela permite construir provas de maneira **local**, **modular** e **hierárquica**, organizando o raciocínio em blocos bem definidos.",
-        "A ideia central da Dedução Natural é permitir que façamos **suposições temporárias**, exploremos suas consequências e, em seguida, descarreguemos essas suposições para obter conclusões condicionais. Esse mecanismo resolve uma limitação fundamental das provas diretas: a dificuldade de justificar formalmente o uso de hipóteses auxiliares.",
-        "Neste capítulo, introduzimos o conceito de **provas condicionais**, mostramos como elas são organizadas por meio de **subprovas**, e apresentamos o **sistema de Fitch**, um dos sistemas de dedução natural mais utilizados no ensino e na prática da lógica.",
-        "Também discutimos as propriedades fundamentais do sistema — **correção (soundness)** e **completude (completeness)** — e apresentamos estratégias práticas para encontrar provas de forma mais eficiente. Ao final, o leitor estará apto a construir e interpretar provas formais de maneira sistemática e explicável, um aspecto essencial para aplicações em ciência de dados, verificação de regras e sistemas baseados em lógica."
-      ]
-    },
-
   "cap4-sec1": {
     "id": "cap4-sec1",
     "title": "Provas Condicionais",
