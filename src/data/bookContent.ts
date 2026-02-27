@@ -1727,7 +1727,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
-  cap8_sec1: {
+  "cap8-sec1": {
     id: "cap8-sec1",
     title: "Tabelas-Verdade em Lógica Relacional",
     paragraphs: [
