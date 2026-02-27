@@ -101,6 +101,45 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
             if (p.startsWith("```")) {
               const code = p.replace(/^```\\n?/, "").replace(/\\n```$/, "").replace(/```$/, "");
               const lines = code.split("\\n");
+
+              // Detect markdown table inside code block
+              const isTable = lines.some((l) => l.trim().startsWith("|") && l.trim().endsWith("|"));
+              if (isTable) {
+                const tableLines = lines.filter((l) => l.trim().startsWith("|"));
+                const parseRow = (line: string) =>
+                  line.split("|").slice(1, -1).map((c) => c.trim());
+                const headers = parseRow(tableLines[0]);
+                const dataRows = tableLines
+                  .slice(2) // skip header + separator
+                  .map(parseRow);
+                return (
+                  <div key={i} className="my-4 overflow-x-auto border border-border rounded-lg">
+                    <Table>
+                      <TableHeader>
+                        <TableRow className="bg-muted/60">
+                          {headers.map((h, hi) => (
+                            <TableHead key={hi} className="font-mono text-xs font-semibold text-center whitespace-nowrap">
+                              {h}
+                            </TableHead>
+                          ))}
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {dataRows.map((row, ri) => (
+                          <TableRow key={ri}>
+                            {row.map((cell, ci) => (
+                              <TableCell key={ci} className="font-mono text-xs text-center py-2">
+                                {cell}
+                              </TableCell>
+                            ))}
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                );
+              }
+
               return (
                 <pre
                   key={i}
