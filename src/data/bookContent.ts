@@ -4,11 +4,18 @@ export interface Chapter {
   sections?: { id: string; title: string }[];
 }
 
+export interface ChapterTable {
+  headers: string[];
+  rows: (string | number)[][];
+}
+
 export interface ChapterContent {
   id: string;
   title: string;
   subtitle?: string;
   paragraphs: string[];
+  table?: ChapterTable;
+  paragraphs_after_table?: string[];
 }
 
 export const chapters: Chapter[] = [

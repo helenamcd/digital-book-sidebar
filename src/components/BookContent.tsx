@@ -1,5 +1,13 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { chapterContents, chapters } from "@/data/bookContent";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell,
+} from "@/components/ui/table";
 
 interface BookContentProps {
   activeChapter: string;
