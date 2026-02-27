@@ -192,6 +192,48 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
           })}
         </article>
 
+        {/* Table */}
+        {content.table && (
+          <div className="my-8 overflow-x-auto border border-border rounded-lg">
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-muted/60">
+                  {content.table.headers.map((h, i) => (
+                    <TableHead key={i} className="font-mono text-xs font-semibold text-center whitespace-nowrap">
+                      {h}
+                    </TableHead>
+                  ))}
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {content.table.rows.map((row, ri) => (
+                  <TableRow key={ri}>
+                    {row.map((cell, ci) => (
+                      <TableCell key={ci} className="font-mono text-xs text-center py-2">
+                        {cell}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        )}
+
+        {/* Paragraphs after table */}
+        {content.paragraphs_after_table && (
+          <article className="space-y-5">
+            {content.paragraphs_after_table.map((p, i) => (
+              <p
+                key={`pat-${i}`}
+                className="font-serif-book leading-[1.85] text-[hsl(var(--book-text))] text-sm md:text-[0.95rem]"
+              >
+                {renderInlineMarkdown(p)}
+              </p>
+            ))}
+          </article>
+        )
+
         {/* Navigation */}
         <div className="flex items-center justify-between mt-16 pt-8 border-t border-border">
           {prevChapter ? (
