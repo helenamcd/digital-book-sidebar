@@ -73,8 +73,7 @@ const allPages = chapters.flatMap((ch) => {
 });
 
 const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
-  const contentKey = activeChapter.replace(/-/g, "_");
-  const content = chapterContents[contentKey];
+  const content = chapterContents[activeChapter];
   const currentIndex = allPages.findIndex((p) => p.id === activeChapter);
   const prevChapter = currentIndex > 0 ? allPages[currentIndex - 1] : null;
   const nextChapter = currentIndex < allPages.length - 1 ? allPages[currentIndex + 1] : null;
