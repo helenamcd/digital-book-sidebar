@@ -232,7 +232,7 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
               </p>
             ))}
           </article>
-        )
+        )}
 
         {/* Navigation */}
         <div className="flex items-center justify-between mt-16 pt-8 border-t border-border">
