@@ -1768,7 +1768,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
-  cap8_sec2: {
+  "cap8-sec2": {
     id: "cap8-sec2",
     title: "Modelos Booleanos Estruturados",
     paragraphs: [
