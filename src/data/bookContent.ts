@@ -98,6 +98,16 @@ export const chapters: Chapter[] = [
     ]
   },
   {
+    id: "cap7",
+    title: "Capítulo 7 — Análise da Lógica Relacional",
+    sections: [
+      { id: "cap7-sec1", title: "Propriedades Lógicas" },
+      { id: "cap7-sec2", title: "Relações Lógicas" },
+      { id: "cap7-sec3", title: "Lógica Relacional e Lógica Relacional" },
+      { id: "cap7-sec4", title: "Resumo" },
+    ]
+  },
+  {
     id: "glossario",
     title: "Glossário",
   },
@@ -1540,6 +1550,155 @@ export const chapterContents: Record<string, ChapterContent> = {
       "No próximo capítulo, isso vai nos ajudar a formalizar melhor inferências e a discutir quando uma conclusão é realmente garantida pelos dados e regras — e quando é apenas uma hipótese."
     ]
   },
+
+
+  "cap7-": {
+    id: "cap7",
+    title: "Capítulo 7 — Análise da Lógica Relacional",
+    subtitle: "Capítulo 7",
+    paragraphs: [
+
+      "##Introdução",
+      "Neste capítulo analisamos formalmente a **Lógica Relacional (Relational Logic — RL)**. Depois de aprender a escrever sentenças com variáveis e quantificadores, precisamos responder perguntas fundamentais:",
+      "- Essa sentença é sempre verdadeira?\n- Ela pode ser falsa?\n- Duas sentenças dizem a mesma coisa?\n- Uma regra realmente implica outra?",
+      "Essas perguntas são centrais em ciência de dados. Ao definir regras de qualidade, hipóteses de modelos ou restrições de consistência, precisamos saber se elas são logicamente sólidas.",
+      "As definições de validade, contingência, equivalência e implicação são formalmente as mesmas da Lógica Proposicional. Porém, como a Lógica Relacional possui variáveis e quantificadores, surgem diferenças importantes na análise.",
+      "Ao final, veremos também como a Lógica Relacional pode ser reduzida à Lógica Proposicional por meio de um processo chamado **grounding**, algo que tem implicações teóricas importantes para decidibilidade e verificação automática."
+    ]
+  },
+
+  "cap7-sec1": {
+    id: "cap7-sec1",
+    title: "Propriedades Lógicas",
+    subtitle: "Capítulo 7",
+    paragraphs: [
+
+      "##Classificação das sentenças",
+      "Assim como na Lógica Proposicional, uma sentença pode ser:",
+      "- **Válida**: verdadeira em toda atribuição de verdade.\n- **Insatisfatível**: falsa em toda atribuição.\n- **Contingente**: verdadeira em algumas atribuições e falsa em outras.",
+      "Alternativamente:",
+      "- **Satisfatível**: verdadeira em pelo menos uma atribuição.\n- **Falsificável**: falsa em pelo menos uma atribuição.",
+
+      "##Exemplo em ciência de dados",
+      "Considere a regra:",
+      "```\\n∀x.(Erro(x) ⇒ RecebeuFeedback(x))\\n```",
+      "Essa sentença **não é válida**, pois depende do dataset. Se existir um erro sem feedback, ela será falsa. Portanto, ela é contingente.",
+      
+      "Agora considere:",
+      "```\\np(a) ∨ ¬p(a)\\n```",
+      "Essa é a Lei do Terceiro Excluído. É válida — independentemente dos dados.",
+      
+      "Outro exemplo clássico:",
+      "```\\np(a) ⇔ ¬¬p(a)\\n```",
+      "Dupla negação — também válida.",
+      
+      "Leis de De Morgan:",
+      "```\\n¬(p(a) ∧ q(a,b)) ⇔ (¬p(a) ∨ ¬q(a,b))\\n¬(p(a) ∨ q(a,b)) ⇔ (¬p(a) ∧ ¬q(a,b))\\n```",
+      "Essas equivalências continuam válidas mesmo em Lógica Relacional quando tratamos sentenças ground como proposições.",
+
+      "##Reversão de quantificadores do mesmo tipo",
+      "```\\n∀x.∀y.q(x,y) ⇔ ∀y.∀x.q(x,y)\\n∃x.∃y.q(x,y) ⇔ ∃y.∃x.q(x,y)\\n```",
+      "Reordenar quantificadores do mesmo tipo não altera o significado.",
+      
+      "##Distribuição existencial",
+      "```\\n∃y.∀x.q(x,y) ⇒ ∀x.∃y.q(x,y)\\n```",
+      "Se existe um único objeto que se relaciona com todos, então cada objeto tem pelo menos um parceiro.",
+      "Exemplo em dados:",
+      "Se existe um tutor que responde a todos os alunos, então todo aluno tem algum tutor que responde (o mesmo tutor).",
+
+      "##Distribuição da negação",
+      "```\\n¬∀x.p(x) ⇔ ∃x.¬p(x)\\n¬∃x.p(x) ⇔ ∀x.¬p(x)\\n```",
+      "Essas regras são fundamentais em detecção de inconsistências.",
+      "Exemplo:",
+      "```\\n¬∀x.(Ativo(x)) ⇔ ∃x.(¬Ativo(x))\\n```",
+      "Dizer que 'nem todos estão ativos' é o mesmo que dizer que 'existe alguém inativo'."
+    ]
+  },
+
+  "cap7-sec2": {
+    id: "cap7-sec2",
+    title: "Relações Lógicas",
+    subtitle: "Capítulo 7",
+    paragraphs: [
+
+      "##Equivalência lógica",
+      "Duas sentenças φ e ψ são logicamente equivalentes se sempre possuem o mesmo valor de verdade.",
+      "Exemplo em dados:",
+      "```\\n¬∀x.Erro(x) ⇔ ∃x.¬Erro(x)\\n```",
+      "Ambas expressam exatamente a mesma restrição sobre o dataset.",
+
+      "##Implicação lógica (entailment)",
+      "φ implica ψ (φ ⊨ ψ) se toda atribuição que satisfaz φ também satisfaz ψ.",
+      "Exemplo ground:",
+      "```\\np(a) ⊨ (p(a) ∨ p(b))\\n```",
+      "Se p(a) é verdadeiro, então a disjunção é verdadeira.",
+      "Mas:",
+      "```\\np(a) ⊭ (p(a) ∧ p(b))\\n```",
+      "Pois p(b) pode ser falso.",
+
+      "##Implicação com quantificadores",
+      "```\\n∃y.∀x.q(x,y) ⊨ ∀x.∃y.q(x,y)\\n```",
+      "Se existe um único servidor que atende todos os usuários, então cada usuário tem pelo menos um servidor que o atende.",
+      
+      "```\\n∀x.∀y.q(x,y) ⊨ ∀x.∀y.q(y,x)\\n```",
+      "Se a relação vale para todos os pares, então também vale invertendo variáveis.",
+
+      "##Variáveis livres",
+      "Uma sentença com variáveis livres é interpretada como universalmente quantificada.",
+      "Exemplo:",
+      "```\\nq(x,y)\\n```",
+      "Equivale semanticamente a:",
+      "```\\n∀x.∀y.q(x,y)\\n```",
+      "Portanto, q(x,y) implica q(y,x) apenas se a relação for universal."
+    ]
+  },
+
+  "cap7-sec3": {
+    id: "cap7-sec3",
+    title: "Lógica Relacional e Lógica Relacional",
+    subtitle: "Capítulo 7",
+    paragraphs: [
+
+      "##Equivalência expressiva",
+      "A Lógica Relacional é expressivamente equivalente à Lógica Proposicional quando consideramos apenas sentenças ground.",
+      "Para isso, realizamos três etapas:",
+      "1) Converter para forma prenex.\n2) Realizar grounding.\n3) Substituir cada átomo ground por uma proposição.",
+
+      "##Exemplo passo a passo",
+      "Linguagem com constantes {a,b} e sentenças:",
+      "```\\n{p(a), ∀x.(p(x) ⇒ q(x)), ∃x.¬q(x)}\\n```",
+
+      "Grounding resulta em:",
+      "```\\np(a)\\np(a) ⇒ q(a)\\np(b) ⇒ q(b)\\n¬q(a) ∨ ¬q(b)\\n```",
+
+      "Substituindo por proposições:",
+      "```\\npa\\npa ⇒ qa\\npb ⇒ qb\\n¬qa ∨ ¬qb\\n```",
+
+      "Agora o problema virou puramente proposicional.",
+      "Isso é importante porque:",
+      "- A satisfatibilidade proposicional é decidível.\n- Logo, a satisfatibilidade relacional também é decidível em domínios finitos.\n- RL é **compacta**: qualquer inconsistência pode ser demonstrada com um subconjunto finito.",
+
+      "##Importância para ciência de dados",
+      "Essa equivalência permite:",
+      "- Verificação automática de regras.\n- Model checking.\n- Validação formal de restrições.\n- Provas automatizadas de consistência.",
+      "Na prática, sistemas de integridade de dados e motores de regras fazem exatamente isso: transformam regras gerais em instâncias concretas sobre registros."
+    ]
+  },
+
+  "cap7-sec4": {
+    id: "cap7-sec4",
+    title: "Resumo",
+    subtitle: "Capítulo 7",
+    paragraphs: [
+      "Relational Analysis fornece ferramentas para responder perguntas fundamentais:",
+      "- Minha regra é sempre verdadeira?\n- Existe cenário que a viola?\n- Duas regras dizem a mesma coisa?\n- Uma regra implica outra?",
+      "Em ciência de dados, isso significa:",
+      "- Garantir consistência de logs.\n- Detectar contradições em pipelines.\n- Validar modelos explicáveis.\n- Demonstrar formalmente que decisões seguem das premissas.",
+      "Mais do que um exercício teórico, Relational Analysis é a base lógica de auditorias, verificações automáticas e sistemas confiáveis.",
+      "Pensar logicamente sobre relações é aprender a transformar estruturas de dados em conclusões justificáveis."
+    ]
+  },
+
 
   glossario: {
     id: "glossario",
