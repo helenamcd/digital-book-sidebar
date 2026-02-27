@@ -115,6 +115,19 @@ export const chapters: Chapter[] = [
     ]
   },
   {
+    id: "cap8",
+    title: "Capítulo 8 — Verificação de Modelos",
+    sections: [
+      { id: "cap8-sec1", title: "Por que Model Checking em Lógica Relacional é difícil" },
+      { id: "cap8-sec2", title: "Método da Tabela-Verdade Relacional" },
+      { id: "cap8-sec3", title: "Modelos Booleanos" },
+      { id: "cap8-sec4", title: "Modelos Não-Booleanos" },
+      { id: "cap8-sec5", title: "Exemplo completo" },
+      { id: "cap8-sec6", title: "Aplicações em Ciência de Dados: regras, integridade e auditoria" },
+      { id: "cap8-sec7", title: "Atalhos práticos e limitações" }
+    ]
+  },
+  {
     id: "glossario",
     title: "Glossário",
   },
