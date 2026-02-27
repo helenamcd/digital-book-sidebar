@@ -1698,7 +1698,104 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
+  cap8: {
+    id: "cap8",
+    title: "Verificação de Modelos (Model Checking)",
+    subtitle: "Capítulo 8",
+    paragraphs: [
+      "A **Verificação de Modelos** é o processo de analisar sentenças da Lógica Relacional verificando diretamente suas possíveis atribuições de verdade. Assim como na Lógica Proposicional, podemos determinar se uma sentença é **válida**, **satisfatível** ou se um conjunto de premissas implica uma conclusão examinando os modelos possíveis.",
+      "No entanto, na Lógica Relacional o número de possibilidades cresce rapidamente. Se tivermos n objetos e m relações de aridade k, a base de Herbrand terá m·n^k átomos ground. Isso significa que existem 2^(m·n^k) possíveis atribuições de verdade.",
+      "Por exemplo, com 10 objetos e 5 relações binárias (aridade 2), temos 5·10² = 500 átomos ground e 2^500 possíveis modelos — um número astronômico.",
+      "Felizmente, existem métodos que permitem analisar sentenças sem examinar todas as possibilidades. Começamos com o método de **tabela-verdade relacional** e depois introduzimos abordagens mais eficientes, como modelos booleanos estruturados e modelos não-booleanos."
+    ]
+  },
 
+  cap8_sec1: {
+    id: "cap8-sec1",
+    title: "Tabelas-Verdade em Lógica Relacional",
+    paragraphs: [
+      "Em princípio, podemos construir uma tabela-verdade para qualquer conjunto de sentenças relacionais, assim como fazemos na Lógica Proposicional.",
+      "Considere uma linguagem com dois objetos {a, b} e duas relações unárias p e q.",
+      "Premissas:",
+      "p(a) ∨ p(b)",
+      "∀x.(p(x) ⇒ q(x))",
+      "Conclusão:",
+      "∃x.q(x)",
+      "A tabela-verdade relacional correspondente é:"
+    ],
+    table: {
+      headers: ["p(a)", "p(b)", "q(a)", "q(b)", "p(a)∨p(b)", "∀x(p(x)⇒q(x))", "∃x q(x)"],
+      rows: [
+        [1,1,1,1,1,1,1],
+        [1,1,1,0,1,0,1],
+        [1,1,0,1,1,0,1],
+        [1,1,0,0,1,0,0],
+        [1,0,1,1,1,1,1],
+        [1,0,1,0,1,1,1],
+        [1,0,0,1,1,0,1],
+        [1,0,0,0,1,0,0],
+        [0,1,1,1,1,1,1],
+        [0,1,1,0,1,0,1],
+        [0,1,0,1,1,1,1],
+        [0,1,0,0,1,0,0],
+        [0,0,1,1,0,1,1],
+        [0,0,1,0,0,1,1],
+        [0,0,0,1,0,1,1],
+        [0,0,0,0,0,1,0]
+      ]
+    },
+    paragraphs_after_table: [
+      "Observando a tabela, vemos que toda atribuição que torna ambas as premissas verdadeiras também torna a conclusão verdadeira.",
+      "Portanto, as premissas **implicam logicamente** a conclusão.",
+      "Esse método é conceitualmente simples, mas cresce exponencialmente."
+    ]
+  },
+
+  cap8_sec2: {
+    id: "cap8-sec2",
+    title: "Modelos Booleanos Estruturados",
+    paragraphs: [
+      "Em vez de listar todas as atribuições possíveis, podemos construir o modelo diretamente preenchendo uma matriz para cada relação.",
+      "Considere a relação likes(x,y) entre quatro pessoas.",
+      "Criamos uma matriz 4x4 inicialmente vazia e preenchemos com base nas restrições.",
+      "Restrições unitárias são aplicadas primeiro.",
+      "Novas inferências surgem a partir dessas entradas.",
+      "Esse método reduz drasticamente o espaço de busca.",
+      "Mesmo quando há múltiplos modelos possíveis, a parte preenchida da tabela pode ser suficiente para verificar se uma conclusão é consequência lógica."
+    ]
+  },
+
+  cap8_sec3: {
+    id: "cap8-sec3",
+    title: "Modelos Não-Booleanos",
+    paragraphs: [
+      "Em alguns casos, podemos representar relações não como valores booleanos independentes, mas como variáveis com múltiplos valores possíveis.",
+      "Por exemplo, se cada relação unária deve ser verdadeira para exatamente um objeto, podemos tratá-la como uma variável que assume um dos objetos como valor.",
+      "Isso reduz significativamente o número de possibilidades.",
+      "Essa técnica é usada em problemas de restrição, como quebra-cabeças lógicos.",
+      "Considere uma formalização do jogo Sukoshi usando a relação cell(linha,coluna,valor).",
+      "Restrições podem ser expressas como:",
+      "∀x∀y∀z∀w.(cell(x,y,w) ∧ cell(x,z,w) ⇒ y=z)",
+      "∀x∀y∀z∀w.(cell(x,z,w) ∧ cell(y,z,w) ⇒ x=y)",
+      "∀x∀y∃w.cell(x,y,w)",
+      "A cada preenchimento dedutivo do tabuleiro estamos realizando model checking relacional.",
+      "Esse mesmo princípio aparece em validação de dados, verificação de integridade de banco de dados e resolução de restrições em ciência de dados."
+    ]
+  },
+
+  cap8_sec4: {
+    id: "cap8-sec4",
+    title: "Importância para Ciência de Dados",
+    paragraphs: [
+      "Verificação de Modelos permite:",
+      "- Testar consistência de regras.",
+      "- Confirmar implicações formais.",
+      "- Detectar inconsistências automaticamente.",
+      "- Validar pipelines baseados em restrições.",
+      "Embora o espaço de busca possa ser grande, técnicas estruturadas tornam o problema tratável.",
+      "Model Checking conecta lógica formal com aplicações práticas como auditoria algorítmica, explicabilidade e verificação de sistemas inteligentes."
+    ]
+  },
   glossario: {
     id: "glossario",
     title: "Glossário",
