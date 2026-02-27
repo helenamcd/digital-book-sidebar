@@ -1782,7 +1782,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
-  cap8_sec3: {
+  "cap8-sec3": {
     id: "cap8-sec3",
     title: "Modelos Não-Booleanos",
     paragraphs: [
