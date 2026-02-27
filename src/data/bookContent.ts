@@ -1800,7 +1800,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
-  cap8_sec4: {
+  "cap8-sec4": {
     id: "cap8-sec4",
     title: "Importância para Ciência de Dados",
     paragraphs: [
