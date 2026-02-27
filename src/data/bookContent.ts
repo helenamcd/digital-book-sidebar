@@ -1551,20 +1551,19 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
-
-  "cap7-": {
+  cap7: {
     id: "cap7",
-    title: "Capítulo 7 — Análise da Lógica Relacional",
+    title: "Análise da Lógica Relacional",
     subtitle: "Capítulo 7",
     paragraphs: [
-
-      "##Introdução",
-      "Neste capítulo analisamos formalmente a **Lógica Relacional (Relational Logic — RL)**. Depois de aprender a escrever sentenças com variáveis e quantificadores, precisamos responder perguntas fundamentais:",
-      "- Essa sentença é sempre verdadeira?\n- Ela pode ser falsa?\n- Duas sentenças dizem a mesma coisa?\n- Uma regra realmente implica outra?",
-      "Essas perguntas são centrais em ciência de dados. Ao definir regras de qualidade, hipóteses de modelos ou restrições de consistência, precisamos saber se elas são logicamente sólidas.",
-      "As definições de validade, contingência, equivalência e implicação são formalmente as mesmas da Lógica Proposicional. Porém, como a Lógica Relacional possui variáveis e quantificadores, surgem diferenças importantes na análise.",
-      "Ao final, veremos também como a Lógica Relacional pode ser reduzida à Lógica Proposicional por meio de um processo chamado **grounding**, algo que tem implicações teóricas importantes para decidibilidade e verificação automática."
-    ]
+      "A **Lógica Relacional** amplia significativamente o poder expressivo da Lógica Proposicional ao permitir que falemos sobre **objetos, propriedades e relações entre entidades**. No entanto, escrever sentenças não é suficiente. Precisamos compreender como essas sentenças se comportam do ponto de vista lógico: quando são sempre verdadeiras, quando podem falhar, quando entram em conflito e quando realmente implicam outras conclusões. É esse exame sistemático que chamamos de **Análise da Lógica Relacional**.",
+      "Neste capítulo, investigamos primeiro as **propriedades lógicas das sentenças individuais**, classificando-as como válidas, contingentes ou insatisfatíveis. Essas categorias já foram estudadas na Lógica Proposicional, mas aqui ganham novas camadas de complexidade devido à presença de **variáveis e quantificadores**. Em ciência de dados, essa distinção é fundamental para avaliar regras de consistência, hipóteses formais e restrições que se aplicam a conjuntos inteiros de registros.",
+      "Em seguida, analisamos as **relações entre sentenças**, como equivalência lógica, implicação lógica (entailment) e consistência. Essas noções permitem responder perguntas centrais no contexto de sistemas baseados em regras e validação de dados: uma regra realmente garante outra? Duas formulações diferentes expressam a mesma restrição? Um conjunto de regras pode ser satisfeito simultaneamente ou contém contradições?",
+      "Embora as definições formais dessas noções sejam paralelas às da Lógica Proposicional, surgem diferenças importantes decorrentes da estrutura sintática e semântica da Lógica Relacional. A presença de quantificadores introduz fenômenos como distribuição de negação, reversão de quantificadores do mesmo tipo e implicações envolvendo variáveis livres — aspectos que não aparecem na lógica proposicional simples.",
+      "Por fim, discutimos um resultado teórico relevante: a **equivalência expressiva entre Lógica Relacional e Lógica Proposicional em domínios finitos**, obtida por meio do processo de grounding. Mostramos como sentenças relacionais podem ser transformadas em fórmulas proposicionais equivalentes, o que garante decidibilidade de satisfatibilidade e permite a aplicação de técnicas automáticas de verificação.",
+      "Ao longo do capítulo, enfatizamos aplicações em ciência de dados, como auditoria de regras, validação de logs, verificação de integridade de bancos de dados e análise formal de pipelines decisórios. A Análise da Lógica Relacional não é apenas um exercício teórico: ela fornece as bases para construir sistemas mais consistentes, explicáveis e confiáveis.",
+      "Se a Lógica Relacional nos permite **expressar relações complexas sobre dados**, a sua análise nos permite **avaliar rigorosamente as consequências dessas expressões** — distinguindo o que é necessariamente verdadeiro, o que é possível e o que é logicamente impossível."
+    ],
   },
 
   "cap7-sec1": {
@@ -1690,11 +1689,11 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Resumo",
     subtitle: "Capítulo 7",
     paragraphs: [
-      "Relational Analysis fornece ferramentas para responder perguntas fundamentais:",
+      "Análise da Lógica Relacional fornece ferramentas para responder perguntas fundamentais:",
       "- Minha regra é sempre verdadeira?\n- Existe cenário que a viola?\n- Duas regras dizem a mesma coisa?\n- Uma regra implica outra?",
       "Em ciência de dados, isso significa:",
       "- Garantir consistência de logs.\n- Detectar contradições em pipelines.\n- Validar modelos explicáveis.\n- Demonstrar formalmente que decisões seguem das premissas.",
-      "Mais do que um exercício teórico, Relational Analysis é a base lógica de auditorias, verificações automáticas e sistemas confiáveis.",
+      "Mais do que um exercício teórico, Análise da Lógica Relacional é a base lógica de auditorias, verificações automáticas e sistemas confiáveis.",
       "Pensar logicamente sobre relações é aprender a transformar estruturas de dados em conclusões justificáveis."
     ]
   },
