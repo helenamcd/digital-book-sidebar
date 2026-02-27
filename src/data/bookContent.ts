@@ -1727,7 +1727,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
-  cap8_sec1: {
+  "cap8-sec1": {
     id: "cap8-sec1",
     title: "Tabelas-Verdade em Lógica Relacional",
     paragraphs: [
@@ -1768,7 +1768,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
-  cap8_sec2: {
+  "cap8-sec2": {
     id: "cap8-sec2",
     title: "Modelos Booleanos Estruturados",
     paragraphs: [
@@ -1782,7 +1782,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
-  cap8_sec3: {
+  "cap8-sec3": {
     id: "cap8-sec3",
     title: "Modelos Não-Booleanos",
     paragraphs: [
@@ -1800,7 +1800,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
-  cap8_sec4: {
+  "cap8-sec4": {
     id: "cap8-sec4",
     title: "Importância para Ciência de Dados",
     paragraphs: [
