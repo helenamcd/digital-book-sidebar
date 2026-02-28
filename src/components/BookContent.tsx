@@ -100,7 +100,9 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
             // Code block
             if (p.startsWith("```")) {
               // Remove opening/closing ``` and split lines (handle both real \n and literal \\n)
-              const code = p.replace(/^```\n?/, "").replace(/\n?```$/, "").replace(/^```\\n?/, "").replace(/\\n```$/, "").replace(/```$/, "");
+              let code = p.replace(/^```/, "").replace(/```$/, "");
+              // Strip leading/trailing literal \\n and real \n
+              code = code.replace(/^\\n/, "").replace(/\\n$/, "").replace(/^\n/, "").replace(/\n$/, "");
               const lines = code.includes("\n") ? code.split("\n") : code.split("\\n");
 
               // Detect markdown table inside code block
