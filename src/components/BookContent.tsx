@@ -106,12 +106,13 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
               // Detect markdown table inside code block
               const isTable = lines.some((l) => l.trim().startsWith("|") && l.trim().endsWith("|"));
               if (isTable) {
-                const tableLines = lines.filter((l) => l.trim().startsWith("|"));
+                const isSeparator = (line: string) => /^\|[\s\-:|]+\|$/.test(line.trim());
+                const tableLines = lines.filter((l) => l.trim().startsWith("|") && l.trim().endsWith("|") && !isSeparator(l));
                 const parseRow = (line: string) =>
                   line.split("|").slice(1, -1).map((c) => c.trim());
                 const headers = parseRow(tableLines[0]);
                 const dataRows = tableLines
-                  .slice(2) // skip header + separator
+                  .slice(1)
                   .map(parseRow);
                 return (
                   <div key={i} className="my-4 overflow-x-auto border border-border rounded-lg">
