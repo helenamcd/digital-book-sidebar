@@ -115,29 +115,29 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
                   .slice(1)
                   .map(parseRow);
                 return (
-                  <div key={i} className="my-4 overflow-x-auto border border-border rounded-lg">
-                    <Table>
-                      <TableHeader>
-                        <TableRow className="bg-muted/60">
+                  <div key={i} className="my-4 inline-block border border-foreground/40">
+                    <table className="border-collapse">
+                      <thead>
+                        <tr className="border-b-2 border-foreground/40">
                           {headers.map((h, hi) => (
-                            <TableHead key={hi} className="font-mono text-xs font-semibold text-center whitespace-nowrap">
+                            <th key={hi} className="px-5 py-2 font-mono text-sm font-semibold text-center border-r border-foreground/40 last:border-r-0">
                               {h}
-                            </TableHead>
+                            </th>
                           ))}
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
+                        </tr>
+                      </thead>
+                      <tbody>
                         {dataRows.map((row, ri) => (
-                          <TableRow key={ri}>
+                          <tr key={ri} className="border-b border-foreground/20 last:border-b-0">
                             {row.map((cell, ci) => (
-                              <TableCell key={ci} className="font-mono text-xs text-center py-2">
+                              <td key={ci} className="px-5 py-1.5 font-mono text-sm text-center border-r border-foreground/40 last:border-r-0">
                                 {cell}
-                              </TableCell>
+                              </td>
                             ))}
-                          </TableRow>
+                          </tr>
                         ))}
-                      </TableBody>
-                    </Table>
+                      </tbody>
+                    </table>
                   </div>
                 );
               }
