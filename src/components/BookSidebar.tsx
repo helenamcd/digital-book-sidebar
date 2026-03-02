@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { BookOpen, ChevronDown, ChevronRight, Menu, X } from "lucide-react";
-import { chapters, type Chapter } from "@/data/bookContent";
+import { chapters, hiddenChapterPrefixes, type Chapter } from "@/data/bookContent";
+
+const visibleChapters = chapters.filter(
+  (ch) => !hiddenChapterPrefixes.some((prefix) => ch.id.startsWith(prefix))
+);
 
 interface BookSidebarProps {
   activeChapter: string;
@@ -89,7 +93,7 @@ const BookSidebar = ({ activeChapter, onSelectChapter }: BookSidebarProps) => {
           Sumário
         </p>
         <ul className="space-y-1">
-          {chapters.map(renderChapter)}
+          {visibleChapters.map(renderChapter)}
         </ul>
       </nav>
 
