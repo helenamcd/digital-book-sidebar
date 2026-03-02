@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { chapterContents, chapters } from "@/data/bookContent";
+import { chapterContents, chapters, hiddenChapterPrefixes } from "@/data/bookContent";
 import {
   Table,
   TableHeader,
@@ -64,13 +64,15 @@ const renderInlineMarkdown = (text: string) => {
 };
 
 // Build flat list of all navigable pages (chapters + sections)
-const allPages = chapters.flatMap((ch) => {
-  const pages = [{ id: ch.id, title: ch.title }];
-  if (ch.sections) {
-    pages.push(...ch.sections.map((s) => ({ id: s.id, title: s.title })));
-  }
-  return pages;
-});
+const allPages = chapters
+  .filter((ch) => !hiddenChapterPrefixes.some((prefix) => ch.id.startsWith(prefix)))
+  .flatMap((ch) => {
+    const pages = [{ id: ch.id, title: ch.title }];
+    if (ch.sections) {
+      pages.push(...ch.sections.map((s) => ({ id: s.id, title: s.title })));
+    }
+    return pages;
+  });
 
 const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
   const content = chapterContents[activeChapter];
