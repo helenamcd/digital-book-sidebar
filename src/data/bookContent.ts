@@ -856,7 +856,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "As colunas coincidem em todas as linhas; portanto, as sentenças são equivalentes.",
       
       "###Exemplo com não equivalência",
-      "```\\\np  q  p ∧ q  p ∨ q\n1  1    1      1\n1  0    0      1\n0  1    0      1\n0  0    0      0\n```",
+      "```\n| p | q | p ∧ q | p ∨ q |\n|---|---|-------|-------|\n| 1 | 1 |   1   |   1   |\n| 1 | 0 |   0   |   1   |\n| 0 | 1 |   0   |   1   |\n| 0 | 0 |   0   |   0   |\n```",
       "As colunas diferem; portanto, não há equivalência.",
       
       "###Substituibilidade e reescrita de regras",
