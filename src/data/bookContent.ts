@@ -897,7 +897,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "O método da tabela-verdade pode ser usado para verificar consequência: avaliamos premissas e conclusão em todas as atribuições e verificamos se existe alguma linha em que as premissas sejam verdadeiras e a conclusão seja falsa.",
 
       "###Exemplo: p ⊨ (p ∨ q)",
-      "```\\\np  q  p  p ∨ q\n1  1  1    1\n1  0  1    1\n0  1  0    1\n0  0  0    0\n```",
+      "```\n| p | q | p | p ∨ q |\n|---|---|---|-------|\n| 1 | 1 | 1 |   1   |\n| 1 | 0 | 1 |   1   |\n| 0 | 1 | 0 |   1   |\n| 0 | 0 | 0 |   0   |\n```",
 
       "###Exemplo: p ⊭ (p ∧ q)",
       "```\\\np  q  p  p ∧ q\n1  1  1    1\n1  0  1    0\n0  1  0    0\n0  0  0    0\n```",
