@@ -852,11 +852,11 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Podemos testar equivalência com o **método da tabela-verdade**: listamos todas as atribuições possíveis, avaliamos as sentenças e comparamos coluna a coluna. Se os valores coincidirem em todas as linhas, há equivalência.",
       
       "###Exemplo com equivalência",
-      "```\\\np  q  ¬(p ∨ q)  ¬p ∧ ¬q\n1  1     0          0\n1  0     0          0\n0  1     0          0\n0  0     1          1\n```",
+      "```\n| p | q | ¬(p ∨ q) | ¬p ∧ ¬q |\n|---|---|----------|----------|\n| 1 | 1 |    0     |    0     |\n| 1 | 0 |    0     |    0     |\n| 0 | 1 |    0     |    0     |\n| 0 | 0 |    1     |    1     |\n```",
       "As colunas coincidem em todas as linhas; portanto, as sentenças são equivalentes.",
       
       "###Exemplo com não equivalência",
-      "```\\\np  q  p ∧ q  p ∨ q\n1  1    1      1\n1  0    0      1\n0  1    0      1\n0  0    0      0\n```",
+      "```\n| p | q | p ∧ q | p ∨ q |\n|---|---|-------|-------|\n| 1 | 1 |   1   |   1   |\n| 1 | 0 |   0   |   1   |\n| 0 | 1 |   0   |   1   |\n| 0 | 0 |   0   |   0   |\n```",
       "As colunas diferem; portanto, não há equivalência.",
       
       "###Substituibilidade e reescrita de regras",
@@ -897,14 +897,14 @@ export const chapterContents: Record<string, ChapterContent> = {
       "O método da tabela-verdade pode ser usado para verificar consequência: avaliamos premissas e conclusão em todas as atribuições e verificamos se existe alguma linha em que as premissas sejam verdadeiras e a conclusão seja falsa.",
 
       "###Exemplo: p ⊨ (p ∨ q)",
-      "```\\\np  q  p  p ∨ q\n1  1  1    1\n1  0  1    1\n0  1  0    1\n0  0  0    0\n```",
+      "```\n| p | q | p | p ∨ q |\n|---|---|---|-------|\n| 1 | 1 | 1 |   1   |\n| 1 | 0 | 1 |   1   |\n| 0 | 1 | 0 |   1   |\n| 0 | 0 | 0 |   0   |\n```",
 
       "###Exemplo: p ⊭ (p ∧ q)",
-      "```\\\np  q  p  p ∧ q\n1  1  1    1\n1  0  1    0\n0  1  0    0\n0  0  0    0\n```",
+      "```\n| p | q | p | p ∧ q |\n|---|---|---|-------|\n| 1 | 1 | 1 |   1   |\n| 1 | 0 | 1 |   0   |\n| 0 | 1 | 0 |   0   |\n| 0 | 0 | 0 |   0   |\n```",
       "A segunda linha mostra a falha: a premissa é verdadeira e a conclusão é falsa.",
 
       "###Exemplo com múltiplas premissas",
-      "```\\\np  q  p  q  p ∧ q\n1  1  1  1    1\n1  0  1  0    0\n0  1  0  1    0\n0  0  0  0    0\n```",
+      "```\n| p | q | p | q | p ∧ q |\n|---|---|---|---|-------|\n| 1 | 1 | 1 | 1 |   1   |\n| 1 | 0 | 1 | 0 |   0   |\n| 0 | 1 | 0 | 1 |   0   |\n| 0 | 0 | 0 | 0 |   0   |\n```",
       "A única atribuição que satisfaz ambas as premissas satisfaz também a conclusão; portanto, a consequência lógica vale.",
 
       "###Exemplo aplicado: inferência segura em regras",
