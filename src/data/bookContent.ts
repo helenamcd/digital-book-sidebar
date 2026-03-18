@@ -938,7 +938,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "não é consistente com **p ∨ q**, pois não existe cenário em que as duas sejam verdadeiras simultaneamente.",
 
       "###Verificando consistência com tabelas-verdade",
-      "```\\\np  q  p ∨ q  ¬p ∨ ¬q  ¬p ∧ ¬q\n1  1    1      0          0\n1  0    1      1          0\n0  1    1      1          0\n0  0    0      1          1\n```",
+      "```\n| p | q | p ∨ q | ¬p ∨ ¬q | ¬p ∧ ¬q |\n|---|---|-------|---------|----------|\n| 1 | 1 |   1   |    0    |    0     |\n| 1 | 0 |   1   |    1    |    0     |\n| 0 | 1 |   1   |    1    |    0     |\n| 0 | 0 |   0   |    1    |    1     |\n```",
       "Há linhas em que **p ∨ q** e **¬p ∨ ¬q** são verdadeiras ao mesmo tempo, mas nenhuma em que **p ∨ q** e **¬p ∧ ¬q** coincidam como verdade.",
 
       "###Consistência não é equivalência nem consequência",
