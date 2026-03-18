@@ -900,7 +900,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "```\n| p | q | p | p ∨ q |\n|---|---|---|-------|\n| 1 | 1 | 1 |   1   |\n| 1 | 0 | 1 |   1   |\n| 0 | 1 | 0 |   1   |\n| 0 | 0 | 0 |   0   |\n```",
 
       "###Exemplo: p ⊭ (p ∧ q)",
-      "```\\\np  q  p  p ∧ q\n1  1  1    1\n1  0  1    0\n0  1  0    0\n0  0  0    0\n```",
+      "```\n| p | q | p | p ∧ q |\n|---|---|---|-------|\n| 1 | 1 | 1 |   1   |\n| 1 | 0 | 1 |   0   |\n| 0 | 1 | 0 |   0   |\n| 0 | 0 | 0 |   0   |\n```",
       "A segunda linha mostra a falha: a premissa é verdadeira e a conclusão é falsa.",
 
       "###Exemplo com múltiplas premissas",
