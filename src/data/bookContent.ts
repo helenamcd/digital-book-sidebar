@@ -852,7 +852,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Podemos testar equivalência com o **método da tabela-verdade**: listamos todas as atribuições possíveis, avaliamos as sentenças e comparamos coluna a coluna. Se os valores coincidirem em todas as linhas, há equivalência.",
       
       "###Exemplo com equivalência",
-      "```\\\np  q  ¬(p ∨ q)  ¬p ∧ ¬q\n1  1     0          0\n1  0     0          0\n0  1     0          0\n0  0     1          1\n```",
+      "```\n| p | q | ¬(p ∨ q) | ¬p ∧ ¬q |\n|---|---|----------|----------|\n| 1 | 1 |    0     |    0     |\n| 1 | 0 |    0     |    0     |\n| 0 | 1 |    0     |    0     |\n| 0 | 0 |    1     |    1     |\n```",
       "As colunas coincidem em todas as linhas; portanto, as sentenças são equivalentes.",
       
       "###Exemplo com não equivalência",
