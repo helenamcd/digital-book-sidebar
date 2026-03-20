@@ -773,18 +773,6 @@ export const chapterContents: Record<string, ChapterContent> = {
   },
 
 
-  cap2: {
-    id: "cap2",
-    title: "Propriedades e Relações Lógicas",
-    subtitle: "Capítulo 2",
-    paragraphs: [
-      "No capítulo anterior, aprendemos a avaliar sentenças lógicas a partir de atribuições específicas de valores de verdade. Dado um cenário particular, era possível determinar se uma fórmula era verdadeira ou falsa naquele contexto. Esse tipo de análise é fundamental, mas naturalmente levanta uma nova questão: *o que podemos afirmar sobre uma sentença independentemente do cenário considerado?*",
-      "Na prática científica (especialmente na Ciência de Dados) raramente estamos interessados em um único conjunto de valores. Modelos, regras e critérios precisam manter propriedades sob diferentes condições; por isso, a lógica passa a olhar menos para avaliações pontuais e mais para características que se preservam ao longo de todas as possíveis atribuições.",
-      "Neste capítulo, começamos examinando propriedades lógicas de sentenças individuais. Algumas sentenças são verdadeiras em todos os cenários; outras variam conforme os dados; e há ainda aquelas que nunca podem ser verdadeiras. Essas distinções nos conduzem às noções de **validade**, **contingência** e **insatisfatibilidade**.",
-      "Em seguida, ampliamos o foco para relações entre sentenças: quando uma sentença é consequência lógica de outra, quando duas sentenças são logicamente equivalentes e quando um conjunto de sentenças é logicamente consistente.",
-      "Encerramos conectando propriedades e relações. Veremos que validade, consequência lógica, equivalência e consistência são aspectos complementares de uma mesma estrutura, importante para sustentar raciocínios corretos e modelos confiáveis."
-    ]
-  },
 
   "cap2-sec1": {
     id: "cap2-sec1",
