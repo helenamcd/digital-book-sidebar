@@ -424,7 +424,7 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap1-sec1": {
     id: "cap1-sec1",
     title: "Sintaxe da Lógica Proposicional",
-    subtitle: "Capítulo 1",
+    subtitle: "Capítulo 2",
     paragraphs: [
       "A Lógica Proposicional não se ocupa apenas do significado das sentenças, mas também da sua **forma**. Essa dimensão formal é chamada de **sintaxe**. A sintaxe define quais expressões são sentenças bem formadas e como sentenças mais complexas podem ser construídas a partir de sentenças simples.",
       "Na ciência de dados, a sintaxe desempenha um papel semelhante ao da gramática em uma linguagem de programação: ela garante que regras, hipóteses e condições sejam expressas de maneira **precisa, não ambígua e verificável**.",
@@ -510,7 +510,7 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap1-sec2": {
     id: "cap1-sec2",
     title: "Semântica",
-    subtitle: "Capítulo 1",
+    subtitle: "Capítulo 2",
     paragraphs: [
       "A **semântica** trata do significado formal das sentenças lógicas. Em lógica, assim como em álgebra, esse significado não está relacionado ao conteúdo concreto das variáveis, mas às **relações entre seus valores**.",
       
@@ -597,7 +597,7 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap1-sec3": {
     id: "cap1-sec3",
     title: "Avaliação ou Interpretação",
-    subtitle: "Capítulo 1",
+    subtitle: "Capítulo 2",
     paragraphs: [
       "A **avaliação** é o processo de determinar o valor de verdade de uma sentença lógica composta a partir de uma atribuição de valores de verdade às proposições atômicas. Em ciência de dados, isso corresponde a responder perguntas como: **essa regra é verdadeira para este conjunto de dados?** ou **este registro atende à condição definida por uma regra?**",
 
@@ -645,7 +645,7 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap1-sec4": {
     id: "cap1-sec4",
     title: "Satisfatibilidade",
-    subtitle: "Capítulo 1",
+    subtitle: "Capítulo 2",
     paragraphs: [
       "Enquanto a **avaliação** parte de uma atribuição específica de valores de verdade para verificar se uma sentença é verdadeira, a **satisfatibilidade** segue o caminho oposto. Nela, começamos com uma ou mais sentenças lógicas e buscamos descobrir **quais atribuições de valores tornam essas sentenças verdadeiras**.",
 
