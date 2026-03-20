@@ -159,7 +159,7 @@ const renderInlineMarkdown = (text: string) => {
   }
 
   // After inline markdown, annotate string parts with glossary tooltips
-  return annotateWithGlossary(parts, key + 1000);
+  return annotateWithGlossary(parts);
 };
 
 // Build flat list of all navigable pages (chapters + sections)
