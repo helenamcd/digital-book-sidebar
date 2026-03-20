@@ -16,22 +16,29 @@ interface BookContentProps {
   onNavigate: (id: string) => void;
 }
 
-// Generate regex pattern that matches the term and its plural/singular variations
+// Generate regex pattern that matches the term and its plural/singular variations (PT-BR)
 const buildTermPattern = (term: string): string => {
   const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const words = escaped.split(/\s+/);
-  // Apply plural/singular variations to each word (Portuguese rules)
   const flexWords = words.map((w) => {
-    // If ends in "ão", also match "ões" (e.g., implicação → implicações)
+    // ão ↔ ões (implicação ↔ implicações)
     if (/ão$/i.test(w)) return `(?:${w}|${w.replace(/ão$/i, 'ões')})`;
-    // If ends in "ões", also match "ão"
     if (/ões$/i.test(w)) return `(?:${w}|${w.replace(/ões$/i, 'ão')})`;
-    // If ends in "s", also match without (plural→singular)
+    // ência ↔ ências, ese ↔ eses, etc — words ending in vowel+s or consonant
     if (/s$/i.test(w) && !/ss$/i.test(w)) return `(?:${w}|${w.slice(0, -1)})`;
-    // Otherwise, also match with "s" (singular→plural)
+    // singular → also match plural with "s"
     return `(?:${w}|${w}s)`;
   });
   return flexWords.join('\\s+');
+};
+
+// \b doesn't work with accented chars in JS, so use lookaround for word boundaries
+const buildTermRegex = (term: string): RegExp => {
+  const pattern = buildTermPattern(term);
+  // Use lookbehind/lookahead that considers accented letters as word chars
+  const wb_before = `(?<![a-zA-ZÀ-ÿ])`;
+  const wb_after = `(?![a-zA-ZÀ-ÿ])`;
+  return new RegExp(`${wb_before}${pattern}${wb_after}`, "gi");
 };
 
 const sortedGlossaryTerms = [...glossaryTerms].sort(
@@ -55,7 +62,7 @@ const annotateWithGlossary = (nodes: React.ReactNode[], keyOffset: number): Reac
     // Find all glossary term matches
     const matches: { start: number; end: number; term: typeof glossaryTerms[0]; matchedText: string }[] = [];
     for (const gt of sortedGlossaryTerms) {
-      const regex = new RegExp(`\\b${buildTermPattern(gt.term)}\\b`, "gi");
+      const regex = buildTermRegex(gt.term);
       let m;
       while ((m = regex.exec(text)) !== null) {
         const start = m.index;
