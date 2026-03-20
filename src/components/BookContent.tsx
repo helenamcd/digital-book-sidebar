@@ -62,7 +62,7 @@ const annotateWithGlossary = (nodes: React.ReactNode[], keyOffset: number): Reac
     // Find all glossary term matches
     const matches: { start: number; end: number; term: typeof glossaryTerms[0]; matchedText: string }[] = [];
     for (const gt of sortedGlossaryTerms) {
-      const regex = new RegExp(`\\b${buildTermPattern(gt.term)}\\b`, "gi");
+      const regex = buildTermRegex(gt.term);
       let m;
       while ((m = regex.exec(text)) !== null) {
         const start = m.index;
