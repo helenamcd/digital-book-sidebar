@@ -101,7 +101,7 @@ const annotateWithGlossary = (nodes: React.ReactNode[]): React.ReactNode[] => {
         parts.push(text.slice(lastIndex, match.start));
       }
       parts.push(
-        <GlossaryTooltip key={`gt-${gKey++}`} term={match.term.term} definition={match.term.definition}>
+        <GlossaryTooltip key={`gt-${glossaryKeyCounter++}`} term={match.term.term} definition={match.term.definition}>
           {match.matchedText}
         </GlossaryTooltip>
       );
