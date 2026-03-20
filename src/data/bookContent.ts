@@ -35,21 +35,15 @@ export const chapters: Chapter[] = [
     ],
   },
   {
-    id: "cap1",
-    title: "Capítulo 1 — Lógica Proposicional",
+    id: "cap2",
+    title: "Capítulo 2 - Lógica Proposicional",
     sections: [
+      { id: "cap2-sec-intro", title: "Fundamentos" },
       { id: "cap1-sec1", title: "Sintaxe" },
       { id: "cap1-sec2", title: "Semântica" },
       { id: "cap1-sec3", title: "Avaliação ou Interpretação" },
       { id: "cap1-sec4", title: "Satisfatibilidade" },
       { id: "cap1-sec5", title: "Exemplos" },
-
-    ],
-  },
-  {
-    id: "cap2",
-    title: "Capítulo 2 — Análise Proposicional",
-    sections: [
       { id: "cap2-sec1", title: "Propriedades Lógicas" },
       { id: "cap2-sec2", title: "Equivalência Lógica" },
       { id: "cap2-sec3", title: "Consequência Lógica" },
