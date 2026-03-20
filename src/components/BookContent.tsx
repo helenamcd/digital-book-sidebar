@@ -45,11 +45,22 @@ const sortedGlossaryTerms = [...glossaryTerms].sort(
   (a, b) => b.term.length - a.term.length
 );
 
-const annotateWithGlossary = (nodes: React.ReactNode[], keyOffset: number): React.ReactNode[] => {
+let glossaryKeyCounter = 0;
+
+const annotateWithGlossary = (nodes: React.ReactNode[]): React.ReactNode[] => {
   const result: React.ReactNode[] = [];
-  let gKey = keyOffset;
 
   for (const node of nodes) {
+    // Recurse into React elements (e.g. <strong>, <em>, <code>)
+    if (React.isValidElement(node) && node.props.children) {
+      const children = Array.isArray(node.props.children)
+        ? node.props.children
+        : [node.props.children];
+      const annotatedChildren = annotateWithGlossary(children);
+      result.push(React.cloneElement(node, { ...node.props }, ...annotatedChildren));
+      continue;
+    }
+
     if (typeof node !== "string") {
       result.push(node);
       continue;
