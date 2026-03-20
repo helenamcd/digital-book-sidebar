@@ -16,7 +16,24 @@ interface BookContentProps {
   onNavigate: (id: string) => void;
 }
 
-// Sort glossary terms by length (longest first) to match longer terms first
+// Generate regex pattern that matches the term and its plural/singular variations
+const buildTermPattern = (term: string): string => {
+  const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const words = escaped.split(/\s+/);
+  // Apply plural/singular variations to each word (Portuguese rules)
+  const flexWords = words.map((w) => {
+    // If ends in "ão", also match "ões" (e.g., implicação → implicações)
+    if (/ão$/i.test(w)) return `(?:${w}|${w.replace(/ão$/i, 'ões')})`;
+    // If ends in "ões", also match "ão"
+    if (/ões$/i.test(w)) return `(?:${w}|${w.replace(/ões$/i, 'ão')})`;
+    // If ends in "s", also match without (plural→singular)
+    if (/s$/i.test(w) && !/ss$/i.test(w)) return `(?:${w}|${w.slice(0, -1)})`;
+    // Otherwise, also match with "s" (singular→plural)
+    return `(?:${w}|${w}s)`;
+  });
+  return flexWords.join('\\s+');
+};
+
 const sortedGlossaryTerms = [...glossaryTerms].sort(
   (a, b) => b.term.length - a.term.length
 );
