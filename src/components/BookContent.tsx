@@ -1,3 +1,4 @@
+import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { chapterContents, chapters, hiddenChapterPrefixes } from "@/data/bookContent";
 import {
@@ -45,11 +46,22 @@ const sortedGlossaryTerms = [...glossaryTerms].sort(
   (a, b) => b.term.length - a.term.length
 );
 
-const annotateWithGlossary = (nodes: React.ReactNode[], keyOffset: number): React.ReactNode[] => {
+let glossaryKeyCounter = 0;
+
+const annotateWithGlossary = (nodes: React.ReactNode[]): React.ReactNode[] => {
   const result: React.ReactNode[] = [];
-  let gKey = keyOffset;
 
   for (const node of nodes) {
+    // Recurse into React elements (e.g. <strong>, <em>, <code>)
+    if (React.isValidElement(node) && node.props.children) {
+      const children = Array.isArray(node.props.children)
+        ? node.props.children
+        : [node.props.children];
+      const annotatedChildren = annotateWithGlossary(children);
+      result.push(React.cloneElement(node, { ...node.props }, ...annotatedChildren));
+      continue;
+    }
+
     if (typeof node !== "string") {
       result.push(node);
       continue;
@@ -89,7 +101,7 @@ const annotateWithGlossary = (nodes: React.ReactNode[], keyOffset: number): Reac
         parts.push(text.slice(lastIndex, match.start));
       }
       parts.push(
-        <GlossaryTooltip key={`gt-${gKey++}`} term={match.term.term} definition={match.term.definition}>
+        <GlossaryTooltip key={`gt-${glossaryKeyCounter++}`} term={match.term.term} definition={match.term.definition}>
           {match.matchedText}
         </GlossaryTooltip>
       );
@@ -147,7 +159,7 @@ const renderInlineMarkdown = (text: string) => {
   }
 
   // After inline markdown, annotate string parts with glossary tooltips
-  return annotateWithGlossary(parts, key + 1000);
+  return annotateWithGlossary(parts);
 };
 
 // Build flat list of all navigable pages (chapters + sections)
