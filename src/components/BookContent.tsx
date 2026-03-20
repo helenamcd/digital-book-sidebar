@@ -16,18 +16,78 @@ interface BookContentProps {
   onNavigate: (id: string) => void;
 }
 
+// Sort glossary terms by length (longest first) to match longer terms first
+const sortedGlossaryTerms = [...glossaryTerms].sort(
+  (a, b) => b.term.length - a.term.length
+);
+
+const annotateWithGlossary = (nodes: React.ReactNode[], keyOffset: number): React.ReactNode[] => {
+  const result: React.ReactNode[] = [];
+  let gKey = keyOffset;
+
+  for (const node of nodes) {
+    if (typeof node !== "string") {
+      result.push(node);
+      continue;
+    }
+
+    let text = node;
+    const parts: React.ReactNode[] = [];
+    const usedRanges: { start: number; end: number }[] = [];
+
+    // Find all glossary term matches
+    const matches: { start: number; end: number; term: typeof glossaryTerms[0]; matchedText: string }[] = [];
+    for (const gt of sortedGlossaryTerms) {
+      const regex = new RegExp(`\\b${gt.term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, "gi");
+      let m;
+      while ((m = regex.exec(text)) !== null) {
+        const start = m.index;
+        const end = start + m[0].length;
+        // Check no overlap with already found matches
+        if (!usedRanges.some(r => start < r.end && end > r.start)) {
+          matches.push({ start, end, term: gt, matchedText: m[0] });
+          usedRanges.push({ start, end });
+        }
+      }
+    }
+
+    if (matches.length === 0) {
+      result.push(text);
+      continue;
+    }
+
+    // Sort by position
+    matches.sort((a, b) => a.start - b.start);
+
+    let lastIndex = 0;
+    for (const match of matches) {
+      if (match.start > lastIndex) {
+        parts.push(text.slice(lastIndex, match.start));
+      }
+      parts.push(
+        <GlossaryTooltip key={`gt-${gKey++}`} term={match.term.term} definition={match.term.definition}>
+          {match.matchedText}
+        </GlossaryTooltip>
+      );
+      lastIndex = match.end;
+    }
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex));
+    }
+    result.push(...parts);
+  }
+
+  return result;
+};
+
 const renderInlineMarkdown = (text: string) => {
-  // Split by **bold**, *italic*, and inline `code`
   const parts: React.ReactNode[] = [];
   let remaining = text;
   let key = 0;
 
   while (remaining.length > 0) {
-    // Check for **bold**
     const boldMatch = remaining.match(/\*\*(.+?)\*\*/);
-    // Check for *text*
     const italicMatch = remaining.match(/\*(.+?)\*/);
-    // Check for inline `code`
     const codeMatch = remaining.match(/`(.+?)`/);
 
     const matches = [
@@ -62,7 +122,8 @@ const renderInlineMarkdown = (text: string) => {
     }
   }
 
-  return parts;
+  // After inline markdown, annotate string parts with glossary tooltips
+  return annotateWithGlossary(parts, key + 1000);
 };
 
 // Build flat list of all navigable pages (chapters + sections)
