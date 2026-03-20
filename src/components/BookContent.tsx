@@ -8,6 +8,8 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
+import { glossaryTerms } from "@/components/GlossaryContent";
+import GlossaryTooltip from "@/components/GlossaryTooltip";
 
 interface BookContentProps {
   activeChapter: string;
