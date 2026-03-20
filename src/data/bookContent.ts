@@ -24,7 +24,7 @@ export interface ChapterContent {
 export const chapters: Chapter[] = [
   {
     id: "intro",
-    title: "Introdução",
+    title: "Capítulo 1 - Introdução",
     sections: [
       { id: "intro-sec1", title: "Sentenças Lógicas" },
       { id: "intro-sec2", title: "Consequência lógica" },
