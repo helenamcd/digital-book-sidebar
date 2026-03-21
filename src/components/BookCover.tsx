@@ -158,8 +158,8 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
           </div>
 
           {/* Central visual symbol */}
-          <div className="flex justify-center items-center my-5 flex-shrink-0">
-            <svg width="280" height="190" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+          <div className="flex justify-center items-center my-3 sm:my-5 flex-shrink-0">
+            <svg className="w-[180px] h-[120px] sm:w-[280px] sm:h-[190px]" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
               <circle cx="160" cy="110" r="95" fill="none" stroke="rgba(78,184,255,0.15)" strokeWidth="1.5" />
               <circle cx="160" cy="110" r="75" fill="none" stroke="rgba(78,184,255,0.2)" strokeWidth="1" />
               <circle cx="135" cy="100" r="50" fill="rgba(26,92,204,0.2)" stroke="rgba(78,184,255,0.5)" strokeWidth="1.5" />
