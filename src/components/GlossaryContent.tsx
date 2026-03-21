@@ -78,6 +78,41 @@ export const glossaryTerms: GlossaryTerm[] = [
     definition:
       "Sequência rigorosa de passos lógicos que parte de premissas aceitas (axiomas ou teoremas já provados) para estabelecer a verdade de uma conclusão. É o método formal usado em matemática e lógica para provar que algo é necessariamente verdadeiro.",
   },
+  {
+    term: "Forma Clausal",
+    definition:
+      "Representação de sentenças como conjunção de disjunções de literais. A conversão pode ser feita em 4 passos (proposicional) ou 7 passos (relacional, incluindo Skolemização).",
+  },
+  {
+    term: "Resolução",
+    definition:
+      "Princípio de inferência em que, dadas duas cláusulas com literais complementares (χ e ¬χ), deriva-se uma nova cláusula (resolvente) com os literais restantes de ambas. É a única regra de inferência necessária para provas por refutação.",
+  },
+  {
+    term: "Refutação",
+    definition:
+      "Método de prova em que, para demonstrar que Δ ⊨ φ, acrescenta-se ¬φ a Δ, converte-se para forma clausal e deriva-se a cláusula vazia. Se a cláusula vazia for derivada, a conclusão é válida.",
+  },
+  {
+    term: "Unificação",
+    definition:
+      "Processo de encontrar uma substituição de variáveis que torna dois literais idênticos. O Unificador Mais Geral (UMG) é a substituição mais útil para resolução, pois preserva o máximo de generalidade.",
+  },
+  {
+    term: "Skolemização",
+    definition:
+      "Eliminação de quantificadores existenciais por constantes e funções de Skolem. Preserva satisfatibilidade (não equivalência lógica). É um passo essencial na conversão para forma clausal na lógica relacional.",
+  },
+  {
+    term: "Cláusula de Horn",
+    definition:
+      "Cláusula com no máximo um literal positivo. A resolução unitária é completa para cláusulas de Horn, que são a base de linguagens como Datalog e Prolog e de engines de regras.",
+  },
+  {
+    term: "Extração de Respostas",
+    definition:
+      "Extensão da resolução para perguntas do tipo 'qual valor?', usando literais de resposta goal(x). Permite não apenas verificar se algo é verdadeiro, mas descobrir quais valores satisfazem a consulta.",
+  },
 ];
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
