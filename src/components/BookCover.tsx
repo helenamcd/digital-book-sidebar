@@ -6,12 +6,10 @@ interface BookCoverProps {
 
 const BookCover = ({ onNavigate }: BookCoverProps) => {
   return (
-    <main className="flex-1 flex items-center justify-center min-h-screen overflow-auto py-4" style={{ background: "#1a1a2e" }}>
+    <main className="flex-1 flex items-center justify-center min-h-screen overflow-auto py-4 sm:py-8" style={{ background: "#1a1a2e" }}>
       <div
-        className="relative overflow-hidden w-full max-w-[600px] mx-4 min-h-0"
+        className="relative overflow-hidden w-full max-w-[600px] mx-2 sm:mx-4 sm:aspect-[600/850]"
         style={{
-          aspectRatio: window.innerWidth < 640 ? undefined : "600 / 850",
-          minHeight: window.innerWidth < 640 ? "100vh" : undefined,
           background: "#0d1b3e",
           boxShadow: "0 40px 120px rgba(0,0,0,0.7)",
         }}
