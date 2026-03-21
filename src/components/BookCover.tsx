@@ -6,11 +6,10 @@ interface BookCoverProps {
 
 const BookCover = ({ onNavigate }: BookCoverProps) => {
   return (
-    <main className="flex-1 flex items-center justify-center min-h-screen" style={{ background: "#1a1a2e" }}>
+    <main className="flex-1 flex items-center justify-center min-h-screen overflow-auto py-4 sm:py-8" style={{ background: "#1a1a2e" }}>
       <div
-        className="relative overflow-hidden w-full max-w-[600px] mx-4"
+        className="relative overflow-hidden w-full max-w-[600px] mx-2 sm:mx-4 sm:aspect-[600/850]"
         style={{
-          aspectRatio: "600 / 850",
           background: "#0d1b3e",
           boxShadow: "0 40px 120px rgba(0,0,0,0.7)",
         }}
@@ -123,7 +122,7 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
         />
 
         {/* Content */}
-        <div className="absolute inset-0 flex flex-col p-8 sm:p-12">
+        <div className="absolute inset-0 flex flex-col p-5 sm:p-8 md:p-12 overflow-y-auto">
           {/* ALICCE Logo */}
           <div className="flex items-center gap-3 mb-auto">
             <div
@@ -157,8 +156,8 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
           </div>
 
           {/* Central visual symbol */}
-          <div className="flex justify-center items-center my-5 flex-shrink-0">
-            <svg width="280" height="190" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+          <div className="flex justify-center items-center my-3 sm:my-5 flex-shrink-0">
+            <svg className="w-[180px] h-[120px] sm:w-[280px] sm:h-[190px]" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
               <circle cx="160" cy="110" r="95" fill="none" stroke="rgba(78,184,255,0.15)" strokeWidth="1.5" />
               <circle cx="160" cy="110" r="75" fill="none" stroke="rgba(78,184,255,0.2)" strokeWidth="1" />
               <circle cx="135" cy="100" r="50" fill="rgba(26,92,204,0.2)" stroke="rgba(78,184,255,0.5)" strokeWidth="1.5" />
@@ -200,7 +199,7 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
           </div>
 
           {/* Title */}
-          <div className="mb-7">
+          <div className="mb-4 sm:mb-7">
             <div
               className="text-[11px] font-light tracking-[4px] uppercase mb-4 flex items-center gap-2.5"
               style={{ color: "#00b4ff" }}
@@ -209,7 +208,7 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
               Fundamentos
             </div>
             <h1
-              className="font-serif-book text-3xl sm:text-[40px] font-black leading-[1.1] text-white tracking-tight mb-3"
+              className="font-serif-book text-2xl sm:text-3xl md:text-[40px] font-black leading-[1.1] text-white tracking-tight mb-2 sm:mb-3"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
               Lógica Aplicada
@@ -238,19 +237,19 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
             >
               Autores
             </div>
-            <div className="text-[17px] italic" style={{ color: "rgba(220,235,255,0.92)", letterSpacing: "0.5px" }}>
+            <div className="text-sm sm:text-[17px] italic" style={{ color: "rgba(220,235,255,0.92)", letterSpacing: "0.5px" }}>
               Helena Macedo Reis
             </div>
-            <div className="text-[17px] italic" style={{ color: "rgba(220,235,255,0.92)", letterSpacing: "0.5px" }}>
+            <div className="text-sm sm:text-[17px] italic" style={{ color: "rgba(220,235,255,0.92)", letterSpacing: "0.5px" }}>
               Anderson da Silva Marcolino
             </div>
           </div>
 
           {/* Buttons */}
-          <div className="mt-6 self-center flex flex-wrap gap-4 items-center justify-center">
+          <div className="mt-4 sm:mt-6 self-center flex flex-wrap gap-3 sm:gap-4 items-center justify-center">
             <button
               onClick={() => onNavigate("prefacio")}
-              className="px-8 py-3 rounded-full text-sm font-semibold tracking-wide uppercase transition-all duration-300 hover:scale-105"
+              className="px-5 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wide uppercase transition-all duration-300 hover:scale-105"
               style={{
                 background: "linear-gradient(135deg, #1a5ccc, #00b4ff)",
                 color: "#fff",
@@ -264,7 +263,7 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
               <a
                 href="/logica_ia_cd_v5.pdf"
                 download
-                className="inline-block px-8 py-3 rounded-full text-sm font-semibold tracking-wide uppercase transition-all duration-300 hover:scale-105 text-center"
+                className="inline-block px-5 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wide uppercase transition-all duration-300 hover:scale-105 text-center"
                 style={{
                   background: "linear-gradient(135deg, #1a5ccc, #00b4ff)",
                   color: "#fff",
@@ -275,7 +274,7 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
                 Download do Livro ↓
               </a>
               <div
-                className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-[340px] p-4 rounded-lg text-xs leading-relaxed opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none z-50"
+                className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-[280px] sm:w-[340px] p-3 sm:p-4 rounded-lg text-[10px] sm:text-xs leading-relaxed opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none z-50"
                 style={{
                   background: "rgba(10,20,50,0.95)",
                   border: "1px solid rgba(78,184,255,0.3)",
