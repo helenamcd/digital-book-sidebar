@@ -8,10 +8,11 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
   return (
     <main className="flex-1 flex items-center justify-center min-h-screen overflow-auto py-4 sm:py-8" style={{ background: "#1a1a2e" }}>
       <div
-        className="relative overflow-hidden w-full max-w-[600px] mx-2 sm:mx-4 sm:aspect-[600/850]"
+        className="relative w-full max-w-[600px] mx-2 sm:mx-4 min-h-0 sm:aspect-[600/850]"
         style={{
           background: "#0d1b3e",
           boxShadow: "0 40px 120px rgba(0,0,0,0.7)",
+          overflow: "visible",
         }}
       >
         {/* Background gradient */}
@@ -122,7 +123,7 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
         />
 
         {/* Content */}
-        <div className="absolute inset-0 flex flex-col p-5 sm:p-8 md:p-12 overflow-y-auto">
+        <div className="relative sm:absolute sm:inset-0 flex flex-col p-5 sm:p-8 md:p-12 overflow-y-auto">
           {/* ALICCE Logo */}
           <div className="flex items-center gap-3 mb-auto">
             <div
@@ -246,7 +247,7 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
           </div>
 
           {/* Buttons */}
-          <div className="mt-4 sm:mt-6 self-center flex flex-wrap gap-3 sm:gap-4 items-center justify-center">
+          <div className="mt-4 sm:mt-6 self-center flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-center justify-center pb-4">
             <button
               onClick={() => onNavigate("prefacio")}
               className="px-5 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wide uppercase transition-all duration-300 hover:scale-105"
