@@ -32,6 +32,7 @@ export const chapters: Chapter[] = [
       { id: "intro-sec4", title: "Lógica Simbólica" },
       { id: "intro-sec5", title: "Automação do Raciocínio Lógico" },
       { id: "intro-sec6", title: "Guia de Leitura" },
+      { id: "intro-sec7", title: "Resumo do Capítulo" },
     ],
   },
   {
@@ -50,6 +51,7 @@ export const chapters: Chapter[] = [
       { id: "cap2-sec4", title: "Consistência Lógica" },
       { id: "cap2-sec5", title: "Relações entre Propriedades Lógicas" },
       { id: "cap2-sec6", title: "Reescritas por Equivalência" },
+      { id: "cap2-sec7", title: "Resumo do Capítulo" },
     ],
   },
   {
@@ -92,7 +94,7 @@ export const chapters: Chapter[] = [
       { id: "cap5-sec2", title: "Modelos Booleanos: Propagação de Restrições" },
       { id: "cap5-sec3", title: "Modelos Não-Booleanos: Representações Compactas" },
       { id: "cap5-sec4", title: "Verificação de Modelos na Prática" },
-      { id: "cap5-sec5", title: "Resumo" },
+      { id: "cap5-sec5", title: "Resumo do Capítulo" },
     ]
   },
 
@@ -418,6 +420,14 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Estamos usando a **lógica para estudar a própria lógica**, o que pode gerar confusão, mas também evidencia seu poder como ferramenta intelectual.",
 
     ],
+  },
+
+  "intro-sec7": {
+    id: "intro-sec7",
+    title: "Resumo do Capítulo",
+    paragraphs: [
+      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Sentença lógica | Afirmação declarativa que pode ser verdadeira ou falsa |\n| Consequência lógica | Relação em que a verdade das premissas garante a verdade da conclusão |\n| Demonstração lógica | Sequência finita de passos que estabelece a validade de uma conclusão |\n| Lógica simbólica | Uso de símbolos formais para representar sentenças e raciocínios |\n| Automação do raciocínio | Uso de algoritmos para verificar ou derivar conclusões lógicas |\n| Lógica Proposicional | Lógica das proposições com conectivos; decidível e computável |\n| Lógica Relacional | Extensão com variáveis e quantificadores sobre domínios finitos |\n| Lógica Funcional | Extensão com funções e domínios infinitos; maior expressividade |"
+    ]
   },
 
   cap2: {
@@ -1034,6 +1044,14 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
+  "cap2-sec7": {
+    id: "cap2-sec7",
+    title: "Resumo do Capítulo",
+    paragraphs: [
+      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Proposição | Afirmação que pode ser verdadeira ou falsa; unidade básica da lógica proposicional |\n| Conectivos lógicos | Operadores (¬, ∧, ∨, ⇒, ⇔) que combinam proposições em sentenças compostas |\n| Tabela-verdade | Enumeração de todas as atribuições possíveis para avaliar sentenças |\n| Tautologia (validade) | Sentença verdadeira em toda atribuição de valores-verdade |\n| Contradição | Sentença falsa em toda atribuição de valores-verdade |\n| Contingência | Sentença verdadeira em algumas atribuições e falsa em outras |\n| Satisfatibilidade | Existência de ao menos uma atribuição que torna a sentença verdadeira |\n| Equivalência lógica | Duas sentenças com os mesmos valores-verdade em toda atribuição |\n| Consequência lógica | Toda atribuição que satisfaz as premissas também satisfaz a conclusão |\n| Consistência lógica | Existência de atribuição que satisfaz todas as sentenças simultaneamente |\n| Forma Normal Conjuntiva | Conjunção de disjunções — base para resolução e SAT solvers |"
+    ]
+  },
+
   "cap3": {
     "id": "cap3",
     "title": "Inferência e Prova",
@@ -1207,12 +1225,8 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap3-sec9": {
     "id": "cap3-sec9",
     "title": "Resumo do Capítulo",
-    "subtitle": "Capítulo 3",
     "paragraphs": [
-      "Neste capítulo, exploramos os fundamentos da **inferência** e da **prova** formal no contexto da ciência de dados.",
-      "Vimos que:",
-      "- **Esquemas de axiomas** funcionam como templates de raciocínio que geram sentenças válidas.\n- **Regras de inferência** descrevem padrões válidos de derivação.\n- **Provas diretas** encadeiam premissas, instâncias de axiomas e aplicações de regras.\n- O **sistema de Fitch** amplia o repertório com subprovas e suposições temporárias.\n- As dez regras do Fitch cobrem conjunção, disjunção, negação, implicação e bicondicional.\n- **Solidez** e **completude** garantem que provabilidade e consequência lógica coincidem.\n- As aplicações vão da verificação de regras de negócio à explicabilidade de modelos.",
-      "No próximo capítulo, avançaremos para formas mais estruturadas de prova e para técnicas que tornam provas mais práticas quando a linguagem cresce."
+      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Esquema de axioma | Template de raciocínio que gera sentenças válidas por substituição de metavariáveis |\n| Regra de inferência | Padrão válido de derivação com premissas e conclusão (ex: Modus Ponens) |\n| Prova direta | Sequência finita de sentenças que encadeia premissas, axiomas e regras até a conclusão |\n| Sistema de Fitch | Sistema de dedução natural com subprovas e suposições temporárias |\n| Eliminação da Implicação | Regra Modus Ponens: de φ⇒ψ e φ, conclui-se ψ |\n| Introdução da Implicação | Supor φ e derivar ψ permite concluir φ⇒ψ |\n| Solidez | Todo teorema provável é consequência lógica das premissas |\n| Completude | Toda consequência lógica pode ser provada no sistema |"
     ]
   },
 
@@ -1392,11 +1406,8 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap4-sec10": {
     "id": "cap4-sec10",
     "title": "Resumo do Capítulo",
-    "subtitle": "Capítulo 4",
     "paragraphs": [
-      "Neste capítulo, apresentamos a **Lógica Relacional** como uma extensão expressiva da Lógica Proposicional, capaz de lidar com afirmações sobre múltiplos objetos por meio de variáveis e quantificadores.",
-      "- A **sintaxe** da Lógica Relacional organiza o vocabulário em constantes de objeto, constantes de relação e variáveis, e define três tipos de sentenças: relacionais, lógicas e quantificadas.\n- A **semântica de Herbrand** interpreta sentenças sobre um universo finito de constantes, permitindo avaliar sentenças quantificadas como conjunções (∀) ou disjunções (∃) sobre todas as instâncias.\n- As **propriedades lógicas** — validade, contingência, satisfatibilidade e insatisfatibilidade — se aplicam de forma análoga à Lógica Proposicional.\n- As **relações lógicas** — equivalência, implicação e consistência — permitem analisar interações entre sentenças e conjuntos de sentenças.\n- A Lógica Relacional com vocabulário finito é **expressivamente equivalente** à Lógica Proposicional via grounding, e portanto **decidível** e **compacta**.",
-      "No próximo capítulo, avançaremos para métodos de prova que operam diretamente sobre sentenças quantificadas, sem necessidade de grounding completo."
+      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Constante de objeto | Entidade individual do domínio (ex: cliente_001, produto_42) |\n| Constante de relação | Predicado com aridade definida (ex: comprou/2, ativo/1) |\n| Variável | Placeholder para objetos arbitrários do domínio |\n| Sentença relacional | Átomo formado por constante de relação aplicada a termos |\n| Quantificador universal (∀) | \"Para todo x\": afirmação vale para todos os objetos do domínio |\n| Quantificador existencial (∃) | \"Existe x\": afirmação vale para ao menos um objeto |\n| Semântica de Herbrand | Interpretação sobre universo finito de constantes nomeadas |\n| Grounding | Substituição de variáveis por todas as constantes do vocabulário |\n| Decidibilidade | Possibilidade de determinar algoritmicamente qualquer propriedade lógica |"
     ]
   },
 
@@ -1531,16 +1542,9 @@ export const chapterContents: Record<string, ChapterContent> = {
 
   "cap5-sec5": {
     id: "cap5-sec5",
-    title: "Resumo",
-    subtitle: "Capítulo 5",
+    title: "Resumo do Capítulo",
     paragraphs: [
-      "**Verificação de modelos (model checking)**: determinar quais atribuições de verdade satisfazem um conjunto de sentenças — o problema central de validação em sistemas lógicos.",
-      "**Método da tabela-verdade**: enumeração exaustiva de todas as 2ⁿ atribuições possíveis. Correto, porém exponencial — inviável para problemas grandes.",
-      "**Método de modelos booleanos**: propagação incremental de restrições. Cada restrição unitária determina um átomo e simplifica as demais restrições. Converge sem busca exaustiva em muitos casos práticos.",
-      "**Propriedade chave da propagação**: a resposta a uma pergunta específica pode ser determinada antes de resolver toda a ambiguidade do modelo.",
-      "**Modelos não-booleanos**: para relações funcionais (cada objeto mapeado a um único valor), representar cada objeto como uma variável com domínio finito reduz o espaço de busca de 2^(n·m) para nⁿ.",
-      "**Restrições de funcionalidade**: ∀x.∀y.∀z.(rel(x,y) ∧ rel(x,z) ⇒ same(y,z)) formalizam relações funcionais.",
-      "**Conexão com ferramentas**: SAT/SMT solvers, Great Expectations, dbt tests e Pandera implementam versões dessas técnicas em escala industrial."
+      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Verificação de modelos | Determinar quais atribuições de verdade satisfazem um conjunto de sentenças |\n| Tabela-verdade relacional | Enumeração exaustiva de todas as 2ⁿ atribuições; correto mas exponencial |\n| Modelos booleanos | Propagação incremental de restrições que reduz o espaço de busca |\n| Propagação de restrições | Técnica que determina átomos a partir de restrições unitárias e simplifica iterativamente |\n| Modelos não-booleanos | Representação compacta com variáveis de domínio finito para relações funcionais |\n| Restrição de funcionalidade | Axioma que garante que cada objeto mapeia para um único valor |\n| SAT/SMT solvers | Ferramentas computacionais que implementam verificação de modelos em escala |"
     ]
   },
 
@@ -1736,18 +1740,8 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap6-sec10": {
     id: "cap6-sec10",
     title: "Resumo do Capítulo",
-    subtitle: "6.11 — Conceitos-Chave do Capítulo 6",
     paragraphs: [
-      "### Conceitos-Chave do Capítulo 6",
-      "**Forma Clausal**: representação de sentenças como conjunção de disjunções de literais. Conversão em 4 passos (proposicional) ou 7 passos (relacional, incluindo Skolemização).",
-      "**Princípio da Resolução**: dadas duas cláusulas com literais complementares (χ e ~χ), deriva-se uma nova cláusula com os literais restantes de ambas. Única regra de inferência necessária.",
-      "**Completude por Refutação**: Δ é insatisfatível se e somente se a cláusula vazia pode ser derivada por resolução a partir de Δ. Não generativamente completo, mas completo para detectar insatisfatibilidade.",
-      "**Prova por Refutação**: para provar que Δ ⊨ φ, acrescentar ~φ a Δ, converter para forma clausal e derivar a cláusula vazia.",
-      "**Unificação**: processo de encontrar uma substituição de variáveis que torna dois literais idênticos. O Unificador Mais Geral (UMG) é o mais útil para resolução.",
-      "**Skolemização**: eliminação de quantificadores existenciais por constantes e funções de Skolem. Preserva satisfatibilidade (não equivalência lógica).",
-      "**Extração de Respostas**: extensão da resolução para perguntas do tipo 'qual valor?', usando literais de resposta `goal(x)`.",
-      "**Cláusulas de Horn**: cláusulas com ao máximo um literal positivo. Resolução unitária é completa para elas — base de Datalog, Prolog e engines de regras.",
-      "**Estratégias**: eliminação de literais puros, tautologias, subsunção; resolução unitária, linear e com conjunto de suporte. Reduzem o espaço de busca sem perder completude por refutação."
+      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Forma Clausal | Representação de sentenças como conjunção de disjunções de literais |\n| Princípio da Resolução | De duas cláusulas com literais complementares, deriva-se uma nova cláusula |\n| Completude por Refutação | Cláusula vazia é derivável sse o conjunto é insatisfatível |\n| Prova por Refutação | Para provar Δ⊨φ, acrescentar ¬φ e derivar contradição |\n| Unificação | Substituição de variáveis que torna dois literais idênticos (UMG) |\n| Skolemização | Eliminação de ∃ por constantes/funções de Skolem; preserva satisfatibilidade |\n| Extração de Respostas | Extensão da resolução para perguntas \"qual valor?\" com literais goal(x) |\n| Cláusulas de Horn | Cláusulas com no máximo um literal positivo; base de Datalog e Prolog |\n| Estratégias de Resolução | Eliminação de literais puros, subsunção, resolução unitária e linear |"
     ]
   },
 
