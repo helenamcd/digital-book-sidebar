@@ -86,13 +86,13 @@ export const chapters: Chapter[] = [
   },
   {
     id: "cap5",
-    title: "Capítulo 5 — Provas por Resolução",
-      "sections": [
-      { "id": "cap5-sec1", "title": "Forma Clausal" },
-      { "id": "cap5-sec2", "title": "Conversão para Forma Clausal" },
-      { "id": "cap5-sec3", "title": "O Princípio da Resolução" },
-      { "id": "cap5-sec4", "title": "Resolução como Processo de Raciocínio" },
-      { "id": "cap5-sec5", "title": "Provas por Contradição com Resolução" },
+    title: "Capítulo 5 - Validação e Modelos",
+    sections: [
+      { id: "cap5-sec1", title: "O Método da Tabela-Verdade" },
+      { id: "cap5-sec2", title: "Modelos Booleanos: Propagação de Restrições" },
+      { id: "cap5-sec3", title: "Modelos Não-Booleanos: Representações Compactas" },
+      { id: "cap5-sec4", title: "Verificação de Modelos na Prática" },
+      { id: "cap5-sec5", title: "Resumo" },
     ]
   },
 
