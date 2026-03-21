@@ -477,6 +477,25 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
               }
             }
 
+            // Ordered list items (lines starting with number.)
+            if (/^\d+\.\s/.test(p) || p.includes("\n1.") || p.includes("\n2.")) {
+              const lines = p.split("\n").filter(Boolean);
+              return (
+                <ol key={i} className="list-none space-y-3 font-serif-book text-sm md:text-[0.95rem] text-[hsl(var(--book-text))] leading-[1.8] pl-0">
+                  {lines.map((line, li) => {
+                    const numMatch = line.match(/^(\d+)\.\s*(.*)/);
+                    if (!numMatch) return <li key={li}>{renderInlineMarkdown(line)}</li>;
+                    return (
+                      <li key={li} className="flex gap-2">
+                        <span className="font-bold text-accent shrink-0">{numMatch[1]}.</span>
+                        <span>{renderInlineMarkdown(numMatch[2])}</span>
+                      </li>
+                    );
+                  })}
+                </ol>
+              );
+            }
+
             // List items (lines starting with -)
             if (p.includes("\n- ") || p.startsWith("- ")) {
               const lines = p.split("\n");
