@@ -1,6 +1,7 @@
 import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { chapterContents, chapters, hiddenChapterPrefixes } from "@/data/bookContent";
+import ReferenceTooltip from "@/components/ReferenceTooltip";
 import {
   Table,
   TableHeader,
@@ -122,11 +123,14 @@ const renderInlineMarkdown = (text: string) => {
   let key = 0;
 
   while (remaining.length > 0) {
+    // Check for reference tooltip pattern first: {{ref:key|label|reference}}
+    const refMatch = remaining.match(/\{\{ref:([^|]+)\|([^|]+)\|([^}]+)\}\}/);
     const boldMatch = remaining.match(/\*\*(.+?)\*\*/);
     const italicMatch = remaining.match(/\*(.+?)\*/);
     const codeMatch = remaining.match(/`(.+?)`/);
 
     const matches = [
+      refMatch ? { type: 'ref', match: refMatch, index: refMatch.index! } : null,
       boldMatch ? { type: 'bold', match: boldMatch, index: boldMatch.index! } : null,
       italicMatch && (!boldMatch || italicMatch.index! < boldMatch.index!) ? { type: 'italic', match: italicMatch, index: italicMatch.index! } : null,
       codeMatch ? { type: 'code', match: codeMatch, index: codeMatch.index! } : null,
@@ -142,7 +146,14 @@ const renderInlineMarkdown = (text: string) => {
       parts.push(remaining.slice(0, first.index));
     }
 
-    if (first.type === 'bold') {
+    if (first.type === 'ref') {
+      const label = first.match![2];
+      const reference = first.match![3];
+      parts.push(
+        <ReferenceTooltip key={key++} label={label} reference={reference} />
+      );
+      remaining = remaining.slice(first.index + first.match![0].length);
+    } else if (first.type === 'bold') {
       parts.push(<strong key={key++} className="font-bold">{first.match![1]}</strong>);
       remaining = remaining.slice(first.index + first.match![0].length);
     } else if (first.type === 'italic') {
