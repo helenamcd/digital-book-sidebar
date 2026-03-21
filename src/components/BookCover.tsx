@@ -124,7 +124,7 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
         />
 
         {/* Content */}
-        <div className="absolute inset-0 flex flex-col p-8 sm:p-12">
+        <div className="absolute inset-0 flex flex-col p-5 sm:p-8 md:p-12 overflow-y-auto">
           {/* ALICCE Logo */}
           <div className="flex items-center gap-3 mb-auto">
             <div
