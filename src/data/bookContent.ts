@@ -1740,18 +1740,8 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap6-sec10": {
     id: "cap6-sec10",
     title: "Resumo do Capítulo",
-    subtitle: "6.11 — Conceitos-Chave do Capítulo 6",
     paragraphs: [
-      "### Conceitos-Chave do Capítulo 6",
-      "**Forma Clausal**: representação de sentenças como conjunção de disjunções de literais. Conversão em 4 passos (proposicional) ou 7 passos (relacional, incluindo Skolemização).",
-      "**Princípio da Resolução**: dadas duas cláusulas com literais complementares (χ e ~χ), deriva-se uma nova cláusula com os literais restantes de ambas. Única regra de inferência necessária.",
-      "**Completude por Refutação**: Δ é insatisfatível se e somente se a cláusula vazia pode ser derivada por resolução a partir de Δ. Não generativamente completo, mas completo para detectar insatisfatibilidade.",
-      "**Prova por Refutação**: para provar que Δ ⊨ φ, acrescentar ~φ a Δ, converter para forma clausal e derivar a cláusula vazia.",
-      "**Unificação**: processo de encontrar uma substituição de variáveis que torna dois literais idênticos. O Unificador Mais Geral (UMG) é o mais útil para resolução.",
-      "**Skolemização**: eliminação de quantificadores existenciais por constantes e funções de Skolem. Preserva satisfatibilidade (não equivalência lógica).",
-      "**Extração de Respostas**: extensão da resolução para perguntas do tipo 'qual valor?', usando literais de resposta `goal(x)`.",
-      "**Cláusulas de Horn**: cláusulas com ao máximo um literal positivo. Resolução unitária é completa para elas — base de Datalog, Prolog e engines de regras.",
-      "**Estratégias**: eliminação de literais puros, tautologias, subsunção; resolução unitária, linear e com conjunto de suporte. Reduzem o espaço de busca sem perder completude por refutação."
+      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Forma Clausal | Representação de sentenças como conjunção de disjunções de literais |\n| Princípio da Resolução | De duas cláusulas com literais complementares, deriva-se uma nova cláusula |\n| Completude por Refutação | Cláusula vazia é derivável sse o conjunto é insatisfatível |\n| Prova por Refutação | Para provar Δ⊨φ, acrescentar ¬φ e derivar contradição |\n| Unificação | Substituição de variáveis que torna dois literais idênticos (UMG) |\n| Skolemização | Eliminação de ∃ por constantes/funções de Skolem; preserva satisfatibilidade |\n| Extração de Respostas | Extensão da resolução para perguntas \"qual valor?\" com literais goal(x) |\n| Cláusulas de Horn | Cláusulas com no máximo um literal positivo; base de Datalog e Prolog |\n| Estratégias de Resolução | Eliminação de literais puros, subsunção, resolução unitária e linear |"
     ]
   },
 
