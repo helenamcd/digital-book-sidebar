@@ -135,6 +135,213 @@ export const glossaryTerms: GlossaryTerm[] = [
       "Extensão da resolução para perguntas do tipo 'qual valor?', usando literais de resposta goal(x). Permite não apenas verificar se algo é verdadeiro, mas descobrir quais valores satisfazem a consulta.",
     firstAppearance: "cap6-sec8",
   },
+  // Cap 1 - Introdução
+  {
+    term: "Sentença lógica",
+    definition: "Afirmação declarativa que pode ser avaliada como verdadeira ou falsa. É a unidade fundamental da lógica formal.",
+    firstAppearance: "intro-sec1",
+  },
+  {
+    term: "Lógica simbólica",
+    definition: "Uso de símbolos formais para representar sentenças e raciocínios, permitindo manipulação mecânica e precisa de argumentos lógicos.",
+    firstAppearance: "intro-sec4",
+  },
+  {
+    term: "Lógica Proposicional",
+    definition: "Sistema lógico que opera sobre proposições e conectivos lógicos (¬, ∧, ∨, ⇒, ⇔). É decidível e computacionalmente bem comportada.",
+    firstAppearance: "cap2",
+  },
+  {
+    term: "Lógica Relacional",
+    definition: "Extensão da Lógica Proposicional com variáveis e quantificadores sobre domínios finitos, permitindo falar sobre objetos individuais e suas relações.",
+    firstAppearance: "cap4",
+  },
+  // Cap 2 - Lógica Proposicional
+  {
+    term: "Proposição",
+    definition: "Afirmação que pode ser verdadeira ou falsa; unidade básica da lógica proposicional. Representa uma condição do mundo avaliável como V ou F.",
+    firstAppearance: "cap2",
+  },
+  {
+    term: "Conectivos lógicos",
+    definition: "Operadores (¬, ∧, ∨, ⇒, ⇔) que combinam proposições simples em sentenças compostas, formando a base da linguagem proposicional.",
+    firstAppearance: "cap2-sec-intro",
+  },
+  {
+    term: "Tabela-verdade",
+    definition: "Enumeração sistemática de todas as atribuições possíveis de valores-verdade para avaliar sentenças lógicas. Método exaustivo de verificação.",
+    firstAppearance: "cap1-sec2",
+  },
+  {
+    term: "Contradição",
+    definition: "Sentença que é falsa em toda atribuição de valores-verdade possível. Oposto da tautologia. Exemplo: P ∧ ¬P.",
+    firstAppearance: "cap1-sec3",
+  },
+  {
+    term: "Contingência",
+    definition: "Sentença que é verdadeira em algumas atribuições de valores-verdade e falsa em outras. Nem tautologia nem contradição.",
+    firstAppearance: "cap1-sec3",
+  },
+  {
+    term: "Satisfatibilidade",
+    definition: "Propriedade de uma sentença para a qual existe ao menos uma atribuição de valores-verdade que a torna verdadeira.",
+    firstAppearance: "cap1-sec4",
+  },
+  {
+    term: "Equivalência lógica",
+    definition: "Relação entre duas sentenças que possuem os mesmos valores-verdade em toda atribuição possível. Escritas como φ ≡ ψ.",
+    firstAppearance: "cap2-sec2",
+  },
+  {
+    term: "Consequência lógica",
+    definition: "Relação em que toda atribuição que satisfaz as premissas também satisfaz a conclusão. Notação: Δ ⊨ φ.",
+    firstAppearance: "intro-sec2",
+  },
+  {
+    term: "Consistência lógica",
+    definition: "Propriedade de um conjunto de sentenças para o qual existe ao menos uma atribuição que satisfaz todas as sentenças simultaneamente.",
+    firstAppearance: "cap2-sec4",
+  },
+  {
+    term: "Forma Normal Conjuntiva",
+    definition: "Representação de sentenças como conjunção de disjunções (CNF). Base para resolução, SAT solvers e otimizadores de query SQL.",
+    firstAppearance: "cap2-sec6",
+  },
+  // Cap 3 - Inferência e Prova
+  {
+    term: "Esquema de axioma",
+    definition: "Template de raciocínio com metavariáveis que, ao ser instanciado com sentenças concretas, gera sentenças logicamente válidas.",
+    firstAppearance: "cap3-sec1",
+  },
+  {
+    term: "Regra de inferência",
+    definition: "Padrão válido de derivação composto por premissas e conclusão. Cada regra captura um passo logicamente válido, como Modus Ponens.",
+    firstAppearance: "cap3-sec1",
+  },
+  {
+    term: "Prova direta",
+    definition: "Sequência finita de sentenças que encadeia premissas, instâncias de axiomas e aplicações de regras de inferência até atingir a conclusão.",
+    firstAppearance: "cap3-sec2",
+  },
+  {
+    term: "Sistema de Fitch",
+    definition: "Sistema de dedução natural que amplia as provas diretas com subprovas e suposições temporárias, permitindo provar implicações e negações.",
+    firstAppearance: "cap3-sec3",
+  },
+  {
+    term: "Solidez",
+    definition: "Propriedade de um sistema de prova em que todo teorema provável é de fato consequência lógica das premissas. Garante que o sistema não prova falsidades.",
+    firstAppearance: "cap3-sec7",
+  },
+  {
+    term: "Completude",
+    definition: "Propriedade de um sistema de prova em que toda consequência lógica pode ser efetivamente provada dentro do sistema.",
+    firstAppearance: "cap3-sec7",
+  },
+  // Cap 4 - Lógica Relacional
+  {
+    term: "Constante de objeto",
+    definition: "Símbolo que representa uma entidade individual do domínio na Lógica Relacional. Exemplos: cliente_001, produto_42.",
+    firstAppearance: "cap4-sec1",
+  },
+  {
+    term: "Constante de relação",
+    definition: "Predicado com aridade definida que expressa propriedades ou relações entre objetos. Exemplos: ativo/1, comprou/2.",
+    firstAppearance: "cap4-sec1",
+  },
+  {
+    term: "Quantificador universal",
+    definition: "Símbolo ∀ que expressa \"para todo x\": a afirmação vale para todos os objetos do domínio de discurso.",
+    firstAppearance: "cap4-sec2",
+  },
+  {
+    term: "Quantificador existencial",
+    definition: "Símbolo ∃ que expressa \"existe x\": a afirmação vale para ao menos um objeto do domínio de discurso.",
+    firstAppearance: "cap4-sec2",
+  },
+  {
+    term: "Semântica de Herbrand",
+    definition: "Interpretação de sentenças sobre um universo finito de constantes nomeadas, avaliando quantificadores como conjunções (∀) ou disjunções (∃).",
+    firstAppearance: "cap4-sec5",
+  },
+  {
+    term: "Grounding",
+    definition: "Processo de substituição de variáveis por todas as constantes do vocabulário, convertendo sentenças quantificadas em proposicionais.",
+    firstAppearance: "cap4-sec5",
+  },
+  // Cap 5 - Validação e Modelos
+  {
+    term: "Verificação de modelos",
+    definition: "Processo de determinar quais atribuições de verdade satisfazem um conjunto de sentenças — o problema central de validação em sistemas lógicos.",
+    firstAppearance: "cap5",
+  },
+  {
+    term: "Propagação de restrições",
+    definition: "Técnica que determina valores de átomos a partir de restrições unitárias e simplifica iterativamente o espaço de busca sem enumeração exaustiva.",
+    firstAppearance: "cap5-sec2",
+  },
+  // Cap 7 - LPO
+  {
+    term: "Conceitualização",
+    definition: "Tripla (objetos, funções, relações) que estrutura um domínio de conhecimento na Lógica de Primeira Ordem.",
+    firstAppearance: "cap7-sec1",
+  },
+  {
+    term: "Universo de discurso",
+    definition: "Conjunto de todos os objetos sobre os quais as afirmações de uma interpretação são feitas. Pode ser finito ou infinito.",
+    firstAppearance: "cap7-sec1",
+  },
+  {
+    term: "Interpretação",
+    definition: "Mapeamento de constantes da linguagem para objetos, funções e relações do universo de discurso.",
+    firstAppearance: "cap7-sec2",
+  },
+  {
+    term: "Modelo",
+    definition: "Interpretação que satisfaz uma sentença φ para toda atribuição de variáveis. Notação: ⊨ᵢ φ.",
+    firstAppearance: "cap7-sec2",
+  },
+  // Cap 8 - Indução e Generalização
+  {
+    term: "Indução incompleta",
+    definition: "Generalização a partir de uma amostra não-exaustiva de casos. Útil na ciência empírica e aprendizado de máquina, mas não garante a validade da conclusão.",
+    firstAppearance: "cap8-sec1",
+  },
+  {
+    term: "Indução completa",
+    definition: "Indução que cobre todos os casos de forma estruturada, garantindo a validade lógica da conclusão. Quando aplicada a números, é denominada indução matemática.",
+    firstAppearance: "cap8-sec1",
+  },
+  {
+    term: "Fechamento de Domínio",
+    definition: "Regra de inferência (DC) que, para domínios finitos, permite concluir ∀ν.φ[ν] a partir da verificação de φ para cada constante do domínio individualmente.",
+    firstAppearance: "cap8-sec2",
+  },
+  {
+    term: "Indução Linear",
+    definition: "Forma clássica de indução completa para sequências: prova-se o caso base φ[a] e o caso indutivo ∀μ.(φ[μ]⇒φ[s(μ)]) para concluir ∀ν.φ[ν].",
+    firstAppearance: "cap8-sec3",
+  },
+  {
+    term: "Indução em Árvore",
+    definition: "Extensão da indução linear para linguagens com múltiplas funções unárias, onde os termos formam uma árvore e é necessário um caso indutivo para cada função.",
+    firstAppearance: "cap8-sec4",
+  },
+  {
+    term: "Indução Estrutural",
+    definition: "Forma mais geral de indução completa, que acomoda múltiplas constantes de objeto e funções com aridade arbitrária. Generaliza indução linear e em árvore.",
+    firstAppearance: "cap8-sec5",
+  },
+  {
+    term: "Indução Multidimensional",
+    definition: "Técnica de indução para provar propriedades com múltiplos quantificadores universais, aplicando induções aninhadas sobre cada variável.",
+    firstAppearance: "cap8-sec6",
+  },
+  {
+    term: "Fortalecimento da hipótese",
+    definition: "Técnica de prova em que se demonstra uma afirmação mais forte que a desejada como passo intermediário, e então se extrai a conclusão original.",
+    firstAppearance: "cap8-sec7",
+  },
 ];
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
