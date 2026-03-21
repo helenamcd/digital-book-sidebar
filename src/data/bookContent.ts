@@ -146,6 +146,21 @@ export const chapters: Chapter[] = [
     ]
   },
   {
+    id: "cap9",
+    title: "Capítulo 9 - Conclusão",
+    sections: [
+      { id: "cap9-sec1", title: "Introdução" },
+      { id: "cap9-sec2", title: "Revisão Integrada: Uma Lógica, Três Perspectivas" },
+      { id: "cap9-sec3", title: "Mapa Conceitual do Livro" },
+      { id: "cap9-sec4", title: "Tipos de Raciocínio em IA" },
+      { id: "cap9-sec5", title: "Lógica e Aprendizado de Máquina" },
+      { id: "cap9-sec6", title: "Limites Fundamentais do Raciocínio Formal" },
+      { id: "cap9-sec7", title: "Caminhos para Estudo Avançado" },
+      { id: "cap9-sec8", title: "Princípios para o Profissional de IA" },
+      { id: "cap9-sec9", title: "Palavras Finais" },
+    ]
+  },
+  {
     id: "glossario",
     title: "Glossário",
   },
