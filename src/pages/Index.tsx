@@ -5,9 +5,18 @@ import BookCover from "@/components/BookCover";
 import GlossaryContent from "@/components/GlossaryContent";
 
 const Index = () => {
-  const [activeChapter, setActiveChapter] = useState("capa");
+const getInitialChapter = () => {
+    const visited = localStorage.getItem("book_visited");
+    if (visited) return "prefacio";
+    return "capa";
+  };
+
+  const [activeChapter, setActiveChapter] = useState(getInitialChapter);
 
   const handleNavigate = (id: string) => {
+    if (id !== "capa") {
+      localStorage.setItem("book_visited", "true");
+    }
     setActiveChapter(id);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
