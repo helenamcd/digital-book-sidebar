@@ -70,14 +70,18 @@ export const chapters: Chapter[] = [
   },
   {
     "id": "cap4",
-    "title": "Capítulo 4 — Dedução Natural",
+    "title": "Capítulo 4 - Lógica Relacional",
     "sections": [
-      { "id": "cap4-sec1", "title": "Provas condicionais" },
-      { "id": "cap4-sec2", "title": "Estrutura de subprovas" },
-      { "id": "cap4-sec3", "title": "O sistema de Fitch" },
-      { "id": "cap4-sec4", "title": "Regras de inferência na dedução natural" },
-      { "id": "cap4-sec5", "title": "Correção e completude" },
-      { "id": "cap4-sec6", "title": "Estratégias para encontrar provas" }
+      { "id": "cap4-sec1", "title": "Vocabulário: Constantes, Variáveis e Relações" },
+      { "id": "cap4-sec2", "title": "Três Tipos de Sentenças" },
+      { "id": "cap4-sec3", "title": "Variáveis Livres e Ligadas" },
+      { "id": "cap4-sec4", "title": "Base de Herbrand" },
+      { "id": "cap4-sec5", "title": "Atribuições de Verdade" },
+      { "id": "cap4-sec6", "title": "Propriedades Lógicas de Sentenças" },
+      { "id": "cap4-sec7", "title": "Relações Lógicas entre Sentenças" },
+      { "id": "cap4-sec8", "title": "Formalizando Cenários de Dados" },
+      { "id": "cap4-sec9", "title": "Equivalência e Decidibilidade" },
+      { "id": "cap4-sec10", "title": "Resumo do Capítulo" }
     ]
   },
   {
