@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useMemo } from "react";
+import { ChevronLeft, ChevronRight, BookOpen } from "lucide-react";
 import { chapters } from "@/data/bookContent";
 
 export interface GlossaryTerm {
   term: string;
   definition: string;
+  firstAppearance?: string; // section/chapter id
 }
 
 export const glossaryTerms: GlossaryTerm[] = [
@@ -12,106 +13,127 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Implicação",
     definition:
       "Relação lógica entre duas proposições na qual a verdade da primeira (antecedente) garante a verdade da segunda (consequente). Em lógica formal, é representada pelo conectivo →. Por exemplo: \"Se o usuário apresentou erro, então o sistema exibe uma mensagem de apoio\" é uma implicação.",
+    firstAppearance: "intro",
   },
   {
     term: "Máxima Verossimilhança",
     definition:
       "Método estatístico de estimação de parâmetros que busca encontrar os valores que tornam os dados observados mais prováveis. Dado um modelo estatístico com parâmetros desconhecidos, a estimativa de máxima verossimilhança (MLE) é aquela que maximiza a função de verossimilhança.",
+    firstAppearance: "cap7",
   },
   {
     term: "Verossimilhança",
     definition:
       "Função que mede o quão compatíveis são os dados observados com um determinado conjunto de parâmetros de um modelo estatístico. Diferente da probabilidade, que vai do modelo para os dados, a verossimilhança vai dos dados para o modelo.",
+    firstAppearance: "cap7",
   },
   {
     term: "Indução",
     definition:
       "Método de raciocínio que parte de observações particulares para formular uma conclusão geral. Por exemplo: ao observar que todos os cisnes encontrados até agora são brancos, conclui-se que \"todos os cisnes são brancos\". A indução não garante a verdade da conclusão, apenas a torna provável com base nas evidências disponíveis.",
+    firstAppearance: "intro-sec1",
   },
   {
     term: "Dedução",
     definition:
       "Método de raciocínio que parte de premissas gerais para chegar a uma conclusão particular necessariamente verdadeira, desde que as premissas sejam verdadeiras. Por exemplo: \"Todo ser humano é mortal. Sócrates é um ser humano. Logo, Sócrates é mortal.\" A dedução preserva a verdade das premissas na conclusão.",
+    firstAppearance: "intro-sec1",
   },
   {
     term: "Hipótese",
     definition:
       "Suposição provisória que serve como ponto de partida para uma investigação. É uma afirmação que pode ser testada e verificada por meio de evidências ou experimentos. Se confirmada, pode se tornar parte de uma teoria; se refutada, é descartada ou revisada.",
+    firstAppearance: "intro",
   },
   {
     term: "Inferência",
     definition:
       "Processo de chegar a uma conclusão a partir de premissas ou evidências disponíveis. É o ato de raciocinar logicamente, extraindo informações novas a partir do que já se sabe. Pode ser dedutiva, indutiva ou abdutiva.",
+    firstAppearance: "intro",
   },
   {
     term: "Implicação lógica válida",
     definition:
       "Relação entre premissas e conclusão em que, se todas as premissas forem verdadeiras, a conclusão é necessariamente verdadeira. Diferente da implicação material, aqui há uma conexão lógica genuína entre antecedente e consequente.",
+    firstAppearance: "intro-sec2",
   },
   {
     term: "Implicação material",
     definition:
       "Conectivo lógico (→) que é falso apenas quando o antecedente é verdadeiro e o consequente é falso. Diferente da implicação do dia a dia, não exige relação de causa entre as proposições — basta que a combinação V→F não ocorra.",
+    firstAppearance: "cap2",
   },
   {
     term: "Tautologia",
     definition:
       "Proposição composta que é sempre verdadeira, independentemente dos valores lógicos de suas partes. Por exemplo: \"Chove ou não chove\" (P ∨ ¬P) é verdadeira em qualquer situação. Tautologias são fundamentais para identificar leis lógicas universais.",
+    firstAppearance: "cap1-sec3",
   },
   {
     term: "Inferência indutiva",
     definition:
       "Tipo de inferência que generaliza a partir de casos particulares observados. Não garante certeza, mas oferece conclusões prováveis. Exemplo: após observar vários dias de sol no verão, infere-se que \"no verão geralmente faz sol\".",
+    firstAppearance: "intro-sec1",
   },
   {
     term: "Inferência abdutiva",
     definition:
       "Tipo de inferência que busca a melhor explicação para um fato observado. Parte de um efeito para propor a causa mais provável. Exemplo: \"A rua está molhada, então provavelmente choveu.\" É muito usada em diagnósticos e investigações.",
+    firstAppearance: "intro-sec1",
   },
   {
     term: "Implicação causal",
     definition:
       "Relação em que um evento (causa) produz ou influencia diretamente outro evento (efeito). Diferente da implicação lógica, exige uma conexão real de causa e efeito no mundo. Exemplo: \"Aquecer água a 100 °C causa sua ebulição.\"",
+    firstAppearance: "intro-sec2",
   },
   {
     term: "Demonstração",
     definition:
       "Sequência rigorosa de passos lógicos que parte de premissas aceitas (axiomas ou teoremas já provados) para estabelecer a verdade de uma conclusão. É o método formal usado em matemática e lógica para provar que algo é necessariamente verdadeiro.",
+    firstAppearance: "intro",
   },
   {
     term: "Forma Clausal",
     definition:
       "Representação de sentenças como conjunção de disjunções de literais. A conversão pode ser feita em 4 passos (proposicional) ou 7 passos (relacional, incluindo Skolemização).",
+    firstAppearance: "cap6-sec1",
   },
   {
     term: "Resolução",
     definition:
       "Princípio de inferência em que, dadas duas cláusulas com literais complementares (χ e ¬χ), deriva-se uma nova cláusula (resolvente) com os literais restantes de ambas. É a única regra de inferência necessária para provas por refutação.",
+    firstAppearance: "cap6-sec2",
   },
   {
     term: "Refutação",
     definition:
       "Método de prova em que, para demonstrar que Δ ⊨ φ, acrescenta-se ¬φ a Δ, converte-se para forma clausal e deriva-se a cláusula vazia. Se a cláusula vazia for derivada, a conclusão é válida.",
+    firstAppearance: "cap6-sec4",
   },
   {
     term: "Unificação",
     definition:
       "Processo de encontrar uma substituição de variáveis que torna dois literais idênticos. O Unificador Mais Geral (UMG) é a substituição mais útil para resolução, pois preserva o máximo de generalidade.",
+    firstAppearance: "cap6-sec6",
   },
   {
     term: "Skolemização",
     definition:
       "Eliminação de quantificadores existenciais por constantes e funções de Skolem. Preserva satisfatibilidade (não equivalência lógica). É um passo essencial na conversão para forma clausal na lógica relacional.",
+    firstAppearance: "cap6-sec3",
   },
   {
     term: "Cláusula de Horn",
     definition:
       "Cláusula com no máximo um literal positivo. A resolução unitária é completa para cláusulas de Horn, que são a base de linguagens como Datalog e Prolog e de engines de regras.",
+    firstAppearance: "cap6-sec9",
   },
   {
     term: "Extração de Respostas",
     definition:
       "Extensão da resolução para perguntas do tipo 'qual valor?', usando literais de resposta goal(x). Permite não apenas verificar se algo é verdadeiro, mas descobrir quais valores satisfazem a consulta.",
+    firstAppearance: "cap6-sec8",
   },
 ];
 
@@ -136,6 +158,13 @@ const GlossaryContent = ({ onNavigate }: GlossaryContentProps) => {
   const lettersWithTerms = new Set(
     glossaryTerms.map((t) => t.term[0].toUpperCase())
   );
+
+  // Map of page id -> title for quick lookup
+  const pageTitleMap = useMemo(() => {
+    const map: Record<string, string> = {};
+    allPages.forEach((p) => { map[p.id] = p.title; });
+    return map;
+  }, []);
 
   const filteredTerms = activeLetter
     ? glossaryTerms.filter(
@@ -219,6 +248,17 @@ const GlossaryContent = ({ onNavigate }: GlossaryContentProps) => {
                 <p className="font-serif-book text-sm md:text-[0.95rem] leading-[1.85] text-[hsl(var(--book-text))]">
                   {term.definition}
                 </p>
+                {term.firstAppearance && pageTitleMap[term.firstAppearance] && (
+                  <button
+                    onClick={() => onNavigate(term.firstAppearance!)}
+                    className="inline-flex items-center gap-1.5 mt-2 text-xs font-sans-book text-accent hover:text-accent/80 transition-colors group"
+                  >
+                    <BookOpen size={12} className="opacity-70" />
+                    <span className="group-hover:underline">
+                      Apresentado em: {pageTitleMap[term.firstAppearance]}
+                    </span>
+                  </button>
+                )}
               </div>
             ))
           )}
