@@ -5,7 +5,7 @@ export interface Chapter {
 }
 
 // Capítulos ocultos (não excluídos, apenas invisíveis)
-export const hiddenChapterPrefixes = ["cap4", "cap5", "cap6", "cap7", "cap8"];
+export const hiddenChapterPrefixes = ["cap5", "cap6", "cap7", "cap8"];
 
 export interface ChapterTable {
   headers: string[];
@@ -70,14 +70,18 @@ export const chapters: Chapter[] = [
   },
   {
     "id": "cap4",
-    "title": "Capítulo 4 — Dedução Natural",
+    "title": "Capítulo 4 - Lógica Relacional",
     "sections": [
-      { "id": "cap4-sec1", "title": "Provas condicionais" },
-      { "id": "cap4-sec2", "title": "Estrutura de subprovas" },
-      { "id": "cap4-sec3", "title": "O sistema de Fitch" },
-      { "id": "cap4-sec4", "title": "Regras de inferência na dedução natural" },
-      { "id": "cap4-sec5", "title": "Correção e completude" },
-      { "id": "cap4-sec6", "title": "Estratégias para encontrar provas" }
+      { "id": "cap4-sec1", "title": "Vocabulário: Constantes, Variáveis e Relações" },
+      { "id": "cap4-sec2", "title": "Três Tipos de Sentenças" },
+      { "id": "cap4-sec3", "title": "Variáveis Livres e Ligadas" },
+      { "id": "cap4-sec4", "title": "Base de Herbrand" },
+      { "id": "cap4-sec5", "title": "Atribuições de Verdade" },
+      { "id": "cap4-sec6", "title": "Propriedades Lógicas de Sentenças" },
+      { "id": "cap4-sec7", "title": "Relações Lógicas entre Sentenças" },
+      { "id": "cap4-sec8", "title": "Formalizando Cenários de Dados" },
+      { "id": "cap4-sec9", "title": "Equivalência e Decidibilidade" },
+      { "id": "cap4-sec10", "title": "Resumo do Capítulo" }
     ]
   },
   {
@@ -1200,100 +1204,184 @@ export const chapterContents: Record<string, ChapterContent> = {
 
 
   "cap4": {
-      "id": "cap4",
-      "title": "Dedução Natural",
-      "subtitle": "Capítulo 4",
-      "paragraphs": [
-        "Nos capítulos anteriores, estudamos métodos de **avaliação semântica**, como tabelas-verdade, e métodos iniciais de **dedução direta**, baseados na aplicação sequencial de regras de inferência. Esses métodos possuem a vantagem de serem conceitualmente simples, mas rapidamente se tornam pouco práticos à medida que o número de proposições e conectivos cresce.",
-        "Em particular, a construção de tabelas-verdade sofre de um crescimento exponencial no número de cenários possíveis, enquanto provas diretas podem se tornar longas, repetitivas e difíceis de organizar. Essas limitações motivam a busca por métodos de prova mais estruturados e próximos do raciocínio humano.",
-        "O **Teorema da Dedução** fornece uma importante garantia teórica: se uma conclusão pode ser provada a partir de um conjunto de premissas, então a implicação correspondente também pode ser provada. No entanto, esse resultado é de natureza **meta-lógica** — ele afirma que a prova existe, mas não descreve como construí-la passo a passo.",
-        "A **Dedução Natural** resolve essa lacuna ao introduzir um sistema de provas que permite trabalhar explicitamente com **assunções temporárias**, organizadas em **subprovas**. A partir dessas assunções, derivamos conclusões locais e, ao final, descarregamos as assunções na forma de implicações ou negações.",
-        "Esse estilo de prova aproxima a lógica formal do raciocínio cotidiano: *assumir uma hipótese*, *explorar suas consequências* e *retirar conclusões condicionais*. Por esse motivo, a Dedução Natural é amplamente utilizada tanto no ensino de lógica quanto na formalização de argumentos em matemática, computação e inteligência artificial.",
-        "Neste capítulo, iniciamos com o conceito de **provas condicionais**, apresentamos a estrutura de **subprovas**, introduzimos o **sistema de Fitch** e suas regras de inferência, discutimos os conceitos de **correção (soundness)** e **completude (completeness)** e encerramos com **estratégias práticas** para a construção de provas."
-      ]
-    },
-
+    "id": "cap4",
+    "title": "Lógica Relacional",
+    "subtitle": "Capítulo 4",
+    "paragraphs": [
+      "A Lógica Proposicional, estudada nos capítulos anteriores, é poderosa para expressar relações entre proposições fixas. Contudo, ela apresenta uma limitação fundamental: é impossível enunciar afirmações gerais sobre objetos sem enumerá-los explicitamente. Em ciência de dados, esse problema é onipresente. Queremos dizer coisas como 'todo registro com valor ausente deve ser imputado' ou 'existe algum cliente cujo score supera o limiar', sem precisar escrever uma regra separada para cada registro ou cada cliente.",
+      "A Lógica Relacional resolve essa limitação ao introduzir dois recursos linguísticos essenciais: **variáveis** e **quantificadores**. Com eles, podemos expressar informações sobre múltiplos objetos sem enumerá-los, e afirmar a existência de objetos que satisfazem certas condições sem especificar quais são. Esse salto expressivo é decisivo para a formalização de regras de negócio, restrições de qualidade de dados e propriedades de modelos.",
+      "Neste capítulo, percorremos a Lógica Relacional em quatro etapas: **sintaxe** (como escrever sentenças), **semântica** (o que elas significam), **avaliação** (como verificar se são verdadeiras) e **análise** (como determinar propriedades lógicas e relações entre sentenças). Em cada etapa, ancoramos os conceitos em exemplos diretamente relevantes para a prática de ciência de dados."
+    ]
+  },
 
   "cap4-sec1": {
     "id": "cap4-sec1",
-    "title": "Provas Condicionais",
-    "subtitle": "Capítulo 4",
+    "title": "Vocabulário: Constantes, Variáveis e Relações",
+    "subtitle": "Capítulo 4 — Sintaxe da Lógica Relacional",
     "paragraphs": [
-      "As **provas condicionais** estendem a ideia de prova direta ao permitir a introdução explícita de **suposições temporárias**. Diferentemente das provas diretas, uma prova condicional possui uma estrutura hierárquica, composta por **subprovas** aninhadas dentro de uma prova principal.",
-      "A ideia central é a seguinte: se, ao **assumir temporariamente** uma sentença φ, conseguimos derivar uma sentença ψ, então podemos concluir fora dessa suposição que **φ ⇒ ψ**. Essa passagem é formalizada pela regra de **Introdução da Implicação**.",
-      "O esquema geral de uma prova condicional pode ser representado da seguinte forma:",
-      "```text\n1.  φ            Assumption\n   ...\n   ψ\n---------------------------\n   φ ⇒ ψ        Implication Introduction\n```",
-      "Um exemplo concreto ilustra esse mecanismo. Suponha que temos como premissas `p ⇒ q` e `q ⇒ r` e queremos provar `p ⇒ r`.",
-      "```text\n1.  p ⇒ q        Premise\n2.  q ⇒ r        Premise\n3.  p            Assumption\n4.  q            Implication Elimination: 3, 1\n5.  r            Implication Elimination: 4, 2\n6.  p ⇒ r        Implication Introduction: 3–5\n```",
-      "Note que `p` **não é uma premissa global**: ela só vale dentro da subprova. Fora dela, seu único efeito legítimo é aparecer como antecedente da implicação `p ⇒ r`."
+      "Na Lógica Proposicional, o vocabulário é composto por constantes proposicionais. Na Lógica Relacional, o vocabulário é estruturado em três categorias distintas:",
+      "- **Constantes de objeto**: representam entidades individuais do domínio. Por convenção, começam com letras que não sejam u, v, w, x, y, z ou com dígitos. Exemplos: `cliente_001`, `produto_42`, `regiao_sul`.\n- **Constantes de relação**: representam predicados ou propriedades. Cada constante de relação tem uma *aridade* — o número de argumentos que aceita. Exemplos: `ativo` (unário), `comprou` (binário), `transferiu` (ternário).\n- **Variáveis**: começam por letras do final do alfabeto (u, v, w, x, y, z). Funcionam como placeholders para objetos arbitrários do domínio. Exemplos: `x`, `y`, `cliente_var`.",
+      "Um **vocabulário** é um conjunto finito e não vazio de constantes de objeto, um conjunto finito e não vazio de constantes de relação, e uma atribuição de aridade para cada constante de relação. Um **termo** é uma variável ou uma constante de objeto — os 'substantivos' da linguagem."
     ]
   },
 
   "cap4-sec2": {
     "id": "cap4-sec2",
-    "title": "Escopo e Subprovas",
-    "subtitle": "Capítulo 4",
+    "title": "Três Tipos de Sentenças",
+    "subtitle": "Capítulo 4 — Sintaxe da Lógica Relacional",
     "paragraphs": [
-      "Uma subprova define um **escopo lógico**. Dentro desse escopo, podemos usar suposições locais e todas as sentenças das superprovas que a contêm.",
-      "Entretanto, **não é permitido** usar sentenças derivadas dentro de uma subprova como premissas em níveis externos, exceto por meio de regras condicionais apropriadas.",
-      "O exemplo abaixo ilustra um **erro comum**. A linha final tenta usar uma sentença derivada dentro da subprova como premissa no nível superior — o que é inválido.",
-      "```text\n1.  p ⇒ q        Premise\n2.  q ⇒ r        Premise\n3.  p            Assumption\n4.  q            Implication Elimination: 3, 1\n5.  r            Implication Elimination: 4, 2\n6.  p ⇒ r        Implication Introduction: 3–5\n7.  r            ❌ INVALID: uso indevido da subprova\n```",
-      "Esse tipo de erro viola a regra fundamental de escopo: **resultados locais não vazam para fora da subprova**.",
-      "Essa disciplina é diretamente análoga ao escopo de variáveis em linguagens de programação, onde valores definidos dentro de um bloco não podem ser acessados fora dele."
+      "A Lógica Relacional possui três tipos de sentenças, que se combinam para formar expressões cada vez mais ricas:",
+      "### Sentenças Relacionais (Átomos)",
+      "Uma sentença relacional é formada por uma constante de relação n-ária seguida de n termos. É o elemento atômico da linguagem — o equivalente das constantes proposicionais, mas com estrutura interna. Exemplos:",
+      "```\nativo(cliente_001)                    -- cliente_001 é um cliente ativo\ncomprou(joao, produto_42)             -- joao comprou produto_42\ntransferiu(alice, bob, valor_x)       -- alice transferiu valor_x para bob\n```",
+      "### Sentenças Lógicas",
+      "Sentenças lógicas são formadas combinando sentenças menores com os mesmos operadores da Lógica Proposicional: negação (~), conjunção (∧), disjunção (∨), implicação (⇒), e bicondicional (⇔). A sintaxe é idêntica — apenas os átomos são mais ricos.",
+      "```\n~inadimplente(x)                      -- x não é inadimplente\nativo(x) ∧ sem_divida(x)              -- x é ativo E sem dívida\nscore_alto(x) ⇒ pre_aprovado(x)       -- score alto implica pré-aprovação\naprovado(x) ⇔ score_alto(x) ∧ ativo(x)  -- bicondicional de aprovação\n```",
+      "### Sentenças Quantificadas",
+      "Sentenças quantificadas são o grande diferencial da Lógica Relacional. Há dois tipos:",
+      "- **Quantificador Universal** (para todo, ∀): afirma que todos os objetos do domínio satisfazem uma propriedade.\n- **Quantificador Existencial** (existe algum, ∃): afirma que pelo menos um objeto do domínio satisfaz uma propriedade.",
+      "```\n∀x.(ativo(x) ⇒ score_valido(x))       -- todo cliente ativo tem score válido\n∃x.(score_alto(x) ∧ inadimplente(x))  -- existe cliente com score alto e inadimplente\n∀x.∃y.(comprou(x,y))                  -- todo cliente comprou algum produto\n∃y.∀x.(recomendado(x,y))              -- existe produto recomendado para todos\n```",
+      "A ordem dos quantificadores é crítica. As duas últimas sentenças acima expressam conceitos radicalmente diferentes: a terceira diz que cada cliente tem seu próprio produto comprado (pode ser um produto diferente para cada um); a quarta diz que existe um único produto que é recomendado para todos os clientes simultaneamente.",
+      "#### Precedência de Operadores na Lógica Relacional",
+      "Os quantificadores têm precedência sobre os operadores lógicos. Isso significa que `∀x.p(x) ⇒ q(x)` é lido como `(∀x.p(x)) ⇒ q(x)`, e não como `∀x.(p(x) ⇒ q(x))`. Para aplicar um quantificador a uma sentença composta, use parênteses explicitamente: `∀x.(p(x) ⇒ q(x))`. Em ciência de dados, esse erro de parênteses é equivalente a um erro de escopo em programação — a variável quantificada não alcança a subexpressão desejada."
     ]
   },
 
   "cap4-sec3": {
     "id": "cap4-sec3",
-    "title": "O Sistema de Fitch",
-    "subtitle": "Capítulo 4",
+    "title": "Variáveis Livres e Ligadas",
+    "subtitle": "Capítulo 4 — Sintaxe da Lógica Relacional",
     "paragraphs": [
-      "O **sistema de Fitch** é um sistema de Dedução Natural que torna explícita a estrutura de subprovas por meio de indentação e marcação visual.",
-      "Ele combina **regras ordinárias**, que operam dentro de um mesmo escopo, e **regras condicionais**, que permitem sair de subprovas de forma controlada.",
-      "Um exemplo típico em Fitch é a prova de uma implicação trivial, como `p ⇒ q`, a partir da premissa `q`.",
-      "```text\n1.  q            Premise\n2.  p            Assumption\n3.  q            Reiteration: 1\n4.  p ⇒ q        Implication Introduction: 2–3\n```",
-      "Esse padrão aparece com frequência: para provar uma implicação, assume-se o antecedente, deriva-se o consequente e então fecha-se a subprova."
+      "Uma ocorrência de variável é **ligada** se está dentro do escopo de um quantificador daquela variável; caso contrário, é **livre**. Uma sentença é **aberta** se tem variáveis livres, e **fechada** (ou sentença) caso contrário.",
+      "```\n∃x.comprou(x, y)             -- x é ligada; y é livre ⇒ sentença aberta\n∀y.(∃x.comprou(x,y))         -- x e y são ambas ligadas ⇒ sentença fechada\nscore_alto(x)                -- x é livre ⇒ sentença aberta\n```",
+      "Em ciência de dados, sentenças abertas correspondem a templates parametrizados de regras. Uma sentença aberta como `score_alto(x)` pode ser lida como uma função de x para um valor booleano — ela representa uma condição aplicável a qualquer cliente específico. Sentenças fechadas, por sua vez, fazem afirmações completas sobre o domínio, sem dependência de parâmetros externos.",
+      "```\n| Tipo de Sentença | Definição | Analogia em Dados |\n|---|---|---|\n| Sentença ground | Sem variáveis | Registro específico: score_alto(cliente_007) |\n| Sentença aberta | Com variáveis livres | Template de regra: score_alto(x) |\n| Sentença fechada | Sem variáveis livres | Afirmação geral: ∀x.(ativo(x) ⇒ score_valido(x)) |\n```"
     ]
   },
 
   "cap4-sec4": {
     "id": "cap4-sec4",
-    "title": "Regras de Inferência na Dedução Natural",
-    "subtitle": "Capítulo 4",
+    "title": "Base de Herbrand",
+    "subtitle": "Capítulo 4 — Semântica",
     "paragraphs": [
-      "Cada conectivo lógico possui regras de **introdução** e **eliminação**, que controlam como ele pode ser criado e utilizado em provas.",
-      "Por exemplo, a conjunção é introduzida a partir de seus componentes:",
-      "```text\nφ\nψ\n-----\nφ ∧ ψ    And Introduction\n```",
-      "E eliminada da seguinte forma:",
-      "```text\nφ ∧ ψ\n-----\nφ        And Elimination\n```",
-      "A disjunção exige mais cuidado. Para eliminá-la, é necessário mostrar que **todos os casos possíveis** levam à mesma conclusão.",
-      "```text\nφ ∨ ψ\nφ ⇒ χ\nψ ⇒ χ\n--------\nχ        Or Elimination\n```",
-      "Esse cuidado reflete o fato de que não sabemos qual disjuntor é verdadeiro."
+      "A semântica da Lógica Relacional adotada aqui é chamada de **Semântica de Herbrand**, em homenagem ao lógico Jacques Herbrand. Sua ideia central é que o universo de discurso é exatamente o conjunto de constantes de objeto presentes no vocabulário — nada mais, nada menos.",
+      "A **base de Herbrand** de um vocabulário é o conjunto de todas as sentenças relacionais ground (sem variáveis) que podem ser formadas com as constantes do vocabulário. Formalmente, para cada constante de relação r de aridade n e cada n-upla de constantes de objeto (t1,...,tn), a sentença r(t1,...,tn) pertence à base de Herbrand.",
+      "#### Tamanho da Base de Herbrand",
+      "Para b constantes de objeto e uma constante de relação de aridade n, há **b^n** sentenças atômicas ground. O total da base de Herbrand é a soma sobre todas as constantes de relação.",
+      "Exemplo: com 3 objetos {a, b, c} e uma relação binária q, há 3² = 9 sentenças ground: `q(a,a)`, `q(a,b)`, `q(a,c)`, `q(b,a)`, `q(b,b)`, `q(b,c)`, `q(c,a)`, `q(c,b)`, `q(c,c)`.",
+      "Em bases de dados reais, cada linha de uma tabela corresponde a um átomo ground positivo, e cada ausência de linha corresponde a um átomo ground negativo (hipótese do mundo fechado)."
     ]
   },
 
   "cap4-sec5": {
     "id": "cap4-sec5",
-    "title": "Correção e Completude",
-    "subtitle": "Capítulo 4",
+    "title": "Atribuições de Verdade",
+    "subtitle": "Capítulo 4 — Semântica",
     "paragraphs": [
-      "Na lógica, distinguimos **consequência lógica** (semântica) e **provabilidade** (sintática).",
-      "Um sistema é **correto (sound)** se tudo o que ele prova é semanticamente válido. Formalmente: se Δ ⊢ φ, então Δ ⊨ φ.",
-      "Um sistema é **completo** se tudo o que é semanticamente válido pode ser provado no sistema. Formalmente: se Δ ⊨ φ, então Δ ⊢ φ.",
-      "O sistema de Fitch é **correto e completo** para a lógica proposicional, garantindo que provas e tabelas-verdade capturam exatamente as mesmas relações lógicas."
+      "Uma **atribuição de verdade** para uma linguagem relacional é uma função que mapeia cada sentença ground da base de Herbrand a um valor booleano (0 ou 1). Isso é exatamente análogo a uma linha de uma tabela-verdade na Lógica Proposicional — mas agora as 'proposições' têm estrutura interna (um predicado aplicado a constantes).",
+      "Uma vez fixada a atribuição para os átomos ground, a verdade de sentenças mais complexas é determinada recursivamente pelos mesmos operadores lógicos da Lógica Proposicional. A novidade está nos quantificadores:",
+      "- `∀x.φ(x)` é verdadeira se e somente se φ(t) é verdadeira para **toda** constante de objeto t do vocabulário.\n- `∃x.φ(x)` é verdadeira se e somente se φ(t) é verdadeira para **pelo menos uma** constante de objeto t do vocabulário.",
+      "Em outras palavras, o universal age como uma conjunção sobre todas as instâncias, e o existencial age como uma disjunção sobre todas as instâncias. Essa correspondência é fundamental para entender a avaliação de sentenças quantificadas.",
+      "### Exemplo Detalhado: Dataset de Clientes",
+      "Considere um vocabulário com constantes de objeto {alice, bob, carol} e constantes de relação `ativo` (unário), `comprou` (binário). A atribuição de verdade abaixo representa um estado parcial de um sistema de CRM:",
+      "```\nativo(alice) = 1    ativo(bob) = 1    ativo(carol) = 0\n\ncomprou(alice, alice) = 0   comprou(alice, bob) = 0   comprou(alice, carol) = 1\ncomprou(bob, alice) = 1     comprou(bob, bob) = 0     comprou(bob, carol) = 1\ncomprou(carol, alice) = 0   comprou(carol, bob) = 0   comprou(carol, carol) = 0\n```",
+      "Avaliemos a sentença `∀x. ∃y.comprou(x,y)`: 'todo cliente comprou algum produto (representado por outro cliente no vocabulário)'. Expandindo:",
+      "```\n∃y.comprou(alice, y): comprou(alice,alice)=0, comprou(alice,bob)=0, comprou(alice,carol)=1 ⇒ TRUE\n∃y.comprou(bob, y):   comprou(bob,alice)=1 ⇒ TRUE\n∃y.comprou(carol, y): comprou(carol,alice)=0, comprou(carol,bob)=0, comprou(carol,carol)=0 ⇒ FALSE\n\nComo nem todas as instâncias do universal são verdadeiras, ∀x.∃y.comprou(x,y) ⇒ FALSE\n```",
+      "Carol nunca comprou nada, portanto a afirmação universal falha. Em ciência de dados, esse tipo de avaliação é o que ocorre quando validamos uma restrição de integridade: verificamos se ela vale para todos os registros do dataset."
     ]
   },
 
   "cap4-sec6": {
     "id": "cap4-sec6",
-    "title": "Estratégias de Raciocínio em Fitch",
+    "title": "Propriedades Lógicas de Sentenças",
     "subtitle": "Capítulo 4",
     "paragraphs": [
-      "Embora as regras sejam simples, encontrar uma prova exige estratégia. Uma heurística fundamental é observar a **forma da conclusão desejada**.",
-      "Se o objetivo é uma implicação, assume-se o antecedente. Se o objetivo é uma conjunção, prova-se cada parte. Se é uma disjunção, basta provar um dos disjuntos.",
-      "Para negações, é comum usar **prova por contradição**: assume-se φ, deriva-se uma contradição e conclui-se ¬φ.",
-      "```text\n1.  p ∧ ¬p       Assumption\n2.  p            And Elimination\n3.  ¬p           And Elimination\n4.  false        Contradiction\n5.  ¬(p ∧ ¬p)    Negation Introduction\n```",
-      "Em provas longas, é frequentemente eficaz trabalhar **de trás para frente**, decompondo o objetivo em subobjetivos menores."
+      "Assim como na Lógica Proposicional, as sentenças da Lógica Relacional se dividem em três categorias exclusivas com base em seu comportamento perante todas as atribuições de verdade possíveis:",
+      "```\n| Propriedade | Definição | Exemplo |\n|---|---|---|\n| Válida (tautologia) | Verdadeira em toda atribuição de verdade | ∀x.p(x) ⇒ ∃x.p(x) |\n| Contingente | Verdadeira em algumas, falsa em outras | ∃x.ativo(x) |\n| Insatisfatível | Falsa em toda atribuição de verdade | ∀x.(p(x) ∧ ~p(x)) |\n| Satisfatível | Verdadeira em ao menos uma atribuição | ativo(alice) ∧ ativo(bob) |\n```",
+      "### Valididades Características da Lógica Relacional",
+      "A Lógica Relacional herda todas as tautologias da Lógica Proposicional aplicadas a átomos ground, mas também possui valididades próprias envolvendo quantificadores. As mais importantes para a prática de ciência de dados são:",
+      "#### Reversão de Quantificadores do Mesmo Tipo",
+      "A ordem de quantificadores do mesmo tipo pode ser invertida sem alterar o valor de verdade. Isso é análogo a trocar a ordem de iteração em loops aninhados sobre o mesmo domínio:",
+      "```\n∀x.∀y.q(x,y) ⇔ ∀y.∀x.q(x,y)    -- válido\n∃x.∃y.q(x,y) ⇔ ∃y.∃x.q(x,y)    -- válido\n```",
+      "#### Distribuição Existencial",
+      "Um existencial pode ser movido para dentro de um universal, mas o inverso não é válido. Essa assimetria é crucial:",
+      "```\n∃y.∀x.q(x,y) ⇒ ∀x.∃y.q(x,y)    -- válido (o inverso NÃO é válido)\n\nInterpretação em dados:\n∃y.∀x.q(x,y): existe um produto recomendado para TODOS os clientes\n∀x.∃y.q(x,y): cada cliente tem ALGUM produto recomendado (pode ser diferente)\n```",
+      "#### Distribuição da Negação sobre Quantificadores (Leis de De Morgan Quantificadas)",
+      "A negação distribui sobre quantificadores invertendo seu tipo — uma generalização direta das leis de De Morgan da Lógica Proposicional:",
+      "```\n~∀x.p(x) ≡ ∃x.~p(x)    -- não é verdade que todos são p ⇔ existe algum que não é p\n~∃x.p(x) ≡ ∀x.~p(x)    -- não existe nenhum p ⇔ todos não são p\n```",
+      "Em ciência de dados, essa equivalência é extremamente útil para reformular restrições. 'Não existe registro com valor nulo em todas as colunas' é equivalente a 'para todo registro, existe ao menos uma coluna sem valor nulo'. As duas formulações expressam a mesma restrição de qualidade de dados, mas podem ser mais ou menos convenientes dependendo do contexto de implementação."
+    ]
+  },
+
+  "cap4-sec7": {
+    "id": "cap4-sec7",
+    "title": "Relações Lógicas entre Sentenças",
+    "subtitle": "Capítulo 4",
+    "paragraphs": [
+      "Além das propriedades de sentenças individuais, a Lógica Relacional permite analisar relações entre pares (ou conjuntos) de sentenças. As três relações fundamentais — equivalência lógica, implicação lógica e consistência — têm as mesmas definições da Lógica Proposicional, mas se aplicam a um espaço de sentenças muito mais rico.",
+      "### Equivalência Lógica",
+      "Duas sentenças φ e ψ são logicamente equivalentes se e somente se toda atribuição de verdade que satisfaz φ também satisfaz ψ, e vice-versa. Denotamos φ ≡ ψ. Em ciência de dados, equivalências lógicas permitem reformular restrições e regras de negócio em formas mais convenientes para implementação, sem alterar seu significado.",
+      "### Implicação Lógica",
+      "Um conjunto de sentenças Δ implica logicamente uma sentença φ (Δ |= φ) se e somente se toda atribuição de verdade que satisfaz Δ também satisfaz φ. Exemplos importantes:",
+      "```\n∃y.∀x.q(x,y) |= ∀x.∃y.q(x,y)    -- 'produto único p/ todos' implica 'produto p/ cada um'\n∀x.∀y.q(x,y) |= ∀x.∀y.q(y,x)    -- relação total implica sua simétrica\np(a) |= p(a) ∨ p(b)               -- fato específico implica disjunção\np(a), p(b) |= p(a) ∧ p(b)         -- dois fatos implicam sua conjunção\n```",
+      "### Consistência",
+      "Uma sentença φ é consistente com um conjunto Δ se existe ao menos uma atribuição de verdade que satisfaz simultaneamente Δ e φ. Em outras palavras, φ não contradiz as premissas em Δ.",
+      "Em ciência de dados, a consistência é a propriedade relevante ao adicionar uma nova regra de negócio a um sistema existente: precisamos verificar que a nova regra não contradiz as regras já estabelecidas. Se a nova regra for inconsistente com as anteriores, o sistema não terá nenhuma atribuição de verdade válida — será impossível satisfazer todas as restrições simultaneamente."
+    ]
+  },
+
+  "cap4-sec8": {
+    "id": "cap4-sec8",
+    "title": "Formalizando Cenários de Dados",
+    "subtitle": "Capítulo 4",
+    "paragraphs": [
+      "### Sistema de Recomendação",
+      "Considere um sistema de recomendação com quatro usuários (alice, bob, carol, dana) e um conjunto de itens. Queremos formalizar diversas propriedades do sistema usando a Lógica Relacional. Adotamos as constantes de relação: `curtiu` (binário: usuário × item), `recomendado` (binário: usuário × item), `ativo` (unário: usuário).",
+      "```\n-- Alice curtiu o item i_001 ou o item i_002\ncurtiu(alice, i_001) ∨ curtiu(alice, i_002)\n\n-- Todo usuário ativo recebe ao menos uma recomendação\n∀x.(ativo(x) ⇒ ∃y.recomendado(x, y))\n\n-- Se um usuário curtiu um item, esse item pode ser recomendado para ele\n∀x.∀y.(curtiu(x,y) ⇒ recomendado(x,y))\n\n-- Nenhum usuário recebe recomendações de itens que já curtiu\n~∃x.∃y.(curtiu(x,y) ∧ recomendado(x,y))\n```",
+      "Observe que a última sentença é uma restrição de negócio comum em sistemas de recomendação: não faz sentido recomendar algo que o usuário já gosta. Usando as leis de De Morgan quantificadas, podemos reescrever essa restrição em uma forma equivalente:",
+      "```\n~∃x.∃y.(curtiu(x,y) ∧ recomendado(x,y))\n≡ ∀x.∀y.~(curtiu(x,y) ∧ recomendado(x,y))\n≡ ∀x.∀y.(curtiu(x,y) ⇒ ~recomendado(x,y))\n```",
+      "### Pipeline de Qualidade de Dados",
+      "Um caso de uso central em ciência de dados é a verificação de qualidade de dados. Considere um dataset com registros representados por constantes de objeto e propriedades representadas por constantes de relação unárias: `completo`, `sem_outlier`, `normalizado`, `valido_para_treino`.",
+      "```\n-- Todo registro completo e sem outlier pode ser normalizado\n∀x.(completo(x) ∧ sem_outlier(x) ⇒ normalizado(x))\n\n-- Um registro é válido para treino se e somente se estiver normalizado\n∀x.(valido_para_treino(x) ⇔ normalizado(x))\n\n-- Existe ao menos um registro válido para treino\n∃x.valido_para_treino(x)\n\n-- Nenhum registro com outlier é válido para treino\n∀x.(sem_outlier(x) ∨ ~valido_para_treino(x))\n-- equivalente a: ∀x.(valido_para_treino(x) ⇒ sem_outlier(x))\n```",
+      "### Relações Hierárquicas em Dados",
+      "Muitos problemas de dados envolvem relações hierárquicas ou transitivas: árvores de categorias de produtos, hierarquias organizacionais, grafos de dependência entre tarefas. A Lógica Relacional permite definir tais relações de forma concisa usando quantificadores.",
+      "Considere uma relação de dependência entre tarefas de um pipeline de dados, onde `depende_de(x,y)` significa 'a tarefa x depende diretamente da tarefa y'. Podemos definir a relação de dependência transitiva recursivamente:",
+      "```\n-- Dependência transitiva: x depende de z se depende diretamente\n-- ou depende de alguma tarefa intermediária que depende de z\n∀x.∀z.(antecede(x,z) ⇔\n  depende_de(x,z) ∨\n  ∃y.(depende_de(x,y) ∧ antecede(y,z)))\n\n-- Restrição de aciclicidade: nenhuma tarefa antecede a si mesma\n~∃x.antecede(x,x)\n```"
+    ]
+  },
+
+  "cap4-sec9": {
+    "id": "cap4-sec9",
+    "title": "Equivalência e Decidibilidade",
+    "subtitle": "Capítulo 4",
+    "paragraphs": [
+      "### O Processo de Grounding",
+      "Um resultado teórico fundamental é que a Lógica Relacional com um vocabulário finito é expressivamente equivalente à Lógica Proposicional. Isso significa que, para qualquer conjunto de sentenças relacionais, podemos construir um conjunto equivalente de sentenças proposicionais.",
+      "O procedimento envolve três etapas: (1) converter as sentenças para a **forma prenex** (todos os quantificadores na parte externa), (2) realizar o **grounding** (instanciar variáveis com todas as constantes de objeto possíveis), e (3) substituir os átomos ground por constantes proposicionais.",
+      "#### Forma Prenex",
+      "Uma sentença está em forma prenex se é fechada e todos os quantificadores estão fora de todos os operadores lógicos. Para converter uma sentença para a forma prenex, renomeamos variáveis para evitar conflitos e aplicamos as regras de distribuição de quantificadores em reverso.",
+      "```\nOriginal:  ∀y.p(x,y) ∨ ∃y.q(y)\nRenomear:  ∀y.p(x,y) ∨ ∃z.q(z)         -- evitar conflito de variáveis\nMover:     ∀y.∃z.(p(x,y) ∨ q(z))        -- distribuição reversa\nFechar:    ∀x.∀y.∃z.(p(x,y) ∨ q(z))     -- quantificar variáveis livres\n```",
+      "#### Grounding: Instanciação de Variáveis",
+      "O grounding substitui cada sentença quantificada por um conjunto de sentenças ground. As regras são:",
+      "- **Sentença ground**: mover diretamente para o conjunto de saída.\n- **∀v.φ(v)**: substituir por uma cópia de φ para cada constante de objeto.\n- **∃v.φ(v)**: substituir por uma disjunção de φ para cada constante de objeto.",
+      "Exemplo com vocabulário {a, b} e sentenças {p(a), ∀x.(p(x) ⇒ q(x)), ∃x.~q(x)}:",
+      "```\n| Passo | Δ (a processar) | Γ (resultado) |\n|---|---|---|\n| 0 | {p(a), ∀x.(p(x)⇒q(x)), ∃x.~q(x)} | {} |\n| 1 | {∀x.(p(x)⇒q(x)), ∃x.~q(x)} | {p(a)} |\n| 2 | {p(a)⇒q(a), p(b)⇒q(b), ∃x.~q(x)} | {p(a)} |\n| 3 | {p(b)⇒q(b), ∃x.~q(x)} | {p(a), p(a)⇒q(a)} |\n| 4 | {∃x.~q(x)} | {p(a), p(a)⇒q(a), p(b)⇒q(b)} |\n| 5 | {~q(a) ∨ ~q(b)} | {p(a), p(a)⇒q(a), p(b)⇒q(b)} |\n| 6 | {} | {p(a), p(a)⇒q(a), p(b)⇒q(b), ~q(a) ∨ ~q(b)} |\n```",
+      "Após o grounding, substituímos cada átomo ground por uma constante proposicional: p(a) → pa, q(a) → qa, etc. O resultado é um conjunto de sentenças puramente proposicionais equivalente ao original.",
+      "### Consequências Teóricas: Decidibilidade e Compacidade",
+      "A equivalência entre Lógica Relacional (com vocabulário finito) e Lógica Proposicional tem duas consequências teóricas de grande importância prática:",
+      "- **Decidibilidade**: como a insatisfatibilidade da Lógica Proposicional é decidível (verificável em tempo finito via tabelas-verdade ou algoritmos de SAT), a insatisfatibilidade da Lógica Relacional com vocabulário finito também é decidível. Isso garante que podemos, em princípio, verificar automaticamente se um conjunto de regras de negócio é consistente.\n- **Compacidade**: assim como a Lógica Proposicional, a Lógica Relacional (com vocabulário finito) é compacta: todo conjunto insatisfatível de sentenças contém um subconjunto finito insatisfatível. Isso é importante porque garante que a insatisfatibilidade pode sempre ser demonstrada analisando apenas um número finito de sentenças.",
+      "Essas propriedades — decidibilidade e compacidade — distinguem a Lógica Relacional com vocabulário finito da Lógica de Primeira Ordem (que permite funções e vocabulários infinitos). Quando introduzimos termos funcionais (que geram vocabulários infinitos), perdemos a decidibilidade e, com ela, a garantia de provas finitas."
+    ]
+  },
+
+  "cap4-sec10": {
+    "id": "cap4-sec10",
+    "title": "Resumo do Capítulo",
+    "subtitle": "Capítulo 4",
+    "paragraphs": [
+      "Neste capítulo, apresentamos a **Lógica Relacional** como uma extensão expressiva da Lógica Proposicional, capaz de lidar com afirmações sobre múltiplos objetos por meio de variáveis e quantificadores.",
+      "- A **sintaxe** da Lógica Relacional organiza o vocabulário em constantes de objeto, constantes de relação e variáveis, e define três tipos de sentenças: relacionais, lógicas e quantificadas.\n- A **semântica de Herbrand** interpreta sentenças sobre um universo finito de constantes, permitindo avaliar sentenças quantificadas como conjunções (∀) ou disjunções (∃) sobre todas as instâncias.\n- As **propriedades lógicas** — validade, contingência, satisfatibilidade e insatisfatibilidade — se aplicam de forma análoga à Lógica Proposicional.\n- As **relações lógicas** — equivalência, implicação e consistência — permitem analisar interações entre sentenças e conjuntos de sentenças.\n- A Lógica Relacional com vocabulário finito é **expressivamente equivalente** à Lógica Proposicional via grounding, e portanto **decidível** e **compacta**.",
+      "No próximo capítulo, avançaremos para métodos de prova que operam diretamente sobre sentenças quantificadas, sem necessidade de grounding completo."
     ]
   },
 
