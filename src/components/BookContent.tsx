@@ -293,6 +293,89 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
               );
             }
 
+            // Markdown table in a paragraph (starts with |)
+            if (p.trimStart().startsWith("|")) {
+              // Normalize: handle both real \n and literal \\n
+              const raw = p.includes("\n") ? p : p.replace(/\\n/g, "\n");
+              const allLines = raw.split("\n").map((l) => l.trim()).filter(Boolean);
+              const isSeparator = (line: string) => /^\|[\s\-:|]+\|$/.test(line);
+              const dataLines = allLines.filter((l) => l.startsWith("|") && l.endsWith("|") && !isSeparator(l));
+              const parseRow = (line: string) =>
+                line.split("|").slice(1, -1).map((c) => c.trim());
+
+              if (dataLines.length > 0) {
+                const headers = parseRow(dataLines[0]);
+                const rows = dataLines.slice(1).map(parseRow);
+                const isSingleCol = headers.length === 1;
+
+                // Single-column table = callout/info box
+                if (isSingleCol && rows.length === 0) {
+                  // Header-only callout (content in the header itself, often with <br/>)
+                  const content = headers[0];
+                  const htmlContent = content.replace(/<br\s*\/?>/gi, "\n");
+                  const lines = htmlContent.split("\n");
+                  return (
+                    <div key={i} className="my-6 border-l-4 border-accent bg-accent/5 rounded-r-lg px-5 py-4">
+                      {lines.map((line, li) => (
+                        <p key={li} className={`font-serif-book text-sm md:text-[0.95rem] leading-[1.85] text-[hsl(var(--book-text))] ${li > 0 ? "mt-1" : ""}`}>
+                          {renderInlineMarkdown(line)}
+                        </p>
+                      ))}
+                    </div>
+                  );
+                }
+
+                if (isSingleCol && rows.length > 0) {
+                  // Single-column with header + body rows = callout box
+                  return (
+                    <div key={i} className="my-6 border-l-4 border-accent bg-accent/5 rounded-r-lg px-5 py-4">
+                      <p className="font-serif-book text-sm md:text-[0.95rem] leading-[1.85] text-[hsl(var(--book-text))] font-semibold mb-2">
+                        {renderInlineMarkdown(headers[0])}
+                      </p>
+                      {rows.map((row, ri) => {
+                        const cellContent = row[0] || "";
+                        const htmlContent = cellContent.replace(/<br\s*\/?>/gi, "\n");
+                        const lines = htmlContent.split("\n");
+                        return lines.map((line, li) => (
+                          <p key={`${ri}-${li}`} className="font-serif-book text-sm md:text-[0.95rem] leading-[1.85] text-[hsl(var(--book-text))]">
+                            {renderInlineMarkdown(line)}
+                          </p>
+                        ));
+                      })}
+                    </div>
+                  );
+                }
+
+                // Multi-column table
+                return (
+                  <div key={i} className="my-4 overflow-x-auto inline-block border border-foreground/40">
+                    <table className="border-collapse">
+                      <thead>
+                        <tr className="border-b-2 border-foreground/40">
+                          {headers.map((h, hi) => (
+                            <th key={hi} className="px-5 py-2 font-serif-book text-sm font-semibold text-left border-r border-foreground/40 last:border-r-0">
+                              {renderInlineMarkdown(h)}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {rows.map((row, ri) => (
+                          <tr key={ri} className="border-b border-foreground/20 last:border-b-0">
+                            {row.map((cell, ci) => (
+                              <td key={ci} className="px-5 py-1.5 font-serif-book text-sm text-left border-r border-foreground/40 last:border-r-0">
+                                {renderInlineMarkdown(cell)}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                );
+              }
+            }
+
             // List items (lines starting with -)
             if (p.includes("\n- ") || p.startsWith("- ")) {
               const lines = p.split("\n");
