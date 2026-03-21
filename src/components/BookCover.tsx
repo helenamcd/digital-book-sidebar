@@ -247,7 +247,7 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
           </div>
 
           {/* Buttons */}
-          <div className="mt-4 sm:mt-6 self-center flex flex-wrap gap-3 sm:gap-4 items-center justify-center">
+          <div className="mt-4 sm:mt-6 self-center flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-center justify-center pb-4">
             <button
               onClick={() => onNavigate("prefacio")}
               className="px-5 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wide uppercase transition-all duration-300 hover:scale-105"
