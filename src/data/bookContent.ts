@@ -1542,16 +1542,9 @@ export const chapterContents: Record<string, ChapterContent> = {
 
   "cap5-sec5": {
     id: "cap5-sec5",
-    title: "Resumo",
-    subtitle: "Capítulo 5",
+    title: "Resumo do Capítulo",
     paragraphs: [
-      "**Verificação de modelos (model checking)**: determinar quais atribuições de verdade satisfazem um conjunto de sentenças — o problema central de validação em sistemas lógicos.",
-      "**Método da tabela-verdade**: enumeração exaustiva de todas as 2ⁿ atribuições possíveis. Correto, porém exponencial — inviável para problemas grandes.",
-      "**Método de modelos booleanos**: propagação incremental de restrições. Cada restrição unitária determina um átomo e simplifica as demais restrições. Converge sem busca exaustiva em muitos casos práticos.",
-      "**Propriedade chave da propagação**: a resposta a uma pergunta específica pode ser determinada antes de resolver toda a ambiguidade do modelo.",
-      "**Modelos não-booleanos**: para relações funcionais (cada objeto mapeado a um único valor), representar cada objeto como uma variável com domínio finito reduz o espaço de busca de 2^(n·m) para nⁿ.",
-      "**Restrições de funcionalidade**: ∀x.∀y.∀z.(rel(x,y) ∧ rel(x,z) ⇒ same(y,z)) formalizam relações funcionais.",
-      "**Conexão com ferramentas**: SAT/SMT solvers, Great Expectations, dbt tests e Pandera implementam versões dessas técnicas em escala industrial."
+      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Verificação de modelos | Determinar quais atribuições de verdade satisfazem um conjunto de sentenças |\n| Tabela-verdade relacional | Enumeração exaustiva de todas as 2ⁿ atribuições; correto mas exponencial |\n| Modelos booleanos | Propagação incremental de restrições que reduz o espaço de busca |\n| Propagação de restrições | Técnica que determina átomos a partir de restrições unitárias e simplifica iterativamente |\n| Modelos não-booleanos | Representação compacta com variáveis de domínio finito para relações funcionais |\n| Restrição de funcionalidade | Axioma que garante que cada objeto mapeia para um único valor |\n| SAT/SMT solvers | Ferramentas computacionais que implementam verificação de modelos em escala |"
     ]
   },
 
