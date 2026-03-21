@@ -5,7 +5,7 @@ export interface Chapter {
 }
 
 // Capítulos ocultos (não excluídos, apenas invisíveis)
-export const hiddenChapterPrefixes = ["cap9"];
+export const hiddenChapterPrefixes: string[] = [];
 
 export interface ChapterTable {
   headers: string[];
