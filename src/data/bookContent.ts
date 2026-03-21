@@ -1749,149 +1749,186 @@ export const chapterContents: Record<string, ChapterContent> = {
 
   cap7: {
     id: "cap7",
-    title: "Análise da Lógica Relacional",
+    title: "Lógica de Primeira Ordem",
     subtitle: "Capítulo 7",
     paragraphs: [
-      "A **Lógica Relacional** amplia significativamente o poder expressivo da Lógica Proposicional ao permitir que falemos sobre **objetos, propriedades e relações entre entidades**. No entanto, escrever sentenças não é suficiente. Precisamos compreender como essas sentenças se comportam do ponto de vista lógico: quando são sempre verdadeiras, quando podem falhar, quando entram em conflito e quando realmente implicam outras conclusões. É esse exame sistemático que chamamos de **Análise da Lógica Relacional**.",
-      "Neste capítulo, investigamos primeiro as **propriedades lógicas das sentenças individuais**, classificando-as como válidas, contingentes ou insatisfatíveis. Essas categorias já foram estudadas na Lógica Proposicional, mas aqui ganham novas camadas de complexidade devido à presença de **variáveis e quantificadores**. Em ciência de dados, essa distinção é fundamental para avaliar regras de consistência, hipóteses formais e restrições que se aplicam a conjuntos inteiros de registros.",
-      "Em seguida, analisamos as **relações entre sentenças**, como equivalência lógica, implicação lógica (entailment) e consistência. Essas noções permitem responder perguntas centrais no contexto de sistemas baseados em regras e validação de dados: uma regra realmente garante outra? Duas formulações diferentes expressam a mesma restrição? Um conjunto de regras pode ser satisfeito simultaneamente ou contém contradições?",
-      "Embora as definições formais dessas noções sejam paralelas às da Lógica Proposicional, surgem diferenças importantes decorrentes da estrutura sintática e semântica da Lógica Relacional. A presença de quantificadores introduz fenômenos como distribuição de negação, reversão de quantificadores do mesmo tipo e implicações envolvendo variáveis livres — aspectos que não aparecem na lógica proposicional simples.",
-      "Por fim, discutimos um resultado teórico relevante: a **equivalência expressiva entre Lógica Relacional e Lógica Proposicional em domínios finitos**, obtida por meio do processo de grounding. Mostramos como sentenças relacionais podem ser transformadas em fórmulas proposicionais equivalentes, o que garante decidibilidade de satisfatibilidade e permite a aplicação de técnicas automáticas de verificação.",
-      "Ao longo do capítulo, enfatizamos aplicações em ciência de dados, como auditoria de regras, validação de logs, verificação de integridade de bancos de dados e análise formal de pipelines decisórios. A Análise da Lógica Relacional não é apenas um exercício teórico: ela fornece as bases para construir sistemas mais consistentes, explicáveis e confiáveis.",
-      "Se a Lógica Relacional nos permite **expressar relações complexas sobre dados**, a sua análise nos permite **avaliar rigorosamente as consequências dessas expressões** — distinguindo o que é necessariamente verdadeiro, o que é possível e o que é logicamente impossível."
+      "Os capítulos anteriores apresentaram a Lógica Proposicional e a Lógica Relacional (também chamada de Lógica de Herbrand), ferramentas capazes de representar conhecimento em domínios finitos e bem delimitados. No entanto, à medida que os problemas de Inteligência Artificial e Ciência de Dados crescem em escala e complexidade, essas abordagens revelam limitações importantes: não conseguem, por si sós, expressar afirmações sobre todos os objetos de um domínio sem enumerá-los explicitamente, nem lidar naturalmente com universos infinitos ou com objetos que não possuem nomes únicos na linguagem.",
+      "A **Lógica de Primeira Ordem (LPO)** — também denominada lógica de predicados de primeira ordem ou, em inglês, *First-Order Logic (FOL)* — supera essas limitações ao dissociar o universo de objetos do espaço de termos da linguagem. Em vez de supor uma correspondência biunívoca entre nomes e objetos, a LPO permite que o mesmo objeto tenha múltiplos nomes, que alguns objetos não tenham nome algum, e que o universo seja infinito. Essas características tornam a LPO a linguagem de representação de conhecimento mais amplamente utilizada em IA clássica, sendo o fundamento de sistemas como Prolog, OWL (Web Ontology Language) e motores de inferência para bases de conhecimento.",
+      "Este capítulo apresenta a sintaxe, a semântica e as propriedades centrais da LPO, articulando-as com os conceitos de Lógica de Herbrand vistos anteriormente e destacando as conexões com problemas reais de IA e Ciência de Dados.",
+      "| **Leitura do Capítulo** |\n|---|\n| Este capítulo pressupõe familiaridade com quantificadores (∀, ∃), lógica relacional e o sistema de prova de Fitch. Caso necessite revisar esses tópicos, consulte os Capítulos 5 e 6 antes de prosseguir. |"
     ],
   },
 
   "cap7-sec1": {
     id: "cap7-sec1",
-    title: "Propriedades Lógicas",
-    subtitle: "Capítulo 7",
+    title: "Conceitualização do Mundo",
+    subtitle: "7.2 — Objetos, Relações e Funções",
     paragraphs: [
+      "A semântica da LPO é construída sobre a noção de uma **conceitualização**, que consiste em três componentes: objetos, funções e relações. Compreender cada um desses componentes é essencial para construir e interpretar corretamente modelos lógicos.",
 
-      "##Classificação das sentenças",
-      "Assim como na Lógica Proposicional, uma sentença pode ser:",
-      "- **Válida**: verdadeira em toda atribuição de verdade.\n- **Insatisfatível**: falsa em toda atribuição.\n- **Contingente**: verdadeira em algumas atribuições e falsa em outras.",
-      "Alternativamente:",
-      "- **Satisfatível**: verdadeira em pelo menos uma atribuição.\n- **Falsificável**: falsa em pelo menos uma atribuição.",
+      "### Objetos e Universo de Discurso",
+      "Em LPO, um objeto pode ser qualquer entidade sobre a qual desejamos fazer afirmações: objetos concretos (um nó de uma rede neural, um registro em um banco de dados), objetos abstratos (o número 2, o conjunto dos inteiros) ou mesmo objetos fictícios. O conjunto de todos os objetos relevantes para um problema é denominado **universo de discurso** (∀ᵢ).",
+      "A escolha do universo de discurso é uma decisão de modelagem. Em um sistema de recomendação, o universo pode ser o conjunto de usuários e itens; em um sistema de diagnóstico médico, pode ser o conjunto de pacientes e sintomas; em aritmética, pode ser o conjunto dos números naturais — um universo infinito.",
+      "| **Definição: Universo de Discurso** |\n|---|\n| O universo de discurso (∀ᵢ) é o conjunto de todos os objetos sobre os quais as afirmações de uma interpretação são feitas. Pode ser finito ou infinito, concreto ou abstrato. |",
 
-      "##Exemplo em ciência de dados",
-      "Considere a regra:",
-      "```\\n∀x.(Erro(x) ⇒ RecebeuFeedback(x))\\n```",
-      "Essa sentença **não é válida**, pois depende do dataset. Se existir um erro sem feedback, ela será falsa. Portanto, ela é contingente.",
-      
-      "Agora considere:",
-      "```\\np(a) ∨ ¬p(a)\\n```",
-      "Essa é a Lei do Terceiro Excluído. É válida — independentemente dos dados.",
-      
-      "Outro exemplo clássico:",
-      "```\\np(a) ⇔ ¬¬p(a)\\n```",
-      "Dupla negação — também válida.",
-      
-      "Leis de De Morgan:",
-      "```\\n¬(p(a) ∧ q(a,b)) ⇔ (¬p(a) ∨ ¬q(a,b))\\n¬(p(a) ∨ q(a,b)) ⇔ (¬p(a) ∧ ¬q(a,b))\\n```",
-      "Essas equivalências continuam válidas mesmo em Lógica Relacional quando tratamos sentenças ground como proposições.",
+      "### Relações",
+      "Uma relação de aridade n é um conjunto de n-uplas de objetos do universo de discurso. Formalmente, uma relação n-ária R sobre ∀ᵢ é um subconjunto do produto cartesiano ∀ᵢⁿ. Por exemplo, em um grafo de conhecimento sobre filmes, a relação binária `dirigidoPor(filme, diretor)` contém pares como [Inception, Nolan]; a relação unária `oscarizado(filme)` contém filmes que ganharam o Oscar.",
+      "Na Lógica de Herbrand, uma relação era completamente determinada pela enumeração de suas tuplas, pois o universo era finito. Na LPO, relações sobre universos infinitos podem ser caracterizadas apenas por axiomas gerais — uma distinção fundamental.",
 
-      "##Reversão de quantificadores do mesmo tipo",
-      "```\\n∀x.∀y.q(x,y) ⇔ ∀y.∀x.q(x,y)\\n∃x.∃y.q(x,y) ⇔ ∃y.∃x.q(x,y)\\n```",
-      "Reordenar quantificadores do mesmo tipo não altera o significado.",
-      
-      "##Distribuição existencial",
-      "```\\n∃y.∀x.q(x,y) ⇒ ∀x.∃y.q(x,y)\\n```",
-      "Se existe um único objeto que se relaciona com todos, então cada objeto tem pelo menos um parceiro.",
-      "Exemplo em dados:",
-      "Se existe um tutor que responde a todos os alunos, então todo aluno tem algum tutor que responde (o mesmo tutor).",
-
-      "##Distribuição da negação",
-      "```\\n¬∀x.p(x) ⇔ ∃x.¬p(x)\\n¬∃x.p(x) ⇔ ∀x.¬p(x)\\n```",
-      "Essas regras são fundamentais em detecção de inconsistências.",
-      "Exemplo:",
-      "```\\n¬∀x.(Ativo(x)) ⇔ ∃x.(¬Ativo(x))\\n```",
-      "Dizer que 'nem todos estão ativos' é o mesmo que dizer que 'existe alguém inativo'."
-    ]
+      "### Funções",
+      "Uma função de aridade n associa a cada combinação de n objetos exatamente um objeto. Matematicamente, uma função n-ária é uma relação (n+1)-ária em que, para cada combinação de n argumentos, existe exatamente um valor. Por exemplo, a função `sucessor(s)` mapeia cada número natural n para n+1; a função `pai` mapeia cada pessoa para sua única mãe biológica.",
+      "A representação tabular de funções e relações é intuitiva para universos pequenos, mas impraticável para universos grandes ou infinitos. Daí a importância da linguagem formal da LPO para expressar essas estruturas de modo compacto e geral."
+    ],
   },
 
   "cap7-sec2": {
     id: "cap7-sec2",
-    title: "Relações Lógicas",
-    subtitle: "Capítulo 7",
+    title: "Sintaxe da Lógica de Primeira Ordem",
+    subtitle: "7.3 — Elementos Sintáticos",
     paragraphs: [
-
-      "##Equivalência lógica",
-      "Duas sentenças φ e ψ são logicamente equivalentes se sempre possuem o mesmo valor de verdade.",
-      "Exemplo em dados:",
-      "```\\n¬∀x.Erro(x) ⇔ ∃x.¬Erro(x)\\n```",
-      "Ambas expressam exatamente a mesma restrição sobre o dataset.",
-
-      "##Implicação lógica (entailment)",
-      "φ implica ψ (φ ⊨ ψ) se toda atribuição que satisfaz φ também satisfaz ψ.",
-      "Exemplo ground:",
-      "```\\np(a) ⊨ (p(a) ∨ p(b))\\n```",
-      "Se p(a) é verdadeiro, então a disjunção é verdadeira.",
-      "Mas:",
-      "```\\np(a) ⊭ (p(a) ∧ p(b))\\n```",
-      "Pois p(b) pode ser falso.",
-
-      "##Implicação com quantificadores",
-      "```\\n∃y.∀x.q(x,y) ⊨ ∀x.∃y.q(x,y)\\n```",
-      "Se existe um único servidor que atende todos os usuários, então cada usuário tem pelo menos um servidor que o atende.",
-      
-      "```\\n∀x.∀y.q(x,y) ⊨ ∀x.∀y.q(y,x)\\n```",
-      "Se a relação vale para todos os pares, então também vale invertendo variáveis.",
-
-      "##Variáveis livres",
-      "Uma sentença com variáveis livres é interpretada como universalmente quantificada.",
-      "Exemplo:",
-      "```\\nq(x,y)\\n```",
-      "Equivale semanticamente a:",
-      "```\\n∀x.∀y.q(x,y)\\n```",
-      "Portanto, q(x,y) implica q(y,x) apenas se a relação for universal."
-    ]
+      "A sintaxe da LPO é uma extensão da Lógica Relacional com a incorporação de constantes de função e termos compostos. Os elementos sintáticos são os seguintes:",
+      "| **Elemento Sintático** | **Descrição e Exemplos** |\n|---|---|\n| **Constantes de objeto** | Nomes para objetos específicos: a, b, joão, 0, nil |\n| **Variáveis** | Representam objetos arbitrários: x, y, z |\n| **Constantes de função** | Nomes para funções: s (sucessor), pai, cons |\n| **Termos compostos** | Aplicação de função a termos: s(0), pai(joão), cons(a, nil) |\n| **Constantes de relação** | Nomes para relações (predicados): on, plus, member |\n| **Sentenças atômicas** | Aplicação de relação a termos: on(a,b), plus(0,y,y) |\n| **Conectivos lógicos** | ¬, ∧, ∨, ⇒, ⇔ |\n| **Quantificadores** | ∀ (para todo), ∃ (existe) |",
+      "Um **termo** em LPO é, recursivamente: uma variável, uma constante de objeto, ou um termo composto f(t₁, ..., tₙ) onde f é uma constante de função de aridade n e t₁, ..., tₙ são termos. A recursividade permite construir termos de profundidade arbitrária, como `s(s(s(0)))`, o que é essencial para representar universos infinitos com vocabulário finito.",
+      "| **LPO vs. Lógica de Herbrand: a diferença sintática chave** |\n|---|\n| Na Lógica de Herbrand, o universo é fixado pelos termos base da linguagem. Na LPO, os termos da linguagem são apenas *nomes* que apontam para objetos em um universo independente. Isso permite que dois nomes distintos refiram o mesmo objeto (*não-unicidade de nomes*) e que existam objetos sem nome algum (*domínio aberto*). |"
+    ],
   },
 
   "cap7-sec3": {
     id: "cap7-sec3",
-    title: "Lógica Relacional e Lógica Relacional",
-    subtitle: "Capítulo 7",
+    title: "Semântica: Interpretações e Atribuições",
+    subtitle: "7.4 — Interpretações e Verdade",
     paragraphs: [
+      "A semântica da LPO é definida por meio do conceito de **interpretação**. Uma interpretação i especifica:",
+      "- ∀ᵢ — o universo de discurso (um conjunto não-vazio de objetos)\n- Para cada constante de objeto c: um objeto cᵢ ∈ ∀ᵢ\n- Para cada constante de função f de aridade n: uma função fᵢ : ∀ᵢⁿ → ∀ᵢ\n- Para cada constante de relação r de aridade n: um conjunto rᵢ ⊆ ∀ᵢⁿ",
+      "Note que a interpretação é um mapeamento do nível sintático (nomes) para o nível semântico (objetos, funções e relações matemáticas). Diferentes interpretações do mesmo conjunto de sentenças correspondem a diferentes mundos possíveis.",
 
-      "##Equivalência expressiva",
-      "A Lógica Relacional é expressivamente equivalente à Lógica Proposicional quando consideramos apenas sentenças ground.",
-      "Para isso, realizamos três etapas:",
-      "1) Converter para forma prenex.\n2) Realizar grounding.\n3) Substituir cada átomo ground por uma proposição.",
+      "### Exemplo Concreto de Interpretação",
+      "Considere uma linguagem com constantes de objeto a, b, c; constante de função unária f; e constante de relação binária r. Definimos a seguinte interpretação:",
+      "- ∀ᵢ = {1, 2, 3}\n- aᵢ = 1,  bᵢ = 2,  cᵢ = 2 (b e c referenciam o mesmo objeto)\n- fᵢ = {1→2, 2→1, 3→3}\n- rᵢ = {[1,1], [1,2], [2,2]}",
+      "Observe que b e c são dois nomes para o mesmo objeto (2), e o objeto 3 não tem nenhum nome na linguagem. A atribuição de variáveis v é um mapeamento das variáveis para ∀ᵢ, por exemplo: xᵥ = 1, yᵥ = 2. Dada uma interpretação i e uma atribuição v:",
+      "```\nf(a)ᵢᵥ = fᵢ(aᵢ) = fᵢ(1) = 2\nf(f(a))ᵢᵥ = fᵢ(2) = 1\n```",
 
-      "##Exemplo passo a passo",
-      "Linguagem com constantes {a,b} e sentenças:",
-      "```\\n{p(a), ∀x.(p(x) ⇒ q(x)), ∃x.¬q(x)}\\n```",
-
-      "Grounding resulta em:",
-      "```\\np(a)\\np(a) ⇒ q(a)\\np(b) ⇒ q(b)\\n¬q(a) ∨ ¬q(b)\\n```",
-
-      "Substituindo por proposições:",
-      "```\\npa\\npa ⇒ qa\\npb ⇒ qb\\n¬qa ∨ ¬qb\\n```",
-
-      "Agora o problema virou puramente proposicional.",
-      "Isso é importante porque:",
-      "- A satisfatibilidade proposicional é decidível.\n- Logo, a satisfatibilidade relacional também é decidível em domínios finitos.\n- RL é **compacta**: qualquer inconsistência pode ser demonstrada com um subconjunto finito.",
-
-      "##Importância para ciência de dados",
-      "Essa equivalência permite:",
-      "- Verificação automática de regras.\n- Model checking.\n- Validação formal de restrições.\n- Provas automatizadas de consistência.",
-      "Na prática, sistemas de integridade de dados e motores de regras fazem exatamente isso: transformam regras gerais em instâncias concretas sobre registros."
-    ]
+      "### Verdade de Sentenças",
+      "A verdade de sentenças na LPO segue as mesmas regras dos conectivos lógicos da lógica proposicional. A novidade está na definição de verdade para sentenças quantificadas, que exige a noção de **versão de atribuição de variáveis**.",
+      "Uma versão v:ν/x de uma atribuição v é uma atribuição idêntica a v em todas as variáveis, exceto pela variável ν, que é mapeada para o objeto x ∈ ∀ᵢ. Com isso:",
+      "| **Quantificação Universal e Existencial** |\n|---|\n| ⊨ᵢ ∀ν.φ [v] sse ⊨ᵢ φ [v:ν/x] para **todo** x ∈ ∀ᵢ |\n| ⊨ᵢ ∃ν.φ [v] sse ⊨ᵢ φ [v:ν/x] para **algum** x ∈ ∀ᵢ |",
+      "Uma interpretação i é um **modelo** de uma sentença φ (escrito ⊨ᵢ φ) se e somente se i satisfaz φ para toda atribuição de variáveis possível."
+    ],
   },
 
   "cap7-sec4": {
     id: "cap7-sec4",
-    title: "Resumo",
-    subtitle: "Capítulo 7",
+    title: "Exemplo: Mundo dos Blocos",
+    subtitle: "7.5 — Diferenças entre Herbrand e LPO",
     paragraphs: [
-      "Análise da Lógica Relacional fornece ferramentas para responder perguntas fundamentais:",
-      "- Minha regra é sempre verdadeira?\n- Existe cenário que a viola?\n- Duas regras dizem a mesma coisa?\n- Uma regra implica outra?",
-      "Em ciência de dados, isso significa:",
-      "- Garantir consistência de logs.\n- Detectar contradições em pipelines.\n- Validar modelos explicáveis.\n- Demonstrar formalmente que decisões seguem das premissas.",
-      "Mais do que um exercício teórico, Análise da Lógica Relacional é a base lógica de auditorias, verificações automáticas e sistemas confiáveis.",
-      "Pensar logicamente sobre relações é aprender a transformar estruturas de dados em conclusões justificáveis."
-    ]
+      "Para ilustrar as diferenças fundamentais entre a Lógica de Herbrand e a LPO, retomamos o clássico **Mundo dos Blocos** (Blocks World). Considere uma cena com cinco blocos A, B, C, D e E, onde A está sobre B, B está sobre C, e D está sobre E. Usamos constantes de objeto a, b, c, d, e e a relação binária `on(x, y)` para representar \"x está diretamente sobre y\".",
+      "```\n[A]   [D]\n[B]   [E]\n[C]   ____\n__________________________\non(a,b), on(b,c), on(d,e)\n```",
+      "O conjunto de sentenças Σ que descreve este estado inclui literais positivos como on(a,b), on(b,c), on(d,e) e literais negativos como ¬on(a,a), ¬on(a,c), etc., para todos os pares.",
+
+      "### A Diferença Central",
+      "Na Lógica de Herbrand, as cinco constantes de objeto fixam exatamente um universo de cinco objetos. O conjunto Σ determina univocamente o estado do mundo.",
+      "Na LPO, as constantes a, b, c, d, e são apenas nomes que apontam para objetos em um universo ∀ᵢ que pode ter qualquer cardinalidade. O conjunto Σ é satisfeito por **múltiplas interpretações distintas**:",
+      "| **Interpretação** | **Característica** |\n|---|---|\n| ∀ᵢ = {o₁,o₂,o₃,o₄,o₅}; aᵢ=o₁, bᵢ=o₂, ... | Cinco objetos distintos — corresponde ao diagrama |\n| ∀ᵢ = {o₁,o₂,o₃}; aᵢ=dᵢ=o₁, bᵢ=eᵢ=o₂, cᵢ=o₃ | Três objetos: a e d são o mesmo bloco |\n| ∀ᵢ = {o₁,...,o₈}; aᵢ=dᵢ=o₁, bᵢ=eᵢ=o₂, cᵢ=o₃ | Oito objetos: universo tem objetos extras sem nome |",
+      "Embora essas interpretações correspondam a mundos diferentes, todas compartilham a propriedade de que pelo menos três blocos estão empilhados. Isso reflete o fato de que Σ faz afirmações sobre os **nomes**, e não sobre a identidade dos objetos subjacentes — uma distinção filosófica e prática de grande importância em representação de conhecimento."
+    ],
+  },
+
+  "cap7-sec5": {
+    id: "cap7-sec5",
+    title: "Aritmética e Universos Infinitos",
+    subtitle: "7.6 — Axiomatizando o Infinito",
+    paragraphs: [
+      "Um dos maiores poderes da LPO é a capacidade de axiomatizar relações sobre universos infinitos com um vocabulário finito. A **Aritmética de Peano** é o exemplo paradigmático: representa todos os números naturais usando apenas a constante 0 e a função unária s (sucessor), onde s(0)=1, s(s(0))=2, e assim por diante.",
+
+      "### Axiomas de Adição em LPO",
+      "Os axiomas abaixo definem a relação `plus(x, y, z)`, que representa x + y = z:",
+      "| Axioma | Fórmula |\n|---|---|\n| (1) | ∀y. plus(0, y, y) |\n| (2) | ∀x.∀y.∀z. (plus(x, y, z) ⇒ plus(s(x), y, s(z))) |\n| (3) | ∀x.∀y.∀z.∀w. (plus(x,y,z) ∧ ¬(z=w) ⇒ ¬plus(x,y,w)) |",
+      "O axioma (1) diz que 0 + y = y para todo y. O axioma (2) é indutivo: se x + y = z, então (x+1) + y = z+1. O axioma (3) é o axioma de funcionalidade: a soma de dois números é única.",
+      "Esses três axiomas são satisfeitos por múltiplas interpretações, incluindo:",
+      "- Aritmética modular mod 2: ∀ᵢ = {0,1}, s = {0→1, 1→0}, plus = adição módulo 2\n- Aritmética modular mod 4: ∀ᵢ = {0,1,2,3}\n- Naturais padrão: ∀ᵢ = ℕ = {0,1,2,...}\n- Aritmética não-padrão: ∀ᵢ = {0,1}, s = {0→1, 1→1} (onde 1+1=1)",
+      "| **Implicação para IA: Incompletude de Gödel** |\n|---|\n| O fato de que os axiomas de Peano têm múltiplos modelos está relacionado ao primeiro **Teorema de Incompletude de Gödel** (1931): qualquer sistema axiomático consistente e suficientemente expressivo para descrever a aritmética dos naturais não pode ser completo — existem verdades que não podem ser provadas dentro do sistema. Isso impõe limites fundamentais ao que qualquer sistema de IA baseado em lógica pode deduzir automaticamente. |"
+    ],
+  },
+
+  "cap7-sec6": {
+    id: "cap7-sec6",
+    title: "Igualdade em LPO",
+    subtitle: "7.7 — Co-referencialidade e Provas",
+    paragraphs: [
+      "A **igualdade** é uma relação binária especial que expressa co-referencialidade: dois termos são iguais se e somente se referem ao mesmo objeto no universo de discurso. Escrevemos τ₁ = τ₂ como açúcar sintático para equal(τ₁, τ₂).",
+
+      "### Axiomas da Igualdade",
+      "A relação de igualdade deve satisfazer três propriedades que a tornam uma relação de equivalência:",
+      "- **Reflexividade:** ∀x. x = x\n- **Simetria:** ∀x.∀y. (x=y ⇒ y=x)\n- **Transitividade:** ∀x.∀y.∀z. (x=y ∧ y=z ⇒ x=z)",
+      "Além dessas, existe o princípio da **substituição de iguais por iguais**: se dois termos são iguais, qualquer sentença verdadeira de um deve ser verdadeira do outro:",
+      "- Subst. unária: ∀x.∀y. (p(x) ∧ x=y ⇒ p(y))\n- Subst. binária: ∀u.∀v.∀x.∀y. (q(u,v) ∧ u=x ∧ v=y ⇒ q(x,y))\n- Subst. função: ∀x.∀y.∀z. (f(x)=z ∧ x=y ⇒ f(y)=z)",
+
+      "### Regras de Inferência para Igualdade (Fitch)",
+      "Em vez de incluir todos os axiomas de igualdade como premissas, o sistema Fitch estendido incorpora duas regras de inferência especiais:",
+      "| **Regra** | **Descrição** |\n|---|---|\n| **Introdução de Igualdade (EI)** | Permite inserir σ = σ para qualquer termo σ, sem premissas |\n| **Eliminação de Igualdade (EE)** | Dada φ[τ₁] e τ₁=τ₂, permite substituir τ₁ por τ₂ (ou vice-versa) |",
+
+      "### Exemplo de Prova com Igualdade",
+      "Considere: pai(pat) = quincy e ∀x. maisVelho(pai(x), x). Provemos que maisVelho(quincy, pat):",
+      "```\n1. pai(pat) = quincy                  Premissa\n2. ∀x. maisVelho(pai(x), x)           Premissa\n3. maisVelho(pai(pat), pat)            Eliminação Universal: 2\n4. maisVelho(quincy, pat)              Eliminação de Igualdade: 3, 1\n```",
+
+      "### Exemplo: Teoria de Grupos",
+      "A teoria de grupos é um domínio clássico para raciocínio com igualdade. Um grupo é uma estrutura com uma operação binária *, um elemento identidade e e uma função de inverso inv, satisfazendo:",
+      "- ∀x.∀y.∀z. (x*y)*z = x*(y*z)   [associatividade]\n- ∀x. x*e = x   [identidade à direita]\n- ∀x. e*x = x   [identidade à esquerda]\n- ∀x. x*inv(x) = e   [inverso à direita]\n- ∀x. inv(x)*x = e   [inverso à esquerda]",
+      "A partir desses axiomas, é possível provar, por exemplo, que ∀x. inv(inv(x)) = x — o inverso do inverso é o próprio elemento. A prova usa repetidas aplicações de Eliminação Universal e Eliminação de Igualdade, e exemplifica como o raciocínio equacional em LPO permite derivar propriedades gerais de estruturas algébricas."
+    ],
+  },
+
+  "cap7-sec7": {
+    id: "cap7-sec7",
+    title: "Propriedades Lógicas",
+    subtitle: "7.8 — Classificação de Sentenças em LPO",
+    paragraphs: [
+      "As propriedades fundamentais das sentenças em LPO são análogas às da Lógica de Herbrand, porém referem-se agora a **interpretações de primeira ordem**:",
+      "| **Propriedade** | **Definição** |\n|---|---|\n| Satisfatível | Existe ao menos uma interpretação (e atribuição) que satisfaz a sentença |\n| Falsificável | Existe ao menos uma interpretação que torna a sentença falsa |\n| Válida (tautologia) | Toda interpretação satisfaz a sentença — é necessariamente verdadeira |\n| Insatisfatível (contradição) | Nenhuma interpretação satisfaz a sentença |\n| Contingente | É simultaneamente satisfatível e falsificável |",
+
+      "### Consequência Lógica",
+      "Um conjunto de sentenças Δ **logicamente implica** uma sentença φ (escrito Δ ⊨ φ) se e somente se toda interpretação que satisfaz Δ também satisfaz φ. Isso generaliza diretamente a noção de consequência lógica da lógica proposicional e de Herbrand, mantendo a mesma estrutura conceitual com o universo de discurso variável."
+    ],
+  },
+
+  "cap7-sec8": {
+    id: "cap7-sec8",
+    title: "Conexões com IA e Ciência de Dados",
+    subtitle: "7.9 — Aplicações da LPO",
+    paragraphs: [
+      "A LPO é o substrato lógico de diversas tecnologias e paradigmas fundamentais em IA e Ciência de Dados.",
+
+      "### Programação em Lógica e Prolog",
+      "O **Prolog** é uma linguagem de programação baseada diretamente em LPO. Programas Prolog são conjuntos de cláusulas de Horn — um subconjunto restrito de sentenças de LPO — e a execução corresponde a busca por prova por refutação usando resolução SLD. Prolog foi amplamente utilizado em sistemas especialistas, análise de linguagem natural e planejamento automático.",
+
+      "### Ontologias e Web Semântica",
+      "**OWL** (Web Ontology Language), a linguagem padrão para ontologias na Web Semântica, é baseada em Lógicas de Descrição — fragmentos decidíveis da LPO. Bases de conhecimento como Wikidata, DBpedia e ontologias biomédicas (como Gene Ontology) são formalizadas nesse arcabouço, permitindo inferência automática de novos fatos.",
+
+      "### Representação de Conhecimento e Grafos de Conhecimento",
+      "**Grafos de conhecimento** (Knowledge Graphs), como o Google Knowledge Graph e o Freebase, são essencialmente bases de dados relacionais que podem ser interpretadas em LPO: nós são objetos, arestas são relações binárias. Sistemas de completamento de grafos (como TransE) aprendem embeddings que respeitam a estrutura relacional.",
+
+      "### Aprendizado de Máquina Neuro-Simbólico",
+      "Uma área emergente de pesquisa combina redes neurais com raciocínio lógico. Sistemas como **Neural Theorem Provers** (NTP) e **DeepProbLog** integram inferência em LPO com aprendizado por gradiente, buscando o melhor dos dois mundos: a capacidade de generalização das redes neurais e a interpretabilidade e rigor da lógica formal."
+    ],
+  },
+
+  "cap7-sec9": {
+    id: "cap7-sec9",
+    title: "Exemplo Computacional: Z3",
+    subtitle: "7.10 — LPO com a Biblioteca Z3",
+    paragraphs: [
+      "A biblioteca **Z3** (Microsoft Research) é um SMT solver (*Satisfiability Modulo Theories*) com suporte a LPO, disponível em Python. Pode ser utilizada para verificar a validade de sentenças sobre relações binárias.",
+      "O princípio usado é **refutação por contradição**: se a negação da conclusão é insatisfatível junto com as premissas, então a conclusão é uma consequência lógica. Esse é exatamente o princípio da resolução por refutação, base do Prolog e de provadores automáticos de teoremas."
+    ],
+  },
+
+  "cap7-sec10": {
+    id: "cap7-sec10",
+    title: "Resumo do Capítulo",
+    subtitle: "7.11 — Conceitos-Chave",
+    paragraphs: [
+      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Conceitualização | Tripla (objetos, funções, relações) que estrutura um domínio de conhecimento |\n| Universo de discurso (∀ᵢ) | Conjunto de objetos sobre os quais uma interpretação é definida |\n| Interpretação | Mapeamento de constantes da linguagem para objetos/funções/relações do universo |\n| Atribuição de variáveis | Mapeamento de variáveis para objetos do universo |\n| Modelo (⊨ᵢ φ) | Interpretação que satisfaz φ para toda atribuição de variáveis |\n| Igualdade | Relação reflexiva, simétrica, transitiva com substituição — axiomatizável em LPO |\n| Consequência lógica (Δ⊨φ) | Toda interpretação que satisfaz Δ também satisfaz φ |\n| Validade | Sentença satisfeita por toda interpretação |\n| Insatisfatibilidade | Sentença não satisfeita por nenhuma interpretação |"
+    ],
   },
 
   cap8: {
