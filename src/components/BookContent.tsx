@@ -1,6 +1,7 @@
 import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { chapterContents, chapters, hiddenChapterPrefixes } from "@/data/bookContent";
+import ReferenceTooltip from "@/components/ReferenceTooltip";
 import {
   Table,
   TableHeader,
