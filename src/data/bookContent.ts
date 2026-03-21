@@ -1388,175 +1388,144 @@ export const chapterContents: Record<string, ChapterContent> = {
 
   cap5: {
     id: "cap5",
-    title: "Provas por Resolução",
+    title: "Validação e Modelos",
     subtitle: "Capítulo 5",
-    "paragraphs": [
-      "A **Resolução Proposicional** é uma das regras de inferência mais importantes da Lógica Proposicional. Com ela, é possível construir procedimentos automáticos de prova que são **corretos** (sound) e **completos** para toda a lógica proposicional.",
-      "Do ponto de vista computacional, a resolução é especialmente atraente porque reduz drasticamente o espaço de busca quando comparada a métodos baseados em tabelas-verdade ou enumeração explícita de cenários.",
-      "Em Ciência de Dados, a resolução aparece implicitamente em tarefas como verificação automática de regras, detecção de inconsistências em políticas, validação de constraints e checagem de hipóteses lógicas em sistemas explicáveis.",
-      "Neste capítulo, estudamos a resolução passo a passo. Começamos pela **forma clausal**, depois apresentamos o **princípio da resolução** e, por fim, mostramos como a resolução pode ser usada como um **método de prova por contradição**, inclusive sem premissas explícitas."
+    paragraphs: [
+      "Todo modelo de dados ou sistema de regras opera sobre um universo de possibilidades. A questão central da validação é: dentre todas as atribuições de verdade possíveis para as variáveis do sistema, quais satisfazem simultaneamente todas as restrições impostas? Esse é o problema de **model checking** — a verificação de modelos — e ele aparece em inúmeras situações práticas de ciência de dados.",
+      "Considere um pipeline de ingestão de dados com dezenas de restrições de qualidade: unicidade de chaves, integridade referencial, valores dentro de faixas válidas, dependências entre colunas. Verificar que um determinado estado do dataset satisfaz todas essas restrições é exatamente um problema de verificação de modelos. Da mesma forma, ao projetar um experimento A/B, queremos garantir que a atribuição de usuários a grupos satisfaz restrições de balanceamento e exclusividade — outro problema de model checking.",
+      "Neste capítulo, estudamos três abordagens progressivamente mais eficientes para verificação de modelos: o **método da tabela-verdade** (exaustivo, porém sempre correto), o **método de modelos booleanos** (propagação de restrições para redução do espaço de busca) e o **método de modelos não-booleanos** (representações compactas para restrições de unicidade e funcionalidade). Para cada método, apresentamos a teoria formal e um exemplo aplicado ao contexto de ciência de dados."
     ]
   },
 
   "cap5-sec1": {
-    "id": "cap5-sec1",
-    "title": "Forma Clausal",
-    "subtitle": "Capítulo 5",
-    "paragraphs": [
-      "A Resolução Proposicional opera apenas sobre expressões em **forma clausal**. Antes de aplicar a regra, todas as sentenças precisam ser convertidas para esse formato.",
-      "Essa restrição não é uma limitação prática, pois existe um procedimento sistemático que transforma qualquer sentença proposicional em um conjunto equivalente de cláusulas.",
+    id: "cap5-sec1",
+    title: "O Método da Tabela-Verdade",
+    subtitle: "Capítulo 5",
+    paragraphs: [
+      "## Fundamentos",
+      "O método mais direto de verificação de modelos é a enumeração exaustiva: construir a tabela-verdade completa para o vocabulário e verificar, linha a linha, quais atribuições satisfazem o conjunto de sentenças de interesse. Como vimos no capítulo anterior, para uma linguagem com *b* constantes de objeto e *m* constantes de relação de aridade *k*, a base de Herbrand tem *m · b^k* elementos, resultando em *2^(m · b^k)* linhas na tabela-verdade.",
+      "Essa explosão combinatorial é a principal limitação do método: com apenas 10 objetos e 5 relações binárias, temos 2⁵⁰⁰ possíveis atribuições de verdade — um número astronômico, inteiramente inviável para enumeração direta. Ainda assim, o método é conceitualmente fundamental e serve como referência de corretude para os métodos mais eficientes.",
 
-      "###Literais",
-      "Um **literal** é uma proposição atômica ou a negação de uma proposição atômica.",
-      "Por exemplo, se:",
-      "```\\\nfraude\n```",
-      "representa *\"o registro é fraudulento\"*, então os literais são:",
-      "```\\\nfraude\n¬fraude\n```",
+      "## Exemplo: Verificação de Implicação Lógica",
+      "Considere um vocabulário com dois objetos {a, b} e duas relações unárias p e q. Queremos verificar se as premissas abaixo implicam logicamente a conclusão ∃x.q(x):",
+      "```\nPremissa 1: p(a) ∨ p(b) — ao menos um dos objetos satisfaz p\nPremissa 2: ∀x.(p(x) ⇒ q(x)) — todo objeto que satisfaz p também satisfaz q\nConclusão: ∃x.q(x) — existe algum objeto que satisfaz q\n```",
+      "A tabela-verdade completa para esse problema tem 2⁴ = 16 linhas (quatro átomos ground: p(a), p(b), q(a), q(b)). A implicação lógica é verificada se e somente se toda linha que satisfaz ambas as premissas também satisfaz a conclusão:",
+      "```\n| p(a) | p(b) | q(a) | q(b) | P1: p(a)∨p(b) | P2: ∀x(p⇒q) | C: ∃x.q(x) |\n| --- | --- | --- | --- | --- | --- | --- |\n| 1 | 1 | 1 | 1 | 1 | 1 | 1 |\n| 1 | 1 | 1 | 0 | 1 | 0 | 1 |\n| 1 | 1 | 0 | 1 | 1 | 0 | 1 |\n| 1 | 1 | 0 | 0 | 1 | 0 | 0 |\n| 1 | 0 | 1 | 1 | 1 | 1 | 1 |\n| 1 | 0 | 1 | 0 | 1 | 1 | 1 |\n| 1 | 0 | 0 | 1 | 1 | 0 | 1 |\n| 1 | 0 | 0 | 0 | 1 | 0 | 0 |\n| 0 | 1 | 1 | 1 | 1 | 1 | 1 |\n| 0 | 1 | 0 | 1 | 1 | 1 | 1 |\n| 0 | 0 | 1 | 1 | 0 | 1 | 1 |\n| 0 | 0 | 0 | 0 | 0 | 1 | 0 |\n```",
+      "As linhas em que ambas as premissas são verdadeiras (P1=1 e P2=1) são as linhas 1, 5, 6, 9 e 10 da tabela completa. Em todas elas, a conclusão também é verdadeira. Portanto, as premissas implicam logicamente a conclusão.",
 
-      "###Sentenças clausais",
-      "Uma **sentença clausal** é um literal isolado ou uma disjunção de literais.",
-      "Exemplos:",
-      "```\\\nfraude\n¬fraude ∨ alerta\n```",
-      "onde **alerta** pode significar *\"o sistema gera um alerta\"*.",
-
-      "###Cláusulas",
-      "Uma **cláusula** é o conjunto de literais que compõem uma sentença clausal.",
-      "Os exemplos anteriores correspondem às cláusulas:",
-      "```\\\n{fraude}\n{¬fraude, alerta}\n```",
-
-      "###A cláusula vazia",
-      "O conjunto vazio:",
-      "```\\\n{}\n```",
-      "é uma cláusula especial. Ela representa uma disjunção vazia e é **insatisfatível**.",
-      "Na resolução, derivar a cláusula vazia significa que o conjunto de regras contém uma **contradição explícita**."
+      "## Complexidade e Limitações Práticas",
+      "A complexidade do método da tabela-verdade é exponencial no tamanho da base de Herbrand. Para problemas de ciência de dados reais, com milhares de atributos e registros, o método direto é inviável. O valor do método é duplo: (1) ele serve como fundamento teórico para os métodos mais eficientes, e (2) para problemas pequenos — como validação de lógica de regras de negócio com poucos objetos — ele é perfeitamente aplicável.",
+      "Em ciência de dados, esse tipo de verificação aparece ao validar regras de derivação em pipelines: *'Se todo registro com flag X recebe tratamento Y, e existe ao menos um registro com flag X, então existe ao menos um registro com tratamento Y.'* A tabela-verdade garante formalmente que essa conclusão é inevitável, independentemente de qualquer dado específico."
     ]
   },
 
   "cap5-sec2": {
-    "id": "cap5-sec2",
-    "title": "Conversão para Forma Clausal",
-    "subtitle": "Capítulo 5",
-    "paragraphs": [
-      "A conversão para forma clausal segue quatro etapas aplicadas em ordem fixa: eliminação de implicações, empurrar negações, distribuir disjunções e, por fim, extrair cláusulas.",
+    id: "cap5-sec2",
+    title: "Modelos Booleanos: Propagação de Restrições",
+    subtitle: "Capítulo 5",
+    paragraphs: [
+      "## A Ideia Central",
+      "O método de modelos booleanos explora uma propriedade fundamental de muitos problemas práticos: as restrições não são todas independentes. Cada restrição que se torna determinada (tem valor de verdade fixo) pode propagar informação para outras restrições, eventualmente determinando o valor de verdade de átomos que ainda não foram fixados. Esse processo é chamado de **propagação de restrições** ou **unit propagation**.",
+      "O algoritmo é incremental: partimos de uma tabela vazia (todos os valores indeterminados), aplicamos as restrições mais simples primeiro (aquelas que determinam diretamente o valor de um único átomo), e usamos as conclusões derivadas para simplificar as restrições restantes. Em muitos casos práticos, esse processo converge para uma solução única sem necessidade de tentativa e erro.",
+      "```\n| Objetos (b) | Relações binárias (m) | Átomos ground | Linhas na tabela |\n| --- | --- | --- | --- |\n| 2 | 2 | 8 | 256 |\n| 3 | 2 | 18 | 262.144 |\n| 5 | 3 | 75 | ~3,78 × 10²² |\n| 10 | 5 | 500 | ~3,27 × 10¹⁵⁰ |\n```",
 
-      "###1. Eliminação de implicações (I)",
-      "```\\\nφ ⇒ ψ   →   ¬φ ∨ ψ\nφ ⇔ ψ   →   (¬φ ∨ ψ) ∧ (φ ∨ ¬ψ)\n```",
+      "## Exemplo Detalhado: Validação de Atribuição em Dataset",
+      "Para ilustrar o método de forma sistemática, considere um cenário de atribuição de analistas a projetos em uma equipe de dados. Temos quatro analistas (alice, bob, carol, dana) e uma relação binária trabalha_em(analista, projeto). As restrições do problema são:",
+      "- 1. alice trabalha no projeto alpha.\n- 2. bob não trabalha no projeto beta.\n- 3. dana não trabalha no projeto alpha.\n- 4. Todo analista que trabalha no projeto alpha também trabalha no beta: ∀x.(trabalha_em(x,alpha) ⇒ trabalha_em(x,beta)).\n- 5. carol ou dana trabalha no projeto gamma.\n- 6. alice e bob não trabalham no projeto gamma.\n- 7. Nenhum analista trabalha em mais de um projeto simultaneamente.",
+      "Iniciamos com uma tabela de atribuição vazia, onde cada célula representa o valor de verdade do átomo trabalha_em(analista, projeto):",
 
-      "###2. Tratamento de negações (N)",
-      "```\\\n¬¬φ        → φ\n¬(φ ∧ ψ)   → ¬φ ∨ ¬ψ\n¬(φ ∨ ψ)   → ¬φ ∧ ¬ψ\n```",
+      "#### Passo 0 — Tabela inicial (todos os valores indeterminados)",
+      "```\n| | Alpha | Beta | Gamma |\n| --- | --- | --- | --- |\n| Alice | ? | ? | ? |\n| Bob | ? | ? | ? |\n| Carol | ? | ? | ? |\n| Dana | ? | ? | ? |\n```",
 
-      "###3. Distribuição (D)",
-      "```\\\nφ ∨ (ψ ∧ χ) → (φ ∨ ψ) ∧ (φ ∨ χ)\n```",
+      "#### Passo 1 — Aplicar restrições unitárias (1, 2, 3 e 6)",
+      "As restrições 1, 2, 3 e 6 são unitárias: determinam diretamente o valor de um único átomo. Preenchemos imediatamente:",
+      "```\n| | Alpha | Beta | Gamma |\n| --- | --- | --- | --- |\n| Alice | 1 | ? | 0 |\n| Bob | ? | 0 | 0 |\n| Carol | ? | ? | ? |\n| Dana | 0 | ? | ? |\n```",
 
-      "###4. Extração de cláusulas (O)",
-      "```\\\nφ₁ ∨ ... ∨ φₙ → {φ₁, ..., φₙ}\nφ₁ ∧ ... ∧ φₙ → {φ₁}, ..., {φₙ}\n```",
+      "#### Passo 2 — Propagar restrição 4 (universal: alpha ⇒ beta)",
+      "A restrição 4 diz que todo analista em alpha também está em beta. Alice está em alpha (valor 1), portanto alice também deve estar em beta. Propagamos:",
+      "```\n| | Alpha | Beta | Gamma |\n| --- | --- | --- | --- |\n| Alice | 1 | 1 | 0 |\n| Bob | ? | 0 | 0 |\n| Carol | ? | ? | ? |\n| Dana | 0 | ? | ? |\n```",
 
-      "###Exemplo aplicado",
-      "Considere a regra:",
-      "```\\\ndados_completos ∧ (modelo_treinado ⇒ previsao_confiavel)\n```",
-      "Após eliminação da implicação:",
-      "```\\\ndados_completos ∧ (¬modelo_treinado ∨ previsao_confiavel)\n```",
-      "A forma clausal final é:",
-      "```\\\n{dados_completos}\n{¬modelo_treinado, previsao_confiavel}\n```",
+      "#### Passo 3 — Aplicar restrição 7 (nenhum analista em mais de um projeto)",
+      "Alice já está em alpha e beta. Pela restrição 7, ela não pode estar em gamma (já determinado como 0 pela restrição 6 — consistente). Para os demais analistas, continuamos propagando.",
 
-      "Mesmo pequenas variações sintáticas podem gerar cláusulas bem diferentes, o que afeta diretamente o processo de resolução."
+      "#### Passo 4 — Propagar restrição 5 (carol ou dana em gamma)",
+      "A restrição 5 diz que carol ou dana trabalha em gamma. Como bob não está em gamma (0) e alice não está em gamma (0), a restrição 5 restringe a escolha a carol ou dana.",
+      "Neste ponto, o método sinalizaria que o problema ainda tem ambiguidade residual (carol e dana em gamma, e bob e carol em alpha). Em muitas aplicações práticas, essa ambiguidade é suficiente para responder à pergunta de interesse — por exemplo, *'alice trabalha em beta?'* já foi determinado como verdadeiro sem necessidade de resolver toda a atribuição.",
+
+      "## Exemplo Completo: Consistência de Regras de Negócio",
+      "Considere agora um cenário mais próximo de produção: um sistema de aprovação de crédito com três clientes (x1, x2, x3) e três relações unárias: score_alto, historico_limpo, aprovado. As regras de negócio são:",
+      "```\nR1: score_alto(x1) — x1 tem score alto (fato)\nR2: ~historico_limpo(x2) — x2 não tem histórico limpo (fato)\nR3: ~aprovado(x3) — x3 não é aprovado (fato)\nR4: ∀x.(score_alto(x) ⇒ aprovado(x)) — score alto ⇒ aprovação\nR5: ∀x.(~historico_limpo(x) ⇒ ~aprovado(x)) — sem histórico ⇒ negação\nR6: ∃x.aprovado(x) — existe ao menos um aprovado\n```",
+      "Iniciamos a propagação:",
+      "- De R1 e R4: score_alto(x1) = 1 e a regra R4 determinam aprovado(x1) = 1.\n- De R2 e R5: ~historico_limpo(x2) = 1 e a regra R5 determinam aprovado(x2) = 0.\n- De R3: aprovado(x3) = 0 diretamente.\n- De R6: ∃x.aprovado(x) = 1. Como aprovado(x1) = 1, o existencial é satisfeito.",
+      "O sistema é consistente: existe exatamente uma atribuição (para os átomos determinados) que satisfaz todas as regras. A resposta às perguntas de interesse — *'x1 é aprovado?'*, *'existe algum aprovado?'* — foram respondidas sem nenhuma busca exaustiva, apenas por propagação direta de restrições.",
+      "Uma propriedade fundamental do método de modelos booleanos é que ele pode ser usado mesmo quando não existe um único modelo. Se a propriedade de interesse é determinada antes de resolver toda a ambiguidade, já temos a resposta — sem precisar enumerar todos os modelos possíveis. Em ciência de dados, isso é análogo a **early stopping** em validação: paramos assim que temos informação suficiente para a decisão."
     ]
   },
 
   "cap5-sec3": {
-    "id": "cap5-sec3",
-    "title": "O Princípio da Resolução",
-    "subtitle": "Capítulo 3",
-    "paragraphs": [
-      "O **Princípio da Resolução** formaliza um raciocínio simples: se uma cláusula afirma que algo é verdadeiro *ou* outra coisa é verdadeira, e outra cláusula afirma que essa segunda coisa é falsa *ou* uma terceira coisa é verdadeira, então podemos eliminar a incerteza intermediária.",
+    id: "cap5-sec3",
+    title: "Modelos Não-Booleanos: Representações Compactas",
+    subtitle: "Capítulo 5",
+    paragraphs: [
+      "## Limitações da Representação Booleana",
+      "O método de modelos booleanos trata cada átomo ground como uma variável binária independente. Essa representação é adequada para a maioria dos problemas, mas é ineficiente quando as restrições do problema impõem que cada relação seja funcional — ou seja, quando cada objeto deve ser mapeado a exatamente um valor.",
+      "Considere, por exemplo, uma restrição de atribuição exclusiva: cada tarefa deve ser atribuída a exatamente um analista. Em termos booleanos, isso significa que, para cada tarefa t, exatamente um dos átomos atribuido(t, a1), atribuido(t, a2), ..., atribuido(t, an) é verdadeiro. Com *n* analistas e *m* tarefas, há *n·m* variáveis booleanas, mas as restrições de unicidade eliminam a grande maioria das *2^(n·m)* combinações possíveis.",
+      "Em vez de representar cada átomo ground como uma variável booleana independente, podemos representar uma relação funcional como uma variável com domínio finito. Se cada tarefa pode ser atribuída a um de *n* analistas, representamos a atribuição de cada tarefa como uma variável com *n* possíveis valores — reduzindo o espaço de *n·m* variáveis booleanas para *m* variáveis com domínio de tamanho *n*. Para m=5, n=4: booleano = 2²⁰ ≈ 10⁶; não-booleano = 4⁵ = 1024. Uma redução dramática.",
 
-      "Formalmente, dadas as cláusulas:",
-      "```\\\n{φ₁, ..., χ, ..., φₘ}\n{ψ₁, ..., ¬χ, ..., ψₙ}\n```",
-      "podemos inferir:",
-      "```\\\n{φ₁, ..., φₘ, ψ₁, ..., ψₙ}\n```",
+      "## Formalização: Restrições de Funcionalidade",
+      "Uma relação é funcional em seu primeiro argumento se para cada valor do primeiro argumento existe no máximo um valor do segundo argumento para o qual a relação é verdadeira.",
+      "Formalmente:",
+      "```\nFuncionalidade: ∀x.∀y.∀z.(rel(x,y) ∧ rel(x,z) ⇒ same(y,z))\n\nOnde same é a relação de identidade: same(a,b) é verdadeira se e somente se a e b\nsão a mesma constante de objeto.\n```",
+      "Com essa restrição, a relação rel se comporta como uma função: dado o primeiro argumento, o segundo é determinado de forma única.",
 
-      "###Exemplo em Ciência de Dados",
-      "```\\\n{erro_dados, outlier}\n{¬outlier, remover_registro}\n```",
-      "Podemos resolver sobre **outlier** e obter:",
-      "```\\\n{erro_dados, remover_registro}\n```",
-
-      "Isso expressa uma inferência segura: se o registro não for um outlier, então ele deve ser removido; se for, há erro nos dados.",
-
-      "###Resolução com cláusulas unitárias",
-      "```\\\n{modelo_viesado, dados_insuficientes}\n{¬modelo_viesado}\n```",
-      "Resolvendo, obtemos:",
-      "```\\\n{dados_insuficientes}\n```",
-
-      "###A cláusula vazia",
-      "```\\\n{fraude}\n{¬fraude}\n{}\n```",
-      "A derivação da cláusula vazia indica que o conjunto de regras é inconsistente."
+      "## Exemplo Aplicado: Alocação de Modelos de Machine Learning",
+      "Considere um problema de alocação: temos quatro datasets (d1, d2, d3, d4) e quatro modelos de ML (regressão, árvore, rede_neural, ensemble). Cada dataset deve ser alocado a exatamente um modelo para treinamento. Usamos a relação binária alocado(dataset, modelo), com a restrição de funcionalidade:",
+      "```\n∀d.∀m1.∀m2.(alocado(d,m1) ∧ alocado(d,m2) ⇒ same(m1,m2)) — funcionalidade\n∀d.∃m.alocado(d,m) — totalidade\n\nRestrições adicionais do problema:\nalocado(d1, regressão) — d1 usa regressão (fato inicial)\nalocado(d3, árvore) — d3 usa árvore (fato inicial)\n~alocado(d2, regressão) — d2 não pode usar regressão\n~alocado(d4, rede_neural) — d4 não pode usar rede_neural\n```",
+      "Em vez de rastrear 4 × 4 = 16 variáveis booleanas, representamos o estado como quatro variáveis com domínio {regressão, árvore, rede_neural, ensemble}:",
+      "```\n| Dataset | Modelo Alocado | Estado |\n| --- | --- | --- |\n| d1 | regressão | Determinado (fato) |\n| d2 | ? (não regressão) | Parcialmente determinado |\n| d3 | árvore | Determinado (fato) |\n| d4 | ? (não rede_neural) | Parcialmente determinado |\n```",
+      "A propagação continua: como d1 usa regressão e d3 usa árvore, e cada modelo só pode ser alocado a um dataset (supondo alocação bijetiva), os modelos regressão e árvore ficam indisponíveis para d2 e d4.",
+      "- d2 deve ser alocado a rede_neural ou ensemble.\n- d4 não pode usar rede_neural, logo d4 deve usar ensemble ou regressão (mas regressão está alocado). Logo d4 usa ensemble.\n- Portanto d2 usa rede_neural.",
+      "A solução única é encontrada por propagação, sem nenhuma busca: d1=regressão, d2=rede_neural, d3=árvore, d4=ensemble. O espaço de busca efetivo foi apenas 4⁴ = 256 combinações (modelo não-booleano), versus 2¹⁶ = 65536 (modelo booleano puro)."
     ]
   },
 
   "cap5-sec4": {
-    "id": "cap5-sec4",
-    "title": "Resolução como Processo de Raciocínio",
-    "subtitle": "Capítulo 3",
-    "paragraphs": [
-      "Raciocinar com resolução significa aplicar repetidamente o princípio da resolução a cláusulas existentes até que uma conclusão seja obtida ou que nenhuma nova cláusula possa ser gerada.",
-      "Uma **derivação por resolução** é uma sequência finita de cláusulas em que cada cláusula é uma premissa ou o resultado da resolução de cláusulas anteriores.",
+    id: "cap5-sec4",
+    title: "Verificação de Modelos na Prática",
+    subtitle: "Capítulo 5",
+    paragraphs: [
+      "## SAT Solvers e SMT Solvers",
+      "Os métodos de verificação de modelos estudados neste capítulo são os fundamentos teóricos de uma classe importante de ferramentas computacionais: os **SAT solvers** (para satisfatibilidade booleana) e os **SMT solvers** (Satisfiability Modulo Theories, para satisfatibilidade com teorias adicionais como aritmética ou igualdade).",
+      "Ferramentas como Z3 (Microsoft Research), CVC5 e MiniSAT implementam versões altamente otimizadas dos algoritmos de propagação de restrições, estendidos com técnicas de backtracking inteligente (DPLL, CDCL). Elas são capazes de resolver instâncias com milhões de variáveis em segundos — um salto quantitativo impressionante sobre a enumeração exaustiva, mas construído sobre os mesmos princípios lógicos estudados aqui.",
+      "Aplicações de SAT/SMT em Ciência de Dados:",
+      "- **Verificação de hiperparâmetros**: garantir que combinações de hiperparâmetros satisfazem restrições de compatibilidade antes de executar o grid search.\n- **Otimização de pipelines**: determinar se existe uma ordenação de etapas de um pipeline que satisfaz todas as dependências e restrições de recursos.\n- **Detecção de inconsistências em schemas**: verificar automaticamente se um schema de banco de dados contém restrições contraditórias.\n- **Geração de dados sintéticos**: gerar registros que satisfazem um conjunto especificado de restrições lógicas — útil para testes de software e balanceamento de datasets.",
 
-      "###Exemplo",
-      "Considere:",
-      "```\\\n{¬erro, alerta}\n{¬outlier, alerta}\n{erro, outlier}\n```",
-      "Derivação:",
-      "```\\\n1. {¬erro, alerta}\n2. {¬outlier, alerta}\n3. {erro, outlier}\n4. {outlier, alerta}   (1,3)\n5. {alerta}            (2,4)\n```",
+      "## Restrições como Especificações Executáveis",
+      "Uma perspectiva poderosa é tratar restrições lógicas como especificações executáveis do comportamento esperado de um sistema de dados. Nessa visão, o processo de verificação de modelos não é apenas uma ferramenta de análise — é uma forma de documentação formal que pode ser verificada automaticamente.",
+      "Ferramentas de qualidade de dados como **Great Expectations**, **dbt tests** e **Pandera** implementam, em essência, um subconjunto das técnicas de verificação de modelos estudadas neste capítulo. Cada 'expectativa' ou 'teste' é uma restrição lógica; o processo de validação é a verificação de que o dataset atual (o modelo) satisfaz esse conjunto de restrições.",
+      "```\n-- Restrição formal (Lógica Relacional):\n∀x.(registro(x) ⇒ ~nulo(x, coluna_id)) — nenhum registro tem ID nulo\n\n-- Implementação em Great Expectations (Python):\n# expect_column_values_to_not_be_null('id')\n\n-- Restrição formal:\n∀x.∀y.(registro(x) ∧ registro(y) ∧ mesmo_id(x,y) ⇒ mesmo_registro(x,y))\n\n-- Implementação em dbt:\n# tests: - unique (sobre a coluna id)\n```",
+      "A correspondência entre restrições lógicas formais e implementações práticas não é apenas pedagógica: ela permite que cientistas de dados raciocinem sobre a completude e consistência de seus testes, identifiquem restrições redundantes, e detectem casos não cobertos pelos testes existentes.",
 
-      "O resultado mostra que, independentemente de erro ou outlier, o sistema **necessariamente gera um alerta**.",
-
-      "###Limitação importante",
-      "A resolução não é generativamente completa: nem toda cláusula logicamente implicada pode ser derivada.",
-      "Por exemplo, de:",
-      "```\\\n{p}\n{q}\n```",
-      "não é possível derivar:",
-      "```\\\n{p, q}\n```",
-
-      "Ainda assim, a resolução é suficiente para detectar inconsistência — e isso é o ponto crucial."
+      "## Propagação de Restrições em Feature Engineering",
+      "Outra aplicação direta da propagação de restrições é o processo de feature engineering guiado por restrições. Em muitos domínios, as features não são independentes: restrições de negócio implicam relações lógicas entre elas que podem ser exploradas para derivar novas features ou detectar inconsistências.",
+      "Por exemplo, em um dataset de transações financeiras:",
+      "```\nR1: ∀x.(tipo_pix(x) ⇒ ~tipo_boleto(x)) — transação não pode ser pix E boleto\nR2: ∀x.(valor_alto(x) ⇒ requer_autorizacao(x)) — alto valor requer autorização\nR3: ∀x.(internacional(x) ⇒ ~tipo_pix(x)) — pix não existe para trans. internacionais\n\nDado: transação t com tipo_pix(t)=1 e internacional(t)=1\nPropagação de R3: ~tipo_pix(t) ⇒ CONTRADIÇÃO com tipo_pix(t)=1\nConclusão: o registro contém uma inconsistência — deve ser sinalizado para revisão.\n```",
+      "Esse processo de detecção de inconsistências por propagação é o que sistemas de monitoramento de dados fazem continuamente em produção. A base lógica formal garante que nenhuma inconsistência coberta pelas restrições passa despercebida."
     ]
   },
 
   "cap5-sec5": {
-    "id": "cap5-sec5",
-    "title": "Provas por Contradição com Resolução",
-    "subtitle": "Capítulo 3",
-    "paragraphs": [
-      "O poder real da resolução aparece quando combinamos esse método com o **Teorema da Insatisfatibilidade**.",
-      "Um conjunto Δ implica logicamente φ se, e somente se, o conjunto Δ ∪ {¬φ} é insatisfatível.",
-
-      "###Definição",
-      "Uma **prova por resolução** de φ a partir de Δ é uma derivação da cláusula vazia a partir da forma clausal de Δ ∪ {¬φ}.",
-
-      "###Exemplo aplicado",
-      "Premissas:",
-      "```\\\ndados_validos\n(dados_validos ⇒ modelo_confiavel)\n(modelo_confiavel ⇒ decisao_segura)\n```",
-      "Queremos provar:",
-      "```\\\ndecisao_segura\n```",
-
-      "Negamos o objetivo:",
-      "```\\\n¬decisao_segura\n```",
-
-      "Forma clausal:",
-      "```\\\n{dados_validos}\n{¬dados_validos, modelo_confiavel}\n{¬modelo_confiavel, decisao_segura}\n{¬decisao_segura}\n```",
-
-      "Derivação:",
-      "```\\\n{modelo_confiavel}\n{decisao_segura}\n{}\n```",
-
-      "A cláusula vazia confirma que **decisao_segura é logicamente implicada** pelas premissas.",
-
-      "###Validade sem premissas",
-      "A resolução também permite provar sentenças válidas sem premissas.",
-      "Por exemplo:",
-      "```\\\nmodelo ⇒ (dados ⇒ modelo)\n```",
-      "Negando e convertendo para cláusulas, obtemos um conjunto inconsistente, o que confirma a validade da sentença.",
-
-      "###Por que a resolução é tão usada",
-      "A resolução é local, mecânica e finita. Não exige escolher instâncias nem explorar infinitos cenários.",
-      "Por isso, ela está na base de verificadores automáticos, SAT solvers e sistemas de prova usados em verificação, IA simbólica e raciocínio explicável."
+    id: "cap5-sec5",
+    title: "Resumo",
+    subtitle: "Capítulo 5",
+    paragraphs: [
+      "**Verificação de modelos (model checking)**: determinar quais atribuições de verdade satisfazem um conjunto de sentenças — o problema central de validação em sistemas lógicos.",
+      "**Método da tabela-verdade**: enumeração exaustiva de todas as 2ⁿ atribuições possíveis. Correto, porém exponencial — inviável para problemas grandes.",
+      "**Método de modelos booleanos**: propagação incremental de restrições. Cada restrição unitária determina um átomo e simplifica as demais restrições. Converge sem busca exaustiva em muitos casos práticos.",
+      "**Propriedade chave da propagação**: a resposta a uma pergunta específica pode ser determinada antes de resolver toda a ambiguidade do modelo.",
+      "**Modelos não-booleanos**: para relações funcionais (cada objeto mapeado a um único valor), representar cada objeto como uma variável com domínio finito reduz o espaço de busca de 2^(n·m) para nⁿ.",
+      "**Restrições de funcionalidade**: ∀x.∀y.∀z.(rel(x,y) ∧ rel(x,z) ⇒ same(y,z)) formalizam relações funcionais.",
+      "**Conexão com ferramentas**: SAT/SMT solvers, Great Expectations, dbt tests e Pandera implementam versões dessas técnicas em escala industrial."
     ]
   },
 
