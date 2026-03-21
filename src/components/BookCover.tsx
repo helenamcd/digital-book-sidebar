@@ -210,7 +210,7 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
               Fundamentos
             </div>
             <h1
-              className="font-serif-book text-3xl sm:text-[40px] font-black leading-[1.1] text-white tracking-tight mb-3"
+              className="font-serif-book text-2xl sm:text-3xl md:text-[40px] font-black leading-[1.1] text-white tracking-tight mb-2 sm:mb-3"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
               Lógica Aplicada
