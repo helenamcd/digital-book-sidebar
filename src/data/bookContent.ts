@@ -5,7 +5,7 @@ export interface Chapter {
 }
 
 // Capítulos ocultos (não excluídos, apenas invisíveis)
-export const hiddenChapterPrefixes = ["cap8"];
+export const hiddenChapterPrefixes = ["cap9"];
 
 export interface ChapterTable {
   headers: string[];
@@ -130,12 +130,17 @@ export const chapters: Chapter[] = [
   },
   {
     id: "cap8",
-    title: "Capítulo 8 — Verificação de Modelos (Model Checking)",
+    title: "Capítulo 8 - Indução e Generalização",
     sections: [
-      { id: "cap8-sec1", title: "Tabelas-Verdade em Lógica Relacional" },
-      { id: "cap8-sec2", title: "Modelos Booleanos Estruturados" },
-      { id: "cap8-sec3", title: "Modelos Não-Booleanos" },
-      { id: "cap8-sec4", title: "Importância para Ciência de Dados" }
+      { id: "cap8-sec1", title: "Indução Incompleta e Indução Completa" },
+      { id: "cap8-sec2", title: "Fechamento de Domínio" },
+      { id: "cap8-sec3", title: "Indução Linear" },
+      { id: "cap8-sec4", title: "Indução em Árvore" },
+      { id: "cap8-sec5", title: "Indução Estrutural" },
+      { id: "cap8-sec6", title: "Indução Multidimensional" },
+      { id: "cap8-sec7", title: "Indução Embutida" },
+      { id: "cap8-sec8", title: "Indução em IA e Ciência de Dados" },
+      { id: "cap8-sec9", title: "Resumo do Capítulo" },
     ]
   },
   {
@@ -1933,100 +1938,145 @@ export const chapterContents: Record<string, ChapterContent> = {
 
   cap8: {
     id: "cap8",
-    title: "Verificação de Modelos (Model Checking)",
+    title: "Indução e Generalização",
     subtitle: "Capítulo 8",
     paragraphs: [
-      "A **Verificação de Modelos** é o processo de analisar sentenças da Lógica Relacional verificando diretamente suas possíveis atribuições de verdade. Assim como na Lógica Proposicional, podemos determinar se uma sentença é **válida**, **satisfatível** ou se um conjunto de premissas implica uma conclusão examinando os modelos possíveis.",
-      "No entanto, na Lógica Relacional o número de possibilidades cresce rapidamente. Se tivermos n objetos e m relações de aridade k, a base de Herbrand terá m·n^k átomos ground. Isso significa que existem 2^(m·n^k) possíveis atribuições de verdade.",
-      "Por exemplo, com 10 objetos e 5 relações binárias (aridade 2), temos 5·10² = 500 átomos ground e 2^500 possíveis modelos — um número astronômico.",
-      "Felizmente, existem métodos que permitem analisar sentenças sem examinar todas as possibilidades. Começamos com o método de **tabela-verdade relacional** e depois introduzimos abordagens mais eficientes, como modelos booleanos estruturados e modelos não-booleanos."
+      "No capítulo anterior, vimos como a Lógica de Primeira Ordem permite expressar afirmações sobre universos potencialmente infinitos de objetos usando um vocabulário finito. Mas como *provar* que uma propriedade vale para todos os elementos de um universo infinito? Não é possível verificar cada elemento individualmente — o processo jamais terminaria. A resposta a esse desafio é a **indução**, um dos princípios de raciocínio mais fundamentais da matemática e da ciência da computação.",
+      "A indução é o processo de raciocinar do *específico para o geral*: a partir de um conjunto de casos particulares verdadeiros, conclui-se uma afirmação universal. Há, porém, uma distinção crucial entre dois tipos de indução:",
+      "- **Indução incompleta:** generaliza a partir de uma amostra não-exaustiva. Útil na ciência empírica e no aprendizado de máquina, mas não garante a verdade da conclusão.\n- **Indução completa:** cobre todos os casos de forma estruturada e garante a validade da conclusão. É esta que estudamos neste capítulo.",
+      "Em IA e Ciência de Dados, a tensão entre esses dois tipos de indução está no centro de debates fundamentais: modelos de aprendizado de máquina fazem indução incompleta (generalizam a partir de dados); sistemas de verificação formal utilizam indução completa para garantir propriedades de algoritmos. Compreender ambos é essencial para um profissional rigoroso da área.",
+      "| **Pré-requisitos do Capítulo**<br/>Este capítulo pressupõe familiaridade com quantificadores universais, o sistema de prova Fitch (Eliminação Universal, Introdução de Implicação) e a noção de Herbrand base introduzida nos Capítulos 5, 6 e 7. |"
     ]
   },
 
   "cap8-sec1": {
     id: "cap8-sec1",
-    title: "Tabelas-Verdade em Lógica Relacional",
+    title: "Indução Incompleta e Indução Completa",
     paragraphs: [
-      "Em princípio, podemos construir uma tabela-verdade para qualquer conjunto de sentenças relacionais, assim como fazemos na Lógica Proposicional.",
-      "Considere uma linguagem com dois objetos {a, b} e duas relações unárias p e q.",
-      "Premissas:",
-      "p(a) ∨ p(b)",
-      "∀x.(p(x) ⇒ q(x))",
-      "Conclusão:",
-      "∃x.q(x)",
-      "A tabela-verdade relacional correspondente é:"
-    ],
-    table: {
-      headers: ["p(a)", "p(b)", "q(a)", "q(b)", "p(a)∨p(b)", "∀x(p(x)⇒q(x))", "∃x q(x)"],
-      rows: [
-        [1,1,1,1,1,1,1],
-        [1,1,1,0,1,0,1],
-        [1,1,0,1,1,0,1],
-        [1,1,0,0,1,0,0],
-        [1,0,1,1,1,1,1],
-        [1,0,1,0,1,1,1],
-        [1,0,0,1,1,0,1],
-        [1,0,0,0,1,0,0],
-        [0,1,1,1,1,1,1],
-        [0,1,1,0,1,0,1],
-        [0,1,0,1,1,1,1],
-        [0,1,0,0,1,0,0],
-        [0,0,1,1,0,1,1],
-        [0,0,1,0,0,1,1],
-        [0,0,0,1,0,1,1],
-        [0,0,0,0,0,1,0]
-      ]
-    },
-    paragraphs_after_table: [
-      "Observando a tabela, vemos que toda atribuição que torna ambas as premissas verdadeiras também torna a conclusão verdadeira.",
-      "Portanto, as premissas **implicam logicamente** a conclusão.",
-      "Esse método é conceitualmente simples, mas cresce exponencialmente."
+      "Para motivar a distinção, considere dois exemplos históricos. O primeiro é favorável: a função f definida por f(1)=1 e f(n+1)=f(n)+2n+1 produz, para os primeiros valores, o seguinte padrão:",
+      "| **n** | **f(n)** | **n²** | **f(n) = n²?** |\n|---|---|---|---|\n| 1 | 1 | 1 | ✓ |\n| 2 | 4 | 4 | ✓ |\n| 3 | 9 | 9 | ✓ |\n| 4 | 16 | 16 | ✓ |\n| 5 | 25 | 25 | ✓ |",
+      "A observação de que f(n) parece sempre ser n² é uma *conjectura indutiva incompleta*. Felizmente, neste caso ela é verdadeira — e *pode ser provada por indução completa*. O segundo exemplo, histórico, é um alerta: Fermat observou que 2^(2ⁿ)+1 era primo para n=1,2,3,4 e conjecturou que isso sempre ocorria. A conjectura foi refutada por Euler no caso n=5, onde 2^32+1 = 4.294.967.297 = 641 × 6.700.417.",
+      "| **Lição para IA/ML**<br/>Em aprendizado de máquina, todo modelo treinado faz *indução incompleta*: generaliza de um conjunto de treinamento finito para um universo potencialmente infinito de exemplos. O erro de generalização (*generalization gap*) é exatamente a diferença entre o desempenho no treino e no mundo real. A teoria de aprendizado PAC (Probably Approximately Correct) formaliza as condições sob as quais essa indução incompleta tem garantias probabilísticas de sucesso. |",
+      "| **Definição: Indução Completa**<br/>Indução onde o conjunto de instâncias verificadas é exaustivo — cobre todos os casos possíveis de forma estruturada. A validade da conclusão é garantida, não meramente plausível. Quando aplicada a números, é usualmente denominada indução matemática. |"
     ]
   },
 
   "cap8-sec2": {
     id: "cap8-sec2",
-    title: "Modelos Booleanos Estruturados",
+    title: "Fechamento de Domínio",
     paragraphs: [
-      "Em vez de listar todas as atribuições possíveis, podemos construir o modelo diretamente preenchendo uma matriz para cada relação.",
-      "Considere a relação likes(x,y) entre quatro pessoas.",
-      "Criamos uma matriz 4x4 inicialmente vazia e preenchemos com base nas restrições.",
-      "Restrições unitárias são aplicadas primeiro.",
-      "Novas inferências surgem a partir dessas entradas.",
-      "Esse método reduz drasticamente o espaço de busca.",
-      "Mesmo quando há múltiplos modelos possíveis, a parte preenchida da tabela pode ser suficiente para verificar se uma conclusão é consequência lógica."
+      "O caso mais simples de indução completa ocorre quando o universo de discurso é *finito*. Se a linguagem possui apenas n constantes de objeto σ₁, ..., σₙ, e conseguimos provar que uma propriedade φ vale para cada uma delas individualmente, podemos concluir que φ vale para todo elemento do universo. Isso é formalizado pela regra de **Fechamento de Domínio (DC — Domain Closure)**:",
+      "| **Regra de Fechamento de Domínio (DC)**<br/>**φ[σ₁]**<br/>**φ[σ₂]**<br/>**⋮**<br/>**φ[σₙ]**<br/>**──────────**<br/>**∀ν. φ[ν]** |",
+      "Como exemplo, considere um domínio com quatro objetos: abby, bess, cody, dana. Se provarmos que cada um deles tem alguém de quem gosta, podemos concluir que todos gostam de alguém:",
+      "| **Prova em Fitch** | | |\n|---|---|---|\n| 1. | ∃y. likes(abby, y) | Premissa |\n| 2. | ∃y. likes(bess, y) | Premissa |\n| 3. | ∃y. likes(cody, y) | Premissa |\n| 4. | ∃y. likes(dana, y) | Premissa |\n| 5. | ∀x. ∃y. likes(x, y) | DC: 1, 2, 3, 4 |",
+      "O Fechamento de Domínio é direto, mas inaplicável quando o universo é infinito: haveria infinitas premissas a verificar, tornando qualquer prova finita impossível. Para universos infinitos, precisamos de regras de indução que capturem a estrutura do domínio em finitos passos."
     ]
   },
 
   "cap8-sec3": {
     id: "cap8-sec3",
-    title: "Modelos Não-Booleanos",
+    title: "Indução Linear",
     paragraphs: [
-      "Em alguns casos, podemos representar relações não como valores booleanos independentes, mas como variáveis com múltiplos valores possíveis.",
-      "Por exemplo, se cada relação unária deve ser verdadeira para exatamente um objeto, podemos tratá-la como uma variável que assume um dos objetos como valor.",
-      "Isso reduz significativamente o número de possibilidades.",
-      "Essa técnica é usada em problemas de restrição, como quebra-cabeças lógicos.",
-      "Considere uma formalização do jogo Sukoshi usando a relação cell(linha,coluna,valor).",
-      "Restrições podem ser expressas como:",
-      "∀x∀y∀z∀w.(cell(x,y,w) ∧ cell(x,z,w) ⇒ y=z)",
-      "∀x∀y∀z∀w.(cell(x,z,w) ∧ cell(y,z,w) ⇒ x=y)",
-      "∀x∀y∃w.cell(x,y,w)",
-      "A cada preenchimento dedutivo do tabuleiro estamos realizando model checking relacional.",
-      "Esse mesmo princípio aparece em validação de dados, verificação de integridade de banco de dados e resolução de restrições em ciência de dados."
+      "A forma mais clássica de indução completa para universos infinitos é a **Indução Linear**, também conhecida como *indução matemática* ou *indução sobre os naturais*. Ela se aplica a linguagens com uma única constante de objeto (o *elemento base*) e uma única constante de função unária (o *sucessor*), cujos termos formam uma sequência linear:",
+      "```\na  →  s(a)  →  s(s(a))  →  s(s(s(a)))  →  ...\n```",
+      "A intuição é a dos dominós em fila: se o primeiro cai (caso base), e sempre que um cai o próximo também cai (caso indutivo), então todos os dominós caem.",
+      "| **Regra de Indução Linear (Ind)**<br/>**φ[a]                              (caso base)**<br/>**∀μ. (φ[μ] ⇒ φ[s(μ)])    (caso indutivo)**<br/>**──────────────────────────────**<br/>**∀ν. φ[ν]                          (conclusão geral)**<br/><br/>O antecedente do caso indutivo — φ[μ] — é a **hipótese indutiva**. O consequente φ[s(μ)] é a **conclusão indutiva**. |",
+      "### 8.4.1 Exemplo: Zero como Identidade à Direita",
+      "Nos axiomas de Peano, temos as seguintes propriedades da adição (onde plus(x,y,z) representa x+y=z):",
+      "```\n(A1) ∀y. plus(0, y, y)\n(A2) ∀x.∀y.∀z. (plus(x,y,z) ⇒ plus(s(x), y, s(z)))\n(A3) ∀x.∀y.∀z.∀w. (plus(x,y,z) ∧ ¬same(z,w) ⇒ ¬plus(x,y,w))\n```",
+      "O axioma (A1) afirma que 0 é identidade à *esquerda*: 0+y=y. Mas será que 0 também é identidade à *direita*, ou seja, que x+0=x para todo x? Isso não é um axioma — precisa ser *provado* por indução:",
+      "| **Prova em Fitch** | | |\n|---|---|---|\n| 1. | ∀y. plus(0, y, y) | Premissa (A1) |\n| 2. | ∀x.∀y.∀z. (plus(x,y,z) ⇒ plus(s(x),y,s(z))) | Premissa (A2) |\n| 3. | ∀x.∀y.∀z.∀w. (plus(x,y,z) ∧ ¬same(z,w) ⇒ ¬plus(x,y,w)) | Premissa (A3) |\n| 4. | plus(0, 0, 0) | EU: 1 [y←0] — CASO BASE |\n| 5. | ∀y.∀z. (plus(c,y,z) ⇒ plus(s(c),y,s(z))) | EU: 2 [x←c] |\n| 6. | ∀z. (plus(c,0,z) ⇒ plus(s(c),0,s(z))) | EU: 5 [y←0] |\n| 7. | plus(c,0,c) ⇒ plus(s(c), 0, s(c)) | EU: 6 [z←c] |\n| 8. | ∀x. (plus(x,0,x) ⇒ plus(s(x),0,s(x))) | UI: 7 — CASO INDUTIVO |\n| 9. | ∀x. plus(x, 0, x) | Ind: 4, 8 |",
+      "A estrutura da prova é sempre a mesma: (i) provar o caso base para o elemento zero; (ii) provar, usando um marcador arbitrário c, que se a propriedade vale para c então vale para s(c); (iii) aplicar a regra de Indução Linear. Esse padrão de três etapas é a espinha dorsal de toda prova por indução matemática.",
+      "| **Conexão com IA: Recursão e Aprendizado em Sequências**<br/>A Indução Linear é o fundamento lógico da **recursão** e da **prova de corretude de algoritmos recursivos**. Em IA, modelos de linguagem autoregressivos (GPT, BERT causal) geram texto de forma análoga: token a token, usando o estado anterior para produzir o próximo — exatamente a estrutura s(s(...s(a)...)). A prova de que um RNN ou LSTM mantém uma invariante ao longo do tempo tipicamente usa um argumento de indução sobre os passos de tempo. |"
     ]
   },
 
   "cap8-sec4": {
     id: "cap8-sec4",
-    title: "Importância para Ciência de Dados",
+    title: "Indução em Árvore",
     paragraphs: [
-      "Verificação de Modelos permite:",
-      "- Testar consistência de regras.",
-      "- Confirmar implicações formais.",
-      "- Detectar inconsistências automaticamente.",
-      "- Validar pipelines baseados em restrições.",
-      "Embora o espaço de busca possa ser grande, técnicas estruturadas tornam o problema tratável.",
-      "Model Checking conecta lógica formal com aplicações práticas como auditoria algorítmica, explicabilidade e verificação de sistemas inteligentes."
+      "Quando a linguagem possui uma única constante de objeto e *múltiplas* constantes de função unárias, os termos não formam uma sequência linear mas sim uma **árvore**. Considere uma linguagem com constante de objeto a e funções unárias f e g. A estrutura de seus termos se ramifica:",
+      "| **Estrutura em árvore dos termos**<br/>a<br/>↙ ↘<br/>f(a)       g(a)<br/>↙ ↘     ↙ ↘<br/>f(f(a)) g(f(a)) f(g(a)) g(g(a)) |",
+      "Para cobrir todos os termos desta árvore, a regra de indução precisa de um caso indutivo para *cada* função unária:",
+      "| **Regra de Indução em Árvore (Ind)**<br/>**φ[a]                                        (caso base)**<br/>**∀μ. (φ[μ] ⇒ φ[f(μ)])            (caso indutivo para f)**<br/>**∀μ. (φ[μ] ⇒ φ[g(μ)])            (caso indutivo para g)**<br/>**────────────────────────────**<br/>**∀ν. φ[ν]** |",
+      "### 8.5.1 Exemplo: Pureza de Raça em Árvore Genealógica",
+      "Modelemos a árvore genealógica de um cão Rex. Usamos a constante rex, a função f para mapear um cão a seu pai, g para sua mãe, e a relação unária purebred. O axioma fundamental é:",
+      "```\n∀x. (purebred(x) ⇒ purebred(f(x)) ∧ purebred(g(x)))\n```",
+      "Se Rex é purebred, então todo antepassado de Rex também é. A prova por indução em árvore é:",
+      "| **Prova em Fitch** | | |\n|---|---|---|\n| 1. | purebred(rex) | Premissa |\n| 2. | ∀x. (purebred(x) ⇒ purebred(f(x)) ∧ purebred(g(x))) | Premissa |\n| 3. | purebred(c) ⇒ purebred(f(c)) ∧ purebred(g(c)) | EU: 2 |\n| 4. | purebred(c) | Suposição |\n| 5. | purebred(f(c)) ∧ purebred(g(c)) | IE: 3, 4 |\n| 6. | purebred(f(c)) | EA: 5 |\n| 7. | purebred(c) ⇒ purebred(f(c)) | II: 4, 6 |\n| 8. | ∀x. (purebred(x) ⇒ purebred(f(x))) | UI: 7 — caso f |\n| 9. | purebred(c) | Suposição |\n| 10. | purebred(f(c)) ∧ purebred(g(c)) | IE: 3, 9 |\n| 11. | purebred(g(c)) | EA: 10 |\n| 12. | purebred(c) ⇒ purebred(g(c)) | II: 9, 11 |\n| 13. | ∀x. (purebred(x) ⇒ purebred(g(x))) | UI: 12 — caso g |\n| 14. | ∀x. purebred(x) | Ind: 1, 8, 13 |",
+      "| **Conexão com IA: Árvores de Decisão e Grafos de Computação**<br/>Indução em árvore é o mecanismo lógico por trás da prova de propriedades de **árvores de decisão**, **grafos de computação** (como os de frameworks de autodiferenciação, e.g. PyTorch) e **parsers** de linguagem natural. A propriedade de que uma transformação preserva um invariante ao longo de toda uma árvore de derivação é tipicamente provada por indução estrutural sobre a árvore — exatamente o conteúdo desta seção. |"
+    ]
+  },
+
+  "cap8-sec5": {
+    id: "cap8-sec5",
+    title: "Indução Estrutural",
+    paragraphs: [
+      "A forma mais geral de indução completa é a **Indução Estrutural**, que acomoda linguagens com múltiplas constantes de objeto e múltiplas constantes de função com aridade arbitrária. É a generalização natural das formas anteriores.",
+      "Considere uma linguagem com duas constantes de objeto a, b e uma constante de função binária h. Seus termos incluem a, b, h(a,a), h(a,b), h(b,a), h(b,b), h(a,h(a,a)), ... — uma estrutura nem linear nem estritamente arbórea.",
+      "| **Regra de Indução Estrutural (Ind)**<br/>**φ[a]                                                          (caso base a)**<br/>**φ[b]                                                          (caso base b)**<br/>**∀λ.∀μ. ((φ[λ] ∧ φ[μ]) ⇒ φ[h(λ,μ)])    (caso indutivo para h)**<br/>**────────────────────────────────────**<br/>**∀ν. φ[ν]** |",
+      "### 8.6.1 Exemplo: Relações p e q sobre Estruturas Aninhadas",
+      "Defina duas relações unárias sobre o domínio com constantes a, b e função binária h:",
+      "- **p(x):** todo nó-folha da estrutura x é a\n- **q(x):** algum nó-folha da estrutura x é a",
+      "Os axiomas para p são:",
+      "```\np(a)\n∀u.∀v. (p(u) ∧ p(v)  ⇒ p(h(u,v)))\n¬p(b)\n∀u.∀v. (p(h(u,v)) ⇒  p(u))\n∀u.∀v. (p(h(u,v)) ⇒  p(v))\n```",
+      "E para q:",
+      "```\nq(a)\n∀u.∀v. (q(u) ⇒ q(h(u,v)))\n∀u.∀v. (q(v) ⇒ q(h(u,v)))\n¬q(b)\n∀u.∀v. (q(h(u,v)) ⇒  q(u)   ∨ q(v))\n```",
+      "Queremos provar: **∀x. (p(x) ⇒ q(x))** — se todos os nós-folha são a, então pelo menos um é a. A estrutura da prova por Indução Estrutural tem três partes:",
+      "| **Parte da Prova** | **O que provar** |\n|---|---|\n| Caso base para a | p(a) ⇒ q(a)  [trivial: q(a) é premissa] |\n| Caso base para b | p(b) ⇒ q(b)  [ex-falso: p(b) é falso, qualquer coisa se segue] |\n| Caso indutivo para h(c,d) | Se (p(c)⇒q(c)) ∧ (p(d)⇒q(d)), então p(h(c,d)) ⇒ q(h(c,d)) |",
+      "O caso base para b merece atenção: como ¬p(b) é uma premissa, ao *supor* p(b) temos uma contradição imediata, da qual qualquer conclusão (incluindo q(b)) se segue — pelo princípio *ex contradictione quodlibet*. Isso mostra que provas formais podem lidar com hipóteses falsas de modo rigoroso.",
+      "Para o caso indutivo, a prova assume que p(c)⇒q(c) e p(d)⇒q(d) (hipótese indutiva), supõe p(h(c,d)), e deriva q(h(c,d)) em quatro passos: (1) p(h(c,d)) ⇒ p(c) pelo axioma de p; (2) p(c) ⇒ q(c) pela hipótese; (3) q(c) ⇒ q(h(c,d)) pelo axioma de q; (4) portanto q(h(c,d)). A Indução Estrutural fecha a prova."
+    ]
+  },
+
+  "cap8-sec6": {
+    id: "cap8-sec6",
+    title: "Indução Multidimensional",
+    paragraphs: [
+      "Em muitas situações práticas, queremos provar propriedades que envolvem *mais de uma* variável universalmente quantificada. A **indução multidimensional** — ou indução multivariada — trata desses casos aplicando induções aninhadas: primeiro sobre a variável mais externa, e dentro de cada caso sobre as variáveis internas.",
+      "O princípio é direto: para provar ∀x.∀y. φ(x,y) por indução em x, basta provar o caso base ∀y. φ(a,y) e o caso indutivo ∀y. (φ(c,y) ⇒ φ(s(c),y)). Cada um desses subproblemas pode eles mesmos requerer indução em y.",
+      "### 8.7.1 Exemplo: Simetria de uma Relação de Equivalência",
+      "Considere uma linguagem com constante 0, sucessor s e relação binária e (de equidade), com os axiomas:",
+      "```\ne(0,0)\n∀x. ¬e(0,s(x))\n∀x. ¬e(s(x),0)\n∀x.∀y. (e(x,y) ⇒ e(s(x),s(y)))\n∀x.∀y. (e(s(x),s(y)) ⇒ e(x,y))\n```",
+      "A relação e é uma relação de equivalência. Vamos provar sua **simetria**: ∀x.∀y. (e(x,y) ⇒ e(y,x)). A estratégia é:",
+      "- Indução em x para provar ∀x. [∀y. (e(x,y) ⇒ e(y,x))]\n- Caso base (x=0): provar ∀y. (e(0,y) ⇒ e(y,0)) — por indução em y\n- Caso indutivo (x=s(c)): assumindo ∀y.(e(c,y)⇒e(y,c)), provar ∀y.(e(s(c),y)⇒e(y,s(c))) — também por indução em y",
+      "O caso base do caso base (y=0 na indução interna) usa o fato de que e(0,0)⇒e(0,0) é trivial. O caso indutivo interno para y=s(d) usa os axiomas de subida e descida da relação e para repassar a simetria de um nível ao próximo. A prova completa tem cerca de 49 passos — é tediosa, mas *completamente mecânica*, o que é exatamente o que queremos de um sistema formal."
+    ]
+  },
+
+  "cap8-sec7": {
+    id: "cap8-sec7",
+    title: "Indução Embutida",
+    paragraphs: [
+      "Nem sempre é possível provar uma conclusão desejada diretamente por indução padrão. Em alguns casos, é necessário **fortalecer a hipótese indutiva** — provar uma afirmação mais forte como passo intermediário, e então derivar a conclusão original a partir dela.",
+      "### 8.8.1 Exemplo: Passo de Dois em Dois",
+      "Considere a linguagem com constante a, sucessor s e relação p, com os axiomas:",
+      "```\np(a)\np(s(a))\n∀x. (p(x) ⇒ p(s(s(x))))\n```",
+      "Intuitivamente, ∀x. p(x) deveria ser verdadeiro: p vale para 0 e 1, e se vale para n então vale para n+2. Mas a indução linear padrão exige provar ∀x.(p(x) ⇒ p(s(x))), ou seja, que o passo de 1 em 1 funciona — o que não é possível derivar diretamente dos axiomas (que dão saltos de 2).",
+      "**Solução:** provar o fortalecimento ∀x. (p(x) ∧ p(s(x))) por indução, e então extrair ∀x. p(x) dessa conclusão intermediária.",
+      "| **Prova em Fitch** | | |\n|---|---|---|\n| 1. | ∀x. (p(x) ⇒ p(s(s(x)))) | Premissa |\n| 2. | p(a) | Premissa |\n| 3. | p(s(a)) | Premissa |\n| 4. | p(a) ∧ p(s(a)) | EI: 2, 3 — CASO BASE do fortalecimento |\n| 5. | p(c) ∧ p(s(c)) | Suposição — hip. indutiva |\n| 6. | p(c) | EA: 5 |\n| 7. | p(s(c)) | EA: 5 |\n| 8. | p(c) ⇒ p(s(s(c))) | EU: 1 |\n| 9. | p(s(s(c))) | IE: 8, 6 |\n| 10. | p(s(c)) ∧ p(s(s(c))) | EI: 7, 9 — CONCLUSÃO INDUTIVA |\n| 11. | p(c)∧p(s(c)) ⇒ p(s(c))∧p(s(s(c))) | II: 5, 10 |\n| 12. | ∀x. (p(x)∧p(s(x)) ⇒ p(s(x))∧p(s(s(x)))) | UI: 11 — caso indutivo |\n| 13. | ∀x. (p(x) ∧ p(s(x))) | Ind: 4, 12 — CONCLUSÃO INTERMEDIÁRIA |\n| 14. | p(c) ∧ p(s(c)) | EU: 13 |\n| 15. | p(c) | EA: 14 |\n| 16. | ∀x. p(x) | UI: 15 — CONCLUSÃO GERAL |",
+      "| **Por que o fortalecimento funciona?**<br/>Ao fortalecer a conclusão de p(x) para p(x)∧p(s(x)), incorporamos na hipótese indutiva a informação sobre dois elementos consecutivos. Isso torna o caso indutivo provável: de p(c)∧p(s(c)) podemos derivar p(s(s(c))) pelo axioma de salto, obtendo p(s(c))∧p(s(s(c))) — exatamente o que precisamos. Essa técnica de *fortalecimento da hipótese indutiva* é ubíqua em provas de correção de algoritmos. |"
+    ]
+  },
+
+  "cap8-sec8": {
+    id: "cap8-sec8",
+    title: "Indução em IA e Ciência de Dados",
+    paragraphs: [
+      "A indução, nos seus diferentes sentidos, é um dos conceitos mais transversais em IA e Ciência de Dados. A tabela abaixo sistematiza as principais manifestações:",
+      "| **Contexto em IA/CD** | **Tipo de Indução / Conceito Relacionado** |\n|---|---|\n| Aprendizado supervisionado | Indução incompleta: generalização de dados de treino para dados não vistos |\n| Verificação de algoritmos recursivos | Indução linear: provar invariante em cada passo recursivo |\n| Análise de árvores de decisão / parsers | Indução em árvore: propriedades preservadas em cada nó |\n| Processamento de grafos (GNNs) | Indução estrutural: propagação de mensagens em estruturas arbitrárias |\n| Prova de terminação de loops | Indução linear com medida decrescente (ordinal) |\n| Teoria PAC Learning | Limites de generalização com base no número de amostras |\n| LLMs autoregressivos | Geração token-a-token análoga ao passo s(s(...s(a)...)) |",
+      "### 8.9.1 Exemplo Computacional: Verificação de Invariante em Python",
+      "O código abaixo ilustra como uma prova por indução linear guia a verificação de que a soma dos primeiros n inteiros é n*(n+1)/2 — provando a base e o passo indutivo via teste:",
+      "```\ndef soma_ate(n):\n    \"\"\"Soma 0+1+2+...+n (definição recursiva).\"\"\"\n    if n == 0:\n        return 0\n    return n + soma_ate(n - 1)\n\ndef formula(n):\n    \"\"\"Fórmula fechada: n*(n+1)/2.\"\"\"\n    return n * (n + 1) // 2\n\n# Caso base: n = 0\nassert soma_ate(0) == formula(0), 'Caso base falhou!'\n\n# Passo indutivo: se vale para n, vale para n+1\n# Verificação empírica para n = 0..99 (não substitui a prova formal!)\nfor n in range(100):\n    # Hipótese indutiva: soma_ate(n) == formula(n)\n    assert soma_ate(n) == formula(n), f'Falhou para n={n}'\n    # Conclusão indutiva: soma_ate(n+1) == formula(n+1)\n    assert soma_ate(n+1) == formula(n+1), f'Passo falhou para n={n}'\n\nprint('Verificação empírica aprovada para n=0..100.')\n# Nota: verificação empírica ≠ prova formal.\n# A prova formal requer o argumento de indução matemática.\n```",
+      "| **Diferença Crucial para o Profissional de IA**<br/>Testes passando para n=0..99 é indução **incompleta** — não garante que a propriedade valha para n=10¹⁰⁰. A prova por indução matemática é **completa** e garante a propriedade para *todos* os naturais. Sistemas de verificação formal de software (Coq, Lean, Isabelle) utilizam exatamente as regras de indução deste capítulo para construir provas garantidas de propriedades de algoritmos. |"
+    ]
+  },
+
+  "cap8-sec9": {
+    id: "cap8-sec9",
+    title: "Resumo do Capítulo",
+    paragraphs: [
+      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Indução incompleta | Generalização a partir de amostra não-exaustiva; não garante validade |\n| Indução completa | Cobre todos os casos estruturalmente; garante validade lógica |\n| Fechamento de Domínio (DC) | Para domínios finitos: enumera todos os casos individualmente |\n| Indução Linear | 1 base + 1 sucessor; cobrem toda sequência a, s(a), s(s(a)), ... |\n| Indução em Árvore | 1 base + k sucessores unários; cobrem toda árvore gerada |\n| Indução Estrutural | n bases + m funções n-árias; forma mais geral de indução |\n| Indução Multidimensional | Induções aninhadas para conclusões com múltiplos quantificadores |\n| Fortalecimento da hipótese | Provar conclusão mais forte como passo intermediário quando necessário |"
     ]
   },
   glossario: {
