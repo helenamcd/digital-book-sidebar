@@ -4,7 +4,7 @@ import BookContent from "@/components/BookContent";
 import GlossaryContent from "@/components/GlossaryContent";
 
 const Index = () => {
-  const [activeChapter, setActiveChapter] = useState("intro");
+  const [activeChapter, setActiveChapter] = useState("prefacio");
 
   const handleNavigate = (id: string) => {
     setActiveChapter(id);
