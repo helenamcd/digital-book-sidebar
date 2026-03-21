@@ -1225,12 +1225,8 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap3-sec9": {
     "id": "cap3-sec9",
     "title": "Resumo do Capítulo",
-    "subtitle": "Capítulo 3",
     "paragraphs": [
-      "Neste capítulo, exploramos os fundamentos da **inferência** e da **prova** formal no contexto da ciência de dados.",
-      "Vimos que:",
-      "- **Esquemas de axiomas** funcionam como templates de raciocínio que geram sentenças válidas.\n- **Regras de inferência** descrevem padrões válidos de derivação.\n- **Provas diretas** encadeiam premissas, instâncias de axiomas e aplicações de regras.\n- O **sistema de Fitch** amplia o repertório com subprovas e suposições temporárias.\n- As dez regras do Fitch cobrem conjunção, disjunção, negação, implicação e bicondicional.\n- **Solidez** e **completude** garantem que provabilidade e consequência lógica coincidem.\n- As aplicações vão da verificação de regras de negócio à explicabilidade de modelos.",
-      "No próximo capítulo, avançaremos para formas mais estruturadas de prova e para técnicas que tornam provas mais práticas quando a linguagem cresce."
+      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Esquema de axioma | Template de raciocínio que gera sentenças válidas por substituição de metavariáveis |\n| Regra de inferência | Padrão válido de derivação com premissas e conclusão (ex: Modus Ponens) |\n| Prova direta | Sequência finita de sentenças que encadeia premissas, axiomas e regras até a conclusão |\n| Sistema de Fitch | Sistema de dedução natural com subprovas e suposições temporárias |\n| Eliminação da Implicação | Regra Modus Ponens: de φ⇒ψ e φ, conclui-se ψ |\n| Introdução da Implicação | Supor φ e derivar ψ permite concluir φ⇒ψ |\n| Solidez | Todo teorema provável é consequência lógica das premissas |\n| Completude | Toda consequência lógica pode ser provada no sistema |"
     ]
   },
 
