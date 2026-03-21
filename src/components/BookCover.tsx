@@ -265,7 +265,7 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
               <a
                 href="/logica_ia_cd_v5.pdf"
                 download
-                className="inline-block px-8 py-3 rounded-full text-sm font-semibold tracking-wide uppercase transition-all duration-300 hover:scale-105 text-center"
+                className="inline-block px-5 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wide uppercase transition-all duration-300 hover:scale-105 text-center"
                 style={{
                   background: "linear-gradient(135deg, #1a5ccc, #00b4ff)",
                   color: "#fff",
