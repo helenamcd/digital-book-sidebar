@@ -32,6 +32,7 @@ export const chapters: Chapter[] = [
       { id: "intro-sec4", title: "Lógica Simbólica" },
       { id: "intro-sec5", title: "Automação do Raciocínio Lógico" },
       { id: "intro-sec6", title: "Guia de Leitura" },
+      { id: "intro-sec7", title: "Resumo do Capítulo" },
     ],
   },
   {
