@@ -130,12 +130,17 @@ export const chapters: Chapter[] = [
   },
   {
     id: "cap8",
-    title: "Capítulo 8 — Verificação de Modelos (Model Checking)",
+    title: "Capítulo 8 - Indução e Generalização",
     sections: [
-      { id: "cap8-sec1", title: "Tabelas-Verdade em Lógica Relacional" },
-      { id: "cap8-sec2", title: "Modelos Booleanos Estruturados" },
-      { id: "cap8-sec3", title: "Modelos Não-Booleanos" },
-      { id: "cap8-sec4", title: "Importância para Ciência de Dados" }
+      { id: "cap8-sec1", title: "Indução Incompleta e Indução Completa" },
+      { id: "cap8-sec2", title: "Fechamento de Domínio" },
+      { id: "cap8-sec3", title: "Indução Linear" },
+      { id: "cap8-sec4", title: "Indução em Árvore" },
+      { id: "cap8-sec5", title: "Indução Estrutural" },
+      { id: "cap8-sec6", title: "Indução Multidimensional" },
+      { id: "cap8-sec7", title: "Indução Embutida" },
+      { id: "cap8-sec8", title: "Indução em IA e Ciência de Dados" },
+      { id: "cap8-sec9", title: "Resumo do Capítulo" },
     ]
   },
   {
