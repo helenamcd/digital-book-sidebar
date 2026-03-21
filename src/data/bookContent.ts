@@ -25,12 +25,6 @@ export const chapters: Chapter[] = [
   {
     id: "prefacio",
     title: "Prefácio",
-    sections: [
-      { id: "prefacio-sec1", title: "Origem e Motivação" },
-      { id: "prefacio-sec2", title: "Para Quem é Este Livro" },
-      { id: "prefacio-sec3", title: "Termo de Uso de IA" },
-      { id: "prefacio-sec4", title: "Agradecimentos" },
-    ],
   },
   {
     id: "intro",
