@@ -1406,11 +1406,8 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap4-sec10": {
     "id": "cap4-sec10",
     "title": "Resumo do Capítulo",
-    "subtitle": "Capítulo 4",
     "paragraphs": [
-      "Neste capítulo, apresentamos a **Lógica Relacional** como uma extensão expressiva da Lógica Proposicional, capaz de lidar com afirmações sobre múltiplos objetos por meio de variáveis e quantificadores.",
-      "- A **sintaxe** da Lógica Relacional organiza o vocabulário em constantes de objeto, constantes de relação e variáveis, e define três tipos de sentenças: relacionais, lógicas e quantificadas.\n- A **semântica de Herbrand** interpreta sentenças sobre um universo finito de constantes, permitindo avaliar sentenças quantificadas como conjunções (∀) ou disjunções (∃) sobre todas as instâncias.\n- As **propriedades lógicas** — validade, contingência, satisfatibilidade e insatisfatibilidade — se aplicam de forma análoga à Lógica Proposicional.\n- As **relações lógicas** — equivalência, implicação e consistência — permitem analisar interações entre sentenças e conjuntos de sentenças.\n- A Lógica Relacional com vocabulário finito é **expressivamente equivalente** à Lógica Proposicional via grounding, e portanto **decidível** e **compacta**.",
-      "No próximo capítulo, avançaremos para métodos de prova que operam diretamente sobre sentenças quantificadas, sem necessidade de grounding completo."
+      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Constante de objeto | Entidade individual do domínio (ex: cliente_001, produto_42) |\n| Constante de relação | Predicado com aridade definida (ex: comprou/2, ativo/1) |\n| Variável | Placeholder para objetos arbitrários do domínio |\n| Sentença relacional | Átomo formado por constante de relação aplicada a termos |\n| Quantificador universal (∀) | \"Para todo x\": afirmação vale para todos os objetos do domínio |\n| Quantificador existencial (∃) | \"Existe x\": afirmação vale para ao menos um objeto |\n| Semântica de Herbrand | Interpretação sobre universo finito de constantes nomeadas |\n| Grounding | Substituição de variáveis por todas as constantes do vocabulário |\n| Decidibilidade | Possibilidade de determinar algoritmicamente qualquer propriedade lógica |"
     ]
   },
 
