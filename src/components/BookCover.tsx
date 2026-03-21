@@ -239,10 +239,10 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
             >
               Autores
             </div>
-            <div className="text-[17px] italic" style={{ color: "rgba(220,235,255,0.92)", letterSpacing: "0.5px" }}>
+            <div className="text-sm sm:text-[17px] italic" style={{ color: "rgba(220,235,255,0.92)", letterSpacing: "0.5px" }}>
               Helena Macedo Reis
             </div>
-            <div className="text-[17px] italic" style={{ color: "rgba(220,235,255,0.92)", letterSpacing: "0.5px" }}>
+            <div className="text-sm sm:text-[17px] italic" style={{ color: "rgba(220,235,255,0.92)", letterSpacing: "0.5px" }}>
               Anderson da Silva Marcolino
             </div>
           </div>
