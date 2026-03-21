@@ -94,7 +94,7 @@ export const chapters: Chapter[] = [
       { id: "cap5-sec2", title: "Modelos Booleanos: Propagação de Restrições" },
       { id: "cap5-sec3", title: "Modelos Não-Booleanos: Representações Compactas" },
       { id: "cap5-sec4", title: "Verificação de Modelos na Prática" },
-      { id: "cap5-sec5", title: "Resumo" },
+      { id: "cap5-sec5", title: "Resumo do Capítulo" },
     ]
   },
 
