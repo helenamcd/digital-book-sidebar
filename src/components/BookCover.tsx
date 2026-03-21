@@ -276,7 +276,7 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
                 Download do Livro ↓
               </a>
               <div
-                className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-[340px] p-4 rounded-lg text-xs leading-relaxed opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none z-50"
+                className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-[280px] sm:w-[340px] p-3 sm:p-4 rounded-lg text-[10px] sm:text-xs leading-relaxed opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none z-50"
                 style={{
                   background: "rgba(10,20,50,0.95)",
                   border: "1px solid rgba(78,184,255,0.3)",
