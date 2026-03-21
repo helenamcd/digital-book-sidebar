@@ -246,19 +246,52 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
             </div>
           </div>
 
-          {/* Button to go to Prefácio */}
-          <button
-            onClick={() => onNavigate("prefacio")}
-            className="mt-6 self-center px-8 py-3 rounded-full text-sm font-semibold tracking-wide uppercase transition-all duration-300 hover:scale-105"
-            style={{
-              background: "linear-gradient(135deg, #1a5ccc, #00b4ff)",
-              color: "#fff",
-              boxShadow: "0 4px 20px rgba(0,180,255,0.3)",
-              letterSpacing: "2px",
-            }}
-          >
-            Iniciar Leitura →
-          </button>
+          {/* Buttons */}
+          <div className="mt-6 self-center flex flex-wrap gap-4 items-center justify-center">
+            <button
+              onClick={() => onNavigate("prefacio")}
+              className="px-8 py-3 rounded-full text-sm font-semibold tracking-wide uppercase transition-all duration-300 hover:scale-105"
+              style={{
+                background: "linear-gradient(135deg, #1a5ccc, #00b4ff)",
+                color: "#fff",
+                boxShadow: "0 4px 20px rgba(0,180,255,0.3)",
+                letterSpacing: "2px",
+              }}
+            >
+              Iniciar Leitura →
+            </button>
+            <div className="relative group">
+              <a
+                href="/logica_ia_cd_v5.pdf"
+                download
+                className="inline-block px-8 py-3 rounded-full text-sm font-semibold tracking-wide uppercase transition-all duration-300 hover:scale-105 text-center"
+                style={{
+                  background: "linear-gradient(135deg, #1a5ccc, #00b4ff)",
+                  color: "#fff",
+                  boxShadow: "0 4px 20px rgba(0,180,255,0.3)",
+                  letterSpacing: "2px",
+                }}
+              >
+                Download do Livro ↓
+              </a>
+              <div
+                className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-[340px] p-4 rounded-lg text-xs leading-relaxed opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none z-50"
+                style={{
+                  background: "rgba(10,20,50,0.95)",
+                  border: "1px solid rgba(78,184,255,0.3)",
+                  color: "rgba(200,220,255,0.9)",
+                  boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
+                }}
+              >
+                <strong className="block mb-1" style={{ color: "#4eb8ff" }}>Nota sobre esta Edição em PDF</strong>
+                Esta edição em formato PDF foi gerada automaticamente pelo sistema de Inteligência Artificial Claude (Anthropic) a partir do escaneamento e processamento do conteúdo do livro digital disponível em logica.livros.alicce.com.br. O processo envolveu a leitura estruturada do código-fonte da aplicação web, a extração do conteúdo textual, a conversão de formatações e a composição tipográfica do documento. Por ser um processo automatizado, esta versão pode conter inconsistências de formatação, quebras de página inesperadas, caracteres mal renderizados ou pequenas divergências em relação à versão digital interativa. Em caso de dúvida sobre o conteúdo, recomenda-se consultar a versão online, que é a versão oficial e continuamente atualizada do livro.
+                <div
+                  className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0"
+                  style={{ borderLeft: "8px solid transparent", borderRight: "8px solid transparent", borderTop: "8px solid rgba(10,20,50,0.95)" }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>

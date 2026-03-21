@@ -251,6 +251,27 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
               );
             }
 
+            // Download PDF button
+            if (p === ":::download-pdf:::") {
+              return (
+                <div key={i} className="flex justify-center mt-8 mb-4">
+                  <a
+                    href="/logica_ia_cd_v5.pdf"
+                    download
+                    className="inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-semibold tracking-wide uppercase transition-all duration-300 hover:scale-105"
+                    style={{
+                      background: "linear-gradient(135deg, #1a5ccc, #00b4ff)",
+                      color: "#fff",
+                      boxShadow: "0 4px 20px rgba(0,180,255,0.3)",
+                      letterSpacing: "2px",
+                    }}
+                  >
+                    Download do Livro em PDF ↓
+                  </a>
+                </div>
+              );
+            }
+
             // Code block
             if (p.startsWith("```")) {
               // Remove opening/closing ``` and split lines (handle both real \n and literal \\n)
