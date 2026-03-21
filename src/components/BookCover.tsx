@@ -201,7 +201,7 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
           </div>
 
           {/* Title */}
-          <div className="mb-7">
+          <div className="mb-4 sm:mb-7">
             <div
               className="text-[11px] font-light tracking-[4px] uppercase mb-4 flex items-center gap-2.5"
               style={{ color: "#00b4ff" }}
