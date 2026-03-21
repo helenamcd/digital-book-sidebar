@@ -54,15 +54,18 @@ export const chapters: Chapter[] = [
   },
   {
     id: "cap3",
-    title: "Capítulo 3 — Provas em Lógica Proposicional",
+    title: "Capítulo 3 - Inferência e Prova",
     sections: [
-      { id: "cap3-sec1", title: "Esquemas de Axiomas" },
-      { id: "cap3-sec2", title: "Regras de Inferência" },
-      { id: "cap3-sec3", title: "Provas Diretas" },
-      { id: "cap3-sec4", title: "Sistemas de Prova" },
-      { id: "cap3-sec5", title: "O Sistema de Hilbert" },
-      { id: "cap3-sec6", title: "Correção e Completude" },
-      { id: "cap3-sec7", title: "Resumo do Capítulo" }
+      { id: "cap3-sec1", title: "Esquemas de Axiomas e Regras de Inferência" },
+      { id: "cap3-sec2", title: "Provas Diretas" },
+      { id: "cap3-sec3", title: "O Sistema de Fitch e Dedução Natural" },
+      { id: "cap3-sec4", title: "Regras de Inferência do Sistema de Fitch" },
+      { id: "cap3-sec5", title: "Exemplo Completo: Validação de Pipeline" },
+      { id: "cap3-sec6", title: "Dicas para Construir Provas" },
+      { id: "cap3-sec7", title: "Solidez e Completude" },
+      { id: "cap3-sec8", title: "Aplicações em Ciência de Dados" },
+      { id: "cap3-sec9", title: "Resumo do Capítulo" },
+      { id: "cap3-sec10", title: "Exercícios" }
     ]
   },
   {
@@ -1014,135 +1017,201 @@ export const chapterContents: Record<string, ChapterContent> = {
 
   "cap3": {
     "id": "cap3",
-    "title": "Provas em Lógica Proposicional",
+    "title": "Inferência e Prova",
     "subtitle": "Capítulo 3",
     "paragraphs": [
-      "Até aqui, usamos principalmente **tabelas-verdade** para verificar propriedades e relações lógicas, como **consequência lógica** (⊨), **equivalência** e **satisfatibilidade**. Esse método é conceitualmente simples: basta enumerar todas as atribuições possíveis e verificar o comportamento das sentenças em cada cenário.",
-      "O problema é que o número de cenários cresce muito rápido. Para *n* proposições atômicas, existem **2ⁿ** atribuições possíveis. Quando *n* é grande, construir e checar uma tabela-verdade completa pode ser impraticável (ou até impossível) em termos de tempo e memória.",
-      "Para lidar com isso, introduzimos **métodos de prova**. Em vez de explorar todos os cenários, uma prova trabalha por **manipulação simbólica**, aplicando regras formais que preservam a verdade: começamos com premissas e derivamos conclusões passo a passo.",
-      "Na prática, muitas vezes é possível produzir uma prova **muito menor** do que a tabela-verdade correspondente. Além disso, provas são naturalmente explicáveis: elas mostram *por que* uma conclusão segue das premissas.",
-      "Neste capítulo, vamos construir esse caminho com calma. Primeiro, definimos **esquemas de axiomas** e **regras de inferência**. Depois, formalizamos o que é uma **prova direta** e apresentamos um sistema clássico de prova: o **Sistema de Hilbert**. Por fim, discutimos os critérios que julgam um sistema de prova: **correção (soundness)** e **completude (completeness)**."
+      "Em ciência de dados, raramente trabalhamos com verdades absolutas. Modelos preditivos geram **hipóteses**, pipelines de dados transformam premissas em conclusões, e sistemas de recomendação inferem preferências a partir de comportamentos observados. Em todos esses cenários, a mesma questão fundamental se repete: como podemos garantir que uma conclusão é válida a partir de um conjunto de dados e suposições?",
+      "A lógica formal oferece uma resposta rigorosa a essa questão por meio dos conceitos de **inferência** e **prova**. Neste capítulo, exploraremos dois mecanismos complementares: as **provas diretas** e o sistema de **dedução natural de Fitch**. Ao longo do texto, traduziremos sistematicamente os conceitos lógicos para o vocabulário e os desafios típicos da ciência de dados.",
+      "Considere um pipeline de decisão em produção: você tem regras de negócio (**premissas**), dados de entrada e precisa garantir que as saídas sejam corretas. Verificar essa corretude por enumeração exaustiva — equivalente a examinar todas as linhas de uma tabela-verdade — torna-se computacionalmente inviável quando o número de variáveis cresce. Métodos de prova oferecem um caminho alternativo: derivar a corretude de forma simbólica, em muito menos passos."
     ]
   },
 
   "cap3-sec1": {
     "id": "cap3-sec1",
-    "title": "Esquemas de Axiomas",
+    "title": "Esquemas de Axiomas e Regras de Inferência",
     "subtitle": "Capítulo 3",
     "paragraphs": [
-      "Um **esquema de axioma** (ou *axiom schema*) é uma expressão que segue as regras gramaticais da nossa linguagem, exceto pelo uso de **metavariáveis** (normalmente letras gregas) no lugar de partes da expressão.",
-      "As metavariáveis funcionam como “espaços reservados”: podemos substituí-las por sentenças quaisquer, desde que a substituição seja feita de forma **consistente** (a mesma metavariável deve virar a mesma sentença em todas as ocorrências).",
-      "Exemplo de esquema:",
-      "```\\nφ ⇒ (ψ ⇒ φ)\\n```",
-      "Algumas instâncias (substituindo φ e ψ por sentenças concretas):",
-      "```\\np ⇒ (q ⇒ p)\np ⇒ (p ⇒ p)\n¬p ⇒ (q ⇒ ¬p)\n(p ⇒ q) ⇒ ((q ⇒ r) ⇒ (p ⇒ q))\\n```",
-      "Um esquema é dito **válido** quando **todas** as suas instâncias são sentenças válidas (isto é, verdadeiras em todas as atribuições). O esquema acima é válido.",
-      "Outros exemplos de esquemas úteis (muitos deles válidos):",
-      "- **Reflexividade:** `φ ⇒ φ`\n- **Eliminação da dupla negação:** `¬¬φ ⇒ φ`\n- **Introdução da dupla negação:** `φ ⇒ ¬¬φ`\n- **Tautologia (terceiro excluído):** `φ ∨ ¬φ`",
-      "Ao longo do capítulo, vamos usar esquemas válidos como “blocos de construção” dentro de provas."
+      "## Esquemas de Axiomas",
+      "Um **esquema de axioma** é uma expressão que satisfaz as regras gramaticais da linguagem, exceto pela presença de **metavariáveis** — variáveis que representam sentenças arbitrárias. Formalmente, uma instância de um esquema é obtida substituindo-se as metavariáveis por sentenças concretas de forma consistente.",
+      "Para o cientista de dados, esquemas de axiomas funcionam como *templates de raciocínio*. Considere o esquema abaixo, em que φ e ψ são metavariáveis:",
+      "```\nφ ⇒ (ψ ⇒ φ)\n```",
+      "Este esquema diz que qualquer proposição que seja verdadeira continua verdadeira mesmo sob hipóteses adicionais. Em termos de modelagem, isso equivale a dizer que, se um modelo aprovou um cliente (φ), essa aprovação permanece válida mesmo que introduzamos condições extras (ψ). Instâncias concretas desse esquema incluem:",
+      "- `aprovado ⇒ (idade_válida ⇒ aprovado)`\n- `não_fraude ⇒ (saldo_positivo ⇒ não_fraude)`\n- `(score_alto) ⇒ (histórico_limpo ⇒ score_alto)`",
+      "Um esquema é **válido** se e somente se toda instância sua é uma **tautologia** — uma sentença verdadeira em qualquer atribuição de valores-verdade.",
+      "## Regras de Inferência",
+      "Uma **regra de inferência** é um padrão de raciocínio composto por premissas (acima de uma linha) e conclusões (abaixo da linha). Cada regra captura um passo logicamente válido. A regra mais fundamental é a **Eliminação da Implicação** (também chamada de *Modus Ponens*):",
+      "```\nφ ⇒ ψ\nφ\n——————\nψ\n```",
+      "```\n| Nome | Esquema | Analogia em Dados |\n| --- | --- | --- |\n| Reflexividade | φ ⇒ φ | Uma regra de negócio implica ela mesma |\n| Eliminação da Negação | ¬¬φ ⇒ φ | Não-não-fraude equivale a fraude |\n| Tautologia | φ ∨ ¬φ | Um cliente é aprovado ou não é aprovado |\n```",
+      "Para o cientista de dados, essa regra é onipresente. Se temos a regra 'cliente com score > 700 recebe aprovação' e sabemos que o cliente X tem score = 750, podemos derivar que X recebe aprovação — sem precisar consultar toda a base de dados.",
+      "#### Atenção: Aplicação Incorreta de Regras de Inferência",
+      "Um erro comum é aplicar regras de inferência a subcomponentes de sentenças, e não a sentenças completas. Por exemplo: de `(p ⇒ q)` e `(p ⇒ r)`, não se pode inferir `(q ⇒ r)`. Esse erro aparece frequentemente em pipelines de dados quando se confunde **implicação** com condicional de filtragem. Sempre verifique que as premissas da regra correspondem a sentenças inteiras, não a partes delas.",
+      "Além da Eliminação da Implicação, o sistema de Hilbert faz uso de três esquemas adicionais que funcionam como regras derivadas:",
+      "- **Criação de Implicação (IC):** Se ψ é verdadeiro, então `(φ ⇒ ψ)` para qualquer φ.\n- **Distribuição de Implicação (ID):** `(φ ⇒ (ψ ⇒ χ))` implica `((φ ⇒ ψ) ⇒ (φ ⇒ χ))`.\n- **Reversão de Implicação (IR):** `(¬ψ ⇒ ¬φ)` implica `(φ ⇒ ψ)`.",
+      "Esses três esquemas, combinados com a Eliminação da Implicação, são suficientes para provar qualquer **consequência lógica** expressável com os operadores de negação (¬) e implicação (⇒)."
     ]
   },
 
   "cap3-sec2": {
     "id": "cap3-sec2",
-    "title": "Regras de Inferência",
+    "title": "Provas Diretas",
     "subtitle": "Capítulo 3",
     "paragraphs": [
-      "Uma **regra de inferência** é um padrão de raciocínio que permite derivar uma conclusão a partir de premissas. Assim como nos esquemas, usamos metavariáveis para descrever o padrão geral.",
-      "Escrevemos uma regra com as premissas “em cima da linha” e a conclusão “embaixo da linha”. Por exemplo, a regra abaixo é chamada **Eliminação da Implicação** (ou *Modus Ponens*):",
-      "```\\nφ ⇒ ψ\nφ\n——————\nψ\\n```",
-      "A leitura é: se temos `φ ⇒ ψ` e também temos `φ`, então podemos concluir `ψ`.",
-      "Aqui estão outras regras importantes (apresentadas como padrões):",
-      "###Criação da Implicação (IC)",
-      "```\\nψ\n——————\nφ ⇒ ψ\\n```",
-      "Ideia: se `ψ` é verdadeiro, então `φ ⇒ ψ` é verdadeiro para qualquer `φ`.",
-      "###Distribuição da Implicação (ID)",
-      "```\\nφ ⇒ (ψ ⇒ χ)\n———————————————\n(φ ⇒ ψ) ⇒ (φ ⇒ χ)\\n```",
-      "###Reversão da Implicação (IR) (contraposição como regra)",
-      "```\\n¬ψ ⇒ ¬φ\n———————\nφ ⇒ ψ\\n```",
-      "Uma **instância** de uma regra é obtida substituindo as metavariáveis por sentenças concretas, de forma consistente. Exemplo de instância de IE:",
-      "```\\np ⇒ q\np\n———\nq\\n```",
-      "Um ponto crucial: **regras de inferência aplicam-se a sentenças no nível mais externo** (top-level), não a pedaços internos de uma fórmula.",
-      "Exemplo de aplicação incorreta (um erro comum): alguém vê `p ⇒ q` e `p ⇒ r` e tenta “cancelar o p” para concluir `q ⇒ r`. Isso é **inválido**. A regra IE não permite esse tipo de manipulação interna."
+      "### Definição Formal",
+      "Uma **prova direta** de uma conclusão φ a partir de um conjunto de premissas Δ é uma sequência finita de sentenças que termina em φ, onde cada sentença é:",
+      "- Uma **premissa** (membro de Δ);\n- Uma instância de um **esquema de axioma** válido; ou\n- O resultado da aplicação de uma **regra de inferência** a sentenças anteriores na sequência.",
+      "A notação `Δ ⊢ φ` (lida como 'φ é provável a partir de Δ') indica que existe tal sequência. O conceito de **provabilidade** é distinto do de **implicação lógica** (`Δ ⊨ φ`). A implicação lógica é semântica — baseia-se em atribuições de valores-verdade. A provabilidade é sintática — baseia-se em manipulação simbólica.",
+      "### Exemplo: Pipeline de Decisão de Crédito",
+      "Considere um sistema de concessão de crédito com as seguintes regras formalizadas como premissas:",
+      "- Premissa 1: `score_alto ⇒ pré_aprovado`\n- Premissa 2: `pré_aprovado ⇒ liberado`\n- Premissa 3: `(score_alto ⇒ liberado) ⇒ enviar_oferta`",
+      "Queremos provar que, se um cliente tem score alto, devemos enviar uma oferta. A prova direta é a seguinte:",
+      "```\n| Linha | Sentença | Justificativa |\n| --- | --- | --- |\n| 1 | score_alto ⇒ pré_aprovado | Premissa |\n| 2 | pré_aprovado ⇒ liberado | Premissa |\n| 3 | (score_alto ⇒ liberado) ⇒ enviar_oferta | Premissa |\n| 4 | score_alto ⇒ (pré_aprovado ⇒ liberado) | Criação de Implicação: 2 |\n| 5 | (score_alto ⇒ pré_aprovado) ⇒ (score_alto ⇒ liberado) | Distribuição de Implicação: 4 |\n| 6 | score_alto ⇒ liberado | Eliminação de Implicação: 5, 1 |\n| 7 | enviar_oferta | Eliminação de Implicação: 3, 6 |\n```",
+      "Observe que a prova é uma sequência determinística: cada passo é justificado por premissas ou por passos anteriores. Isso é exatamente o que queremos de um sistema de decisão auditável em produção: uma cadeia de raciocínio rastreável.",
+      "### Limitações das Provas Diretas",
+      "Apesar de sua utilidade, as provas diretas têm uma limitação estrutural: elas não permitem fazer **suposições temporárias** dentro da prova. Toda sentença deve ser ou uma premissa ou derivada de premissas e axiomas anteriores. Isso significa que certos resultados — como provar implicações a partir de implicações — requerem passos auxiliares verbosos e contraintuitivos.",
+      "O sistema de Fitch, apresentado a seguir, resolve essa limitação de maneira mais elegante através das **provas condicionais**."
     ]
   },
 
   "cap3-sec3": {
     "id": "cap3-sec3",
-    "title": "Provas Diretas",
+    "title": "O Sistema de Fitch e Dedução Natural",
     "subtitle": "Capítulo 3",
     "paragraphs": [
-      "Aplicando regras de inferência e adicionando instâncias de esquemas de axiomas, conseguimos derivar conclusões que não surgem em um único passo. Isso nos leva ao conceito de **prova direta**.",
-      "**Definição (Prova Direta).** Uma prova direta de uma conclusão a partir de um conjunto de premissas é uma sequência de sentenças que termina na conclusão, em que cada linha é:",
-      "1) uma **premissa**;\n2) uma **instância de um esquema de axioma**;\n3) o resultado de aplicar uma **regra de inferência** a linhas anteriores.",
-      "###Exemplo 1",
-      "Premissas: `p`, `p ⇒ q`, `(p ⇒ q) ⇒ (q ⇒ r)`.\nObjetivo: provar `r`.",
-      "```\\n1. p                         Premissa\n2. p ⇒ q                     Premissa\n3. (p ⇒ q) ⇒ (q ⇒ r)         Premissa\n4. q                         IE: 2, 1\n5. q ⇒ r                     IE: 3, 2\n6. r                         IE: 5, 4\\n```",
-      "###Exemplo 2",
-      "Premissas: `p ⇒ q` e `q ⇒ r`.\nObjetivo: provar `p ⇒ r`.",
-      "A ideia é “encadear” as implicações, mas formalmente usamos regras permitidas:",
-      "```\\n1. p ⇒ q                     Premissa\n2. q ⇒ r                     Premissa\n3. p ⇒ (q ⇒ r)               IC: 2\n4. (p ⇒ q) ⇒ (p ⇒ r)         ID: 3\n5. p ⇒ r                     IE: 4, 1\\n```",
-      "Quando existe uma prova de `φ` a partir de `Δ` usando um conjunto de regras `R`, dizemos que `φ` é **provável** a partir de `Δ` e escrevemos:",
-      "```\\nΔ ⊢_R φ\\n```",
-      "Quando o conjunto de regras é claro pelo contexto, omitimos o índice e escrevemos apenas:",
-      "```\\nΔ ⊢ φ\\n```"
+      "### Provas Condicionais",
+      "O sistema de Fitch introduz o conceito de **prova condicional**: uma prova estruturada em subprovas aninhadas, onde é permitido fazer suposições temporárias. A ideia fundamental é simples: se, ao assumir φ, conseguimos derivar ψ, então podemos concluir `(φ ⇒ ψ)` fora da subprova.",
+      "Essa operação é formalizada pela regra de **Introdução da Implicação (II)**:",
+      "```\n[ φ (suposição)\n  ...\n  ψ ]\n-------------------\nφ ⇒ ψ\n```",
+      "Para o cientista de dados, isso corresponde ao raciocínio hipotético tão comum na análise exploratória: *'Suponha que esta feature seja relevante. O que podemos concluir?'* Ao final, formalizamos a conclusão como uma implicação condicionada à hipótese.",
+      "#### Regra de Escopo em Subprovas",
+      "Uma restrição crítica das provas condicionais: sentenças derivadas dentro de uma subprova **não podem** ser usadas diretamente em subprovas externas. Elas só podem aparecer como antecedentes de implicações criadas pela regra II. Isso é análogo ao escopo de variáveis em programação: uma variável local não é acessível fora de sua função."
     ]
   },
 
   "cap3-sec4": {
     "id": "cap3-sec4",
-    "title": "Sistemas de Prova",
+    "title": "Regras de Inferência do Sistema de Fitch",
     "subtitle": "Capítulo 3",
     "paragraphs": [
-      "Um **sistema de prova** é um conjunto finito de **esquemas de axiomas** e **regras de inferência**. Ele define formalmente o que conta como uma derivação válida.",
-      "É possível imaginar sistemas “estranhos” (com axiomas não válidos ou regras não corretas), mas aqui vamos focar em sistemas que queremos usar de forma confiável: aqueles com axiomas válidos e regras corretas.",
-      "Entre os sistemas clássicos para Lógica Proposicional, um dos mais conhecidos é o **Sistema de Hilbert**."
+      "O sistema de Fitch para lógica proposicional possui dez regras de inferência. Nove são regras ordinárias (aplicáveis diretamente a sentenças disponíveis); uma é condicional (a Introdução da Implicação).",
+      "### Introdução e Eliminação da Conjunção (E)",
+      "A **Introdução da Conjunção (EI)** permite derivar uma conjunção a partir de seus conjuntos. A **Eliminação da Conjunção (EE)** permite extrair cada conjunto de uma conjunção.",
+      "```\nIntrodução:          Eliminação:\nφ₁                   φ₁ ∧ ... ∧ φₙ\n...                  -------------------\nφₙ                   φᵢ\n-------------------\nφ₁ ∧ ... ∧ φₙ\n```",
+      "Exemplo em dados: Se temos `dados_completos` e `sem_outliers` e `sem_duplicatas`, podemos conjuntar tudo em `dataset_limpo`. E, dado `dataset_limpo`, podemos extrair qualquer um dos três atributos individualmente.",
+      "### Introdução e Eliminação da Disjunção (OU)",
+      "A **Introdução da Disjunção** permite inferir uma disjunção arbitrária a partir de qualquer um de seus disjuntos. Já a **Eliminação da Disjunção** é mais rica: se temos uma disjunção e sabemos que cada disjunto implica uma mesma conclusão, então podemos inferir essa conclusão.",
+      "```\nIntrodução:          Eliminação:\nφᵢ                   φ₁ ∨ ... ∨ φₙ\n----------           φ₁ ⇒ ψ\nφ₁ ∨ ... ∨ φₙ       ...\n                     φₙ ⇒ ψ\n                     -------------------\n                     ψ\n```",
+      "Exemplo em dados: Um cliente pode ser classificado como 'inadimplente' por score baixo (A) ou por histórico negativo (B). Se tanto A quanto B implicam `negar_crédito`, então, independentemente de qual condição disparou, a conclusão é `negar_crédito`.",
+      "### Introdução e Eliminação da Negação",
+      "A **Introdução da Negação** permite derivar `¬φ` se φ leva a uma contradição: se φ implica ψ e também implica `¬ψ`, então φ é falso. A **Eliminação da Negação** remove duplas negações.",
+      "```\nIntrodução:          Eliminação:\nφ ⇒ ψ               ¬¬φ\nφ ⇒ ¬ψ              -----\n-----------          φ\n¬φ\n```",
+      "Exemplo em dados: Suponha que uma hipótese de modelagem (φ) implica que a média da variável-alvo é simultaneamente maior que 0.5 (ψ) e menor que 0.5 (¬ψ). Isso é contraditório, logo a hipótese deve ser rejeitada (¬φ). Esse é o fundamento lógico dos testes de hipótese por absurdo.",
+      "### Introdução e Eliminação da Implicação",
+      "**Eliminação da Implicação** (*Modus Ponens*): Se `φ ⇒ ψ` e φ, então ψ. Esta é a regra mais usada em sistemas de inferência e em engines de regras de negócio.",
+      "**Introdução da Implicação** (regra condicional): Se, dentro de uma subprova com suposição φ, derivamos ψ, então podemos concluir `(φ ⇒ ψ)` fora da subprova.",
+      "### Introdução e Eliminação do Bicondicional",
+      "O **bicondicional** `(φ ⇔ ψ)` é introduzido a partir de duas implicações opostas `(φ ⇒ ψ)` e `(ψ ⇒ φ)`. A eliminação extrai essas duas implicações de um bicondicional dado.",
+      "Exemplo em dados: `cliente_premium ⇔ score > 800 ∧ sem_inadimplência` é um bicondicional típico de política de crédito. Da regra bidirecional, extraímos tanto 'se premium então score > 800 e sem_inadimplência' quanto o inverso.",
+      "### Regras Auxiliares: False Introduction e False Elimination",
+      "Para simplificar provas por contradição, o sistema de Fitch pode ser estendido com duas regras auxiliares:",
+      "```\nFalse Introduction:     False Elimination:\nφ                       [ φ (suposição)\n¬φ                        ...\n------                    false ]\n false                  --------\n                        ¬φ\n```"
     ]
   },
 
   "cap3-sec5": {
     "id": "cap3-sec5",
-    "title": "O Sistema de Hilbert",
+    "title": "Exemplo Completo: Validação de Pipeline",
     "subtitle": "Capítulo 3",
     "paragraphs": [
-      "O **Sistema de Hilbert** é interessante porque é extremamente compacto: ele usa apenas **uma regra de inferência** e um pequeno conjunto de **esquemas de axiomas**.",
-      "A única regra é a **Eliminação da Implicação (IE)**:",
-      "```\\nφ ⇒ ψ\nφ\n——————\nψ\\n```",
-      "Além disso, o sistema usa três esquemas de axiomas (que capturam versões “axiomatizadas” de regras conhecidas):",
-      "- **IC (Criação da Implicação):** `φ ⇒ (ψ ⇒ φ)`\n- **ID (Distribuição da Implicação):** `(φ ⇒ (ψ ⇒ χ)) ⇒ ((φ ⇒ ψ) ⇒ (φ ⇒ χ))`\n- **IR (Reversão da Implicação):** `(¬ψ ⇒ ¬φ) ⇒ (φ ⇒ ψ)`",
-      "###Exemplo (Hilbert em ação)",
-      "Premissas: `(p ⇒ q)` e `(q ⇒ r)`.\nObjetivo: provar `(p ⇒ r)`.",
-      "```\\n1. p ⇒ q                                         Premissa\n2. q ⇒ r                                         Premissa\n3. (q ⇒ r) ⇒ (p ⇒ (q ⇒ r))                       IC\n4. p ⇒ (q ⇒ r)                                   IE: 3, 2\n5. (p ⇒ (q ⇒ r)) ⇒ ((p ⇒ q) ⇒ (p ⇒ r))           ID\n6. (p ⇒ q) ⇒ (p ⇒ r)                             IE: 5, 4\n7. p ⇒ r                                         IE: 6, 1\\n```",
-      "Mesmo com poucas ferramentas, conseguimos provar resultados importantes. E, como veremos depois, existe uma técnica para reescrever sentenças proposicionais usando apenas `¬` e `⇒`, o que torna o Hilbert ainda mais relevante."
+      "Para ilustrar o poder do sistema de Fitch, considere o seguinte cenário de ciência de dados: queremos provar que, se um conjunto de dados é considerado confiável, então ele é utilizável para treinamento, dado um conjunto de regras de qualidade.",
+      "Formalizamos as premissas da seguinte forma:",
+      "- `p`: Os dados são completos (sem valores faltantes críticos)\n- `p ⇒ q`: Dados completos implicam pré-processamento bem-sucedido\n- `q ⇒ r`: Pré-processamento bem-sucedido implica dados utilizáveis para treinamento",
+      "Queremos provar `(p ⇒ r)`: se os dados são completos, então são utilizáveis para treinamento.",
+      "```\n| Linha | Sentença | Justificativa |\n| --- | --- | --- |\n| 1 | p ⇒ q | Premissa |\n| 2 | q ⇒ r | Premissa |\n| 3 | p | Suposição (início de subprova) |\n| 4 | q | Eliminação de Impl.: 1, 3 |\n| 5 | r | Eliminação de Impl.: 2, 4 |\n| 6 | p ⇒ r | Introdução de Impl.: 3, 5 |\n```",
+      "Observe a estrutura: nas linhas 1 e 2 estão as premissas. Na linha 3, abrimos uma subprova com a suposição `p`. Dentro da subprova (linhas 3–5), derivamos `r` aplicando as regras de eliminação da implicação em cadeia. Na linha 6, saímos da subprova com a Introdução da Implicação, concluindo `(p ⇒ r)` no nível externo.",
+      "Esse padrão — supor o antecedente, derivar o consequente, concluir a implicação — é o esqueleto da maioria das provas de propriedades de pipelines. Em ciência de dados, ele aparece sempre que precisamos demonstrar que uma transformação preserva alguma propriedade do dado."
     ]
   },
 
   "cap3-sec6": {
     "id": "cap3-sec6",
-    "title": "Correção e Completude",
+    "title": "Dicas para Construir Provas",
     "subtitle": "Capítulo 3",
     "paragraphs": [
-      "A partir daqui, passamos a lidar com **duas noções** diferentes para conectar premissas e conclusão:",
-      "- **Consequência lógica** (semântica): `Δ ⊨ φ`\n- **Provabilidade** (sintática): `Δ ⊢ φ`",
-      "A primeira fala de *todas as atribuições possíveis* (tabelas-verdade e semântica). A segunda fala de *existência de uma prova finita* (regras e manipulação simbólica).",
-      "Um sistema de prova é **correto** (*sound*) se tudo que ele prova é de fato uma consequência lógica. Formalmente:",
-      "```\\nSe Δ ⊢ φ, então Δ ⊨ φ\\n```",
-      "Um sistema é **completo** (*complete*) se toda consequência lógica pode ser provada dentro do sistema. Formalmente:",
-      "```\\nSe Δ ⊨ φ, então Δ ⊢ φ\\n```",
-      "O **Sistema de Hilbert** é **correto e completo** para a Lógica Proposicional. Isso significa que, nesse sistema, **provabilidade e consequência lógica coincidem**: provar e verificar por tabela-verdade chegam às mesmas conclusões (embora por caminhos diferentes).",
-      "O resultado é importante porque, em problemas grandes, um método de prova pode ser mais viável do que percorrer uma tabela-verdade gigantesca. (Ainda assim, no pior caso, provas podem ser longas — mas em muitos casos práticos são bem menores.)"
+      "Construir provas pode ser desafiador, especialmente para problemas complexos. A experiência prática revela um conjunto de heurísticas que aceleram o processo significativamente.",
+      "### Trabalhar a Partir da Conclusão",
+      "A estratégia mais eficaz frequentemente é raciocinar de trás para frente: olhar para a conclusão desejada e perguntar 'como posso chegar aqui?'. As regras a seguir guiam essa busca:",
+      "- Se a conclusão tem a forma `(φ ⇒ ψ)`: suponha φ em uma subprova e tente derivar ψ. Use Introdução de Implicação para fechar.\n- Se a conclusão tem a forma `(φ ∧ ψ)`: prove φ e ψ separadamente e use Introdução de Conjunção.\n- Se a conclusão tem a forma `(φ ∨ ψ)`: prove qualquer um dos disjuntos e use Introdução de Disjunção.\n- Se a conclusão tem a forma `(¬φ)`: suponha φ e derive uma contradição; use Eliminação do False ou Introdução da Negação.",
+      "### Explorar as Premissas",
+      "Além de trabalhar a partir da conclusão, é útil examinar as premissas disponíveis:",
+      "- Se há uma premissa `(φ ⇒ ψ)` e o objetivo é ψ: tente provar φ. Se bem-sucedido, use Eliminação da Implicação.\n- Se há uma premissa `(φ ∨ ψ)` e o objetivo é χ: prove `(φ ⇒ χ)` e `(ψ ⇒ χ)`; aplique Eliminação da Disjunção.\n- Se há uma premissa `(φ ∧ ψ)`: use Eliminação da Conjunção para extrair φ e ψ separadamente.",
+      "### Provas por Contradição",
+      "Quando nenhuma das abordagens anteriores funciona diretamente, a prova por contradição é uma alternativa poderosa. Para provar φ:",
+      "- Assuma `¬φ` em uma subprova.\n- Derive uma contradição (qualquer sentença ψ e sua negação `¬ψ`).\n- Use *False Introduction* para derivar 'false' dentro da subprova.\n- Use *False Elimination* (ou Introdução da Negação) para concluir φ fora da subprova.",
+      "Em ciência de dados, esse padrão aparece ao validar **hipóteses** nulas: assumimos que a hipótese nula é verdadeira e mostramos que ela leva a uma contradição com os dados observados — a base lógica do teste de hipótese estatístico."
     ]
   },
 
   "cap3-sec7": {
     "id": "cap3-sec7",
+    "title": "Solidez e Completude",
+    "subtitle": "Capítulo 3",
+    "paragraphs": [
+      "O valor prático de um sistema de prova depende de duas propriedades fundamentais que relacionam **provabilidade** sintática e **implicação lógica** semântica:",
+      "Um sistema de prova é **sólido** (*sound*) se tudo que ele prova é de fato uma **consequência lógica**:",
+      "```\nSe Δ ⊢ φ, então Δ ⊨ φ\n```",
+      "Um sistema é **completo** (*complete*) se toda consequência lógica pode ser provada dentro do sistema:",
+      "```\nSe Δ ⊨ φ, então Δ ⊢ φ\n```",
+      "Tanto o sistema de Hilbert quanto o sistema de Fitch são sólidos e completos para a lógica proposicional. Isso significa que, para esses sistemas, provabilidade e implicação lógica são noções equivalentes: `Δ ⊢ φ` se e somente se `Δ ⊨ φ`.",
+      "Para o cientista de dados, essa **equivalência** tem uma consequência prática importante:",
+      "- Qualquer conclusão derivada na prova é de fato válida (**solidez** — sem falsos positivos lógicos).\n- Se uma propriedade é logicamente verdadeira, é possível em princípio construir uma prova para ela (**completude** — sem lacunas de cobertura)."
+    ]
+  },
+
+  "cap3-sec8": {
+    "id": "cap3-sec8",
+    "title": "Aplicações em Ciência de Dados",
+    "subtitle": "Capítulo 3",
+    "paragraphs": [
+      "### Verificação de Regras de Negócio",
+      "Sistemas de decisão automatizada — como aprovação de crédito, detecção de fraude ou recomendação de produtos — frequentemente implementam dezenas ou centenas de regras de negócio. Garantir que essas regras sejam consistentes (sem contradições) e completas (sem casos não tratados) é um problema de verificação formal.",
+      "Usando o sistema de Fitch, é possível:",
+      "- Representar cada regra de negócio como uma **implicação** ou **bicondicional**.\n- Provar que determinadas combinações de regras nunca geram contradições.\n- Verificar que todas as categorias de entrada estão cobertas por alguma regra de saída.",
+      "### Auditoria e Explicabilidade de Modelos",
+      "Regulamentações como a LGPD (Lei Geral de Proteção de Dados) e o GDPR europeu exigem que decisões automatizadas sejam explicáveis. Uma prova formal oferece a forma mais rigorosa de explicação: uma cadeia de passos logicamente válidos que conecta as premissas (dados de entrada e regras) à conclusão (decisão do modelo).",
+      "Cada linha de uma prova no sistema de Fitch é uma justificativa auditável. Isso é superior a abordagens de explicabilidade baseadas em importância de features (como SHAP ou LIME), que são aproximações estatísticas — não garantias formais.",
+      "### Validação de Hipóteses em Análise de Dados",
+      "Na análise exploratória, frequentemente construímos cadeias de raciocínio: *'Se a variável X é relevante e o modelo Y captura relações não-lineares, então o modelo Y com a variável X deve superar o baseline.'* Esse raciocínio pode ser formalizado como uma prova, tornando explícita cada suposição (premissa) e cada passo de **inferência**.",
+      "Isso é especialmente útil em ciência de dados reproduzível: ao documentar não apenas o código, mas também o raciocínio lógico por trás das escolhas de modelagem, criamos artefatos que podem ser verificados e questionados por outros membros da equipe."
+    ]
+  },
+
+  "cap3-sec9": {
+    "id": "cap3-sec9",
     "title": "Resumo do Capítulo",
     "subtitle": "Capítulo 3",
     "paragraphs": [
-      "Neste capítulo, saímos do método puramente semântico das tabelas-verdade e entramos no universo das **provas formais**.",
+      "Neste capítulo, exploramos os fundamentos da **inferência** e da **prova** formal no contexto da ciência de dados.",
       "Vimos que:",
-      "- **Esquemas** são “moldes” para gerar sentenças.\n- **Regras de inferência** descrevem padrões válidos de derivação.\n- Uma **prova direta** encadeia premissas, instâncias de axiomas e aplicações de regras.\n- Um **sistema de prova** define formalmente o que conta como derivação.\n- O **Sistema de Hilbert** é um sistema clássico, compacto e poderoso.\n- **Correção** e **completude** conectam provabilidade (⊢) e consequência lógica (⊨).",
-      "No próximo capítulo, vamos avançar para formas mais estruturadas de prova e para técnicas que tornam provas mais práticas (inclusive quando a linguagem cresce)."
+      "- **Esquemas de axiomas** funcionam como templates de raciocínio que geram sentenças válidas.\n- **Regras de inferência** descrevem padrões válidos de derivação.\n- **Provas diretas** encadeiam premissas, instâncias de axiomas e aplicações de regras.\n- O **sistema de Fitch** amplia o repertório com subprovas e suposições temporárias.\n- As dez regras do Fitch cobrem conjunção, disjunção, negação, implicação e bicondicional.\n- **Solidez** e **completude** garantem que provabilidade e consequência lógica coincidem.\n- As aplicações vão da verificação de regras de negócio à explicabilidade de modelos.",
+      "No próximo capítulo, avançaremos para formas mais estruturadas de prova e para técnicas que tornam provas mais práticas quando a linguagem cresce."
+    ]
+  },
+
+  "cap3-sec10": {
+    "id": "cap3-sec10",
+    "title": "Exercícios",
+    "subtitle": "Capítulo 3",
+    "paragraphs": [
+      "**Exercício 3.1:** Dado `(p ∧ q)` e `(p ∧ q ⇒ r)`, use o sistema de Fitch para provar `r`. Interprete `p` como 'dados_completos', `q` como 'modelo_treinado' e `r` como 'sistema_pronto_para_deploy'.",
+      "**Exercício 3.2:** Dado `(p ∧ q)`, use o sistema de Fitch para provar `(q ∨ r)`. Justifique por que a conclusão segue mesmo sem qualquer informação sobre `r`.",
+      "**Exercício 3.3:** Dado `(p ⇒ q)` e `(q ⇔ r)`, use o sistema de Fitch para provar `(p ⇒ r)`. Modele esse cenário em termos de um pipeline: `p` = 'dados_válidos', `q` = 'features_extraídas', `r` = 'modelo_aplicável'.",
+      "**Exercício 3.4:** Dado `(p ⇒ q)` e `(m ⇒ p ∨ q)`, use o sistema de Fitch para provar `(m ⇒ q)`. Dica: use Eliminação da Disjunção na subprova.",
+      "**Exercício 3.5:** Dado `(p ⇒ (q ⇒ r))`, prove com o sistema de Fitch que `((p ⇒ q) ⇒ (p ⇒ r))`. Esse resultado é conhecido como o Axioma K da lógica modal — pesquise sua relevância em sistemas de raciocínio sobre estados de modelos.",
+      "**Exercício 3.6:** Prove usando o sistema de Fitch a **tautologia** `(p ⇒ (q ⇒ p))`. Nenhuma premissa é necessária. Interprete: por que uma proposição verdadeira é implicada por qualquer premissa adicional?",
+      "**Exercício 3.7:** Dado `p`, prove `¬(¬p)` usando o sistema de Fitch. Em seguida, dado `(p ⇒ q)`, prove `(¬q ⇒ ¬p)`. Esse segundo resultado é conhecido como **Contraposição** — fundamental em provas por absurdo em análise de dados.",
+      "**Exercício 3.8 (desafio):** Dado `(¬p ⇒ q)` e `(¬p ⇒ ¬q)`, prove `p` usando o sistema de Fitch. Modele esse cenário: `p` = 'modelo_é_válido', e mostre que, se assumir que o modelo não é válido leva a conclusões contraditórias, então o modelo deve ser válido.",
+      "**Exercício 3.9:** Use o sistema de Hilbert (apenas IC, ID, IR e Eliminação da Implicação) para provar `(p ⇒ p)` sem nenhuma premissa. Compare o número de passos com a prova correspondente no sistema de Fitch.",
+      "**Exercício 3.10 (aplicado):** Formalize como premissas as seguintes regras de um sistema de recomendação: (1) `usuário_ativo ⇒ histórico_disponível`; (2) `histórico_disponível ⇒ recomendação_personalizada`; (3) `recomendação_personalizada ∨ recomendação_genérica ⇒ oferta_enviada`. Prove que `usuário_ativo ⇒ oferta_enviada`."
     ]
   },
 
