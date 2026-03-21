@@ -1197,23 +1197,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
-  "cap3-sec10": {
-    "id": "cap3-sec10",
-    "title": "Exercícios",
-    "subtitle": "Capítulo 3",
-    "paragraphs": [
-      "**Exercício 3.1:** Dado `(p ∧ q)` e `(p ∧ q ⇒ r)`, use o sistema de Fitch para provar `r`. Interprete `p` como 'dados_completos', `q` como 'modelo_treinado' e `r` como 'sistema_pronto_para_deploy'.",
-      "**Exercício 3.2:** Dado `(p ∧ q)`, use o sistema de Fitch para provar `(q ∨ r)`. Justifique por que a conclusão segue mesmo sem qualquer informação sobre `r`.",
-      "**Exercício 3.3:** Dado `(p ⇒ q)` e `(q ⇔ r)`, use o sistema de Fitch para provar `(p ⇒ r)`. Modele esse cenário em termos de um pipeline: `p` = 'dados_válidos', `q` = 'features_extraídas', `r` = 'modelo_aplicável'.",
-      "**Exercício 3.4:** Dado `(p ⇒ q)` e `(m ⇒ p ∨ q)`, use o sistema de Fitch para provar `(m ⇒ q)`. Dica: use Eliminação da Disjunção na subprova.",
-      "**Exercício 3.5:** Dado `(p ⇒ (q ⇒ r))`, prove com o sistema de Fitch que `((p ⇒ q) ⇒ (p ⇒ r))`. Esse resultado é conhecido como o Axioma K da lógica modal — pesquise sua relevância em sistemas de raciocínio sobre estados de modelos.",
-      "**Exercício 3.6:** Prove usando o sistema de Fitch a **tautologia** `(p ⇒ (q ⇒ p))`. Nenhuma premissa é necessária. Interprete: por que uma proposição verdadeira é implicada por qualquer premissa adicional?",
-      "**Exercício 3.7:** Dado `p`, prove `¬(¬p)` usando o sistema de Fitch. Em seguida, dado `(p ⇒ q)`, prove `(¬q ⇒ ¬p)`. Esse segundo resultado é conhecido como **Contraposição** — fundamental em provas por absurdo em análise de dados.",
-      "**Exercício 3.8 (desafio):** Dado `(¬p ⇒ q)` e `(¬p ⇒ ¬q)`, prove `p` usando o sistema de Fitch. Modele esse cenário: `p` = 'modelo_é_válido', e mostre que, se assumir que o modelo não é válido leva a conclusões contraditórias, então o modelo deve ser válido.",
-      "**Exercício 3.9:** Use o sistema de Hilbert (apenas IC, ID, IR e Eliminação da Implicação) para provar `(p ⇒ p)` sem nenhuma premissa. Compare o número de passos com a prova correspondente no sistema de Fitch.",
-      "**Exercício 3.10 (aplicado):** Formalize como premissas as seguintes regras de um sistema de recomendação: (1) `usuário_ativo ⇒ histórico_disponível`; (2) `histórico_disponível ⇒ recomendação_personalizada`; (3) `recomendação_personalizada ∨ recomendação_genérica ⇒ oferta_enviada`. Prove que `usuário_ativo ⇒ oferta_enviada`."
-    ]
-  },
+
 
   "cap4": {
       "id": "cap4",
