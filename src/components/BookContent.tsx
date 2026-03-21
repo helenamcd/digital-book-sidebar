@@ -198,6 +198,59 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
         {/* Paragraphs */}
         <article className="space-y-5">
           {content.paragraphs.map((p, i) => {
+            // Custom diagram for prefácio process
+            if (p === ":::diagrama-processo:::") {
+              const phases = [
+                { phase: "Fase 1", title: "Leitura e compreensão do material original", desc: "Docentes leram e analisaram Genesereth & Kao (2017)", color: "human", arrow: "material original estruturado" },
+                { phase: "Fase 2", title: "Resumo e fusão de capítulos via IA", desc: "Capítulos submetidos à IA para condensação e reorganização", color: "ia", arrow: "rascunho preliminar" },
+                { phase: "Fase 3", title: "Revisão por docente especialista", desc: "Verificação de rigor formal, nível e estrutura pedagógica", color: "human", arrow: "estrutura aprovada" },
+                { phase: "Fase 4", title: "Expansão: exemplos de IA e Ciência de Dados", desc: "Docentes especificam conexões, exemplos Python, exercícios", color: "human", arrow: "especificação de conteúdo" },
+                { phase: "Fase 5", title: "Escrita dos capítulos pela IA", desc: "Produção de texto, tabelas, caixas, exercícios e gabarito", color: "ia", arrow: "rascunho completo" },
+                { phase: "Fase 6", title: "Revisão técnica e pedagógica", desc: "Correção iterativa: rigor, clareza, coerência entre capítulos", color: "collab", arrow: "material validado" },
+                { phase: "Fase 7", title: "Aplicação em sala de aula", desc: "Capítulos usados em graduação; coleta de feedback discente", color: "human", arrow: "feedback estruturado" },
+                { phase: "Fase 8", title: "Revisão final com auxílio de IA", desc: "Incorporação do feedback; reescrita e ajuste de exercícios", color: "collab", arrow: null },
+              ];
+              const colorMap = {
+                human: { bg: "bg-green-50", border: "border-l-green-500", label: "border-green-500 bg-green-100 text-green-800" },
+                ia: { bg: "bg-orange-50", border: "border-l-orange-400", label: "border-orange-400 bg-orange-100 text-orange-800" },
+                collab: { bg: "bg-blue-50", border: "border-l-blue-400", label: "border-blue-400 bg-blue-100 text-blue-800" },
+              };
+              return (
+                <div key={i} className="my-8 space-y-0">
+                  {/* Legend */}
+                  <div className="flex flex-wrap gap-4 mb-6 text-xs font-sans-book">
+                    <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-sm bg-green-500" /> Conduzido por humano docente</span>
+                    <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-sm bg-orange-400" /> Conduzido por IA</span>
+                    <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-sm bg-blue-400" /> Colaboração humano-IA</span>
+                  </div>
+                  {phases.map((ph, pi) => (
+                    <div key={pi}>
+                      <div className={`${colorMap[ph.color].bg} ${colorMap[ph.color].border} border-l-4 rounded-r-lg px-5 py-3`}>
+                        <p className="font-serif-book text-sm font-semibold text-[hsl(var(--book-heading))]">
+                          <span className="text-muted-foreground">{ph.phase}</span>{"  "}{ph.title}
+                        </p>
+                        <p className="font-serif-book text-xs italic text-muted-foreground mt-0.5">{ph.desc}</p>
+                      </div>
+                      {ph.arrow && (
+                        <div className="flex items-center gap-2 pl-6 py-1.5 text-xs text-muted-foreground/60 font-serif-book">
+                          <span>↓</span> <span className="italic">{ph.arrow}</span>
+                        </div>
+                      )}
+                      {!ph.arrow && pi < phases.length - 1 && (
+                        <div className="pl-6 py-1.5 text-xs text-muted-foreground/60">↓</div>
+                      )}
+                    </div>
+                  ))}
+                  {/* Final result */}
+                  <div className="pl-6 py-1.5 text-xs text-muted-foreground/60">↓</div>
+                  <div className="bg-green-50 border-l-4 border-l-green-600 rounded-r-lg px-5 py-3 border border-green-200">
+                    <p className="font-serif-book text-sm font-bold text-green-800">✓ Livro Final</p>
+                    <p className="font-serif-book text-xs italic text-green-700 mt-0.5">Lógica para IA e Ciência de Dados — versão revisada, testada em sala e validada pedagogicamente</p>
+                  </div>
+                </div>
+              );
+            }
+
             // Code block
             if (p.startsWith("```")) {
               // Remove opening/closing ``` and split lines (handle both real \n and literal \\n)
