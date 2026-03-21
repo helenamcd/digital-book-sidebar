@@ -8,10 +8,11 @@ const BookCover = ({ onNavigate }: BookCoverProps) => {
   return (
     <main className="flex-1 flex items-center justify-center min-h-screen overflow-auto py-4 sm:py-8" style={{ background: "#1a1a2e" }}>
       <div
-        className="relative overflow-hidden w-full max-w-[600px] mx-2 sm:mx-4 sm:aspect-[600/850]"
+        className="relative w-full max-w-[600px] mx-2 sm:mx-4 min-h-0 sm:aspect-[600/850]"
         style={{
           background: "#0d1b3e",
           boxShadow: "0 40px 120px rgba(0,0,0,0.7)",
+          overflow: "visible",
         }}
       >
         {/* Background gradient */}
