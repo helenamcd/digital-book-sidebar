@@ -203,7 +203,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "## Agradecimentos",
       "Os autores expressam profunda gratidão aos professores **Michael Genesereth** e **Eric J. Kao**, cujo trabalho pioneiro em lógica formal para ciência da computação tornou este projeto possível. A clareza e a precisão da obra original foram o padrão que buscamos manter e superar em cada página desta adaptação.",
       "Agradecemos também aos estudantes de graduação que utilizaram versões preliminares deste material em sala de aula — suas dúvidas, críticas e sugestões foram indispensáveis para moldar a versão final. A vocês, este livro é dedicado.",
-      "*Os Autores*\n*Maringá, Paraná, Brasil*",
+      "*Os Autores*",
       "## Nota sobre esta Edição em PDF",
       "Esta edição em formato PDF foi gerada automaticamente pelo sistema de Inteligência Artificial Claude (Anthropic) a partir do escaneamento e processamento do conteúdo do livro digital disponível em logica.livros.alicce.com.br. O processo envolveu a leitura estruturada do código-fonte da aplicação web, a extração do conteúdo textual, a conversão de formatações e a composição tipográfica do documento. Por ser um processo automatizado, esta versão pode conter inconsistências de formatação, quebras de página inesperadas, caracteres mal renderizados ou pequenas divergências em relação à versão digital interativa. Em caso de dúvida sobre o conteúdo, recomenda-se consultar a versão online, que é a versão oficial e continuamente atualizada do livro.",
       ":::download-pdf:::",
