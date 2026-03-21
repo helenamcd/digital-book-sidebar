@@ -98,14 +98,18 @@ export const chapters: Chapter[] = [
 
   {
     id: "cap6",
-    title: "Capítulo 6 — Lógica Relacional",
+    title: "Capítulo 6 - Resolução Automática",
     sections: [
-      { id: "cap6-sec1", title: "Sintaxe" },
-      { id: "cap6-sec2", title: "Semântica" },
-      { id: "cap6-sec3", title: "Avaliação" },
-      { id: "cap6-sec4", title: "Satisfatibilidade" },
-      { id: "cap6-sec5", title: "Exemplos em Ciência de Dados" },
-      { id: "cap6-sec6", title: "Fechamento" },
+      { id: "cap6-sec1", title: "Forma Clausal" },
+      { id: "cap6-sec2", title: "O Princípio da Resolução Proposicional" },
+      { id: "cap6-sec3", title: "Raciocínio por Refutação" },
+      { id: "cap6-sec4", title: "Estratégias de Resolução" },
+      { id: "cap6-sec5", title: "Resolução Relacional e Unificação" },
+      { id: "cap6-sec6", title: "O Princípio da Resolução Relacional" },
+      { id: "cap6-sec7", title: "Forma Clausal Relacional: Skolemização" },
+      { id: "cap6-sec8", title: "Extração de Respostas" },
+      { id: "cap6-sec9", title: "Aplicações em Ciência de Dados" },
+      { id: "cap6-sec10", title: "Resumo do Capítulo" },
     ]
   },
   {
