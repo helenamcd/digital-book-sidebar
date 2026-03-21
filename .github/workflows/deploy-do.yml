@@ -1,67 +1,53 @@
 name: Deploy book to DigitalOcean
-
 on:
   push:
     branches: [ "main" ]
   workflow_dispatch:
-
 permissions:
   contents: write
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-
       - name: Install dependencies
         run: npm ci || npm install
-
       - name: Build project
         run: npm run build
-
       - name: Publish dist to do-deploy
         run: |
           set -e
-
           # Confere se o build gerou dist
           if [ ! -d "dist" ]; then
             echo "❌ Pasta dist não encontrada após o build."
             ls -la
             exit 1
           fi
-
           # Guarda o site pronto em uma pasta temporária
           mkdir -p /tmp/site
           cp -R dist/. /tmp/site/
-
           # Configura git
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
           # Vai para o branch do-deploy (cria se não existir)
           git fetch origin do-deploy || true
+          git stash || true
           if git show-ref --verify --quiet refs/remotes/origin/do-deploy; then
             git checkout do-deploy
           else
             git checkout --orphan do-deploy
           fi
-
           # Limpa o branch com segurança (sem tentar apagar '.')
           find . -mindepth 1 -maxdepth 1 \
             ! -name ".git" \
             -exec rm -rf {} +
-
           # Copia o site pronto para a raiz
           cp -R /tmp/site/. .
-
           # Commit e push
           git add -A
           git commit -m "Deploy $(date -u +'%Y-%m-%dT%H:%M:%SZ')" || echo "Nothing to commit"
