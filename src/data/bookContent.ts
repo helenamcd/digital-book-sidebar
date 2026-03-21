@@ -1051,6 +1051,8 @@ export const chapterContents: Record<string, ChapterContent> = {
       "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Proposição | Afirmação que pode ser verdadeira ou falsa; unidade básica da lógica proposicional |\n| Conectivos lógicos | Operadores (¬, ∧, ∨, ⇒, ⇔) que combinam proposições em sentenças compostas |\n| Tabela-verdade | Enumeração de todas as atribuições possíveis para avaliar sentenças |\n| Tautologia (validade) | Sentença verdadeira em toda atribuição de valores-verdade |\n| Contradição | Sentença falsa em toda atribuição de valores-verdade |\n| Contingência | Sentença verdadeira em algumas atribuições e falsa em outras |\n| Satisfatibilidade | Existência de ao menos uma atribuição que torna a sentença verdadeira |\n| Equivalência lógica | Duas sentenças com os mesmos valores-verdade em toda atribuição |\n| Consequência lógica | Toda atribuição que satisfaz as premissas também satisfaz a conclusão |\n| Consistência lógica | Existência de atribuição que satisfaz todas as sentenças simultaneamente |\n| Forma Normal Conjuntiva | Conjunção de disjunções — base para resolução e SAT solvers |"
     ]
   },
+
+  "cap3": {
     "id": "cap3",
     "title": "Inferência e Prova",
     "subtitle": "Capítulo 3",
