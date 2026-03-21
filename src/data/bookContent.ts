@@ -114,12 +114,18 @@ export const chapters: Chapter[] = [
   },
   {
     id: "cap7",
-    title: "Capítulo 7 — Análise da Lógica Relacional",
+    title: "Capítulo 7 - Lógica de Primeira Ordem",
     sections: [
-      { id: "cap7-sec1", title: "Propriedades Lógicas" },
-      { id: "cap7-sec2", title: "Relações Lógicas" },
-      { id: "cap7-sec3", title: "Lógica Relacional e Lógica Relacional" },
-      { id: "cap7-sec4", title: "Resumo" },
+      { id: "cap7-sec1", title: "Conceitualização do Mundo" },
+      { id: "cap7-sec2", title: "Sintaxe da Lógica de Primeira Ordem" },
+      { id: "cap7-sec3", title: "Semântica: Interpretações e Atribuições" },
+      { id: "cap7-sec4", title: "Exemplo: Mundo dos Blocos" },
+      { id: "cap7-sec5", title: "Aritmética e Universos Infinitos" },
+      { id: "cap7-sec6", title: "Igualdade em LPO" },
+      { id: "cap7-sec7", title: "Propriedades Lógicas" },
+      { id: "cap7-sec8", title: "Conexões com IA e Ciência de Dados" },
+      { id: "cap7-sec9", title: "Exemplo Computacional: Z3" },
+      { id: "cap7-sec10", title: "Resumo do Capítulo" },
     ]
   },
   {
