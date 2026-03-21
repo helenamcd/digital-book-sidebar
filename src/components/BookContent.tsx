@@ -173,6 +173,30 @@ const allPages = chapters
     return pages;
   });
 
+// Compute standardized subtitle from chapter hierarchy
+const computeSubtitle = (pageId: string): string | null => {
+  if (["capa", "prefacio", "glossario"].includes(pageId)) return null;
+
+  for (const ch of chapters) {
+    const chNumMatch = ch.title.match(/Capítulo\s+(\d+)/);
+    if (!chNumMatch) continue;
+    const chNum = chNumMatch[1];
+    const chName = ch.title.replace(/^Capítulo\s+\d+\s*-\s*/, "").trim();
+
+    if (ch.id === pageId) {
+      return `Capítulo ${chNum}`;
+    }
+
+    if (ch.sections) {
+      const secIndex = ch.sections.findIndex((s) => s.id === pageId);
+      if (secIndex !== -1) {
+        return `${chNum}.${secIndex + 1} — ${chName.toUpperCase()}`;
+      }
+    }
+  }
+  return null;
+};
+
 const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
   const content = chapterContents[activeChapter];
   const currentIndex = allPages.findIndex((p) => p.id === activeChapter);
@@ -181,13 +205,16 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
 
   if (!content) return null;
 
+  const computedSubtitle = computeSubtitle(activeChapter);
+  const subtitle = computedSubtitle || content.subtitle;
+
   return (
     <main className="flex-1 min-h-screen overflow-y-auto scrollbar-thin bg-background">
       <div className="max-w-2xl mx-auto px-6 md:px-12 py-12 md:py-20">
         {/* Chapter header */}
-        {content.subtitle && (
+        {subtitle && (
           <p className="text-xs font-sans-book font-semibold tracking-[0.25em] uppercase text-accent mb-3">
-            {content.subtitle}
+            {subtitle}
           </p>
         )}
         <h2 className="font-serif-book text-3xl md:text-4xl font-bold text-[hsl(var(--book-heading))] mb-2">
