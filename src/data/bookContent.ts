@@ -51,6 +51,7 @@ export const chapters: Chapter[] = [
       { id: "cap2-sec4", title: "Consistência Lógica" },
       { id: "cap2-sec5", title: "Relações entre Propriedades Lógicas" },
       { id: "cap2-sec6", title: "Reescritas por Equivalência" },
+      { id: "cap2-sec7", title: "Resumo do Capítulo" },
     ],
   },
   {
