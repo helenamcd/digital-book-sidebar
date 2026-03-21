@@ -422,7 +422,13 @@ export const chapterContents: Record<string, ChapterContent> = {
     ],
   },
 
-  cap2: {
+  "intro-sec7": {
+    id: "intro-sec7",
+    title: "Resumo do Capítulo",
+    paragraphs: [
+      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Sentença lógica | Afirmação declarativa que pode ser verdadeira ou falsa |\n| Consequência lógica | Relação em que a verdade das premissas garante a verdade da conclusão |\n| Demonstração lógica | Sequência finita de passos que estabelece a validade de uma conclusão |\n| Lógica simbólica | Uso de símbolos formais para representar sentenças e raciocínios |\n| Automação do raciocínio | Uso de algoritmos para verificar ou derivar conclusões lógicas |\n| Lógica Proposicional | Lógica das proposições com conectivos; decidível e computável |\n| Lógica Relacional | Extensão com variáveis e quantificadores sobre domínios finitos |\n| Lógica Funcional | Extensão com funções e domínios infinitos; maior expressividade |"
+    ]
+  },
     id: "cap2",
     title: "Lógica Proposicional",
     subtitle: "Capítulo 2",
