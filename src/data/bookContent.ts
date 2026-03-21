@@ -54,15 +54,18 @@ export const chapters: Chapter[] = [
   },
   {
     id: "cap3",
-    title: "Capítulo 3 — Provas em Lógica Proposicional",
+    title: "Capítulo 3 - Inferência e Prova",
     sections: [
-      { id: "cap3-sec1", title: "Esquemas de Axiomas" },
-      { id: "cap3-sec2", title: "Regras de Inferência" },
-      { id: "cap3-sec3", title: "Provas Diretas" },
-      { id: "cap3-sec4", title: "Sistemas de Prova" },
-      { id: "cap3-sec5", title: "O Sistema de Hilbert" },
-      { id: "cap3-sec6", title: "Correção e Completude" },
-      { id: "cap3-sec7", title: "Resumo do Capítulo" }
+      { id: "cap3-sec1", title: "Esquemas de Axiomas e Regras de Inferência" },
+      { id: "cap3-sec2", title: "Provas Diretas" },
+      { id: "cap3-sec3", title: "O Sistema de Fitch e Dedução Natural" },
+      { id: "cap3-sec4", title: "Regras de Inferência do Sistema de Fitch" },
+      { id: "cap3-sec5", title: "Exemplo Completo: Validação de Pipeline" },
+      { id: "cap3-sec6", title: "Dicas para Construir Provas" },
+      { id: "cap3-sec7", title: "Solidez e Completude" },
+      { id: "cap3-sec8", title: "Aplicações em Ciência de Dados" },
+      { id: "cap3-sec9", title: "Resumo do Capítulo" },
+      { id: "cap3-sec10", title: "Exercícios" }
     ]
   },
   {
