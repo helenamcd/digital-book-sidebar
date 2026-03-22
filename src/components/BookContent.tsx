@@ -168,6 +168,12 @@ const renderInlineMarkdown = (text: string) => {
         </code>
       );
       remaining = remaining.slice(first.index + first.match![0].length);
+    } else if (first.type === 'footnoteRef') {
+      const num = first.match![1];
+      parts.push(
+        <sup key={key++} className="text-accent font-bold cursor-default text-[0.7em] ml-0.5">[{num}]</sup>
+      );
+      remaining = remaining.slice(first.index + first.match![0].length);
     }
   }
 
