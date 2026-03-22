@@ -348,6 +348,12 @@ export const glossaryTerms: GlossaryTerm[] = [
       "Lista organizada de termos técnicos e suas definições, utilizada como referência rápida para o vocabulário especializado de uma área do conhecimento. Neste livro, o glossário reúne os principais conceitos de lógica formal, inferência e inteligência artificial apresentados ao longo dos capítulos.",
     firstAppearance: "glossario",
   },
+  {
+    term: "Pipeline",
+    definition:
+      "Sequência encadeada de etapas de processamento em que a saída de uma fase alimenta a entrada da seguinte. Em ciência de dados, um pipeline pode incluir coleta, pré-processamento, modelagem e inferência. Do ponto de vista lógico, cada etapa envolve decisões formalizáveis como regras ou implicações.",
+    firstAppearance: "intro-sec1",
+  },
 ];
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
