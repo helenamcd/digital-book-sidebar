@@ -342,15 +342,18 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
                         </tr>
                       </thead>
                       <tbody>
-                        {dataRows.map((row, ri) => (
-                          <tr key={ri} className="border-b border-foreground/20 last:border-b-0">
-                            {row.map((cell, ci) => (
-                              <td key={ci} className="px-5 py-1.5 font-mono text-sm text-center border-r border-foreground/40 last:border-r-0">
-                                {cell}
-                              </td>
-                            ))}
-                          </tr>
-                        ))}
+                        {dataRows.map((row, ri) => {
+                          const isEliminated = row.some((cell) => cell.includes("Eliminado"));
+                          return (
+                            <tr key={ri} className={`border-b border-foreground/20 last:border-b-0 ${isEliminated ? "bg-destructive/20 line-through text-muted-foreground" : ""}`}>
+                              {row.map((cell, ci) => (
+                                <td key={ci} className="px-5 py-1.5 font-mono text-sm text-center border-r border-foreground/40 last:border-r-0">
+                                  {cell}
+                                </td>
+                              ))}
+                            </tr>
+                          );
+                        })}
                       </tbody>
                     </table>
                   </div>
