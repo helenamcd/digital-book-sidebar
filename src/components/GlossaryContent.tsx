@@ -342,6 +342,12 @@ export const glossaryTerms: GlossaryTerm[] = [
     definition: "Técnica de prova em que se demonstra uma afirmação mais forte que a desejada como passo intermediário, e então se extrai a conclusão original.",
     firstAppearance: "cap8-sec7",
   },
+  {
+    term: "Glossário",
+    definition:
+      "Lista organizada de termos técnicos e suas definições, utilizada como referência rápida para o vocabulário especializado de uma área do conhecimento. Neste livro, o glossário reúne os principais conceitos de lógica formal, inferência e inteligência artificial apresentados ao longo dos capítulos.",
+    firstAppearance: "glossario",
+  },
 ];
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
