@@ -128,12 +128,14 @@ const renderInlineMarkdown = (text: string) => {
     const boldMatch = remaining.match(/\*\*(.+?)\*\*/);
     const italicMatch = remaining.match(/\*(.+?)\*/);
     const codeMatch = remaining.match(/`(.+?)`/);
+    const footnoteRefMatch = remaining.match(/\[\^(\d+)\]/);
 
     const matches = [
       refMatch ? { type: 'ref', match: refMatch, index: refMatch.index! } : null,
       boldMatch ? { type: 'bold', match: boldMatch, index: boldMatch.index! } : null,
       italicMatch && (!boldMatch || italicMatch.index! < boldMatch.index!) ? { type: 'italic', match: italicMatch, index: italicMatch.index! } : null,
       codeMatch ? { type: 'code', match: codeMatch, index: codeMatch.index! } : null,
+      footnoteRefMatch ? { type: 'footnoteRef', match: footnoteRefMatch, index: footnoteRefMatch.index! } : null,
     ].filter(Boolean).sort((a, b) => a!.index - b!.index);
 
     if (matches.length === 0) {
