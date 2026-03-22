@@ -533,6 +533,21 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
               );
             }
 
+            // Footnote definition: [^N]: text
+            if (/^\[\^\d+\]:/.test(p)) {
+              const footnoteMatch = p.match(/^\[\^(\d+)\]:\s*(.*)/);
+              if (footnoteMatch) {
+                return (
+                  <div key={i} className="mt-6 pt-4 border-t border-border/50">
+                    <p className="font-serif-book text-xs md:text-sm text-muted-foreground leading-[1.85] italic">
+                      <sup className="text-accent font-bold not-italic mr-1">[{footnoteMatch[1]}]</sup>
+                      {renderInlineMarkdown(footnoteMatch[2])}
+                    </p>
+                  </div>
+                );
+              }
+            }
+
             const isQuote = p.startsWith('"') && p.includes("—");
             if (isQuote) {
               return (
