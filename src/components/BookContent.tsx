@@ -128,12 +128,14 @@ const renderInlineMarkdown = (text: string) => {
     const boldMatch = remaining.match(/\*\*(.+?)\*\*/);
     const italicMatch = remaining.match(/\*(.+?)\*/);
     const codeMatch = remaining.match(/`(.+?)`/);
+    const footnoteRefMatch = remaining.match(/\[\^(\d+)\]/);
 
     const matches = [
       refMatch ? { type: 'ref', match: refMatch, index: refMatch.index! } : null,
       boldMatch ? { type: 'bold', match: boldMatch, index: boldMatch.index! } : null,
       italicMatch && (!boldMatch || italicMatch.index! < boldMatch.index!) ? { type: 'italic', match: italicMatch, index: italicMatch.index! } : null,
       codeMatch ? { type: 'code', match: codeMatch, index: codeMatch.index! } : null,
+      footnoteRefMatch ? { type: 'footnoteRef', match: footnoteRefMatch, index: footnoteRefMatch.index! } : null,
     ].filter(Boolean).sort((a, b) => a!.index - b!.index);
 
     if (matches.length === 0) {
@@ -164,6 +166,12 @@ const renderInlineMarkdown = (text: string) => {
         <code key={key++} className="bg-muted px-1.5 py-0.5 rounded text-[0.85em] font-mono text-accent">
           {first.match![1]}
         </code>
+      );
+      remaining = remaining.slice(first.index + first.match![0].length);
+    } else if (first.type === 'footnoteRef') {
+      const num = first.match![1];
+      parts.push(
+        <sup key={key++} className="text-accent font-bold cursor-default text-[0.7em] ml-0.5">[{num}]</sup>
       );
       remaining = remaining.slice(first.index + first.match![0].length);
     }
@@ -523,6 +531,21 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
                   })}
                 </ul>
               );
+            }
+
+            // Footnote definition: [^N]: text
+            if (/^\[\^\d+\]:/.test(p)) {
+              const footnoteMatch = p.match(/^\[\^(\d+)\]:\s*(.*)/);
+              if (footnoteMatch) {
+                return (
+                  <div key={i} className="mt-6 pt-4 border-t border-border/50">
+                    <p className="font-serif-book text-xs md:text-sm text-muted-foreground leading-[1.85] italic">
+                      <sup className="text-accent font-bold not-italic mr-1">[{footnoteMatch[1]}]</sup>
+                      {renderInlineMarkdown(footnoteMatch[2])}
+                    </p>
+                  </div>
+                );
+              }
             }
 
             const isQuote = p.startsWith('"') && p.includes("—");
