@@ -67,14 +67,13 @@ export const chapters: Chapter[] = [
     sections: [
       { id: "cap3-sec1", title: "Esquemas de Axiomas e Regras de Inferência" },
       { id: "cap3-sec2", title: "Provas Diretas" },
-      { id: "cap3-sec3", title: "O Sistema de Fitch e Dedução Natural" },
-      { id: "cap3-sec4", title: "Regras de Inferência do Sistema de Fitch" },
-      { id: "cap3-sec5", title: "Exemplo Completo: Validação de Pipeline" },
-      { id: "cap3-sec6", title: "Dicas para Construir Provas" },
-      { id: "cap3-sec7", title: "Solidez e Completude" },
-      { id: "cap3-sec8", title: "Aplicações em Ciência de Dados" },
-      { id: "cap3-sec9", title: "Resumo do Capítulo" },
-      
+      { id: "cap3-sec3", title: "O Sistema de Fitch e a Dedução Natural" },
+      { id: "cap3-sec4", title: "Exemplo Completo: Validação de Pipeline de Dados" },
+      { id: "cap3-sec5", title: "Dicas para Construir Provas" },
+      { id: "cap3-sec6", title: "Solidez e Completude" },
+      { id: "cap3-sec7", title: "Aplicações em Ciência de Dados" },
+      { id: "cap3-sec8", title: "Resumo do Capítulo" },
+      { id: "cap3-sec9", title: "Exercícios" },
     ]
   },
   {
