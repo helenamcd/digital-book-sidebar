@@ -788,10 +788,10 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Exemplos",
     subtitle: "Linguagem Natural e Circuitos Digitais",
     paragraphs: [
-      "Nesta seção, apresentamos exemplos clássicos de aplicação da **Lógica Proposicional** em dois contextos distintos (linguagem natural e circuitos digitais). O objetivo é mostrar como sentenças informais e sistemas físicos podem ser formalizados de maneira rigorosa, permitindo análise, verificação e inferência.",
+      "Nesta seção, apresentamos exemplos clássicos de aplicação da **Lógica Proposicional** em dois contextos distintos: linguagem natural e circuitos digitais. O objetivo é mostrar como sentenças informais e sistemas físicos podem ser formalizados de maneira rigorosa, permitindo análise, verificação e inferência.",
       "Para garantir clareza conceitual, os exemplos a seguir foram cuidadosamente estruturados, explicitando o papel de cada símbolo proposicional e o significado lógico de cada sentença.",
 
-      "##Exemplo 1 (Linguagem Natural)",
+      "##Exemplo 1 — Linguagem Natural",
       "Considere três propriedades associadas a uma mesma pessoa (ou entidade analisada):",
       "- **c**: a pessoa é confiável;\n- **f**: a pessoa é flexível;\n- **p**: a pessoa é produtiva.",
       "Cada símbolo proposicional representa uma **afirmação atômica** que pode ser verdadeira ou falsa em um determinado cenário.",
@@ -832,7 +832,9 @@ export const chapterContents: Record<string, ChapterContent> = {
 
       "Nesse cenário, três sentenças são verdadeiras e uma é falsa. Isso mostra que **formalizar sentenças não garante sua veracidade** — a lógica permite justamente verificar a consistência entre regras e dados.",
 
-      "##Exemplo 2 (Circuitos Digitais)",
+      "##Exemplo 2 — Circuitos Digitais",
+      "| **Nota de contexto**<br/>Este exemplo conecta a Lógica Proposicional a sistemas físicos. Se você ainda não teve contato com circuitos digitais, não se preocupe: o importante aqui não é o hardware em si, mas perceber que os mesmos conectivos lógicos (∧, ∨, ¬) que usamos para formalizar linguagem natural são exatamente os que descrevem o comportamento de portas lógicas. Leia focando nos símbolos e nas sentenças, não nos detalhes do circuito. |\n|---|",
+
       "A Lógica Proposicional é amplamente utilizada para modelar sistemas físicos determinísticos, como **circuitos digitais**. Cada nó do circuito pode estar ligado (1) ou desligado (0), o que se alinha naturalmente à semântica proposicional.",
 
       "###Definição dos símbolos",
@@ -862,7 +864,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Uma vez formalizado, o circuito pode ser analisado por meio de:",
       "- avaliação, para verificar o comportamento sob entradas específicas;\n- análise de satisfatibilidade;\n- verificação de conformidade com uma especificação;\n- diagnóstico de falhas lógicas.",
 
-      "Esses exemplos mostram como a Lógica Proposicional atua como uma **ponte entre sistemas formais e sistemas reais**, sendo fundamental para ciência de dados, computação, engenharia e inteligência artificial."
+      "Esses exemplos mostram como a Lógica Proposicional atua como uma **ponte entre sistemas formais e sistemas reais**, sendo fundamental para ciência de dados, computação, engenharia e inteligência artificial.",
     ],
   },
 
