@@ -47,17 +47,16 @@ export const chapters: Chapter[] = [
     id: "cap2",
     title: "Capítulo 2 - Lógica Proposicional",
     sections: [
-      
       { id: "cap1-sec1", title: "Sintaxe" },
       { id: "cap1-sec2", title: "Semântica" },
       { id: "cap1-sec3", title: "Avaliação ou Interpretação" },
       { id: "cap1-sec4", title: "Satisfatibilidade" },
       { id: "cap1-sec5", title: "Exemplos" },
-      { id: "cap2-sec1", title: "Propriedades Lógicas" },
+      { id: "cap2-sec1", title: "Propriedades Lógicas das Sentenças" },
       { id: "cap2-sec2", title: "Equivalência Lógica" },
       { id: "cap2-sec3", title: "Consequência Lógica" },
       { id: "cap2-sec4", title: "Consistência Lógica" },
-      { id: "cap2-sec5", title: "Relações entre Propriedades Lógicas" },
+      { id: "cap2-sec5", title: "Conexões entre Propriedades" },
       { id: "cap2-sec6", title: "Reescritas por Equivalência" },
       { id: "cap2-sec7", title: "Resumo do Capítulo" },
     ],
@@ -508,10 +507,12 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Lógica Proposicional",
     subtitle: "Capítulo 2",
     paragraphs: [
-      "A **Lógica Proposicional** é o ponto de partida formal para o estudo da lógica aplicada à ciência de dados. Ela se ocupa de **proposições** e das **relações lógicas** entre elas. De forma intuitiva, uma proposição pode ser entendida como uma possível condição do mundo que pode ser avaliada como **verdadeira ou falsa**. Exemplos simples incluem afirmações como 'está chovendo', 'o usuário clicou no botão de ajuda' ou 'o modelo classificou o aluno como em risco'.",
-      "Neste capítulo, apresentamos a Lógica Proposicional como uma **linguagem formal** para representar conhecimento de maneira precisa. Começamos pelos **elementos sintáticos** da linguagem (símbolos proposicionais e conectivos lógicos) e pela **semântica** (atribuições de valores de verdade e tabelas-verdade). Em seguida, avançamos para a **avaliação** mecânica de sentenças, a noção de **satisfatibilidade** e aplicações práticas em linguagem natural e circuitos digitais.",
-      "Na segunda parte do capítulo, mudamos o foco de sentenças individuais para **propriedades e relações entre sentenças**. Investigamos quando uma sentença é válida, contingente ou insatisfatível; quando duas sentenças são logicamente equivalentes; quando uma conclusão é consequência lógica de premissas; e quando um conjunto de regras é consistente. Encerramos conectando essas noções e mostrando como reescritas por equivalência permitem simplificar e transformar expressões lógicas.",
-      "A Lógica Proposicional ocupa um lugar especial por combinar **simplicidade conceitual** com **fortes garantias computacionais**. Embora sua capacidade expressiva seja limitada quando comparada a lógicas mais sofisticadas, ela permite compreender, de forma clara, conceitos centrais como **implicação lógica**, **consistência**, **satisfatibilidade** e **consequência lógica** — conceitos que servirão de base para os capítulos seguintes e para aplicações mais avançadas em ciência de dados e inteligência artificial."
+      "A **Lógica Proposicional** é o ponto de partida formal para o estudo da lógica aplicada à ciência de dados. Ela se ocupa de **proposições** e das **relações lógicas** entre elas. Uma proposição é uma possível condição do mundo que pode ser avaliada como **verdadeira ou falsa** — exemplos simples incluem 'está chovendo', 'o usuário clicou no botão de ajuda' ou 'o modelo classificou o aluno como em risco'.",
+      "É importante notar que uma proposição **não precisa ser conhecida como verdadeira** para ser considerada uma proposição. Ela representa uma possibilidade sobre o estado do mundo, definida justamente por poder ser avaliada em um determinado contexto. Em ciência de dados, frequentemente lidamos com proposições cujo valor ainda é desconhecido ou depende da verificação de outras condições.",
+      "Neste capítulo, apresentamos a Lógica Proposicional como uma **linguagem formal** para representar conhecimento de maneira precisa. Começamos pelos **elementos sintáticos** da linguagem (símbolos proposicionais e conectivos lógicos) e pela **semântica** (atribuições de valores de verdade e tabelas-verdade). Em seguida, avançamos para a **avaliação** mecânica de sentenças — o processo de calcular o valor de verdade de uma sentença a partir de uma atribuição — e para a noção de **satisfatibilidade**, que investiga quais atribuições tornam uma sentença verdadeira.",
+      "Ao longo dessas seções, mostramos como a Lógica Proposicional pode formalizar tanto fragmentos da **linguagem natural** quanto o funcionamento de **circuitos digitais**, evidenciando seu papel fundamental na computação.",
+      "Na segunda parte do capítulo, mudamos o foco de sentenças individuais para **propriedades e relações entre sentenças**. Investigamos quando uma sentença é válida, contingente ou insatisfatível; quando duas sentenças são logicamente equivalentes; quando uma conclusão é consequência lógica de premissas; e quando um conjunto de regras é consistente. Encerramos conectando essas noções por meio dos principais metateoremas e mostrando como reescritas por equivalência permitem simplificar e transformar expressões lógicas.",
+      "A Lógica Proposicional ocupa um lugar especial por combinar **simplicidade conceitual** com **fortes garantias computacionais**. Embora sua capacidade expressiva seja limitada quando comparada a lógicas mais sofisticadas, ela permite compreender, de forma clara, conceitos centrais como **implicação lógica**, **consistência**, **satisfatibilidade** e **consequência lógica** — conceitos que servirão de base para os capítulos seguintes e para aplicações mais avançadas em ciência de dados e inteligência artificial.",
     ],
   },
 
@@ -522,84 +523,64 @@ export const chapterContents: Record<string, ChapterContent> = {
     paragraphs: [
       "A Lógica Proposicional não se ocupa apenas do significado das sentenças, mas também da sua **forma**. Essa dimensão formal é chamada de **sintaxe**. A sintaxe define quais expressões são sentenças bem formadas e como sentenças mais complexas podem ser construídas a partir de sentenças simples.",
       "Na ciência de dados, a sintaxe desempenha um papel semelhante ao da gramática em uma linguagem de programação: ela garante que regras, hipóteses e condições sejam expressas de maneira **precisa, não ambígua e verificável**.",
-
       "##Sentenças simples e sentenças compostas",
       "Na Lógica Proposicional, distinguimos dois tipos fundamentais de sentenças: **sentenças simples (ou proposições atômicas)** e **sentenças compostas**.",
       "As sentenças simples expressam fatos elementares sobre o mundo. Elas não contêm conectivos lógicos e, do ponto de vista da Lógica Proposicional, são tratadas como **unidades atômicas**, isto é, sua estrutura interna não é analisada.",
-
       "Exemplos em ciência de dados educacionais:",
       "- `erro` (o estudante cometeu erro)\n- `ajuda` (o estudante clicou no botão de ajuda)\n- `abandono` (o estudante abandonou a atividade)\n- `log` (a interação foi registrada no log)",
       "Cada uma dessas proposições pode ser avaliada como verdadeira ou falsa em um determinado cenário.",
-
       "Formalmente, essas sentenças são representadas por **símbolos proposicionais (ou variáveis proposicionais)**, normalmente escritos como identificadores simples, compostos por letras, números e sublinhados, iniciados por letra minúscula. Essa restrição sintática evita ambiguidades e aproxima a lógica das linguagens formais usadas em computação.",
-
       "##Conectivos lógicos e sentenças compostas",
       "As sentenças compostas são construídas a partir de sentenças simples por meio de **conectivos lógicos**, que expressam relações entre proposições. Os principais conectivos da Lógica Proposicional são:",
       "- Negação (¬)\n- Conjunção (∧)\n- Disjunção (∨)\n- Implicação (⇒)\n- Bicondicional (⇔)",
-
       "Cada conectivo possui um papel semântico claro, mas também obedece a regras sintáticas rigorosas.",
-
       "###Negação",
       "A negação inverte o valor lógico de uma sentença.",
       "```\\n¬erro\\n```",
       "(é falso que o estudante cometeu erro)",
-
       "###Conjunção",
       "A conjunção representa a ocorrência simultânea de condições.",
-      "```\\(erro ∧ ajuda)\n```",
+      "```\\n(erro ∧ ajuda)\\n```",
       "(o estudante cometeu erro e clicou no botão de ajuda)",
-
       "###Disjunção",
       "A disjunção representa alternativas possíveis.",
-      "```\\(erro ∨ abandono)\\n```",
+      "```\\n(erro ∨ abandono)\\n```",
       "(o estudante cometeu erro ou abandonou a atividade)",
-
       "###Implicação",
       "A implicação expressa relações condicionais entre sentenças.",
-      "```\\(erro ⇒ ajuda)\\n```",
+      "```\\n(erro ⇒ ajuda)\\n```",
       "(se o estudante cometeu erro, então recebeu ajuda)",
-
       "###Bicondicional",
       "O bicondicional expressa equivalência lógica entre sentenças.",
-      "```\\(aprovado ⇔ media≥7)\\n```",
+      "```\\n(aprovado ⇔ media≥7)\\n```",
       "(o estudante está aprovado se, e somente se, a média é maior ou igual a 7)",
-
       "##Composição e aninhamento de sentenças",
       "Uma característica importante da sintaxe da Lógica Proposicional é que sentenças compostas podem ser usadas como partes de outras sentenças compostas. Isso permite construir expressões complexas que modelam situações realistas em ciência de dados.",
-
       "Exemplo:",
-      "```\\((erro ∨ abandono) ⇒ log)\\n```",
+      "```\\n((erro ∨ abandono) ⇒ log)\\n```",
       "Essa sentença afirma que, se ocorreu erro ou abandono, então houve registro no log.",
-
       "##Parênteses e ambiguidade",
       "Os parênteses desempenham um papel crucial na sintaxe, pois indicam explicitamente como as sentenças devem ser agrupadas. Sem eles, muitas expressões se tornam ambíguas.",
-
       "Considere a expressão:",
-      "```\\erro ∨ ajuda ⇒ log\\n```",
+      "```\\nerro ∨ ajuda ⇒ log\\n```",
       "Ela pode representar estruturas distintas:",
-      "```\\((erro ∨ ajuda) ⇒ log)\\n```",
+      "```\\n((erro ∨ ajuda) ⇒ log)\\n```",
       "ou",
-      "```\\(erro ∨ (ajuda ⇒ log))\\n```",
+      "```\\n(erro ∨ (ajuda ⇒ log))\\n```",
       "Como essas leituras têm significados diferentes, a sintaxe exige regras adicionais para evitar ambiguidades.",
-
       "##Precedência e associatividade",
       "Para reduzir o uso excessivo de parênteses, a Lógica Proposicional adota regras de precedência entre os conectivos. A ordem usual (da maior para a menor precedência) é:",
-      "```\\¬\n∧\n∨\n⇒\n⇔\\n```",
+      "```\\n¬\n∧\n∨\n⇒\n⇔\\n```",
       "Essa convenção é amplamente adotada, mas o uso explícito de parênteses é sempre recomendado quando houver qualquer dúvida sobre a estrutura da sentença.",
-
       "Exemplos:",
-      "```\\¬ erro ∧ ajuda     ≡ ((¬ erro) ∧ ajuda)\nerro ∧ ajuda ∨ log ≡ ((erro ∧ ajuda) ∨ log)\nerro ⇒ ajuda ⇔ log ≡ ((erro ⇒ ajuda) ⇔ log)\\n```",
-
+      "```\\n¬ erro ∧ ajuda     ≡ ((¬ erro) ∧ ajuda)\nerro ∧ ajuda ∨ log ≡ ((erro ∧ ajuda) ∨ log)\nerro ⇒ ajuda ⇔ log ≡ ((erro ⇒ ajuda) ⇔ log)\\n```",
       "Quando operadores de mesma precedência aparecem em sequência, adotam-se **convenções de associatividade (à esquerda ou à direita)**, garantindo uma interpretação única da sentença.",
-
       "##Vocabulário e linguagem proposicional",
       "Um **vocabulário proposicional** é o conjunto de todos os símbolos proposicionais disponíveis (por exemplo, `{erro, ajuda, abandono, log}`).",
       "Uma **linguagem proposicional** é o conjunto de todas as sentenças bem formadas que podem ser construídas a partir desse vocabulário, seguindo as regras sintáticas da lógica.",
-
-      "A sintaxe fornece o alicerce formal sobre o qual se apoiam a semântica, a inferência lógica e as aplicações da lógica em ciência de dados, inteligência artificial e sistemas computacionais."
+      "A sintaxe fornece o alicerce formal sobre o qual se apoiam a semântica, a inferência lógica e as aplicações da lógica em ciência de dados, inteligência artificial e sistemas computacionais.",
     ],
   },
-
 
   "cap1-sec2": {
     id: "cap1-sec2",
@@ -607,84 +588,49 @@ export const chapterContents: Record<string, ChapterContent> = {
     subtitle: "Capítulo 2",
     paragraphs: [
       "A **semântica** trata do significado formal das sentenças lógicas. Em lógica, assim como em álgebra, esse significado não está relacionado ao conteúdo concreto das variáveis, mas às **relações entre seus valores**.",
-      
       "Na álgebra, não nos importamos se uma variável representa idade, temperatura ou dinheiro. O que importa são as relações expressas pelas equações. De modo análogo, na **Lógica Proposicional**, não nos interessa o significado real das proposições, mas **como os valores de verdade das sentenças simples determinam o valor de verdade das sentenças compostas**.",
-      
       "Essa abstração é fundamental para a **ciência de dados**. Ela permite que regras, modelos simbólicos e sistemas de decisão sejam avaliados de forma **independente do domínio específico**, garantindo consistência, verificabilidade e automatização do raciocínio.",
-
       "##Proposições e atribuições de verdade",
       "Uma **proposição** representa uma possibilidade sobre o estado do mundo que pode ser avaliada como verdadeira ou falsa em um determinado cenário. A lógica não fixa se uma proposição é verdadeira ou falsa — isso depende do contexto observado ou assumido.",
-      
       "Para tornar esse contexto explícito, utilizamos o conceito de **atribuição de verdade**.",
-      
       "Formalmente, uma atribuição de verdade associa a cada símbolo proposicional um valor de verdade. Neste livro, adotamos a convenção:",
-      
       "- **1** para verdadeiro\n- **0** para falso",
-      
       "Considere os seguintes símbolos proposicionais em um sistema educacional digital:",
-      
       "- **e**: o estudante apresentou erro\n- **f**: o estudante recebeu feedback\n- **r**: a interação foi registrada no log",
-      
       "Uma possível atribuição de verdade pode ser:",
-      
       "- e = 1\n- f = 0\n- r = 1",
-      
       "Outra atribuição, igualmente válida do ponto de vista lógico, poderia ser:",
-      
       "- e = 0\n- f = 0\n- r = 1",
-      
       "Essas atribuições **não são sentenças da lógica proposicional**, mas afirmações em nível meta (isto é, estamos falando *sobre* a lógica). Ainda assim, elas são essenciais para compreender a semântica.",
-
       "##Avaliação semântica de sentenças compostas",
       "Embora a lógica não determine os valores das proposições simples, **ela determina completamente o valor de qualquer sentença composta**, uma vez que a atribuição de verdade esteja definida.",
-      
       "Essa avaliação é feita por meio de regras semânticas, tradicionalmente representadas por **tabelas-verdade**.",
-
       "##Negação (¬)",
       "A negação inverte o valor de verdade da sentença original:",
-      
       "```\\n| φ | ¬φ |\n|---|----|\n| 1 | 0  |\n| 0 | 1  |\\n```",
-      
-      "*Exemplo em ciência de dados:* se “o estudante apresentou erro” é verdadeiro, então “o estudante não apresentou erro” é falso.",
-
+      "*Exemplo em ciência de dados:* se \"o estudante apresentou erro\" é verdadeiro, então \"o estudante não apresentou erro\" é falso.",
       "##Conjunção (∧)",
       "Uma conjunção é verdadeira **somente quando todas as sentenças envolvidas são verdadeiras**:",
-      
       "```\\n| φ | ψ | φ ∧ ψ |\n|---|---|-------|\n| 1 | 1 | 1     |\n| 1 | 0 | 0     |\n| 0 | 1 | 0     |\n| 0 | 0 | 0     |\\n```",
-      
-      "*Exemplo:* “O estudante apresentou erro **e** abandonou a atividade” só é verdadeiro se ambos os eventos ocorreram.",
-
+      "*Exemplo:* \"O estudante apresentou erro **e** abandonou a atividade\" só é verdadeiro se ambos os eventos ocorreram.",
       "##Disjunção (∨)",
       "Uma disjunção é verdadeira quando **ao menos uma** das sentenças é verdadeira. Trata-se do **ou inclusivo**:",
-      
       "```\\n| φ | ψ | φ ∨ ψ |\n|---|---|-------|\n| 1 | 1 | 1     |\n| 1 | 0 | 1     |\n| 0 | 1 | 1     |\n| 0 | 0 | 0     |\\n```",
-      
-      "*Exemplo:* “O estudante apresentou erro **ou** abandonou a atividade” é verdadeiro se qualquer uma das situações ocorreu.",
-
+      "*Exemplo:* \"O estudante apresentou erro **ou** abandonou a atividade\" é verdadeiro se qualquer uma das situações ocorreu.",
       "##Implicação (⇒)",
       "A implicação é falsa **apenas quando o antecedente é verdadeiro e o consequente é falso**. Em todos os outros casos, ela é verdadeira. Essa definição é conhecida como **implicação material**:",
-      
       "```\\n| φ | ψ | φ ⇒ ψ |\n|---|---|-------|\n| 1 | 1 | 1     |\n| 1 | 0 | 0     |\n| 0 | 1 | 1     |\n| 0 | 0 | 1     |\\n```",
-      
-      "*Exemplo:* “Se o estudante apresentou erro, então recebeu feedback”. A lógica não afirma que o erro ocorreu — apenas verifica se, **caso tenha ocorrido**, a consequência foi respeitada.",
-
+      "*Exemplo:* \"Se o estudante apresentou erro, então recebeu feedback\". A lógica não afirma que o erro ocorreu — apenas verifica se, **caso tenha ocorrido**, a consequência foi respeitada.",
       "##Bicondicional (⇔)",
       "O bicondicional é verdadeiro quando as duas sentenças possuem **o mesmo valor de verdade**:",
-      
       "```\\n| φ | ψ | φ ⇔ ψ |\n|---|---|-------|\n| 1 | 1 | 1     |\n| 1 | 0 | 0     |\n| 0 | 1 | 0     |\n| 0 | 0 | 1     |\\n```",
-      
-      "*Exemplo em ciência de dados educacionais:* “O estudante está aprovado **se, e somente se**, a média final é maior ou igual a 7”.",
-
+      "*Exemplo em ciência de dados educacionais:* \"O estudante está aprovado **se, e somente se**, a média final é maior ou igual a 7\".",
       "##Satisfação e falsificação",
       "Dizemos que uma atribuição de verdade **satisfaz** uma sentença quando essa sentença é avaliada como verdadeira sob aquela atribuição. Da mesma forma, uma atribuição **falsifica** uma sentença quando ela é avaliada como falsa.",
-      
       "Uma atribuição satisfaz um **conjunto de sentenças** se satisfaz todas elas simultaneamente. Se falsificar ao menos uma, o conjunto como um todo não é satisfeito.",
-
       "Esses conceitos são centrais para atividades como:",
-      
       "- verificação de consistência de regras\n- validação de modelos simbólicos\n- análise de hipóteses em ciência de dados\n- explicabilidade de sistemas baseados em regras",
-
-      "Ao separar **forma lógica** de **conteúdo empírico**, a semântica torna possível automatizar o raciocínio, auditar decisões e construir sistemas de ciência de dados mais **transparentes, confiáveis e explicáveis**."
+      "Ao separar **forma lógica** de **conteúdo empírico**, a semântica torna possível automatizar o raciocínio, auditar decisões e construir sistemas de ciência de dados mais **transparentes, confiáveis e explicáveis**.",
     ]
   },
 
@@ -694,45 +640,38 @@ export const chapterContents: Record<string, ChapterContent> = {
     subtitle: "Capítulo 2",
     paragraphs: [
       "A **avaliação** é o processo de determinar o valor de verdade de uma sentença lógica composta a partir de uma atribuição de valores de verdade às proposições atômicas. Em ciência de dados, isso corresponde a responder perguntas como: **essa regra é verdadeira para este conjunto de dados?** ou **este registro atende à condição definida por uma regra?**",
-
       "Assim como na lógica formal, partimos de uma atribuição de valores (verdadeiro ou falso) para cada proposição básica e, a partir dela, calculamos o valor de verdade das sentenças mais complexas que combinam essas proposições por meio de operadores lógicos.",
-
       "##A ideia central da avaliação",
       "O procedimento de avaliação segue uma ideia simples e sistemática:",
       "- Substituímos cada proposição atômica pelo seu valor de verdade.\n- Avaliamos as subexpressões usando a semântica dos operadores lógicos.\n- Repetimos o processo (do interior para o exterior da fórmula) até obter o valor final da sentença.",
-      "Esse processo é **mecânico** e **determinístico**. Ele não depende do significado “real” das proposições, apenas dos valores de verdade atribuídos e das regras semânticas da lógica.",
-
+      "Esse processo é **mecânico** e **determinístico**. Ele não depende do significado real das proposições, apenas dos valores de verdade atribuídos e das regras semânticas da lógica.",
       "##Exemplo em ciência de dados",
       "Considere um cenário em um sistema educacional digital. Definimos:",
       "- **p**: o estudante concluiu a atividade\n- **q**: o estudante cometeu erro\n- **r**: o sistema registrou a interação no log",
       "Suponha a sentença lógica:",
       "```\\n(p ∨ q) ∧ (¬q ∨ r)\\n```",
-      "Essa sentença pode ser lida informalmente como: “o estudante concluiu a atividade ou cometeu erro, e ou não cometeu erro ou a interação foi registrada”.",
-
+      "Essa sentença pode ser lida informalmente como: \"o estudante concluiu a atividade ou cometeu erro, e ou não cometeu erro ou a interação foi registrada\".",
       "##Avaliação com uma atribuição de valores",
       "Considere a seguinte atribuição de valores (atribuição *i*):",
       "```\\np = 1\nq = 0\nr = 1\\n```",
       "Aplicando o procedimento de avaliação (substituição e simplificação passo a passo):",
       "```\\n(p ∨ q) ∧ (¬q ∨ r)\n(1 ∨ 0) ∧ (¬0 ∨ 1)\n1 ∧ (1 ∨ 1)\n1 ∧ 1\n1\n```",
       "Nesse caso, a sentença avalia como **verdadeira**.",
-
       "##Um segundo exemplo de avaliação",
       "Agora considere outra atribuição de valores (atribuição *j*):",
       "```\\np = 0\nq = 1\nr = 0\\n```",
       "Avaliando a mesma sentença:",
       "```\\n(p ∨ q) ∧ (¬q ∨ r)\n(0 ∨ 1) ∧ (¬1 ∨ 0)\n1 ∧ (0 ∨ 0)\n1 ∧ 0\n0\n```",
       "Nesse caso, a sentença avalia como **falsa**. A mesma regra lógica, aplicada a valores diferentes, pode produzir resultados diferentes — e isso é central em ciência de dados: **a validade de uma regra depende do estado dos dados**, não da regra isoladamente.",
-
       "##Avaliação como processo computacional",
       "O custo da avaliação de uma sentença lógica é proporcional ao tamanho da própria sentença. Em termos práticos, isso significa que regras lógicas podem ser avaliadas de forma eficiente mesmo em sistemas computacionais.",
       "Além disso, existem otimizações naturais:",
       "- Em uma **conjunção** (∧), se um dos termos for falso, não é necessário avaliar os demais.\n- Em uma **disjunção** (∨), se um dos termos for verdadeiro, o resultado já está determinado.",
       "Esses princípios aparecem o tempo todo em filtros, validação de dados, motores de regras e sistemas de decisão baseados em lógica.",
-
       "##Avaliação e explicabilidade em ciência de dados",
       "Um aspecto particularmente importante da avaliação lógica é sua **transparência**. Diferentemente de muitos modelos estatísticos ou de aprendizado de máquina, o processo de avaliação lógica permite explicar exatamente **por que** uma condição foi considerada verdadeira ou falsa.",
       "Por esse motivo, a avaliação semântica de sentenças lógicas é útil em: sistemas baseados em regras, validação de dados, detecção de inconsistências, sistemas educacionais inteligentes e mecanismos de decisão explicáveis.",
-      "Na próxima seção, vamos avançar para o conceito de **satisfatibilidade** (a existência ou não de atribuições de verdade que tornam uma sentença verdadeira)."
+      "Na próxima seção, vamos avançar para o conceito de **satisfatibilidade** (a existência ou não de atribuições de verdade que tornam uma sentença verdadeira).",
     ]
   },
 
@@ -742,44 +681,33 @@ export const chapterContents: Record<string, ChapterContent> = {
     subtitle: "Capítulo 2",
     paragraphs: [
       "Enquanto a **avaliação** parte de uma atribuição específica de valores de verdade para verificar se uma sentença é verdadeira, a **satisfatibilidade** segue o caminho oposto. Nela, começamos com uma ou mais sentenças lógicas e buscamos descobrir **quais atribuições de valores tornam essas sentenças verdadeiras**.",
-
       "Em ciência de dados, a satisfatibilidade aparece quando fazemos perguntas como: **existe algum cenário possível em que essa regra seja verdadeira?**, **há alguma configuração de dados que respeite todas essas condições?** ou **essas restrições são coerentes entre si?**",
-
       "##A ideia central da satisfatibilidade",
       "Uma sentença (ou conjunto de sentenças) é **satisfatível** se existe pelo menos uma atribuição de valores de verdade que a torne verdadeira. Caso contrário, dizemos que ela é **insatisfatível**.",
       "Diferentemente da avaliação, que analisa um cenário específico, a satisfatibilidade investiga o **espaço de todos os cenários possíveis**.",
-
       "##Tabelas-verdade e atribuições possíveis",
       "Uma forma clássica de estudar satisfatibilidade em Lógica Proposicional é por meio de **tabelas-verdade**. Uma tabela-verdade enumera todas as atribuições possíveis de valores de verdade para as proposições atômicas de uma linguagem.",
       "Cada coluna corresponde a uma proposição, e cada linha representa uma atribuição distinta de valores.",
-      
       "Por exemplo, para três proposições (**p**, **q** e **r**), temos:",
       "```\\n| p | q | r |\\n|---|---|---|\\n| 1 | 1 | 1 |\\n| 1 | 1 | 0 |\\n| 1 | 0 | 1 |\\n| 1 | 0 | 0 |\\n| 0 | 1 | 1 |\\n| 0 | 1 | 0 |\\n| 0 | 0 | 1 |\\n| 0 | 0 | 0 |\\n```",
       "De forma geral, para uma linguagem com **n proposições**, existem **2ⁿ atribuições possíveis**.",
-
       "##Verificando satisfatibilidade com tabelas-verdade",
       "Para resolver um problema de satisfatibilidade usando tabelas-verdade, seguimos um procedimento sistemático:",
       "- Construímos a tabela com todas as atribuições possíveis.\n- Avaliamos a sentença para cada linha.\n- Eliminamos as linhas em que a sentença é falsa.\n- As linhas restantes representam todas as atribuições que satisfazem a sentença.",
-
       "##Exemplo em ciência de dados",
       "Considere a sentença lógica:",
       "```\\n(p ∨ q) ⇒ (q ∧ r)\\n```",
-      "Essa sentença pode representar, por exemplo: “se o estudante concluiu a atividade ou cometeu erro, então ele cometeu erro e a interação foi registrada”.",
-
+      "Essa sentença pode representar, por exemplo: \"se o estudante concluiu a atividade ou cometeu erro, então ele cometeu erro e a interação foi registrada\".",
       "Ao avaliarmos essa sentença em todas as linhas da tabela-verdade, descartamos as atribuições que a tornam falsa e mantemos apenas aquelas que a satisfazem.",
       "O conjunto final de linhas restantes corresponde exatamente aos **cenários possíveis compatíveis com essa regra**.",
-
       "##Custo computacional da satisfatibilidade",
       "O principal problema do método de tabelas-verdade é seu **custo computacional**. O número de atribuições cresce exponencialmente com o número de proposições.",
       "Mesmo para problemas aparentemente simples, o número de cenários possíveis pode se tornar muito grande. Por exemplo, com apenas 16 proposições, existem **65.536 atribuições diferentes**.",
-
       "Por esse motivo, embora tabelas-verdade sejam excelentes para fins didáticos e problemas pequenos, elas se tornam impraticáveis em aplicações reais de ciência de dados.",
-
       "##Além das tabelas-verdade",
       "Em contextos reais, a satisfatibilidade é tratada por meio de **manipulação simbólica**, raciocínio lógico e algoritmos especializados, em vez da enumeração explícita de todos os cenários possíveis.",
       "Essas técnicas permitem verificar coerência, detectar inconsistências e analisar regras mesmo quando o espaço de possibilidades é enorme.",
-      
-      "A satisfatibilidade estabelece, assim, uma ponte direta entre **semântica**, **implicação lógica** e **provas**, preparando o terreno para métodos mais eficientes de raciocínio lógico em ciência de dados."
+      "A satisfatibilidade estabelece, assim, uma ponte direta entre **semântica**, **implicação lógica** e **provas**, preparando o terreno para métodos mais eficientes de raciocínio lógico em ciência de dados.",
     ]
   },
 
@@ -790,125 +718,81 @@ export const chapterContents: Record<string, ChapterContent> = {
     paragraphs: [
       "Nesta seção, apresentamos exemplos clássicos de aplicação da **Lógica Proposicional** em dois contextos distintos: linguagem natural e circuitos digitais. O objetivo é mostrar como sentenças informais e sistemas físicos podem ser formalizados de maneira rigorosa, permitindo análise, verificação e inferência.",
       "Para garantir clareza conceitual, os exemplos a seguir foram cuidadosamente estruturados, explicitando o papel de cada símbolo proposicional e o significado lógico de cada sentença.",
-
       "##Exemplo 1 — Linguagem Natural",
       "Considere três propriedades associadas a uma mesma pessoa (ou entidade analisada):",
       "- **c**: a pessoa é confiável;\n- **f**: a pessoa é flexível;\n- **p**: a pessoa é produtiva.",
       "Cada símbolo proposicional representa uma **afirmação atômica** que pode ser verdadeira ou falsa em um determinado cenário.",
-
       "**Frase 1:** Se uma pessoa é confiável ou flexível, então ela é produtiva.",
       "A presença de *se… então* indica uma **implicação**, e *ou* indica uma **disjunção**:",
       "```\\\n(c ∨ f) ⇒ p\n```",
-
       "**Frase 2:** Uma pessoa é produtiva somente se ela for confiável ou flexível.",
       "A expressão *somente se* indica que a condição aparece no consequente:",
       "```\\\np ⇒ (c ∨ f)\n```",
-
       "**Frase 3:** Uma pessoa é produtiva se, e somente se, ela for confiável ou flexível.",
       "A expressão *se, e somente se* indica uma **bicondicional**, que equivale à conjunção das duas implicações anteriores:",
       "```\\\np ⇔ (c ∨ f)\n```",
-
       "**Frase 4 (negação):** Não existe pessoa que seja confiável e flexível ao mesmo tempo.",
       "Reescrevendo como *não é o caso que uma pessoa seja confiável e flexível*, obtemos:",
       "```\\\n¬(c ∧ f)\n```",
-
       "Embora a expressão *não existe* sugira quantificação em lógica de primeira ordem, a tradução acima é adequada no contexto proposicional, pois **c** e **f** representam propriedades da mesma entidade.",
-
       "###Avaliação de um cenário",
-      "Considere o seguinte cenário:",
-      "- c = 1;\n- f = 1;\n- p = 1.",
-
+      "Considere o seguinte cenário: c = 1, f = 1, p = 1.",
       "Avaliação da primeira sentença:",
       "```\\\n(c ∨ f) ⇒ p\n(1 ∨ 1) ⇒ 1\n1 ⇒ 1\n1\n```",
-
       "Avaliação da segunda sentença:",
       "```\\\np ⇒ (c ∨ f)\n1 ⇒ (1 ∨ 1)\n1 ⇒ 1\n1\n```",
-
       "Avaliação da bicondicional:",
       "```\\\np ⇔ (c ∨ f)\n1 ⇔ 1\n1\n```",
-
       "Avaliação da negação:",
       "```\\\n¬(c ∧ f)\n¬(1 ∧ 1)\n¬1\n0\n```",
-
       "Nesse cenário, três sentenças são verdadeiras e uma é falsa. Isso mostra que **formalizar sentenças não garante sua veracidade** — a lógica permite justamente verificar a consistência entre regras e dados.",
-
       "##Exemplo 2 — Circuitos Digitais",
       "| **Nota de contexto**<br/>Este exemplo conecta a Lógica Proposicional a sistemas físicos. Se você ainda não teve contato com circuitos digitais, não se preocupe: o importante aqui não é o hardware em si, mas perceber que os mesmos conectivos lógicos (∧, ∨, ¬) que usamos para formalizar linguagem natural são exatamente os que descrevem o comportamento de portas lógicas. Leia focando nos símbolos e nas sentenças, não nos detalhes do circuito. |\n|---|",
-
       "A Lógica Proposicional é amplamente utilizada para modelar sistemas físicos determinísticos, como **circuitos digitais**. Cada nó do circuito pode estar ligado (1) ou desligado (0), o que se alinha naturalmente à semântica proposicional.",
-
       "###Definição dos símbolos",
       "Considere um circuito com:",
       "- **p, q, r**: entradas do circuito;\n- **o, a, b, s, c**: saídas intermediárias ou finais.",
       "Cada símbolo proposicional representa o estado (ligado ou desligado) de um nó específico.",
-
       "###Porta XOR (definição explícita)",
       "Uma porta **XOR** tem saída verdadeira **se, e somente se**, suas entradas forem diferentes. Esse comportamento é definido pela bicondicional:",
       "```\\\n((p ∧ ¬q) ∨ (¬p ∧ q)) ⇔ o\n```",
       "Essa sentença estabelece que a saída **o** é verdadeira **se, e somente se**, exatamente uma das entradas **p** ou **q** for verdadeira.",
-
       "###Demais componentes do circuito",
       "As demais portas e conexões do circuito podem ser definidas da seguinte forma:",
-      "- **AND entre r e o, saída a**:",
-      "```\\\nr ∧ o ⇔ a\n```",
-      "- **AND entre p e q, saída b**:",
-      "```\\\np ∧ q ⇔ b\n```",
-      "- **XOR entre o e r, saída s**:",
-      "```\\\n((o ∧ ¬r) ∨ (¬o ∧ r)) ⇔ s\n```",
-      "- **OR entre a e b, saída final c**:",
-      "```\\\na ∨ b ⇔ c\n```",
-
+      "- **AND entre r e o, saída a**: `r ∧ o ⇔ a`\n- **AND entre p e q, saída b**: `p ∧ q ⇔ b`\n- **XOR entre o e r, saída s**: `((o ∧ ¬r) ∨ (¬o ∧ r)) ⇔ s`\n- **OR entre a e b, saída final c**: `a ∨ b ⇔ c`",
       "Cada sentença define explicitamente o comportamento lógico de uma porta, conectando entradas e saídas por meio de **bicondicionais**, garantindo uma descrição determinística e verificável do circuito.",
-
       "###Análise lógica do circuito",
       "Uma vez formalizado, o circuito pode ser analisado por meio de:",
       "- avaliação, para verificar o comportamento sob entradas específicas;\n- análise de satisfatibilidade;\n- verificação de conformidade com uma especificação;\n- diagnóstico de falhas lógicas.",
-
       "Esses exemplos mostram como a Lógica Proposicional atua como uma **ponte entre sistemas formais e sistemas reais**, sendo fundamental para ciência de dados, computação, engenharia e inteligência artificial.",
     ],
   },
-
-
 
   "cap2-sec1": {
     id: "cap2-sec1",
     title: "Propriedades Lógicas das Sentenças",
     subtitle: "Capítulo 2",
     paragraphs: [
-      "No capítulo anterior, vimos que uma mesma sentença pode ser verdadeira em alguns cenários e falsa em outros, dependendo da atribuição de valores às variáveis proposicionais. Aqui, vamos além: queremos classificar sentenças pelo seu comportamento ao longo de **todas** as atribuições possíveis.",
+      "Nas seções anteriores, vimos que uma mesma sentença pode ser verdadeira em alguns cenários e falsa em outros, dependendo da atribuição de valores às variáveis proposicionais. Aqui, vamos além: queremos classificar sentenças pelo seu comportamento ao longo de **todas** as atribuições possíveis.",
       "Essa classificação é útil para Ciência de Dados porque regras de validação, restrições e critérios de decisão precisam ser analisados não apenas em um caso observado, mas em termos do que eles permitem (ou impedem) em geral.",
       "A partir dessa perspectiva, as sentenças se organizam em três categorias mutuamente exclusivas, chamadas de **propriedades lógicas**: validade, insatisfatibilidade e contingência.",
-
       "###Sentenças válidas",
       "Uma sentença é **válida** quando é satisfeita por **todas** as atribuições de valores de verdade. Em termos práticos, isso significa que ela nunca falha, independentemente do cenário.",
-      "Por exemplo:",
-      "```\\\np ∨ ¬p\n```",
-      "é válida: se **p** for verdadeiro, a disjunção é verdadeira; se **p** for falso, **¬p** é verdadeiro.",
-      "Do ponto de vista aplicado, sentenças válidas se comportam como tautologias: não impõem restrições reais e, portanto, não ajudam a discriminar cenários ou detectar inconsistências.",
-
+      "Por exemplo, `p ∨ ¬p` é válida: se **p** for verdadeiro, a disjunção é verdadeira; se **p** for falso, **¬p** é verdadeiro.",
+      "Do ponto de vista aplicado, sentenças válidas se comportam como tautologias: não impõem restrições reais e, portanto, não ajudam a discriminar cenários. Por outro lado, são úteis como base para transformações corretas, simplificações e verificações automáticas — não servem para decidir, mas servem para garantir.",
       "###Sentenças insatisfatíveis",
       "Uma sentença é **insatisfatível** quando nenhuma atribuição consegue torná-la verdadeira; ela falha em qualquer cenário possível.",
-      "Considere:",
-      "```\\\np ∧ ¬p\n```",
-      "Não importa como o cenário seja definido: **p** não pode ser verdadeiro e falso ao mesmo tempo.",
-      "Em aplicações, insatisfatibilidade indica contradição: regras incompatíveis, restrições impossíveis ou erros de modelagem.",
-
+      "Por exemplo, `p ∧ ¬p` é insatisfatível: **p** não pode ser verdadeiro e falso ao mesmo tempo.",
+      "Em aplicações, insatisfatibilidade indica contradição: regras incompatíveis, restrições impossíveis ou erros de modelagem. Se todas as atribuições falham, algo está errado no modelo.",
       "###Sentenças contingentes",
       "Uma sentença é **contingente** quando é verdadeira em alguns cenários e falsa em outros; seu valor depende efetivamente dos dados.",
-      "Por exemplo:",
-      "```\\\np ∧ q\n```",
-      "é verdadeira quando **p** e **q** são verdadeiros e falsa quando pelo menos um deles é falso.",
-      "Essas sentenças são as mais informativas, pois filtram cenários e distinguem situações aceitáveis de situações problemáticas.",
-
-      "###Utilidade prática das propriedades lógicas",
-      "Sob uma perspectiva empírica, sentenças válidas e insatisfatíveis parecem pouco úteis: as primeiras aceitam tudo; as segundas rejeitam tudo.",
-      "Ainda assim, elas são importantes do ponto de vista lógico e computacional, pois servem como base para transformações corretas, simplificações e verificações automáticas.",
-
+      "Por exemplo, `p ∧ q` é verdadeira quando **p** e **q** são verdadeiros e falsa quando pelo menos um deles é falso.",
+      "Sentenças contingentes são as únicas que realmente informam: separam casos, filtram cenários e distinguem situações aceitáveis de situações problemáticas. São a base de filtros, regras de decisão e hipóteses testáveis em ciência de dados.",
       "###Satisfatibilidade e falsificabilidade",
       "Para muitos propósitos, agrupamos essas propriedades em dois conceitos mais gerais.",
-      "Uma sentença é **satisfatível** se existe pelo menos uma atribuição que a torna verdadeira (inclui válidas e contingentes).",
-      "Uma sentença é **falsificável** se existe pelo menos uma atribuição que a torna falsa (inclui contingentes e insatisfatíveis).",
-      "Essas noções ajudam a responder perguntas práticas como: *existe algum cenário em que esta regra funciona?* e *é possível violar esta restrição?*."
+      "Uma sentença é **satisfatível** se existe pelo menos uma atribuição que a torna verdadeira (inclui válidas e contingentes). Ela responde: *existe algum cenário em que esta regra funciona?*",
+      "Uma sentença é **falsificável** se existe pelo menos uma atribuição que a torna falsa (inclui contingentes e insatisfatíveis). Ela responde: *é possível violar esta restrição?*",
+      "```\n| Propriedade | Satisfatível? | Falsificável? |\n|---|---|---|\n| Válida | Sim | Não |\n| Contingente | Sim | Sim |\n| Insatisfatível | Não | Sim |\n```",
     ]
   },
 
@@ -919,36 +803,20 @@ export const chapterContents: Record<string, ChapterContent> = {
     paragraphs: [
       "Dizemos que duas sentenças são equivalentes quando expressam a mesma ideia, ainda que escritas de formas diferentes. Em termos formais, isso significa que elas são verdadeiras exatamente nos mesmos cenários.",
       "Mais precisamente, uma sentença φ é **logicamente equivalente** a uma sentença ψ se, e somente se, toda atribuição que satisfaz φ também satisfaz ψ, e vice-versa. Assim, as duas sentenças aceitam e rejeitam exatamente os mesmos cenários.",
-      
       "###Equivalência como identidade comportamental",
-      "Considere:",
-      "```\\\n¬(p ∨ q)\n```",
-      "e",
-      "```\\\n¬p ∧ ¬q\n```",
-      "Ambas são verdadeiras somente quando **p** e **q** são falsos; nos demais casos, são falsas. Como são satisfeitas pelas mesmas atribuições, são logicamente equivalentes.",
+      "Considere `¬(p ∨ q)` e `¬p ∧ ¬q`. Ambas são verdadeiras somente quando **p** e **q** são falsos; nos demais casos, são falsas. Como são satisfeitas pelas mesmas atribuições, são logicamente equivalentes.",
       "Em termos aplicados, isso corresponde a duas regras de filtragem distintas que selecionam exatamente o mesmo subconjunto de registros.",
-      
       "###Exemplo de não equivalência",
-      "Considere:",
-      "```\\\np ∧ q\n```",
-      "e",
-      "```\\\np ∨ q\n```",
-      "A conjunção exige que ambas sejam verdadeiras; a disjunção exige apenas uma. Como os conjuntos de atribuições que as satisfazem diferem, elas não são equivalentes.",
-      
+      "Considere `p ∧ q` e `p ∨ q`. A conjunção exige que ambas sejam verdadeiras; a disjunção exige apenas uma. Como os conjuntos de atribuições que as satisfazem diferem, elas não são equivalentes.",
       "###Verificando equivalência com tabelas-verdade",
       "Podemos testar equivalência com o **método da tabela-verdade**: listamos todas as atribuições possíveis, avaliamos as sentenças e comparamos coluna a coluna. Se os valores coincidirem em todas as linhas, há equivalência.",
-      
-      "###Exemplo com equivalência",
       "```\n| p | q | ¬(p ∨ q) | ¬p ∧ ¬q |\n|---|---|----------|----------|\n| 1 | 1 |    0     |    0     |\n| 1 | 0 |    0     |    0     |\n| 0 | 1 |    0     |    0     |\n| 0 | 0 |    1     |    1     |\n```",
       "As colunas coincidem em todas as linhas; portanto, as sentenças são equivalentes.",
-      
-      "###Exemplo com não equivalência",
       "```\n| p | q | p ∧ q | p ∨ q |\n|---|---|-------|-------|\n| 1 | 1 |   1   |   1   |\n| 1 | 0 |   0   |   1   |\n| 0 | 1 |   0   |   1   |\n| 0 | 0 |   0   |   0   |\n```",
       "As colunas diferem; portanto, não há equivalência.",
-      
       "###Substituibilidade e reescrita de regras",
       "Uma propriedade central da equivalência é a **substituibilidade**: se φ ⇔ ψ, podemos trocar uma pela outra dentro de qualquer expressão proposicional sem alterar o comportamento lógico do sistema.",
-      "Isso permite reescrever regras, simplificar expressões e otimizar validações, mantendo exatamente o mesmo conjunto de cenários aceitos. (Em lógicas mais expressivas, como a de predicados, essa substituição exige cuidados adicionais.)"
+      "Isso permite reescrever regras, simplificar expressões e otimizar validações, mantendo exatamente o mesmo conjunto de cenários aceitos. (Em lógicas mais expressivas, como a de predicados, essa substituição exige cuidados adicionais.)",
     ]
   },
 
@@ -959,50 +827,23 @@ export const chapterContents: Record<string, ChapterContent> = {
     paragraphs: [
       "Em Ciência de Dados, partimos frequentemente de premissas (regras, hipóteses, restrições) e queremos saber o que pode ser afirmado com garantia. A noção que formaliza isso é a **consequência lógica**.",
       "Dizemos que φ **logicamente implica** ψ (φ ⊨ ψ) quando toda atribuição que satisfaz φ também satisfaz ψ. Mais geralmente, um conjunto Δ implica ψ (Δ ⊨ ψ) quando toda atribuição que satisfaz todas as sentenças em Δ também satisfaz ψ.",
-
       "###Consequência lógica como garantia",
-      "Considere:",
-      "```\\\np\n```",
-      "Ela implica:",
-      "```\\\np ∨ q\n```",
-      "pois sempre que **p** é verdadeiro, a disjunção também é, independentemente de **q**.",
-      "Por outro lado, **p** não implica:",
-      "```\\\np ∧ q\n```",
-      "já que **q** pode ser falso.",
-
+      "A sentença `p` implica `p ∨ q`, pois sempre que **p** é verdadeiro, a disjunção também é, independentemente de **q**.",
+      "Por outro lado, `p` não implica `p ∧ q`, já que **q** pode ser falso.",
       "###Consequência lógica não é verdade empírica",
       "Se uma premissa não implica uma conclusão, isso não torna a conclusão falsa; apenas significa que ela não é garantida em todos os cenários. É possível que a conclusão seja verdadeira em um conjunto de dados específico, mas falhe em outro.",
-
-      "###Conjuntos de premissas",
-      "O conjunto:",
-      "```\\\n{p, q}\n```",
-      "implica:",
-      "```\\\np ∧ q\n```",
-      "pois qualquer atribuição que satisfaça **p** e **q** simultaneamente satisfaz a conjunção.",
-
       "###Verificando consequência lógica com tabelas-verdade",
       "O método da tabela-verdade pode ser usado para verificar consequência: avaliamos premissas e conclusão em todas as atribuições e verificamos se existe alguma linha em que as premissas sejam verdadeiras e a conclusão seja falsa.",
-
       "###Exemplo: p ⊨ (p ∨ q)",
       "```\n| p | q | p | p ∨ q |\n|---|---|---|-------|\n| 1 | 1 | 1 |   1   |\n| 1 | 0 | 1 |   1   |\n| 0 | 1 | 0 |   1   |\n| 0 | 0 | 0 |   0   |\n```",
-
+      "Toda linha em que a premissa é verdadeira tem a conclusão também verdadeira. A consequência lógica vale.",
       "###Exemplo: p ⊭ (p ∧ q)",
       "```\n| p | q | p | p ∧ q |\n|---|---|---|-------|\n| 1 | 1 | 1 |   1   |\n| 1 | 0 | 1 |   0   |\n| 0 | 1 | 0 |   0   |\n| 0 | 0 | 0 |   0   |\n```",
-      "A segunda linha mostra a falha: a premissa é verdadeira e a conclusão é falsa.",
-
-      "###Exemplo com múltiplas premissas",
-      "```\n| p | q | p | q | p ∧ q |\n|---|---|---|---|-------|\n| 1 | 1 | 1 | 1 |   1   |\n| 1 | 0 | 1 | 0 |   0   |\n| 0 | 1 | 0 | 1 |   0   |\n| 0 | 0 | 0 | 0 |   0   |\n```",
-      "A única atribuição que satisfaz ambas as premissas satisfaz também a conclusão; portanto, a consequência lógica vale.",
-
-      "###Exemplo aplicado: inferência segura em regras",
-      "Considere:",
-      "```\\\nm ⇒ (p ∨ q)\np ⇒ q\n```",
-      "Podemos concluir:",
-      "```\\\nm ⇒ q\n```",
-      "pois toda atribuição que satisfaz as duas premissas torna a conclusão verdadeira.",
-
+      "A segunda linha mostra a falha: a premissa é verdadeira e a conclusão é falsa. A consequência lógica não vale.",
       "###Consequência lógica versus equivalência",
-      "Consequência lógica não é simétrica: φ ⊨ ψ não implica ψ ⊨ φ. A relação expressa inclusão de comportamentos (mais próxima de uma desigualdade do que de uma igualdade)."
+      "Consequência lógica não é simétrica: φ ⊨ ψ não implica ψ ⊨ φ. A relação expressa inclusão de comportamentos — é mais próxima de uma desigualdade do que de uma igualdade.",
+      "###Exemplo aplicado: inferência segura em regras",
+      "Considere as premissas `m ⇒ (p ∨ q)` e `p ⇒ q`. Podemos concluir `m ⇒ q`, pois toda atribuição que satisfaz as duas premissas torna a conclusão verdadeira.",
     ]
   },
 
@@ -1013,30 +854,21 @@ export const chapterContents: Record<string, ChapterContent> = {
     paragraphs: [
       "Modelos, políticas, hipóteses e validações costumam aparecer em conjunto. Antes de inferir conclusões, é essencial verificar algo mais básico: **as regras são compatíveis?**. Essa pergunta é formalizada pela noção de **consistência lógica**.",
       "Uma sentença φ é consistente com ψ se existe pelo menos uma atribuição que satisfaz ambas. Mais geralmente, ψ é consistente com um conjunto Δ se existe alguma atribuição que satisfaz todas as sentenças de Δ e também ψ.",
-
       "###Exemplos de consistência e inconsistência",
-      "Considere:",
-      "```\\\np ∨ q\n```",
-      "e",
-      "```\\\n¬p ∨ ¬q\n```",
-      "Elas são consistentes: por exemplo, com **p = 1** e **q = 0**, ambas ficam verdadeiras.",
-      "Já:",
-      "```\\\n¬p ∧ ¬q\n```",
-      "não é consistente com **p ∨ q**, pois não existe cenário em que as duas sejam verdadeiras simultaneamente.",
-
-      "###Verificando consistência com tabelas-verdade",
+      "`p ∨ q` e `¬p ∨ ¬q` são consistentes: por exemplo, com **p = 1** e **q = 0**, ambas ficam verdadeiras.",
+      "Já `¬p ∧ ¬q` não é consistente com `p ∨ q`, pois não existe cenário em que as duas sejam verdadeiras simultaneamente.",
       "```\n| p | q | p ∨ q | ¬p ∨ ¬q | ¬p ∧ ¬q |\n|---|---|-------|---------|----------|\n| 1 | 1 |   1   |    0    |    0     |\n| 1 | 0 |   1   |    1    |    0     |\n| 0 | 1 |   1   |    1    |    0     |\n| 0 | 0 |   0   |    1    |    1     |\n```",
-      "Há linhas em que **p ∨ q** e **¬p ∨ ¬q** são verdadeiras ao mesmo tempo, mas nenhuma em que **p ∨ q** e **¬p ∧ ¬q** coincidam como verdade.",
-
       "###Consistência não é equivalência nem consequência",
-      "Duas sentenças podem ser consistentes sem serem equivalentes e sem que uma implique a outra. No exemplo anterior, **p ∨ q** e **¬p ∨ ¬q** coexistem em alguns cenários, mas não dizem a mesma coisa e não garantem uma à outra.",
-
-      "###Consequência lógica sem consistência",
-      "A consequência lógica pode ocorrer mesmo sem consistência quando alguma premissa é insatisfatível. Se uma sentença é insatisfatível, não existe atribuição que a satisfaça; por isso, ela implica logicamente qualquer conclusão (um caso de implicação vacuamente verdadeira).",
-      "Isso mostra por que conjuntos inconsistentes são perigosos: deles é possível inferir qualquer coisa, tornando o raciocínio inútil.",
-
-      "###Por que evitar inconsistência em Ciência de Dados",
-      "Inconsistência costuma indicar regras incompatíveis, restrições impossíveis ou falhas de modelagem. Por isso, checar consistência é um passo fundamental antes de inferir, otimizar ou explicar regras."
+      "Duas sentenças podem ser consistentes sem serem equivalentes e sem que uma implique a outra. No exemplo anterior, `p ∨ q` e `¬p ∨ ¬q` coexistem em alguns cenários, mas não dizem a mesma coisa e não garantem uma à outra.",
+      "###Consequência lógica por vacuidade",
+      "Um resultado importante — e contraintuitivo à primeira vista — surge quando o conjunto de premissas é **insatisfatível**.",
+      "Se um conjunto Δ é insatisfatível, não existe nenhuma atribuição que o satisfaça. Portanto, não existe nenhuma atribuição que satisfaça Δ e ao mesmo tempo falsifique qualquer conclusão φ. Pela definição de consequência lógica, isso significa que Δ ⊨ φ para **qualquer** φ — um conjunto insatisfatível implica logicamente qualquer coisa.",
+      "Esse resultado é chamado de **consequência por vacuidade**: a implicação vale não porque as premissas garantem a conclusão, mas porque não existe nenhum contraexemplo possível.",
+      "Considere o conjunto `{p, ¬p}`. Não existe atribuição que satisfaça simultaneamente `p` e `¬p`. Logo, esse conjunto implica logicamente `q`, `¬q`, `r ∧ s` — qualquer sentença que queiramos.",
+      "```\n| Situação das premissas | O que acontece |\n|---|---|\n| Conjunto vazio {} | Só tautologias são consequências |\n| Conjunto satisfatível | A consequência depende do conteúdo |\n| Conjunto insatisfatível | Toda sentença é consequência |\n```",
+      "###Por que isso é importante em Ciência de Dados",
+      "Inconsistência costuma indicar regras incompatíveis, restrições impossíveis ou falhas de modelagem. O resultado da vacuidade mostra **por que** conjuntos inconsistentes são perigosos: deles é possível inferir qualquer coisa, tornando o raciocínio completamente inútil. Um sistema de decisão com regras contraditórias pode justificar qualquer conclusão — inclusive conclusões opostas para o mesmo caso.",
+      "Por isso, checar consistência é um passo fundamental antes de inferir, otimizar ou explicar regras.",
     ]
   },
 
@@ -1045,34 +877,25 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Conexões entre Propriedades e Relações Lógicas",
     subtitle: "Capítulo 2",
     paragraphs: [
-      "As propriedades lógicas (validade, satisfatibilidade, insatisfatibilidade) e as relações lógicas (equivalência, consequência, consistência) se conectam de forma direta. Essas conexões permitem reduzir perguntas sobre relações entre sentenças a perguntas sobre propriedades de sentenças compostas, o que facilita verificação automática.",
-
-      "###Equivalência lógica e validade",
-      "**Teorema da Equivalência:** φ e ψ são logicamente equivalentes se, e somente se,",
-      "```\\\nφ ⇔ ψ\n```",
-      "for válida.",
-
-      "###Consequência lógica e validade",
-      "**Teorema da Dedução:** φ ⊨ ψ se, e somente se,",
-      "```\\\nφ ⇒ ψ\n```",
-      "for válida. Para um conjunto finito {φ₁, …, φₙ}, temos {φ₁, …, φₙ} ⊨ ψ se, e somente se,",
-      "```\\\n(φ₁ ∧ … ∧ φₙ) ⇒ ψ\n```",
-      "for válida.",
-
-      "###Consequência lógica e insatisfatibilidade",
-      "**Teorema da Insatisfatibilidade:** Δ ⊨ φ se, e somente se,",
-      "```\\\nΔ ∪ {¬φ}\n```",
-      "for insatisfatível.",
-
-      "###Consistência lógica e satisfatibilidade",
-      "**Teorema da Consistência:** φ é consistente com ψ se, e somente se,",
-      "```\\\nφ ∧ ψ\n```",
-      "for satisfatível. Para {φ₁, …, φₙ}, φ é consistente com o conjunto se, e somente se,",
-      "```\\\nφ₁ ∧ … ∧ φₙ ∧ φ\n```",
-      "for satisfatível.",
-
-      "###Nível lógico versus metanível",
-      "Propriedades e relações são afirmações de **metanível** (falamos *sobre* sentenças). Já ∧, ∨, ⇒ e ⇔ pertencem à linguagem formal (usamos *dentro* das sentenças). O ponto central é que podemos representar relações do metanível indiretamente construindo sentenças compostas e verificando suas propriedades."
+      "Até aqui, estudamos propriedades de sentenças individuais (validade, satisfatibilidade, insatisfatibilidade) e relações entre sentenças (equivalência, consequência, consistência) como conceitos separados. Nesta seção, vemos como eles se conectam — e por que essas conexões são úteis na prática.",
+      "É importante distinguir dois níveis: o **nível lógico**, onde vivem os conectivos (∧, ∨, ¬, ⇒, ⇔) e as sentenças da nossa linguagem formal; e o **metanível**, onde fazemos afirmações *sobre* sentenças — equivalência, consequência e consistência são conceitos do metanível. O que os teoremas a seguir mostram é que podemos expressar relações do metanível indiretamente, construindo sentenças compostas e verificando suas propriedades.",
+      "###Teorema da Equivalência",
+      "φ e ψ são logicamente equivalentes se, e somente se, `φ ⇔ ψ` é válida.",
+      "Isso significa que verificar equivalência entre duas sentenças é o mesmo que verificar a validade do bicondicional que as conecta.",
+      "###Teorema da Dedução",
+      "φ ⊨ ψ se, e somente se, `φ ⇒ ψ` é válida. Para um conjunto finito {φ₁, …, φₙ}, temos {φ₁, …, φₙ} ⊨ ψ se, e somente se, `(φ₁ ∧ … ∧ φₙ) ⇒ ψ` é válida.",
+      "###Teorema da Insatisfatibilidade",
+      "Δ ⊨ φ se, e somente se, `Δ ∪ {¬φ}` é insatisfatível.",
+      "Esse resultado é a base da prova por refutação: para mostrar que uma conclusão é consequência lógica das premissas, negamos a conclusão, adicionamos ao conjunto de premissas e verificamos se o conjunto resultante é inconsistente. Esse é o princípio por trás dos SAT solvers e dos sistemas de prova automática estudados nos próximos capítulos.",
+      "###Teorema da Consistência",
+      "φ é consistente com ψ se, e somente se, `φ ∧ ψ` é satisfatível. Para {φ₁, …, φₙ}, φ é consistente com o conjunto se, e somente se, `φ₁ ∧ … ∧ φₙ ∧ φ` é satisfatível.",
+      "###Teorema da Monotonicidade",
+      "Se Γ ⊨ φ, então para qualquer conjunto Δ ⊇ Γ, também Δ ⊨ φ.",
+      "Em palavras: **acrescentar premissas nunca invalida conclusões já garantidas**. Saber mais não faz você perder conclusões anteriores.",
+      "Em ciência de dados, isso significa que adicionar novas regras de negócio a um sistema existente não quebra as inferências que já eram válidas — desde que o conjunto permaneça consistente. Se uma nova regra introduz inconsistência, o problema não é a monotonicidade, mas a própria inconsistência.",
+      "###Teorema da Ramificação",
+      "Se φ₁ ⊨ ψ e φ₂ ⊨ ψ, então (φ₁ ∨ φ₂) ⊨ ψ.",
+      "Em palavras: se dois caminhos diferentes levam à mesma conclusão, então a disjunção dos dois também leva. Muito usado em sistemas de regras com múltiplos caminhos para a mesma decisão — por exemplo, um cliente pode ser negado por score baixo *ou* por histórico negativo, e em ambos os casos a conclusão é a mesma.",
     ]
   },
 
@@ -1081,30 +904,16 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Reescritas por Equivalência",
     subtitle: "Capítulo 2",
     paragraphs: [
-      "As conexões do capítulo permitem transformar um tipo de problema em outro equivalente. Por exemplo, para verificar a validade de",
-      "```\\\nφ ⇒ ψ\n```",
-      "podemos usar o Teorema da Dedução e verificar se φ ⊨ ψ. Isso foca a análise apenas nos cenários em que φ é verdadeira.",
-      
+      "As conexões do capítulo permitem transformar um tipo de problema em outro equivalente. Por exemplo, para verificar a validade de `φ ⇒ ψ`, podemos usar o Teorema da Dedução e verificar se φ ⊨ ψ. Isso foca a análise apenas nos cenários em que φ é verdadeira.",
       "###Reescrevendo sentenças em formas equivalentes",
-      "Também podemos transformar um problema em outro do mesmo tipo reescrevendo sentenças por equivalência. Considere:",
-      "```\\\n((¬p ∨ q) ⇒ (p ⇒ q)) ∧ q\n```",
-      "Como ¬p ∨ q é equivalente a p ⇒ q, reescrevemos como:",
-      "```\\\n((p ⇒ q) ⇒ (p ⇒ q)) ∧ q\n```",
-      "A primeira parte é válida; **q** é contingente; logo, a sentença completa é contingente.",
-
+      "Também podemos transformar um problema em outro do mesmo tipo reescrevendo sentenças por equivalência. Considere `((¬p ∨ q) ⇒ (p ⇒ q)) ∧ q`. Como `¬p ∨ q` é equivalente a `p ⇒ q`, reescrevemos como `((p ⇒ q) ⇒ (p ⇒ q)) ∧ q`. A primeira parte é válida; **q** é contingente; logo, a sentença completa é contingente.",
       "###Equivalências lógicas fundamentais",
       "```\\\n¬¬φ ⇔ φ\n¬(φ ∧ ψ) ⇔ (¬φ ∨ ¬ψ)\n¬(φ ∨ ψ) ⇔ (¬φ ∧ ¬ψ)\n(φ ⇒ ψ) ⇔ (¬φ ∨ ψ)\n(φ ⇔ ψ) ⇔ (φ ⇒ ψ) ∧ (ψ ⇒ φ)\n```",
-      "Essas equivalências são base para normalização e conversão para formas padronizadas, como a forma clausal.",
-
+      "Essas equivalências são base para normalização e conversão para formas padronizadas, como a forma clausal estudada no Capítulo 6.",
       "###Reescritas aplicadas a conjuntos de sentenças",
-      "Também é possível reescrever conjuntos. Por exemplo,",
-      "```\\\n{p, p ⇒ q}\n```",
-      "é equivalente a",
-      "```\\\n{p, q}\n```",
-      "o que reduz redundância sem mudar o significado lógico.",
-
+      "Também é possível reescrever conjuntos. Por exemplo, `{p, p ⇒ q}` é equivalente a `{p, q}`, o que reduz redundância sem mudar o significado lógico.",
       "###Reescritas, provas e métodos automáticos",
-      "Provas podem ser vistas como um caso especial desse processo: começamos com premissas e adicionamos consequências até obter a conclusão. A resolução segue a mesma ideia, adicionando consequências até produzir uma contradição explícita ao testar insatisfatibilidade."
+      "Provas podem ser vistas como um caso especial desse processo: começamos com premissas e adicionamos consequências até obter a conclusão. A resolução segue a mesma ideia, adicionando consequências até produzir uma contradição explícita ao testar insatisfatibilidade.",
     ]
   },
 
@@ -1112,7 +921,9 @@ export const chapterContents: Record<string, ChapterContent> = {
     id: "cap2-sec7",
     title: "Resumo do Capítulo",
     paragraphs: [
-      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Proposição | Afirmação que pode ser verdadeira ou falsa; unidade básica da lógica proposicional |\n| Conectivos lógicos | Operadores (¬, ∧, ∨, ⇒, ⇔) que combinam proposições em sentenças compostas |\n| Tabela-verdade | Enumeração de todas as atribuições possíveis para avaliar sentenças |\n| Tautologia (validade) | Sentença verdadeira em toda atribuição de valores-verdade |\n| Contradição | Sentença falsa em toda atribuição de valores-verdade |\n| Contingência | Sentença verdadeira em algumas atribuições e falsa em outras |\n| Satisfatibilidade | Existência de ao menos uma atribuição que torna a sentença verdadeira |\n| Equivalência lógica | Duas sentenças com os mesmos valores-verdade em toda atribuição |\n| Consequência lógica | Toda atribuição que satisfaz as premissas também satisfaz a conclusão |\n| Consistência lógica | Existência de atribuição que satisfaz todas as sentenças simultaneamente |\n| Forma Normal Conjuntiva | Conjunção de disjunções — base para resolução e SAT solvers |"
+      "```\n| **Conceito** | **Definição Resumida** |\n|---|---|\n| Proposição | Afirmação que pode ser verdadeira ou falsa; unidade básica da lógica proposicional |\n| Conectivos lógicos | Operadores (¬, ∧, ∨, ⇒, ⇔) que combinam proposições em sentenças compostas |\n| Tabela-verdade | Enumeração de todas as atribuições possíveis para avaliar sentenças |\n| Válida (tautologia) | Verdadeira em toda atribuição; nunca falha |\n| Insatisfatível (contradição) | Falsa em toda atribuição; indica erro no modelo |\n| Contingente | Verdadeira em algumas atribuições e falsa em outras; a mais informativa |\n| Satisfatível | Verdadeira em ao menos uma atribuição (válidas + contingentes) |\n| Falsificável | Falsa em ao menos uma atribuição (contingentes + insatisfatíveis) |\n| Equivalência lógica | Duas sentenças com os mesmos valores em toda atribuição |\n| Consequência lógica (⊨) | Toda atribuição que satisfaz as premissas também satisfaz a conclusão |\n| Consequência por vacuidade | Conjunto insatisfatível implica logicamente qualquer sentença |\n| Consistência lógica | Existe ao menos uma atribuição que satisfaz todas as sentenças simultaneamente |\n| Monotonicidade | Acrescentar premissas nunca invalida conclusões já garantidas |\n| Ramificação | Se φ₁⊨ψ e φ₂⊨ψ, então (φ₁∨φ₂)⊨ψ |\n| Forma Normal Conjuntiva | Conjunção de disjunções — base para resolução e SAT solvers |\n```",
+      "###Tabela comparativa dos conceitos fundamentais",
+      "```\n| Conceito | O que verifica | Quantas atribuições? | Ideia central | Exemplo |\n|---|---|---|---|---|\n| Validade | Se uma sentença é sempre verdadeira | Todas | Nunca falha | {} ⊨ p∨¬p |\n| Consistência | Se sentenças podem ser verdadeiras juntas | Pelo menos uma | Coexistem em algum cenário | p é consistente com q |\n| Consequência lógica | Se a verdade é preservada das premissas à conclusão | Todas as que satisfazem Δ | Premissas garantem a conclusão | {p, p⇒q} ⊨ q |\n| Equivalência lógica | Se duas sentenças têm o mesmo valor em todo cenário | Todas | Sempre concordam | p⇒q ≡ ¬p∨q |\n```",
     ]
   },
 
