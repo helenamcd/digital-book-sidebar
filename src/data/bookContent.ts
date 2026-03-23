@@ -312,45 +312,32 @@ export const chapterContents: Record<string, ChapterContent> = {
   },
 
 
-  "intro-sec2": {
+"intro-sec2": {
     id: "intro-sec2",
     title: "Consequência lógica",
     subtitle: "Introdução",
     paragraphs: [
       "##Consequência lógica na ciência de dados",
-      "Na ciência de dados, raramente trabalhamos com informações completas. Em geral, temos um conjunto de **sentenças extraídas dos dados** — registros, logs, rótulos ou regras — que descrevem apenas parcialmente o sistema que estamos analisando. A partir dessas sentenças, queremos responder perguntas fundamentais: *o que pode ser concluído com certeza?* O que é apenas possível? E o que não pode ser verdadeiro de forma alguma?",
-      "É nesse contexto que surge a noção de **implicação lógica**, entendida aqui como consequência lógica, e não apenas como o conectivo ‘se… então’",
-      "Considere um sistema educacional digital idealizado, no qual observamos o comportamento de estudantes durante uma atividade e no qual mensagens de apoio são enviadas exatamente e apenas quando ocorre um erro. Suponha que, a partir dos dados coletados, sabemos que:",
-      "- Todo estudante que apresentou erro recebeu uma mensagem de apoio.\n- Todo estudante que recebeu mensagem de apoio apresentou erro.\n- O estudante U2 recebeu uma mensagem de apoio.",
-      "Essas sentenças não descrevem completamente o sistema, mas impõem restrições claras sobre os cenários possíveis. Mesmo que os dados **não afirmem explicitamente** que U2 apresentou erro, podemos concluir algo importante: se todo erro gera mensagem de apoio, e somente estudantes que erraram recebem essa mensagem, então **U2 necessariamente apresentou erro**. Essa conclusão não está escrita nos dados, mas é uma **consequência lógica** das sentenças conhecidas.",
-      "Esse tipo de inferência não depende de probabilidades, modelos estatísticos ou aprendizado de máquina — depende apenas da estrutura lógica das sentenças envolvidas.",
-      "Formalmente, se denotarmos o conjunto de sentenças conhecidas por Γ e a conclusão por φ, dizemos que φ é consequência lógica de Γ quando:\nΓ ⊨ φ\nisto é, quando φ é verdadeira em **todos os mundos possíveis** que satisfazem Γ.",
-
-      "##Quando os dados não determinam um único cenário",
-      "Na prática, um conjunto de sentenças raramente determina um único estado possível do sistema. Em vez disso, ele costuma ser compatível com **vários mundos possíveis**. Cada mundo representa uma forma coerente de os dados serem verdadeiros ao mesmo tempo.",
-      "Por exemplo, suponha que os dados indiquem apenas que:",
-      "- U1 apresentou erro ou abandonou a tarefa.\n- U1 não recebeu mensagem de apoio.",
-      "Essas informações permitem mais de um cenário logicamente possível:",
-      "- Em um mundo possível, U1 apresentou erro, mas o sistema falhou em enviar a mensagem.\n- Em outro, U1 abandonou a tarefa antes de qualquer erro ser registrado.\n- Em outro ainda, houve erro de registro nos logs.",
-      "Como existem vários mundos compatíveis com os dados, **nem toda pergunta pode ser respondida com certeza**. Ainda assim, **algumas conclusões podem ser verdadeiras em todos esses mundos** — e são exatamente essas conclusões que caracterizam a consequência lógica.",
-
-      "##O que significa consequência lógica",
-      "Dizemos que um conjunto de sentenças **implica logicamente** uma conclusão quando **essa conclusão é verdadeira em todos os mundos possíveis compatíveis com as sentenças conhecidas**.[^1]",
-      "[^1]: Alguns autores usam o termo 'implicação lógica' com o mesmo sentido. Neste livro adotamos 'consequência lógica' para evitar confusão com o conectivo →, visto na seção anterior.",
-      "Em termos formais, Γ implica logicamente φ se, e somente se, **não existe nenhum mundo** que satisfaça Γ e no qual φ seja falsa.",
-      "Em termos de ciência de dados, isso significa:",
-      "- Uma conclusão é **certa** se é verdadeira em todos os mundos compatíveis com os dados.\n- Uma conclusão é **impossível** se é falsa em todos os mundos.\n- Uma conclusão é **indeterminada** se é verdadeira em alguns mundos e falsa em outros.",
-      "Por exemplo:",
-      "- Se em todos os mundos possíveis U2 apresentou erro, então podemos afirmar com certeza que U2 apresentou erro.\n- Se em alguns mundos U3 concluiu a tarefa e em outros não, então não podemos afirmar nem que concluiu nem que não concluiu — apenas que **é possível**.",
-      "Assim, a consequência lógica separa claramente três situações comuns na análise de dados: conclusões **certas**, **impossíveis** e **indeterminadas**.",
-
-      "##Consequência lógica e verificação de modelos",
-      "Uma maneira conceitual de verificar consequência lógica é examinar **todos os mundos possíveis compatíveis com os dados** e verificar se a conclusão é verdadeira em todos eles. Esse procedimento corresponde à ideia central da verificação semântica de modelos, que está na base do que mais tarde se formaliza como *model checking*.",
-      "Em problemas pequenos — com poucas variáveis e poucas sentenças — essa abordagem é viável e até intuitiva. No entanto, em ciência de dados real, o número de mundos possíveis cresce rapidamente e pode se tornar **enorme ou até infinito**, tornando inviável a enumeração explícita de todos os cenários.",
-      "É por isso que, em vez de listar mundos, recorremos ao **raciocínio lógico**: usamos **regras formais de inferência e provas lógicas** para argumentar que uma conclusão decorre das premissas, guiando o raciocínio de forma estruturada e eficiente."
+      "Na ciência de dados, raramente trabalhamos com informações completas. Em geral, temos um conjunto de sentenças derivadas de dados — como registros, logs e rótulos — ou de regras e modelos construídos sobre esses dados. Essas sentenças descrevem apenas parcialmente o sistema que estamos analisando. A partir delas, queremos responder perguntas fundamentais: *o que pode ser concluído com certeza?* O que é apenas possível? E o que não pode ser verdadeiro de forma alguma?",
+      "É nesse contexto que surge a noção de **consequência lógica**: quando uma conclusão é verdadeira em *todo* cenário compatível com o que sabemos, dizemos que ela é uma consequência lógica das nossas premissas. Em outras palavras, não é possível aceitar as premissas como verdadeiras e ao mesmo tempo rejeitar a conclusão.",
+      "Atenção: consequência lógica não é o mesmo que o conectivo \"se… então\" (→). O conectivo é uma peça da linguagem formal — uma sentença que pode ser verdadeira ou falsa. A consequência lógica é uma *relação entre sentenças*: ela diz que sempre que as premissas são verdadeiras, a conclusão também é. Usamos o símbolo ⊨ para indicar essa relação: Γ ⊨ φ significa \"φ é consequência lógica de Γ\".",
+      "##Exemplo: sistema educacional digital",
+      "Considere um sistema educacional digital em que mensagens de apoio são enviadas exatamente quando um estudante comete erro — nada mais, nada menos. A partir dos dados, sabemos que:",
+      "- Todo estudante que cometeu erro recebeu mensagem de apoio.\n- Todo estudante que recebeu mensagem de apoio cometeu erro.\n- O estudante U2 recebeu uma mensagem de apoio.",
+      "As duas primeiras sentenças estabelecem uma equivalência: cometer erro e receber mensagem de apoio são condições que sempre ocorrem juntas. Dado isso, os dados não precisam dizer diretamente que U2 cometeu erro — não é possível que U2 tenha recebido uma mensagem sem tê-lo cometido. Logo, \"U2 cometeu erro\" é uma consequência lógica das três premissas, derivada apenas pela estrutura lógica das sentenças, sem nenhum cálculo estatístico.",
+      "##Quando as premissas não determinam completamente o que é verdadeiro",
+      "Na prática, um conjunto de premissas costuma ser compatível com vários cenários ao mesmo tempo. Suponha que os dados indiquem apenas:",
+      "- U1 cometeu erro ou abandonou a tarefa.\n- U1 não recebeu mensagem de apoio.",
+      "Isso é compatível com mais de um cenário: U1 pode ter cometido erro e o sistema falhou em enviar a mensagem; ou U1 pode ter abandonado a tarefa antes de qualquer erro ser registrado. Como não sabemos qual cenário é o real, não podemos afirmar com certeza se U1 cometeu erro ou não.",
+      "Isso nos leva a três situações possíveis diante de qualquer conclusão:",
+      "- **Certa:** verdadeira em todos os cenários compatíveis com as premissas. Podemos afirmá-la.\n- **Impossível:** falsa em todos os cenários. Podemos negá-la.\n- **Indeterminada:** verdadeira em alguns cenários e falsa em outros. Não podemos nem afirmar nem negar.",
+      "##Verificando consequência lógica",
+      "Uma forma de verificar se uma conclusão é consequência lógica das premissas é avaliá-la em todos os cenários compatíveis com as premissas e checar se ela é verdadeira em cada um. Essa ideia corresponde à verificação por modelos (*model checking*), onde avaliamos a conclusão em todos os cenários possíveis de forma sistemática.",
+      "Para problemas pequenos isso é viável. Mas em ciência de dados real o número de cenários cresce rapidamente — às vezes até ao infinito — tornando a enumeração impraticável. Por isso, nos próximos capítulos veremos como usar *regras formais de inferência* para chegar às mesmas conclusões de forma simbólica, sem precisar listar todos os cenários possíveis.",
     ],
   },
 
+  
   "intro-sec3": {
     id: "intro-sec3",
     title: "Demonstrações Lógicas",
