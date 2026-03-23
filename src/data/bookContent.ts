@@ -73,7 +73,6 @@ export const chapters: Chapter[] = [
       { id: "cap3-sec6", title: "Solidez e Completude" },
       { id: "cap3-sec7", title: "Aplicações em Ciência de Dados" },
       { id: "cap3-sec8", title: "Resumo do Capítulo" },
-      { id: "cap3-sec9", title: "Exercícios" },
     ]
   },
   {
