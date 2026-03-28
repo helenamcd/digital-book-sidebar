@@ -426,8 +426,8 @@ const MindMapContent = ({ onNavigate }: MindMapContentProps) => {
   const [linkedChapters, setLinkedChapters] = useState<Record<string, string>>(() => {
     try {
       const saved = localStorage.getItem("mindmap-linked-chapters");
-      return saved ? JSON.parse(saved) : {};
-    } catch { return {}; }
+      return saved ? { ...DEFAULT_LINKS, ...JSON.parse(saved) } : { ...DEFAULT_LINKS };
+    } catch { return { ...DEFAULT_LINKS }; }
   });
 
   useEffect(() => {
