@@ -247,7 +247,7 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
             // Custom diagram for prefácio process
             if (p === ":::diagrama-processo:::") {
               const phases = [
-                { phase: "Fase 1", title: "Leitura e compreensão do material original", desc: "Docentes leram e analisaram Genesereth & Kao (2017)", color: "human", arrow: "material original estruturado" },
+                { phase: "Fase 1", title: "Leitura e compreensão do material original", desc: "Docentes leram e analisaram as referências", color: "human", arrow: "material original estruturado" },
                 { phase: "Fase 2", title: "Resumo e fusão de capítulos via IA", desc: "Capítulos submetidos à IA para condensação e reorganização", color: "ia", arrow: "rascunho preliminar" },
                 { phase: "Fase 3", title: "Revisão por docente especialista", desc: "Verificação de rigor formal, nível e estrutura pedagógica", color: "human", arrow: "estrutura aprovada" },
                 { phase: "Fase 4", title: "Expansão: exemplos de IA e Ciência de Dados", desc: "Docentes especificam conexões, exemplos Python, exercícios", color: "human", arrow: "especificação de conteúdo" },
