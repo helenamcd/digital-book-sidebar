@@ -207,7 +207,7 @@ const TreeNode = React.memo(({ node, depth, expanded, onToggle, linkedChapters, 
   };
 
   return (
-    <div className="flex items-start" style={{ gap: isRoot ? 32 : depth === 1 ? 24 : 16 }}>
+    <div className="flex items-start">
       {/* ── Node pill ──────────────────────────── */}
       <div className="flex flex-col items-start gap-1 shrink-0">
         <div className="flex items-center gap-1.5">
@@ -325,40 +325,67 @@ const TreeNode = React.memo(({ node, depth, expanded, onToggle, linkedChapters, 
 
       {/* ── Children branch ────────────────────── */}
       {hasChildren && isOpen && (
-        <div className="flex items-center" style={{ gap: depth === 0 ? 24 : 16 }}>
-          {/* Horizontal connector from parent to vertical rail */}
-          <div className="h-0.5 shrink-0" style={{ width: 28, backgroundColor: colors.line, opacity: 0.6 }} />
+        <>
+          {/* Horizontal connector from parent node to the fork point */}
+          <div
+            className="shrink-0 self-center"
+            style={{
+              width: 30,
+              height: 2,
+              backgroundColor: colors.line,
+              opacity: 0.5,
+              marginTop: linkedChapter ? -10 : 0,
+            }}
+          />
 
-          {/* Vertical rail + children */}
-          <div className="relative flex flex-col" style={{ gap: depth <= 1 ? 10 : 6, paddingLeft: 14 }}>
-            {/* Vertical line spanning children */}
-            <div
-              className="absolute w-0.5 left-0"
-              style={{
-                backgroundColor: colors.line,
-                opacity: 0.4,
-                top: 14,
-                bottom: 14,
-              }}
-            />
-            {node.children!.map((child) => (
-              <div key={child.id} className="flex items-center">
-                {/* Horizontal tick from rail to child */}
-                <div className="h-0.5 shrink-0" style={{ width: 14, backgroundColor: colors.line, opacity: 0.4, marginLeft: -14 }} />
-                <TreeNode
-                  node={child}
-                  depth={depth + 1}
-                  expanded={expanded}
-                  onToggle={onToggle}
-                  linkedChapters={linkedChapters}
-                  onLinkChapter={onLinkChapter}
-                  onUnlinkChapter={onUnlinkChapter}
-                  onNavigate={onNavigate}
-                />
-              </div>
-            ))}
+          {/* Fork: vertical rail + horizontal ticks + children */}
+          <div className="relative" style={{ paddingLeft: 18 }}>
+            {/* Vertical rail — sits at paddingLeft boundary */}
+            {node.children!.length > 1 && (
+              <div
+                className="absolute"
+                style={{
+                  left: 0,
+                  top: 14,
+                  bottom: 14,
+                  width: 2,
+                  backgroundColor: colors.line,
+                  opacity: 0.4,
+                  borderRadius: 1,
+                }}
+              />
+            )}
+            <div className="flex flex-col" style={{ gap: depth <= 1 ? 8 : 4 }}>
+              {node.children!.map((child) => (
+                <div key={child.id} className="relative flex items-center">
+                  {/* Horizontal tick — extends from vertical rail (left:0) into padding area */}
+                  <div
+                    className="absolute"
+                    style={{
+                      left: -18,
+                      width: 18,
+                      height: 2,
+                      backgroundColor: colors.line,
+                      opacity: 0.4,
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                    }}
+                  />
+                  <TreeNode
+                    node={child}
+                    depth={depth + 1}
+                    expanded={expanded}
+                    onToggle={onToggle}
+                    linkedChapters={linkedChapters}
+                    onLinkChapter={onLinkChapter}
+                    onUnlinkChapter={onUnlinkChapter}
+                    onNavigate={onNavigate}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
