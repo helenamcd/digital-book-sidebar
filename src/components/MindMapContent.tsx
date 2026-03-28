@@ -1,9 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
-import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Maximize2, Link2, X, Check } from "lucide-react";
+import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Maximize2 } from "lucide-react";
 import { chapters, hiddenChapterPrefixes } from "@/data/bookContent";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface MindMapContentProps {
   onNavigate: (id: string) => void;
@@ -258,6 +255,12 @@ const TreeNode = React.memo(({ node, depth, expanded, onToggle, linkedChapters, 
     if (hasChildren) onToggle(node.id);
   };
 
+  const handleNodeDoubleClick = () => {
+    if (!isRoot && linkedId) {
+      onNavigate(linkedId);
+    }
+  };
+
   return (
     <div className="flex items-center">
       {/* ── Node pill + link button ──────────────── */}
@@ -265,7 +268,9 @@ const TreeNode = React.memo(({ node, depth, expanded, onToggle, linkedChapters, 
         <div className="flex items-center gap-1.5">
           <button
             onClick={handleNodeClick}
-            className="relative shrink-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-xl"
+            onDoubleClick={handleNodeDoubleClick}
+            className={`relative shrink-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-xl ${!isRoot && linkedId ? "cursor-pointer" : ""}`}
+            title={!isRoot && linkedChapter ? `Clique duplo para ir a: ${linkedChapter.title}` : undefined}
           >
             <div
               className={`
@@ -299,77 +304,7 @@ const TreeNode = React.memo(({ node, depth, expanded, onToggle, linkedChapters, 
             </div>
           </button>
 
-          {/* Link chapter popover */}
-          {!isRoot && (
-            <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-              <PopoverTrigger asChild>
-                <button
-                  className="p-1 rounded-md hover:bg-muted text-muted-foreground hover:text-accent transition-colors"
-                  title="Vincular capítulo"
-                >
-                  <Link2 size={12} />
-                </button>
-              </PopoverTrigger>
-              <PopoverContent className="w-64 p-2" side="bottom" align="start">
-                <div className="text-xs font-semibold text-foreground mb-1.5">Vincular capítulo</div>
-                <input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Buscar capítulo..."
-                  className="w-full text-xs px-2 py-1.5 rounded-md border border-border bg-background text-foreground placeholder:text-muted-foreground mb-1.5 focus:outline-none focus:ring-1 focus:ring-ring"
-                />
-                <ScrollArea className="max-h-48">
-                  <div className="flex flex-col gap-0.5">
-                    {filtered.map((ch) => (
-                      <button
-                        key={ch.id}
-                        onClick={() => {
-                          onLinkChapter(node.id, ch.id);
-                          setPopoverOpen(false);
-                          setSearch("");
-                        }}
-                        className={`text-left text-[11px] px-2 py-1.5 rounded-md transition-colors hover:bg-accent/10 ${
-                          linkedId === ch.id ? "bg-accent/15 font-semibold text-accent" : "text-foreground"
-                        }`}
-                      >
-                        <div className="flex items-center gap-1.5">
-                          {linkedId === ch.id && <Check size={10} className="text-accent shrink-0" />}
-                          <span className="truncate">{ch.title}</span>
-                        </div>
-                      </button>
-                    ))}
-                    {filtered.length === 0 && (
-                      <div className="text-[11px] text-muted-foreground px-2 py-2">Nenhum resultado</div>
-                    )}
-                  </div>
-                </ScrollArea>
-                {linkedChapter && (
-                  <button
-                    onClick={() => { onUnlinkChapter(node.id); setPopoverOpen(false); }}
-                    className="mt-1.5 w-full text-[11px] text-destructive hover:bg-destructive/10 px-2 py-1 rounded-md transition-colors flex items-center gap-1"
-                  >
-                    <X size={10} /> Remover vínculo
-                  </button>
-                )}
-              </PopoverContent>
-            </Popover>
-          )}
         </div>
-
-        {/* Badge showing linked chapter */}
-        {linkedChapter && (
-          <button
-            onClick={() => onNavigate(linkedChapter.id)}
-            className="ml-1 mt-1 transition-all duration-200 hover:scale-105"
-          >
-            <Badge
-              className="text-[9px] font-medium px-1.5 py-0.5 cursor-pointer hover:opacity-80 border-0"
-              style={{ backgroundColor: colors.badge, color: "#fff" }}
-            >
-              {linkedChapter.title.length > 28 ? linkedChapter.title.slice(0, 28) + "…" : linkedChapter.title}
-            </Badge>
-          </button>
-        )}
       </div>
 
       {/* ── Children branch ────────────────────── */}
@@ -516,7 +451,7 @@ const MindMapContent = ({ onNavigate }: MindMapContentProps) => {
           <div className="w-16 h-0.5 bg-accent mb-4" />
           <p className="font-serif-book text-sm leading-[1.85] text-[hsl(var(--book-text))]">
             Explore as conexões entre os conceitos do livro. Clique nos nós para expandir ramos.
-            Use o ícone <Link2 size={11} className="inline -mt-0.5 mx-0.5" /> para vincular cada nó ao capítulo correspondente.
+            Clique duas vezes em um nó para ir ao capítulo correspondente.
             Arraste para mover o mapa e use Ctrl+Scroll para zoom.
           </p>
         </div>
