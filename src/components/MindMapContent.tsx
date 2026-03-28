@@ -324,33 +324,27 @@ const TreeNode = React.memo(({ node, depth, expanded, onToggle, linkedChapters, 
       </div>
 
       {/* ── Children branch ────────────────────── */}
-      {hasChildren && (
-        <div
-          className="flex items-center overflow-hidden transition-all duration-300 ease-in-out"
-          style={{
-            maxWidth: isOpen ? 2000 : 0,
-            opacity: isOpen ? 1 : 0,
-            gap: depth === 0 ? 24 : 16,
-          }}
-        >
-          {/* Horizontal connector */}
-          <div className="w-6 md:w-10 h-0.5 shrink-0 transition-colors" style={{ backgroundColor: colors.line }} />
+      {hasChildren && isOpen && (
+        <div className="flex items-center" style={{ gap: depth === 0 ? 24 : 16 }}>
+          {/* Horizontal connector from parent to vertical rail */}
+          <div className="h-0.5 shrink-0" style={{ width: 28, backgroundColor: colors.line, opacity: 0.6 }} />
 
-          {/* Vertical stack */}
-          <div className="flex flex-col relative" style={{ gap: depth <= 1 ? 12 : 8 }}>
-            {/* Vertical rail */}
+          {/* Vertical rail + children */}
+          <div className="relative flex flex-col" style={{ gap: depth <= 1 ? 10 : 6, paddingLeft: 14 }}>
+            {/* Vertical line spanning children */}
             <div
-              className="absolute left-0 w-0.5 -translate-x-3 md:-translate-x-5"
+              className="absolute w-0.5 left-0"
               style={{
                 backgroundColor: colors.line,
-                top: 16,
-                bottom: 16,
-                opacity: 0.5,
+                opacity: 0.4,
+                top: 14,
+                bottom: 14,
               }}
             />
             {node.children!.map((child) => (
               <div key={child.id} className="flex items-center">
-                <div className="w-2 md:w-4 h-0.5 shrink-0 -ml-3 md:-ml-5" style={{ backgroundColor: colors.line, opacity: 0.5 }} />
+                {/* Horizontal tick from rail to child */}
+                <div className="h-0.5 shrink-0" style={{ width: 14, backgroundColor: colors.line, opacity: 0.4, marginLeft: -14 }} />
                 <TreeNode
                   node={child}
                   depth={depth + 1}
