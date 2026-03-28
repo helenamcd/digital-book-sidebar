@@ -326,7 +326,7 @@ const TreeNode = React.memo(({ node, depth, expanded, onToggle, linkedChapters, 
       {/* ── Children branch ────────────────────── */}
       {hasChildren && isOpen && (
         <>
-          {/* Horizontal connector from parent node to the vertical rail */}
+          {/* Horizontal connector from parent node to the fork point */}
           <div
             className="shrink-0 self-center"
             style={{
@@ -338,9 +338,9 @@ const TreeNode = React.memo(({ node, depth, expanded, onToggle, linkedChapters, 
             }}
           />
 
-          {/* Children column */}
-          <div className="relative flex flex-col" style={{ gap: depth <= 1 ? 8 : 4 }}>
-            {/* Vertical rail */}
+          {/* Fork: vertical rail + horizontal ticks + children */}
+          <div className="relative" style={{ paddingLeft: 18 }}>
+            {/* Vertical rail — sits at paddingLeft boundary */}
             {node.children!.length > 1 && (
               <div
                 className="absolute"
@@ -350,35 +350,40 @@ const TreeNode = React.memo(({ node, depth, expanded, onToggle, linkedChapters, 
                   bottom: 14,
                   width: 2,
                   backgroundColor: colors.line,
-                  opacity: 0.35,
+                  opacity: 0.4,
                   borderRadius: 1,
                 }}
               />
             )}
-            {node.children!.map((child) => (
-              <div key={child.id} className="flex items-center">
-                {/* Horizontal tick from vertical rail to child */}
-                <div
-                  className="shrink-0"
-                  style={{
-                    width: 16,
-                    height: 2,
-                    backgroundColor: colors.line,
-                    opacity: 0.4,
-                  }}
-                />
-                <TreeNode
-                  node={child}
-                  depth={depth + 1}
-                  expanded={expanded}
-                  onToggle={onToggle}
-                  linkedChapters={linkedChapters}
-                  onLinkChapter={onLinkChapter}
-                  onUnlinkChapter={onUnlinkChapter}
-                  onNavigate={onNavigate}
-                />
-              </div>
-            ))}
+            <div className="flex flex-col" style={{ gap: depth <= 1 ? 8 : 4 }}>
+              {node.children!.map((child) => (
+                <div key={child.id} className="relative flex items-center">
+                  {/* Horizontal tick — extends from vertical rail (left:0) into padding area */}
+                  <div
+                    className="absolute"
+                    style={{
+                      left: -18,
+                      width: 18,
+                      height: 2,
+                      backgroundColor: colors.line,
+                      opacity: 0.4,
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                    }}
+                  />
+                  <TreeNode
+                    node={child}
+                    depth={depth + 1}
+                    expanded={expanded}
+                    onToggle={onToggle}
+                    linkedChapters={linkedChapters}
+                    onLinkChapter={onLinkChapter}
+                    onUnlinkChapter={onUnlinkChapter}
+                    onNavigate={onNavigate}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </>
       )}
