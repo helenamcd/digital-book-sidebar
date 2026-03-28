@@ -1,166 +1,282 @@
-import React, { useState, useCallback } from "react";
-import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp, BookOpen, Cpu, Brain, Layers, GitBranch, Search, Shield, Infinity, Sparkles, Map } from "lucide-react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
+import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Maximize2 } from "lucide-react";
 import { chapters, hiddenChapterPrefixes } from "@/data/bookContent";
 
 interface MindMapContentProps {
   onNavigate: (id: string) => void;
 }
 
-interface MindNode {
+interface MapNode {
   id: string;
   label: string;
-  description: string;
-  icon: React.ReactNode;
-  color: string;
-  children?: MindNode[];
   navigateTo?: string;
+  children?: MapNode[];
+  color?: string;
 }
 
-const mindMapData: MindNode[] = [
-  {
-    id: "intro",
-    label: "Introdução",
-    description: "Motivação, sentenças lógicas e automação do raciocínio",
-    icon: <BookOpen size={18} />,
-    color: "hsl(220, 25%, 22%)",
-    navigateTo: "intro",
-    children: [
-      { id: "intro-1", label: "Sentenças Lógicas", description: "O que são e como formalizar afirmações", icon: <></>, color: "", navigateTo: "intro-sec1" },
-      { id: "intro-2", label: "Consequência Lógica", description: "Relação de garantia entre premissas e conclusão", icon: <></>, color: "", navigateTo: "intro-sec2" },
-      { id: "intro-3", label: "Lógica Simbólica", description: "Representação formal com símbolos e conectivos", icon: <></>, color: "", navigateTo: "intro-sec4" },
-      { id: "intro-4", label: "Automação do Raciocínio", description: "SAT solvers e verificação automática", icon: <></>, color: "", navigateTo: "intro-sec5" },
-    ],
-  },
-  {
-    id: "cap2",
-    label: "Lógica Proposicional",
-    description: "Sintaxe, semântica, avaliação, satisfatibilidade e propriedades lógicas",
-    icon: <Cpu size={18} />,
-    color: "hsl(28, 80%, 52%)",
-    navigateTo: "cap2",
-    children: [
-      { id: "cap2-sint", label: "Sintaxe", description: "Conectivos, precedência e sentenças bem formadas", icon: <></>, color: "", navigateTo: "cap1-sec1" },
-      { id: "cap2-sem", label: "Semântica", description: "Tabelas-verdade e atribuições de valor", icon: <></>, color: "", navigateTo: "cap1-sec2" },
-      { id: "cap2-aval", label: "Avaliação", description: "Cálculo do valor de verdade de sentenças compostas", icon: <></>, color: "", navigateTo: "cap1-sec3" },
-      { id: "cap2-sat", label: "Satisfatibilidade", description: "Existência de atribuições satisfatórias", icon: <></>, color: "", navigateTo: "cap1-sec4" },
-      { id: "cap2-props", label: "Propriedades", description: "Validade, contingência, insatisfatibilidade", icon: <></>, color: "", navigateTo: "cap2-sec1" },
-      { id: "cap2-equiv", label: "Equivalência", description: "Sentenças com mesmo valor em toda atribuição", icon: <></>, color: "", navigateTo: "cap2-sec2" },
-      { id: "cap2-conseq", label: "Consequência", description: "Garantia lógica entre premissas e conclusão", icon: <></>, color: "", navigateTo: "cap2-sec3" },
-      { id: "cap2-consist", label: "Consistência", description: "Coexistência de regras sem contradição", icon: <></>, color: "", navigateTo: "cap2-sec4" },
-    ],
-  },
-  {
-    id: "cap3",
-    label: "Inferência e Prova",
-    description: "Sistemas de prova: Hilbert, Fitch, solidez e completude",
-    icon: <GitBranch size={18} />,
-    color: "hsl(150, 50%, 40%)",
-    navigateTo: "cap3",
-    children: [
-      { id: "cap3-ax", label: "Esquemas de Axiomas", description: "Templates de raciocínio com metavariáveis", icon: <></>, color: "", navigateTo: "cap3-sec1" },
-      { id: "cap3-dir", label: "Provas Diretas", description: "Sequência de sentenças justificadas", icon: <></>, color: "", navigateTo: "cap3-sec2" },
-      { id: "cap3-fitch", label: "Sistema de Fitch", description: "Dedução natural com subprovas e suposições", icon: <></>, color: "", navigateTo: "cap3-sec3" },
-      { id: "cap3-solid", label: "Solidez e Completude", description: "⊢ ⟺ ⊨ para lógica proposicional", icon: <></>, color: "", navigateTo: "cap3-sec6" },
-    ],
-  },
-  {
-    id: "cap4",
-    label: "Lógica Relacional",
-    description: "Constantes, variáveis, quantificadores e Herbrand",
-    icon: <Layers size={18} />,
-    color: "hsl(260, 50%, 50%)",
-    navigateTo: "cap4",
-    children: [
-      { id: "cap4-voc", label: "Vocabulário", description: "Constantes, variáveis e relações", icon: <></>, color: "", navigateTo: "cap4-sec1" },
-      { id: "cap4-quant", label: "Quantificadores", description: "∀ e ∃ em sentenças formais", icon: <></>, color: "", navigateTo: "cap4-sec2" },
-      { id: "cap4-herb", label: "Base de Herbrand", description: "Universo finito para decidibilidade", icon: <></>, color: "", navigateTo: "cap4-sec4" },
-      { id: "cap4-form", label: "Formalização", description: "Cenários de dados em lógica relacional", icon: <></>, color: "", navigateTo: "cap4-sec8" },
-    ],
-  },
-  {
-    id: "cap5",
-    label: "Validação e Modelos",
-    description: "Tabelas-verdade, propagação de restrições e verificação",
-    icon: <Shield size={18} />,
-    color: "hsl(200, 60%, 45%)",
-    navigateTo: "cap5",
-    children: [
-      { id: "cap5-tv", label: "Tabelas-Verdade", description: "Método exaustivo de verificação", icon: <></>, color: "", navigateTo: "cap5-sec1" },
-      { id: "cap5-bool", label: "Modelos Booleanos", description: "Propagação de restrições", icon: <></>, color: "", navigateTo: "cap5-sec2" },
-      { id: "cap5-nbool", label: "Modelos Não-Booleanos", description: "Representações compactas", icon: <></>, color: "", navigateTo: "cap5-sec3" },
-    ],
-  },
-  {
-    id: "cap6",
-    label: "Resolução Automática",
-    description: "Forma clausal, unificação, refutação e SAT solvers",
-    icon: <Search size={18} />,
-    color: "hsl(340, 60%, 50%)",
-    navigateTo: "cap6",
-    children: [
-      { id: "cap6-clausal", label: "Forma Clausal", description: "Conjunção de disjunções para resolução", icon: <></>, color: "", navigateTo: "cap6-sec1" },
-      { id: "cap6-resol", label: "Resolução Proposicional", description: "Derivação mecânica de novas cláusulas", icon: <></>, color: "", navigateTo: "cap6-sec2" },
-      { id: "cap6-refut", label: "Refutação", description: "Provar por contradição com cláusula vazia", icon: <></>, color: "", navigateTo: "cap6-sec3" },
-      { id: "cap6-unif", label: "Unificação", description: "Casamento de padrões em lógica relacional", icon: <></>, color: "", navigateTo: "cap6-sec5" },
-      { id: "cap6-skolem", label: "Skolemização", description: "Eliminação de quantificadores existenciais", icon: <></>, color: "", navigateTo: "cap6-sec7" },
-    ],
-  },
-  {
-    id: "cap7",
-    label: "Lógica de Primeira Ordem",
-    description: "Funções, interpretações, igualdade e universos infinitos",
-    icon: <Infinity size={18} />,
-    color: "hsl(180, 50%, 40%)",
-    navigateTo: "cap7",
-    children: [
-      { id: "cap7-sint", label: "Sintaxe de LPO", description: "Termos, fórmulas e quantificadores", icon: <></>, color: "", navigateTo: "cap7-sec2" },
-      { id: "cap7-sem", label: "Interpretações", description: "Domínios, funções e relações", icon: <></>, color: "", navigateTo: "cap7-sec3" },
-      { id: "cap7-arit", label: "Aritmética", description: "Universos infinitos e Peano", icon: <></>, color: "", navigateTo: "cap7-sec5" },
-      { id: "cap7-ig", label: "Igualdade", description: "Axiomas de igualdade em LPO", icon: <></>, color: "", navigateTo: "cap7-sec6" },
-      { id: "cap7-z3", label: "Exemplo: Z3", description: "SMT solver em ação", icon: <></>, color: "", navigateTo: "cap7-sec9" },
-    ],
-  },
-  {
-    id: "cap8",
-    label: "Indução e Generalização",
-    description: "Indução completa, estrutural, em árvore e multidimensional",
-    icon: <Brain size={18} />,
-    color: "hsl(45, 70%, 45%)",
-    navigateTo: "cap8",
-    children: [
-      { id: "cap8-tipos", label: "Tipos de Indução", description: "Completa vs. incompleta", icon: <></>, color: "", navigateTo: "cap8-sec1" },
-      { id: "cap8-lin", label: "Indução Linear", description: "Caso base + passo indutivo", icon: <></>, color: "", navigateTo: "cap8-sec3" },
-      { id: "cap8-arv", label: "Indução em Árvore", description: "Generalização para estruturas recursivas", icon: <></>, color: "", navigateTo: "cap8-sec4" },
-      { id: "cap8-estr", label: "Indução Estrutural", description: "Prova sobre ADTs e gramáticas", icon: <></>, color: "", navigateTo: "cap8-sec5" },
-    ],
-  },
-  {
-    id: "cap9",
-    label: "Conclusão",
-    description: "Revisão integrada, limites do raciocínio e caminhos futuros",
-    icon: <Sparkles size={18} />,
-    color: "hsl(280, 40%, 50%)",
-    navigateTo: "cap9",
-    children: [
-      { id: "cap9-rev", label: "Revisão Integrada", description: "Três perspectivas sobre a lógica", icon: <></>, color: "", navigateTo: "cap9-sec2" },
-      { id: "cap9-ia", label: "Raciocínio em IA", description: "Dedutivo, indutivo e abdutivo", icon: <></>, color: "", navigateTo: "cap9-sec4" },
-      { id: "cap9-ml", label: "Lógica e ML", description: "Interseções com aprendizado de máquina", icon: <></>, color: "", navigateTo: "cap9-sec5" },
-      { id: "cap9-lim", label: "Limites Fundamentais", description: "Indecidibilidade e incompletude", icon: <></>, color: "", navigateTo: "cap9-sec6" },
-    ],
-  },
-];
+const COLORS = {
+  linguagens: "hsl(220, 55%, 50%)",
+  proposicional: "hsl(28, 80%, 52%)",
+  relacional: "hsl(260, 50%, 55%)",
+  lpo: "hsl(180, 50%, 40%)",
+  propriedades: "hsl(150, 50%, 40%)",
+  metodos: "hsl(340, 55%, 50%)",
+  provas: "hsl(200, 60%, 45%)",
+  modelos: "hsl(45, 70%, 45%)",
+  resolucao: "hsl(0, 55%, 50%)",
+  generalizacao: "hsl(280, 45%, 50%)",
+  conclusao: "hsl(220, 25%, 35%)",
+};
 
-const chapterColors = [
-  "hsl(220, 25%, 22%)",
-  "hsl(28, 80%, 52%)",
-  "hsl(150, 50%, 40%)",
-  "hsl(260, 50%, 50%)",
-  "hsl(200, 60%, 45%)",
-  "hsl(340, 60%, 50%)",
-  "hsl(180, 50%, 40%)",
-  "hsl(45, 70%, 45%)",
-  "hsl(280, 40%, 50%)",
-];
+const mindMap: MapNode = {
+  id: "root",
+  label: "Lógica Aplicada\nà Ciência de Dados",
+  children: [
+    {
+      id: "linguagens",
+      label: "Linguagens\nLógicas",
+      color: COLORS.linguagens,
+      children: [
+        {
+          id: "prop",
+          label: "Proposicional",
+          color: COLORS.proposicional,
+          navigateTo: "cap2",
+          children: [
+            { id: "p-sint", label: "Sintaxe", navigateTo: "cap1-sec1", color: COLORS.proposicional },
+            { id: "p-sem", label: "Semântica", navigateTo: "cap1-sec2", color: COLORS.proposicional },
+            { id: "p-aval", label: "Avaliação", navigateTo: "cap1-sec3", color: COLORS.proposicional },
+            { id: "p-sat", label: "Satisfatibilidade", navigateTo: "cap1-sec4", color: COLORS.proposicional },
+          ],
+        },
+        {
+          id: "rel",
+          label: "Relacional",
+          color: COLORS.relacional,
+          navigateTo: "cap4",
+          children: [
+            { id: "r-voc", label: "Vocabulário", navigateTo: "cap4-sec1", color: COLORS.relacional },
+            { id: "r-quant", label: "Quantificadores", navigateTo: "cap4-sec2", color: COLORS.relacional },
+            { id: "r-herb", label: "Herbrand", navigateTo: "cap4-sec4", color: COLORS.relacional },
+          ],
+        },
+        {
+          id: "lpo",
+          label: "Primeira Ordem",
+          color: COLORS.lpo,
+          navigateTo: "cap7",
+          children: [
+            { id: "l-sint", label: "Sintaxe LPO", navigateTo: "cap7-sec2", color: COLORS.lpo },
+            { id: "l-interp", label: "Interpretações", navigateTo: "cap7-sec3", color: COLORS.lpo },
+            { id: "l-igual", label: "Igualdade", navigateTo: "cap7-sec6", color: COLORS.lpo },
+            { id: "l-arit", label: "Aritmética", navigateTo: "cap7-sec5", color: COLORS.lpo },
+          ],
+        },
+      ],
+    },
+    {
+      id: "propriedades",
+      label: "Propriedades\ne Relações",
+      color: COLORS.propriedades,
+      children: [
+        {
+          id: "props-sent",
+          label: "De sentenças",
+          color: COLORS.propriedades,
+          children: [
+            { id: "ps-val", label: "Validade", navigateTo: "cap2-sec1", color: COLORS.propriedades },
+            { id: "ps-cont", label: "Contingência", navigateTo: "cap2-sec1", color: COLORS.propriedades },
+            { id: "ps-insat", label: "Insatisfatibilidade", navigateTo: "cap2-sec1", color: COLORS.propriedades },
+          ],
+        },
+        {
+          id: "rels-sent",
+          label: "Entre sentenças",
+          color: COLORS.propriedades,
+          children: [
+            { id: "rs-equiv", label: "Equivalência", navigateTo: "cap2-sec2", color: COLORS.propriedades },
+            { id: "rs-conseq", label: "Consequência", navigateTo: "cap2-sec3", color: COLORS.propriedades },
+            { id: "rs-consist", label: "Consistência", navigateTo: "cap2-sec4", color: COLORS.propriedades },
+          ],
+        },
+      ],
+    },
+    {
+      id: "metodos",
+      label: "Métodos de\nRaciocínio",
+      color: COLORS.metodos,
+      children: [
+        {
+          id: "provas",
+          label: "Provas",
+          color: COLORS.provas,
+          navigateTo: "cap3",
+          children: [
+            { id: "pv-hilb", label: "Hilbert", navigateTo: "cap3-sec1", color: COLORS.provas },
+            { id: "pv-fitch", label: "Fitch", navigateTo: "cap3-sec3", color: COLORS.provas },
+            { id: "pv-solid", label: "Solidez / Completude", navigateTo: "cap3-sec6", color: COLORS.provas },
+          ],
+        },
+        {
+          id: "modelos",
+          label: "Modelos",
+          color: COLORS.modelos,
+          navigateTo: "cap5",
+          children: [
+            { id: "md-tv", label: "Tabelas-verdade", navigateTo: "cap5-sec1", color: COLORS.modelos },
+            { id: "md-prop", label: "Propagação", navigateTo: "cap5-sec2", color: COLORS.modelos },
+          ],
+        },
+        {
+          id: "resolucao",
+          label: "Resolução",
+          color: COLORS.resolucao,
+          navigateTo: "cap6",
+          children: [
+            { id: "res-cl", label: "Forma Clausal", navigateTo: "cap6-sec1", color: COLORS.resolucao },
+            { id: "res-unif", label: "Unificação", navigateTo: "cap6-sec5", color: COLORS.resolucao },
+            { id: "res-ref", label: "Refutação", navigateTo: "cap6-sec3", color: COLORS.resolucao },
+            { id: "res-sk", label: "Skolemização", navigateTo: "cap6-sec7", color: COLORS.resolucao },
+          ],
+        },
+      ],
+    },
+    {
+      id: "generalizacao",
+      label: "Generalização",
+      color: COLORS.generalizacao,
+      navigateTo: "cap8",
+      children: [
+        { id: "g-lin", label: "Linear", navigateTo: "cap8-sec3", color: COLORS.generalizacao },
+        { id: "g-arv", label: "Em Árvore", navigateTo: "cap8-sec4", color: COLORS.generalizacao },
+        { id: "g-estr", label: "Estrutural", navigateTo: "cap8-sec5", color: COLORS.generalizacao },
+        { id: "g-multi", label: "Multidimensional", navigateTo: "cap8-sec6", color: COLORS.generalizacao },
+      ],
+    },
+    {
+      id: "conclusao",
+      label: "Limites e\nPerspectivas",
+      color: COLORS.conclusao,
+      navigateTo: "cap9",
+      children: [
+        { id: "c-ia", label: "Raciocínio em IA", navigateTo: "cap9-sec4", color: COLORS.conclusao },
+        { id: "c-ml", label: "Lógica e ML", navigateTo: "cap9-sec5", color: COLORS.conclusao },
+        { id: "c-lim", label: "Indecidibilidade", navigateTo: "cap9-sec6", color: COLORS.conclusao },
+      ],
+    },
+  ],
+};
+
+// ── Recursive horizontal tree node ──────────────────────────────
+
+interface NodeProps {
+  node: MapNode;
+  depth: number;
+  expanded: Set<string>;
+  onToggle: (id: string) => void;
+  onNav: (id: string) => void;
+  parentColor?: string;
+}
+
+const TreeNode = ({ node, depth, expanded, onToggle, onNav, parentColor }: NodeProps) => {
+  const isRoot = depth === 0;
+  const hasChildren = node.children && node.children.length > 0;
+  const isOpen = expanded.has(node.id);
+  const color = node.color || parentColor || COLORS.linguagens;
+  const lines = node.label.split("\n");
+
+  const handleClick = () => {
+    if (hasChildren) {
+      onToggle(node.id);
+    } else if (node.navigateTo) {
+      onNav(node.navigateTo);
+    }
+  };
+
+  const handleDblClick = () => {
+    if (node.navigateTo) onNav(node.navigateTo);
+  };
+
+  return (
+    <div className="flex items-center" style={{ gap: isRoot ? 28 : depth <= 1 ? 20 : 14 }}>
+      {/* Node pill */}
+      <button
+        onClick={handleClick}
+        onDoubleClick={handleDblClick}
+        className="relative shrink-0 transition-all duration-200 focus:outline-none group"
+        title={node.navigateTo ? "Clique para expandir · Duplo-clique para navegar" : undefined}
+      >
+        <div
+          className={`
+            px-3.5 py-2 rounded-xl text-center whitespace-nowrap transition-all duration-200 select-none
+            ${isRoot
+              ? "px-5 py-3 rounded-2xl shadow-lg font-bold text-sm md:text-base"
+              : depth === 1
+                ? "shadow-md font-semibold text-xs md:text-sm"
+                : hasChildren
+                  ? "shadow-sm font-medium text-[11px] md:text-xs"
+                  : "shadow-sm font-normal text-[11px] md:text-xs border border-transparent hover:border-current"
+            }
+          `}
+          style={{
+            backgroundColor: isRoot ? color : `color-mix(in srgb, ${color} ${isOpen ? 22 : 12}%, transparent)`,
+            color: isRoot ? "#fff" : color,
+            borderColor: !isRoot && !hasChildren ? `color-mix(in srgb, ${color} 30%, transparent)` : undefined,
+          }}
+        >
+          {lines.map((l, i) => (
+            <div key={i} className={i > 0 ? "-mt-0.5" : ""}>{l}</div>
+          ))}
+          {hasChildren && (
+            <span
+              className="absolute -right-1 -top-1 w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-bold text-white"
+              style={{ backgroundColor: color }}
+            >
+              {isOpen ? "−" : "+"}
+            </span>
+          )}
+        </div>
+      </button>
+
+      {/* Children branch */}
+      {hasChildren && isOpen && (
+        <div className="flex items-center" style={{ gap: depth <= 1 ? 20 : 14 }}>
+          {/* Horizontal connector */}
+          <div className="w-5 md:w-8 h-0.5 shrink-0" style={{ backgroundColor: `color-mix(in srgb, ${color} 40%, transparent)` }} />
+
+          {/* Vertical stack of children */}
+          <div className="flex flex-col relative" style={{ gap: depth <= 1 ? 10 : 6 }}>
+            {/* Vertical line */}
+            <div
+              className="absolute left-0 top-1/2 w-0.5 -translate-x-3 md:-translate-x-5"
+              style={{
+                backgroundColor: `color-mix(in srgb, ${color} 25%, transparent)`,
+                height: `calc(100% - 20px)`,
+                top: "10px",
+              }}
+            />
+            {node.children!.map((child) => (
+              <div key={child.id} className="flex items-center">
+                {/* Small horizontal tick */}
+                <div className="w-2 md:w-4 h-0.5 shrink-0 -ml-3 md:-ml-5" style={{ backgroundColor: `color-mix(in srgb, ${color} 30%, transparent)` }} />
+                <TreeNode
+                  node={child}
+                  depth={depth + 1}
+                  expanded={expanded}
+                  onToggle={onToggle}
+                  onNav={onNav}
+                  parentColor={color}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ── Main component ──────────────────────────────────────────────
 
 const allPages = chapters
   .filter((ch) => !hiddenChapterPrefixes.some((prefix) => ch.id.startsWith(prefix)))
@@ -171,7 +287,12 @@ const allPages = chapters
   });
 
 const MindMapContent = ({ onNavigate }: MindMapContentProps) => {
-  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const [expanded, setExpanded] = useState<Set<string>>(new Set(["root", "linguagens", "propriedades", "metodos"]));
+  const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [dragging, setDragging] = useState(false);
+  const dragStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const toggleNode = useCallback((id: string) => {
     setExpanded((prev) => {
@@ -183,11 +304,69 @@ const MindMapContent = ({ onNavigate }: MindMapContentProps) => {
   }, []);
 
   const expandAll = useCallback(() => {
-    setExpanded(new Set(mindMapData.map((n) => n.id)));
+    const ids = new Set<string>();
+    const collect = (node: MapNode) => {
+      ids.add(node.id);
+      node.children?.forEach(collect);
+    };
+    collect(mindMap);
+    setExpanded(ids);
   }, []);
 
   const collapseAll = useCallback(() => {
-    setExpanded(new Set());
+    setExpanded(new Set(["root"]));
+  }, []);
+
+  const resetView = useCallback(() => {
+    setZoom(1);
+    setPan({ x: 0, y: 0 });
+  }, []);
+
+  // Mouse drag for panning
+  const onMouseDown = useCallback((e: React.MouseEvent) => {
+    if (e.button !== 0) return;
+    setDragging(true);
+    dragStart.current = { x: e.clientX, y: e.clientY, panX: pan.x, panY: pan.y };
+  }, [pan]);
+
+  const onMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!dragging) return;
+    const dx = e.clientX - dragStart.current.x;
+    const dy = e.clientY - dragStart.current.y;
+    setPan({ x: dragStart.current.panX + dx, y: dragStart.current.panY + dy });
+  }, [dragging]);
+
+  const onMouseUp = useCallback(() => setDragging(false), []);
+
+  // Wheel zoom
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const handler = (e: WheelEvent) => {
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+        setZoom((z) => Math.max(0.3, Math.min(2.5, z - e.deltaY * 0.002)));
+      }
+    };
+    el.addEventListener("wheel", handler, { passive: false });
+    return () => el.removeEventListener("wheel", handler);
+  }, []);
+
+  // Touch drag for mobile
+  const touchStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
+
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY, panX: pan.x, panY: pan.y };
+    }
+  }, [pan]);
+
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      const dx = e.touches[0].clientX - touchStart.current.x;
+      const dy = e.touches[0].clientY - touchStart.current.y;
+      setPan({ x: touchStart.current.panX + dx, y: touchStart.current.panY + dy });
+    }
   }, []);
 
   const currentIndex = allPages.findIndex((p) => p.id === "mapa-mental");
@@ -196,164 +375,102 @@ const MindMapContent = ({ onNavigate }: MindMapContentProps) => {
 
   return (
     <main className="flex-1 min-h-screen overflow-y-auto scrollbar-thin bg-background">
-      <div className="max-w-3xl mx-auto px-6 md:px-12 py-12 md:py-20">
+      <div className="max-w-full mx-auto px-4 md:px-8 py-8 md:py-12">
         {/* Header */}
-        <p className="text-xs font-sans-book font-semibold tracking-[0.25em] uppercase text-accent mb-3">
-          Visão Geral
-        </p>
-        <h2 className="font-serif-book text-3xl md:text-4xl font-bold text-[hsl(var(--book-heading))] mb-2 flex items-center gap-3">
-          <Map size={32} className="text-accent" />
-          Mapa Mental do Livro
-        </h2>
-        <div className="w-16 h-0.5 bg-accent mb-6" />
-
-        <p className="font-serif-book text-sm md:text-[0.95rem] leading-[1.85] text-[hsl(var(--book-text))] mb-8">
-          Este mapa interativo apresenta a estrutura completa do livro. Clique em qualquer capítulo para expandir seus tópicos principais. Clique em um tópico para navegar diretamente até ele.
-        </p>
-
-        {/* Controls */}
-        <div className="flex gap-3 mb-8">
-          <button
-            onClick={expandAll}
-            className="text-xs font-sans-book px-3 py-1.5 rounded-md bg-muted hover:bg-accent/10 text-muted-foreground hover:text-accent transition-colors"
-          >
-            Expandir tudo
-          </button>
-          <button
-            onClick={collapseAll}
-            className="text-xs font-sans-book px-3 py-1.5 rounded-md bg-muted hover:bg-accent/10 text-muted-foreground hover:text-accent transition-colors"
-          >
-            Recolher tudo
-          </button>
+        <div className="max-w-2xl mx-auto mb-6">
+          <p className="text-xs font-sans-book font-semibold tracking-[0.25em] uppercase text-accent mb-2">
+            Visão Geral
+          </p>
+          <h2 className="font-serif-book text-2xl md:text-3xl font-bold text-[hsl(var(--book-heading))] mb-2">
+            Mapa Conceitual do Livro
+          </h2>
+          <div className="w-16 h-0.5 bg-accent mb-4" />
+          <p className="font-serif-book text-sm leading-[1.85] text-[hsl(var(--book-text))]">
+            Explore as conexões entre os conceitos do livro. Clique nos nós para expandir ramos; duplo-clique para navegar ao capítulo. Arraste para mover o mapa e use Ctrl+Scroll para zoom.
+          </p>
         </div>
 
-        {/* Central theme */}
-        <div className="flex justify-center mb-8">
-          <div className="bg-accent text-accent-foreground px-6 py-3 rounded-xl font-serif-book font-bold text-base md:text-lg shadow-lg shadow-accent/20">
-            Fundamentos de Lógica Aplicada à Ciência de Dados
+        {/* Controls */}
+        <div className="flex items-center gap-2 mb-3 ml-2">
+          <button onClick={expandAll} className="text-[11px] font-sans-book px-2.5 py-1 rounded bg-muted hover:bg-accent/10 text-muted-foreground hover:text-accent transition-colors">
+            Expandir tudo
+          </button>
+          <button onClick={collapseAll} className="text-[11px] font-sans-book px-2.5 py-1 rounded bg-muted hover:bg-accent/10 text-muted-foreground hover:text-accent transition-colors">
+            Recolher
+          </button>
+          <div className="w-px h-4 bg-border mx-1" />
+          <button onClick={() => setZoom((z) => Math.min(2.5, z + 0.15))} className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-accent transition-colors">
+            <ZoomIn size={14} />
+          </button>
+          <button onClick={() => setZoom((z) => Math.max(0.3, z - 0.15))} className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-accent transition-colors">
+            <ZoomOut size={14} />
+          </button>
+          <button onClick={resetView} className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-accent transition-colors" title="Resetar visão">
+            <Maximize2 size={14} />
+          </button>
+          <span className="text-[10px] text-muted-foreground ml-1">{Math.round(zoom * 100)}%</span>
+        </div>
+
+        {/* Mind map canvas */}
+        <div
+          ref={containerRef}
+          className="relative w-full rounded-xl border border-border bg-muted/20 overflow-hidden select-none"
+          style={{ height: "min(65vh, 560px)", cursor: dragging ? "grabbing" : "grab" }}
+          onMouseDown={onMouseDown}
+          onMouseMove={onMouseMove}
+          onMouseUp={onMouseUp}
+          onMouseLeave={onMouseUp}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+        >
+          {/* Dot grid background */}
+          <div
+            className="absolute inset-0 opacity-[0.08]"
+            style={{
+              backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)",
+              backgroundSize: `${20 * zoom}px ${20 * zoom}px`,
+              backgroundPosition: `${pan.x}px ${pan.y}px`,
+            }}
+          />
+
+          {/* Tree content */}
+          <div
+            className="absolute"
+            style={{
+              transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+              transformOrigin: "0 0",
+              left: 32,
+              top: 32,
+            }}
+          >
+            <TreeNode
+              node={mindMap}
+              depth={0}
+              expanded={expanded}
+              onToggle={toggleNode}
+              onNav={onNavigate}
+            />
           </div>
         </div>
 
-        {/* Vertical connector from center */}
-        <div className="flex justify-center mb-4">
-          <div className="w-0.5 h-6 bg-accent/40" />
-        </div>
-
-        {/* Chapter nodes */}
-        <div className="space-y-3">
-          {mindMapData.map((node, idx) => {
-            const isExpanded = expanded.has(node.id);
-            const color = chapterColors[idx] || node.color;
-
-            return (
-              <div key={node.id} className="relative">
-                {/* Chapter card */}
-                <button
-                  onClick={() => toggleNode(node.id)}
-                  className="w-full text-left group"
-                >
-                  <div
-                    className="flex items-center gap-4 px-5 py-4 rounded-xl border-2 transition-all duration-300 hover:shadow-md"
-                    style={{
-                      borderColor: color,
-                      backgroundColor: isExpanded ? `${color}10` : "transparent",
-                    }}
-                  >
-                    {/* Chapter number badge */}
-                    <div
-                      className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 text-white shadow-sm"
-                      style={{ backgroundColor: color }}
-                    >
-                      {node.icon}
-                    </div>
-
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-serif-book font-bold text-[hsl(var(--book-heading))] text-sm md:text-base">
-                        {node.label}
-                      </h3>
-                      <p className="font-sans-book text-xs text-muted-foreground truncate">
-                        {node.description}
-                      </p>
-                    </div>
-
-                    <div className="shrink-0 text-muted-foreground group-hover:text-accent transition-colors">
-                      {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-                    </div>
-                  </div>
-                </button>
-
-                {/* Children */}
-                {isExpanded && node.children && (
-                  <div className="ml-7 mt-1 mb-2 pl-5 border-l-2 space-y-1" style={{ borderColor: `${color}60` }}>
-                    {/* Navigate to chapter */}
-                    <button
-                      onClick={() => node.navigateTo && onNavigate(node.navigateTo)}
-                      className="w-full text-left px-4 py-2 rounded-lg hover:bg-accent/10 transition-colors group/item"
-                    >
-                      <span className="font-sans-book text-xs font-semibold text-accent group-hover/item:underline">
-                        → Ir para o capítulo
-                      </span>
-                    </button>
-
-                    {node.children.map((child) => (
-                      <button
-                        key={child.id}
-                        onClick={() => child.navigateTo && onNavigate(child.navigateTo)}
-                        className="w-full text-left px-4 py-2.5 rounded-lg hover:bg-accent/10 transition-all duration-200 group/child"
-                      >
-                        <div className="flex items-start gap-3">
-                          <div
-                            className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0"
-                            style={{ backgroundColor: color }}
-                          />
-                          <div>
-                            <span className="font-sans-book text-sm font-semibold text-[hsl(var(--book-heading))] group-hover/child:text-accent transition-colors">
-                              {child.label}
-                            </span>
-                            <p className="font-sans-book text-xs text-muted-foreground mt-0.5">
-                              {child.description}
-                            </p>
-                          </div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                )}
-
-                {/* Vertical connector between chapters */}
-                {idx < mindMapData.length - 1 && (
-                  <div className="flex justify-center py-0.5">
-                    <div className="w-0.5 h-3 bg-border" />
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
         {/* Legend */}
-        <div className="mt-12 p-5 rounded-xl bg-muted/50 border border-border">
-          <h4 className="font-serif-book text-sm font-bold text-[hsl(var(--book-heading))] mb-3">
-            Como usar este mapa
-          </h4>
-          <ul className="space-y-2 font-sans-book text-xs text-muted-foreground">
-            <li className="flex items-start gap-2">
-              <ChevronDown size={14} className="shrink-0 mt-0.5" />
-              <span>Clique em um capítulo para expandir e ver seus tópicos principais</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0 mt-1.5" />
-              <span>Clique em qualquer tópico para navegar diretamente até ele no livro</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-accent shrink-0">→</span>
-              <span>Use "Expandir tudo" e "Recolher tudo" para uma visão geral rápida</span>
-            </li>
-          </ul>
+        <div className="flex flex-wrap gap-3 mt-4 px-2">
+          {[
+            { label: "Linguagens", color: COLORS.linguagens },
+            { label: "Propriedades", color: COLORS.propriedades },
+            { label: "Métodos", color: COLORS.metodos },
+            { label: "Generalização", color: COLORS.generalizacao },
+            { label: "Conclusão", color: COLORS.conclusao },
+          ].map((item) => (
+            <div key={item.label} className="flex items-center gap-1.5 text-[10px] font-sans-book text-muted-foreground">
+              <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: item.color }} />
+              {item.label}
+            </div>
+          ))}
         </div>
 
         {/* Navigation */}
-        <div className="flex items-center justify-between mt-16 pt-8 border-t border-border">
+        <div className="max-w-2xl mx-auto flex items-center justify-between mt-12 pt-8 border-t border-border">
           {prevChapter ? (
             <button
               onClick={() => onNavigate(prevChapter.id)}
