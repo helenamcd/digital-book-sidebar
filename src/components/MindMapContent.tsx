@@ -326,19 +326,47 @@ const TreeNode = React.memo(({ node, depth, expanded, onToggle, linkedChapters, 
       {/* ── Children branch ────────────────────── */}
       {hasChildren && isOpen && (
         <>
-          {/* Horizontal connector from parent to vertical rail */}
-          <svg className="shrink-0" width="32" height="2" style={{ alignSelf: "center", marginTop: linkedChapter ? -10 : 0 }}>
-            <line x1="0" y1="1" x2="32" y2="1" stroke={colors.line} strokeWidth="1.5" opacity="0.5" />
-          </svg>
+          {/* Horizontal connector from parent node to the vertical rail */}
+          <div
+            className="shrink-0 self-center"
+            style={{
+              width: 30,
+              height: 2,
+              backgroundColor: colors.line,
+              opacity: 0.5,
+              marginTop: linkedChapter ? -10 : 0,
+            }}
+          />
 
-          {/* Children column with vertical rail drawn via SVG */}
+          {/* Children column */}
           <div className="relative flex flex-col" style={{ gap: depth <= 1 ? 8 : 4 }}>
-            {node.children!.map((child, i) => (
+            {/* Vertical rail */}
+            {node.children!.length > 1 && (
+              <div
+                className="absolute"
+                style={{
+                  left: 0,
+                  top: 14,
+                  bottom: 14,
+                  width: 2,
+                  backgroundColor: colors.line,
+                  opacity: 0.35,
+                  borderRadius: 1,
+                }}
+              />
+            )}
+            {node.children!.map((child) => (
               <div key={child.id} className="flex items-center">
-                {/* Horizontal tick */}
-                <svg className="shrink-0" width="16" height="2">
-                  <line x1="0" y1="1" x2="16" y2="1" stroke={colors.line} strokeWidth="1.5" opacity="0.4" />
-                </svg>
+                {/* Horizontal tick from vertical rail to child */}
+                <div
+                  className="shrink-0"
+                  style={{
+                    width: 16,
+                    height: 2,
+                    backgroundColor: colors.line,
+                    opacity: 0.4,
+                  }}
+                />
                 <TreeNode
                   node={child}
                   depth={depth + 1}
@@ -351,15 +379,6 @@ const TreeNode = React.memo(({ node, depth, expanded, onToggle, linkedChapters, 
                 />
               </div>
             ))}
-            {/* Vertical rail SVG overlay */}
-            {node.children!.length > 1 && (
-              <svg
-                className="absolute pointer-events-none"
-                style={{ left: 0, top: 0, width: 2, height: "100%" }}
-              >
-                <line x1="1" y1="16" x2="1" y2="calc(100% - 16)" stroke={colors.line} strokeWidth="1.5" opacity="0.35" />
-              </svg>
-            )}
           </div>
         </>
       )}
