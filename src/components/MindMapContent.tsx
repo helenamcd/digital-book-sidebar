@@ -1,6 +1,9 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
-import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Maximize2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Maximize2, Link2, X, Check } from "lucide-react";
 import { chapters, hiddenChapterPrefixes } from "@/data/bookContent";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface MindMapContentProps {
   onNavigate: (id: string) => void;
@@ -9,94 +12,67 @@ interface MindMapContentProps {
 interface MapNode {
   id: string;
   label: string;
-  navigateTo?: string;
   children?: MapNode[];
-  color?: string;
 }
 
-const COLORS = {
-  linguagens: "hsl(220, 55%, 50%)",
-  proposicional: "hsl(28, 80%, 52%)",
-  relacional: "hsl(260, 50%, 55%)",
-  lpo: "hsl(180, 50%, 40%)",
-  propriedades: "hsl(150, 50%, 40%)",
-  metodos: "hsl(340, 55%, 50%)",
-  provas: "hsl(200, 60%, 45%)",
-  modelos: "hsl(45, 70%, 45%)",
-  resolucao: "hsl(0, 55%, 50%)",
-  generalizacao: "hsl(280, 45%, 50%)",
-  conclusao: "hsl(220, 25%, 35%)",
+/* ── Color palette per branch ─────────────────────────────────── */
+const BRANCH_COLORS: Record<string, { bg: string; text: string; line: string; badge: string }> = {
+  linguagens:   { bg: "hsl(220,55%,95%)",  text: "hsl(220,55%,35%)",  line: "hsl(220,55%,75%)",  badge: "hsl(220,55%,50%)" },
+  semantica:    { bg: "hsl(28,80%,94%)",    text: "hsl(28,70%,32%)",   line: "hsl(28,70%,75%)",   badge: "hsl(28,80%,52%)" },
+  metodos:      { bg: "hsl(340,50%,94%)",   text: "hsl(340,50%,32%)",  line: "hsl(340,50%,75%)",  badge: "hsl(340,55%,50%)" },
+  limites:      { bg: "hsl(260,45%,94%)",   text: "hsl(260,45%,35%)",  line: "hsl(260,45%,75%)",  badge: "hsl(260,45%,50%)" },
 };
 
-const mindMap: MapNode = {
+const ROOT_STYLE = { bg: "hsl(var(--accent))", text: "hsl(var(--accent-foreground))" };
+
+/* ── Mind map data ────────────────────────────────────────────── */
+const mindMapData: MapNode = {
   id: "root",
   label: "Lógica Aplicada\nà Ciência de Dados",
   children: [
     {
       id: "linguagens",
       label: "Linguagens\nLógicas",
-      color: COLORS.linguagens,
       children: [
         {
-          id: "prop",
-          label: "Proposicional",
-          color: COLORS.proposicional,
-          navigateTo: "cap2",
+          id: "lp", label: "Lógica\nProposicional",
           children: [
-            { id: "p-sint", label: "Sintaxe", navigateTo: "cap1-sec1", color: COLORS.proposicional },
-            { id: "p-sem", label: "Semântica", navigateTo: "cap1-sec2", color: COLORS.proposicional },
-            { id: "p-aval", label: "Avaliação", navigateTo: "cap1-sec3", color: COLORS.proposicional },
-            { id: "p-sat", label: "Satisfatibilidade", navigateTo: "cap1-sec4", color: COLORS.proposicional },
+            { id: "lp-sint", label: "Sintaxe" },
+            { id: "lp-sem", label: "Semântica" },
+            { id: "lp-aval", label: "Avaliação" },
+            { id: "lp-sat", label: "Satisfatibilidade" },
           ],
         },
         {
-          id: "rel",
-          label: "Relacional",
-          color: COLORS.relacional,
-          navigateTo: "cap4",
+          id: "lpo", label: "Lógica de\nPrimeira Ordem",
           children: [
-            { id: "r-voc", label: "Vocabulário", navigateTo: "cap4-sec1", color: COLORS.relacional },
-            { id: "r-quant", label: "Quantificadores", navigateTo: "cap4-sec2", color: COLORS.relacional },
-            { id: "r-herb", label: "Herbrand", navigateTo: "cap4-sec4", color: COLORS.relacional },
-          ],
-        },
-        {
-          id: "lpo",
-          label: "Primeira Ordem",
-          color: COLORS.lpo,
-          navigateTo: "cap7",
-          children: [
-            { id: "l-sint", label: "Sintaxe LPO", navigateTo: "cap7-sec2", color: COLORS.lpo },
-            { id: "l-interp", label: "Interpretações", navigateTo: "cap7-sec3", color: COLORS.lpo },
-            { id: "l-igual", label: "Igualdade", navigateTo: "cap7-sec6", color: COLORS.lpo },
-            { id: "l-arit", label: "Aritmética", navigateTo: "cap7-sec5", color: COLORS.lpo },
+            { id: "lpo-sint", label: "Sintaxe LPO" },
+            { id: "lpo-quant", label: "Quantificadores" },
+            { id: "lpo-interp", label: "Interpretações" },
+            { id: "lpo-igual", label: "Igualdade" },
+            { id: "lpo-arit", label: "Aritmética" },
           ],
         },
       ],
     },
     {
-      id: "propriedades",
-      label: "Propriedades\ne Relações",
-      color: COLORS.propriedades,
+      id: "semantica",
+      label: "Semântica\ne Modelos",
       children: [
         {
-          id: "props-sent",
-          label: "De sentenças",
-          color: COLORS.propriedades,
+          id: "tm", label: "Teoria de\nModelos",
           children: [
-            { id: "ps-val", label: "Validade", navigateTo: "cap2-sec1", color: COLORS.propriedades },
-            { id: "ps-cont", label: "Contingência", navigateTo: "cap2-sec1", color: COLORS.propriedades },
-            { id: "ps-insat", label: "Insatisfatibilidade", navigateTo: "cap2-sec1", color: COLORS.propriedades },
+            { id: "tm-herb", label: "Herbrand" },
+            { id: "tm-val", label: "Validade" },
+            { id: "tm-conseq", label: "Consequência\nLógica" },
           ],
         },
         {
-          id: "rels-sent",
-          label: "Entre sentenças",
-          color: COLORS.propriedades,
+          id: "pr", label: "Propriedades\ne Relações",
           children: [
-            { id: "rs-equiv", label: "Equivalência", navigateTo: "cap2-sec2", color: COLORS.propriedades },
-            { id: "rs-conseq", label: "Consequência", navigateTo: "cap2-sec3", color: COLORS.propriedades },
-            { id: "rs-consist", label: "Consistência", navigateTo: "cap2-sec4", color: COLORS.propriedades },
+            { id: "pr-equiv", label: "Equivalência\nLógica" },
+            { id: "pr-consist", label: "Consistência" },
+            { id: "pr-arit", label: "Aritmética\nFormal" },
           ],
         },
       ],
@@ -104,180 +80,91 @@ const mindMap: MapNode = {
     {
       id: "metodos",
       label: "Métodos de\nRaciocínio",
-      color: COLORS.metodos,
       children: [
         {
-          id: "provas",
-          label: "Provas",
-          color: COLORS.provas,
-          navigateTo: "cap3",
+          id: "pf", label: "Provas\nFormais",
           children: [
-            { id: "pv-hilb", label: "Hilbert", navigateTo: "cap3-sec1", color: COLORS.provas },
-            { id: "pv-fitch", label: "Fitch", navigateTo: "cap3-sec3", color: COLORS.provas },
-            { id: "pv-solid", label: "Solidez / Completude", navigateTo: "cap3-sec6", color: COLORS.provas },
+            { id: "pf-dn", label: "Dedução\nNatural" },
+            { id: "pf-tab", label: "Tableaux" },
+            { id: "pf-ax", label: "Sistemas de\nAxiomas" },
           ],
         },
         {
-          id: "modelos",
-          label: "Modelos",
-          color: COLORS.modelos,
-          navigateTo: "cap5",
+          id: "res", label: "Resolução",
           children: [
-            { id: "md-tv", label: "Tabelas-verdade", navigateTo: "cap5-sec1", color: COLORS.modelos },
-            { id: "md-prop", label: "Propagação", navigateTo: "cap5-sec2", color: COLORS.modelos },
+            { id: "res-cl", label: "Forma\nClausal" },
+            { id: "res-unif", label: "Unificação" },
+            { id: "res-sld", label: "Resolução\nSLD" },
           ],
         },
         {
-          id: "resolucao",
-          label: "Resolução",
-          color: COLORS.resolucao,
-          navigateTo: "cap6",
+          id: "gen", label: "Generalização",
           children: [
-            { id: "res-cl", label: "Forma Clausal", navigateTo: "cap6-sec1", color: COLORS.resolucao },
-            { id: "res-unif", label: "Unificação", navigateTo: "cap6-sec5", color: COLORS.resolucao },
-            { id: "res-ref", label: "Refutação", navigateTo: "cap6-sec3", color: COLORS.resolucao },
-            { id: "res-sk", label: "Skolemização", navigateTo: "cap6-sec7", color: COLORS.resolucao },
+            { id: "gen-lin", label: "Linear" },
+            { id: "gen-arv", label: "Em Árvore" },
+            { id: "gen-est", label: "Estrutural" },
+            { id: "gen-multi", label: "Multidimensional" },
           ],
         },
       ],
     },
     {
-      id: "generalizacao",
-      label: "Generalização",
-      color: COLORS.generalizacao,
-      navigateTo: "cap8",
-      children: [
-        { id: "g-lin", label: "Linear", navigateTo: "cap8-sec3", color: COLORS.generalizacao },
-        { id: "g-arv", label: "Em Árvore", navigateTo: "cap8-sec4", color: COLORS.generalizacao },
-        { id: "g-estr", label: "Estrutural", navigateTo: "cap8-sec5", color: COLORS.generalizacao },
-        { id: "g-multi", label: "Multidimensional", navigateTo: "cap8-sec6", color: COLORS.generalizacao },
-      ],
-    },
-    {
-      id: "conclusao",
+      id: "limites",
       label: "Limites e\nPerspectivas",
-      color: COLORS.conclusao,
-      navigateTo: "cap9",
       children: [
-        { id: "c-ia", label: "Raciocínio em IA", navigateTo: "cap9-sec4", color: COLORS.conclusao },
-        { id: "c-ml", label: "Lógica e ML", navigateTo: "cap9-sec5", color: COLORS.conclusao },
-        { id: "c-lim", label: "Indecidibilidade", navigateTo: "cap9-sec6", color: COLORS.conclusao },
+        {
+          id: "indec", label: "Indecidibilidade",
+          children: [
+            { id: "indec-par", label: "Problema\nda Parada" },
+            { id: "indec-god", label: "Teorema\nde Gödel" },
+            { id: "indec-comp", label: "Complexidade\nComputacional" },
+          ],
+        },
+        {
+          id: "iaml", label: "Lógica e\nIA / ML",
+          children: [
+            { id: "iaml-rac", label: "Raciocínio\nem IA" },
+            { id: "iaml-ml", label: "Lógica\ne ML" },
+            { id: "iaml-prog", label: "Programação\nLógica" },
+          ],
+        },
       ],
     },
   ],
 };
 
-// ── Recursive horizontal tree node ──────────────────────────────
-
-interface NodeProps {
-  node: MapNode;
-  depth: number;
-  expanded: Set<string>;
-  onToggle: (id: string) => void;
-  onNav: (id: string) => void;
-  parentColor?: string;
+/* ── Helpers ──────────────────────────────────────────────────── */
+function getBranchKey(nodeId: string): string {
+  const branches = Object.keys(BRANCH_COLORS);
+  for (const b of branches) if (nodeId === b || nodeId.startsWith(b)) return b;
+  // walk tree to find branch
+  const find = (node: MapNode, branch: string): boolean => {
+    if (node.id === nodeId) return true;
+    return node.children?.some((c) => find(c, branch)) ?? false;
+  };
+  for (const child of mindMapData.children ?? []) {
+    const key = child.id;
+    if (branches.includes(key) && find(child, key)) return key;
+  }
+  return "linguagens";
 }
 
-const TreeNode = ({ node, depth, expanded, onToggle, onNav, parentColor }: NodeProps) => {
-  const isRoot = depth === 0;
-  const hasChildren = node.children && node.children.length > 0;
-  const isOpen = expanded.has(node.id);
-  const color = node.color || parentColor || COLORS.linguagens;
-  const lines = node.label.split("\n");
+function collectIds(node: MapNode): string[] {
+  const ids = [node.id];
+  node.children?.forEach((c) => ids.push(...collectIds(c)));
+  return ids;
+}
 
-  const handleClick = () => {
-    if (hasChildren) {
-      onToggle(node.id);
-    } else if (node.navigateTo) {
-      onNav(node.navigateTo);
-    }
-  };
+/* ── Available chapters for linking ───────────────────────────── */
+const linkableChapters = chapters
+  .filter((ch) => !hiddenChapterPrefixes.some((p) => ch.id.startsWith(p)))
+  .flatMap((ch) => {
+    const items = [{ id: ch.id, title: ch.title }];
+    ch.sections?.forEach((s) => items.push({ id: s.id, title: s.title }));
+    return items;
+  });
 
-  const handleDblClick = () => {
-    if (node.navigateTo) onNav(node.navigateTo);
-  };
-
-  return (
-    <div className="flex items-center" style={{ gap: isRoot ? 28 : depth <= 1 ? 20 : 14 }}>
-      {/* Node pill */}
-      <button
-        onClick={handleClick}
-        onDoubleClick={handleDblClick}
-        className="relative shrink-0 transition-all duration-200 focus:outline-none group"
-        title={node.navigateTo ? "Clique para expandir · Duplo-clique para navegar" : undefined}
-      >
-        <div
-          className={`
-            px-3.5 py-2 rounded-xl text-center whitespace-nowrap transition-all duration-200 select-none
-            ${isRoot
-              ? "px-5 py-3 rounded-2xl shadow-lg font-bold text-sm md:text-base"
-              : depth === 1
-                ? "shadow-md font-semibold text-xs md:text-sm"
-                : hasChildren
-                  ? "shadow-sm font-medium text-[11px] md:text-xs"
-                  : "shadow-sm font-normal text-[11px] md:text-xs border border-transparent hover:border-current"
-            }
-          `}
-          style={{
-            backgroundColor: isRoot ? color : `color-mix(in srgb, ${color} ${isOpen ? 22 : 12}%, transparent)`,
-            color: isRoot ? "#fff" : color,
-            borderColor: !isRoot && !hasChildren ? `color-mix(in srgb, ${color} 30%, transparent)` : undefined,
-          }}
-        >
-          {lines.map((l, i) => (
-            <div key={i} className={i > 0 ? "-mt-0.5" : ""}>{l}</div>
-          ))}
-          {hasChildren && (
-            <span
-              className="absolute -right-1 -top-1 w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-bold text-white"
-              style={{ backgroundColor: color }}
-            >
-              {isOpen ? "−" : "+"}
-            </span>
-          )}
-        </div>
-      </button>
-
-      {/* Children branch */}
-      {hasChildren && isOpen && (
-        <div className="flex items-center" style={{ gap: depth <= 1 ? 20 : 14 }}>
-          {/* Horizontal connector */}
-          <div className="w-5 md:w-8 h-0.5 shrink-0" style={{ backgroundColor: `color-mix(in srgb, ${color} 40%, transparent)` }} />
-
-          {/* Vertical stack of children */}
-          <div className="flex flex-col relative" style={{ gap: depth <= 1 ? 10 : 6 }}>
-            {/* Vertical line */}
-            <div
-              className="absolute left-0 top-1/2 w-0.5 -translate-x-3 md:-translate-x-5"
-              style={{
-                backgroundColor: `color-mix(in srgb, ${color} 25%, transparent)`,
-                height: `calc(100% - 20px)`,
-                top: "10px",
-              }}
-            />
-            {node.children!.map((child) => (
-              <div key={child.id} className="flex items-center">
-                {/* Small horizontal tick */}
-                <div className="w-2 md:w-4 h-0.5 shrink-0 -ml-3 md:-ml-5" style={{ backgroundColor: `color-mix(in srgb, ${color} 30%, transparent)` }} />
-                <TreeNode
-                  node={child}
-                  depth={depth + 1}
-                  expanded={expanded}
-                  onToggle={onToggle}
-                  onNav={onNav}
-                  parentColor={color}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-// ── Main component ──────────────────────────────────────────────
-
+/* ── Navigation pages ─────────────────────────────────────────── */
 const allPages = chapters
   .filter((ch) => !hiddenChapterPrefixes.some((prefix) => ch.id.startsWith(prefix)))
   .flatMap((ch) => {
@@ -286,43 +173,257 @@ const allPages = chapters
     return pages;
   });
 
+/* ── TreeNode ─────────────────────────────────────────────────── */
+interface TreeNodeProps {
+  node: MapNode;
+  depth: number;
+  expanded: Set<string>;
+  onToggle: (id: string) => void;
+  linkedChapters: Record<string, string>;
+  onLinkChapter: (nodeId: string, chapterId: string) => void;
+  onUnlinkChapter: (nodeId: string) => void;
+  onNavigate: (id: string) => void;
+}
+
+const TreeNode = React.memo(({ node, depth, expanded, onToggle, linkedChapters, onLinkChapter, onUnlinkChapter, onNavigate }: TreeNodeProps) => {
+  const isRoot = depth === 0;
+  const hasChildren = !!(node.children && node.children.length > 0);
+  const isOpen = expanded.has(node.id);
+  const branchKey = getBranchKey(node.id);
+  const colors = BRANCH_COLORS[branchKey] ?? BRANCH_COLORS.linguagens;
+  const linkedId = linkedChapters[node.id];
+  const linkedChapter = linkedId ? linkableChapters.find((c) => c.id === linkedId) : null;
+  const lines = node.label.split("\n");
+
+  const [popoverOpen, setPopoverOpen] = useState(false);
+  const [search, setSearch] = useState("");
+
+  const filtered = search
+    ? linkableChapters.filter((c) => c.title.toLowerCase().includes(search.toLowerCase()))
+    : linkableChapters;
+
+  const handleNodeClick = () => {
+    if (hasChildren) onToggle(node.id);
+  };
+
+  return (
+    <div className="flex items-start" style={{ gap: isRoot ? 32 : depth === 1 ? 24 : 16 }}>
+      {/* ── Node pill ──────────────────────────── */}
+      <div className="flex flex-col items-start gap-1 shrink-0">
+        <div className="flex items-center gap-1.5">
+          <button
+            onClick={handleNodeClick}
+            className="relative shrink-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-xl"
+          >
+            <div
+              className={`
+                px-3 py-2 rounded-xl text-center whitespace-nowrap select-none transition-all duration-200
+                ${isRoot
+                  ? "px-5 py-3 rounded-2xl shadow-lg font-bold text-sm"
+                  : depth === 1
+                    ? "shadow-md font-semibold text-xs"
+                    : hasChildren
+                      ? "shadow-sm font-medium text-[11px]"
+                      : "shadow-sm font-normal text-[11px] border"
+                }
+              `}
+              style={{
+                backgroundColor: isRoot ? ROOT_STYLE.bg : colors.bg,
+                color: isRoot ? ROOT_STYLE.text : colors.text,
+                borderColor: !isRoot && !hasChildren ? colors.line : "transparent",
+              }}
+            >
+              {lines.map((l, i) => (
+                <div key={i} className={i > 0 ? "-mt-0.5" : ""}>{l}</div>
+              ))}
+              {hasChildren && (
+                <span
+                  className="absolute -right-1.5 -top-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold text-white shadow-sm transition-transform duration-200"
+                  style={{
+                    backgroundColor: isRoot ? "hsl(var(--accent))" : colors.badge,
+                    transform: isOpen ? "rotate(0deg)" : "rotate(0deg)",
+                  }}
+                >
+                  {isOpen ? "−" : "+"}
+                </span>
+              )}
+            </div>
+          </button>
+
+          {/* Link chapter popover */}
+          {!isRoot && (
+            <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+              <PopoverTrigger asChild>
+                <button
+                  className="p-1 rounded-md hover:bg-muted text-muted-foreground hover:text-accent transition-colors"
+                  title="Vincular capítulo"
+                >
+                  <Link2 size={12} />
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="w-64 p-2" side="bottom" align="start">
+                <div className="text-xs font-semibold text-foreground mb-1.5">Vincular capítulo</div>
+                <input
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Buscar capítulo..."
+                  className="w-full text-xs px-2 py-1.5 rounded-md border border-border bg-background text-foreground placeholder:text-muted-foreground mb-1.5 focus:outline-none focus:ring-1 focus:ring-ring"
+                />
+                <ScrollArea className="max-h-48">
+                  <div className="flex flex-col gap-0.5">
+                    {filtered.map((ch) => (
+                      <button
+                        key={ch.id}
+                        onClick={() => {
+                          onLinkChapter(node.id, ch.id);
+                          setPopoverOpen(false);
+                          setSearch("");
+                        }}
+                        className={`text-left text-[11px] px-2 py-1.5 rounded-md transition-colors hover:bg-accent/10 ${
+                          linkedId === ch.id ? "bg-accent/15 font-semibold text-accent" : "text-foreground"
+                        }`}
+                      >
+                        <div className="flex items-center gap-1.5">
+                          {linkedId === ch.id && <Check size={10} className="text-accent shrink-0" />}
+                          <span className="truncate">{ch.title}</span>
+                        </div>
+                      </button>
+                    ))}
+                    {filtered.length === 0 && (
+                      <div className="text-[11px] text-muted-foreground px-2 py-2">Nenhum resultado</div>
+                    )}
+                  </div>
+                </ScrollArea>
+                {linkedChapter && (
+                  <button
+                    onClick={() => { onUnlinkChapter(node.id); setPopoverOpen(false); }}
+                    className="mt-1.5 w-full text-[11px] text-destructive hover:bg-destructive/10 px-2 py-1 rounded-md transition-colors flex items-center gap-1"
+                  >
+                    <X size={10} /> Remover vínculo
+                  </button>
+                )}
+              </PopoverContent>
+            </Popover>
+          )}
+        </div>
+
+        {/* Badge showing linked chapter */}
+        {linkedChapter && (
+          <button
+            onClick={() => onNavigate(linkedChapter.id)}
+            className="ml-1 transition-all duration-200 hover:scale-105"
+          >
+            <Badge
+              className="text-[9px] font-medium px-1.5 py-0.5 cursor-pointer hover:opacity-80 border-0"
+              style={{ backgroundColor: colors.badge, color: "#fff" }}
+            >
+              {linkedChapter.title.length > 28 ? linkedChapter.title.slice(0, 28) + "…" : linkedChapter.title}
+            </Badge>
+          </button>
+        )}
+      </div>
+
+      {/* ── Children branch ────────────────────── */}
+      {hasChildren && (
+        <div
+          className="flex items-center overflow-hidden transition-all duration-300 ease-in-out"
+          style={{
+            maxWidth: isOpen ? 2000 : 0,
+            opacity: isOpen ? 1 : 0,
+            gap: depth === 0 ? 24 : 16,
+          }}
+        >
+          {/* Horizontal connector */}
+          <div className="w-6 md:w-10 h-0.5 shrink-0 transition-colors" style={{ backgroundColor: colors.line }} />
+
+          {/* Vertical stack */}
+          <div className="flex flex-col relative" style={{ gap: depth <= 1 ? 12 : 8 }}>
+            {/* Vertical rail */}
+            <div
+              className="absolute left-0 w-0.5 -translate-x-3 md:-translate-x-5"
+              style={{
+                backgroundColor: colors.line,
+                top: 16,
+                bottom: 16,
+                opacity: 0.5,
+              }}
+            />
+            {node.children!.map((child) => (
+              <div key={child.id} className="flex items-center">
+                <div className="w-2 md:w-4 h-0.5 shrink-0 -ml-3 md:-ml-5" style={{ backgroundColor: colors.line, opacity: 0.5 }} />
+                <TreeNode
+                  node={child}
+                  depth={depth + 1}
+                  expanded={expanded}
+                  onToggle={onToggle}
+                  linkedChapters={linkedChapters}
+                  onLinkChapter={onLinkChapter}
+                  onUnlinkChapter={onUnlinkChapter}
+                  onNavigate={onNavigate}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+});
+
+TreeNode.displayName = "TreeNode";
+
+/* ── Main component ──────────────────────────────────────────── */
 const MindMapContent = ({ onNavigate }: MindMapContentProps) => {
-  const [expanded, setExpanded] = useState<Set<string>>(new Set(["root", "linguagens", "propriedades", "metodos"]));
+  const [expanded, setExpanded] = useState<Set<string>>(() => new Set(["root", "linguagens", "semantica", "metodos", "limites"]));
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
   const dragStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Linked chapters persisted in localStorage
+  const [linkedChapters, setLinkedChapters] = useState<Record<string, string>>(() => {
+    try {
+      const saved = localStorage.getItem("mindmap-linked-chapters");
+      return saved ? JSON.parse(saved) : {};
+    } catch { return {}; }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("mindmap-linked-chapters", JSON.stringify(linkedChapters));
+  }, [linkedChapters]);
+
+  const handleLinkChapter = useCallback((nodeId: string, chapterId: string) => {
+    setLinkedChapters((prev) => ({ ...prev, [nodeId]: chapterId }));
+  }, []);
+
+  const handleUnlinkChapter = useCallback((nodeId: string) => {
+    setLinkedChapters((prev) => {
+      const next = { ...prev };
+      delete next[nodeId];
+      return next;
+    });
+  }, []);
+
   const toggleNode = useCallback((id: string) => {
     setExpanded((prev) => {
       const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
+      if (next.has(id)) next.delete(id); else next.add(id);
       return next;
     });
   }, []);
 
   const expandAll = useCallback(() => {
-    const ids = new Set<string>();
-    const collect = (node: MapNode) => {
-      ids.add(node.id);
-      node.children?.forEach(collect);
-    };
-    collect(mindMap);
-    setExpanded(ids);
+    setExpanded(new Set(collectIds(mindMapData)));
   }, []);
 
   const collapseAll = useCallback(() => {
     setExpanded(new Set(["root"]));
   }, []);
 
-  const resetView = useCallback(() => {
-    setZoom(1);
-    setPan({ x: 0, y: 0 });
-  }, []);
+  const resetView = useCallback(() => { setZoom(1); setPan({ x: 0, y: 0 }); }, []);
 
-  // Mouse drag for panning
+  // Mouse pan
   const onMouseDown = useCallback((e: React.MouseEvent) => {
     if (e.button !== 0) return;
     setDragging(true);
@@ -331,9 +432,7 @@ const MindMapContent = ({ onNavigate }: MindMapContentProps) => {
 
   const onMouseMove = useCallback((e: React.MouseEvent) => {
     if (!dragging) return;
-    const dx = e.clientX - dragStart.current.x;
-    const dy = e.clientY - dragStart.current.y;
-    setPan({ x: dragStart.current.panX + dx, y: dragStart.current.panY + dy });
+    setPan({ x: dragStart.current.panX + e.clientX - dragStart.current.x, y: dragStart.current.panY + e.clientY - dragStart.current.y });
   }, [dragging]);
 
   const onMouseUp = useCallback(() => setDragging(false), []);
@@ -352,23 +451,16 @@ const MindMapContent = ({ onNavigate }: MindMapContentProps) => {
     return () => el.removeEventListener("wheel", handler);
   }, []);
 
-  // Touch drag for mobile
+  // Touch pan
   const touchStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
-
   const onTouchStart = useCallback((e: React.TouchEvent) => {
-    if (e.touches.length === 1) {
-      touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY, panX: pan.x, panY: pan.y };
-    }
+    if (e.touches.length === 1) touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY, panX: pan.x, panY: pan.y };
   }, [pan]);
-
   const onTouchMove = useCallback((e: React.TouchEvent) => {
-    if (e.touches.length === 1) {
-      const dx = e.touches[0].clientX - touchStart.current.x;
-      const dy = e.touches[0].clientY - touchStart.current.y;
-      setPan({ x: touchStart.current.panX + dx, y: touchStart.current.panY + dy });
-    }
+    if (e.touches.length === 1) setPan({ x: touchStart.current.panX + e.touches[0].clientX - touchStart.current.x, y: touchStart.current.panY + e.touches[0].clientY - touchStart.current.y });
   }, []);
 
+  // Nav
   const currentIndex = allPages.findIndex((p) => p.id === "mapa-mental");
   const prevChapter = currentIndex > 0 ? allPages[currentIndex - 1] : null;
   const nextChapter = currentIndex < allPages.length - 1 ? allPages[currentIndex + 1] : null;
@@ -378,44 +470,32 @@ const MindMapContent = ({ onNavigate }: MindMapContentProps) => {
       <div className="max-w-full mx-auto px-4 md:px-8 py-8 md:py-12">
         {/* Header */}
         <div className="max-w-2xl mx-auto mb-6">
-          <p className="text-xs font-sans-book font-semibold tracking-[0.25em] uppercase text-accent mb-2">
-            Visão Geral
-          </p>
-          <h2 className="font-serif-book text-2xl md:text-3xl font-bold text-[hsl(var(--book-heading))] mb-2">
-            Mapa Conceitual do Livro
-          </h2>
+          <p className="text-xs font-sans-book font-semibold tracking-[0.25em] uppercase text-accent mb-2">Visão Geral</p>
+          <h2 className="font-serif-book text-2xl md:text-3xl font-bold text-[hsl(var(--book-heading))] mb-2">Mapa Conceitual do Livro</h2>
           <div className="w-16 h-0.5 bg-accent mb-4" />
           <p className="font-serif-book text-sm leading-[1.85] text-[hsl(var(--book-text))]">
-            Explore as conexões entre os conceitos do livro. Clique nos nós para expandir ramos; duplo-clique para navegar ao capítulo. Arraste para mover o mapa e use Ctrl+Scroll para zoom.
+            Explore as conexões entre os conceitos do livro. Clique nos nós para expandir ramos.
+            Use o ícone <Link2 size={11} className="inline -mt-0.5 mx-0.5" /> para vincular cada nó ao capítulo correspondente.
+            Arraste para mover o mapa e use Ctrl+Scroll para zoom.
           </p>
         </div>
 
         {/* Controls */}
-        <div className="flex items-center gap-2 mb-3 ml-2">
-          <button onClick={expandAll} className="text-[11px] font-sans-book px-2.5 py-1 rounded bg-muted hover:bg-accent/10 text-muted-foreground hover:text-accent transition-colors">
-            Expandir tudo
-          </button>
-          <button onClick={collapseAll} className="text-[11px] font-sans-book px-2.5 py-1 rounded bg-muted hover:bg-accent/10 text-muted-foreground hover:text-accent transition-colors">
-            Recolher
-          </button>
+        <div className="flex items-center gap-2 mb-3 ml-2 flex-wrap">
+          <button onClick={expandAll} className="text-[11px] font-sans-book px-2.5 py-1 rounded bg-muted hover:bg-accent/10 text-muted-foreground hover:text-accent transition-colors">Expandir tudo</button>
+          <button onClick={collapseAll} className="text-[11px] font-sans-book px-2.5 py-1 rounded bg-muted hover:bg-accent/10 text-muted-foreground hover:text-accent transition-colors">Recolher</button>
           <div className="w-px h-4 bg-border mx-1" />
-          <button onClick={() => setZoom((z) => Math.min(2.5, z + 0.15))} className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-accent transition-colors">
-            <ZoomIn size={14} />
-          </button>
-          <button onClick={() => setZoom((z) => Math.max(0.3, z - 0.15))} className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-accent transition-colors">
-            <ZoomOut size={14} />
-          </button>
-          <button onClick={resetView} className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-accent transition-colors" title="Resetar visão">
-            <Maximize2 size={14} />
-          </button>
+          <button onClick={() => setZoom((z) => Math.min(2.5, z + 0.15))} className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-accent transition-colors"><ZoomIn size={14} /></button>
+          <button onClick={() => setZoom((z) => Math.max(0.3, z - 0.15))} className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-accent transition-colors"><ZoomOut size={14} /></button>
+          <button onClick={resetView} className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-accent transition-colors" title="Resetar visão"><Maximize2 size={14} /></button>
           <span className="text-[10px] text-muted-foreground ml-1">{Math.round(zoom * 100)}%</span>
         </div>
 
-        {/* Mind map canvas */}
+        {/* Canvas */}
         <div
           ref={containerRef}
           className="relative w-full rounded-xl border border-border bg-muted/20 overflow-hidden select-none"
-          style={{ height: "min(65vh, 560px)", cursor: dragging ? "grabbing" : "grab" }}
+          style={{ height: "min(70vh, 620px)", cursor: dragging ? "grabbing" : "grab" }}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
           onMouseUp={onMouseUp}
@@ -423,9 +503,9 @@ const MindMapContent = ({ onNavigate }: MindMapContentProps) => {
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
         >
-          {/* Dot grid background */}
+          {/* Dot grid */}
           <div
-            className="absolute inset-0 opacity-[0.08]"
+            className="absolute inset-0 opacity-[0.06]"
             style={{
               backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)",
               backgroundSize: `${20 * zoom}px ${20 * zoom}px`,
@@ -433,37 +513,33 @@ const MindMapContent = ({ onNavigate }: MindMapContentProps) => {
             }}
           />
 
-          {/* Tree content */}
           <div
             className="absolute"
-            style={{
-              transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
-              transformOrigin: "0 0",
-              left: 32,
-              top: 32,
-            }}
+            style={{ transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`, transformOrigin: "0 0", left: 36, top: 36 }}
           >
             <TreeNode
-              node={mindMap}
+              node={mindMapData}
               depth={0}
               expanded={expanded}
               onToggle={toggleNode}
-              onNav={onNavigate}
+              linkedChapters={linkedChapters}
+              onLinkChapter={handleLinkChapter}
+              onUnlinkChapter={handleUnlinkChapter}
+              onNavigate={onNavigate}
             />
           </div>
         </div>
 
         {/* Legend */}
-        <div className="flex flex-wrap gap-3 mt-4 px-2">
+        <div className="flex flex-wrap gap-4 mt-4 px-2">
           {[
-            { label: "Linguagens", color: COLORS.linguagens },
-            { label: "Propriedades", color: COLORS.propriedades },
-            { label: "Métodos", color: COLORS.metodos },
-            { label: "Generalização", color: COLORS.generalizacao },
-            { label: "Conclusão", color: COLORS.conclusao },
+            { label: "Linguagens Lógicas", key: "linguagens" },
+            { label: "Semântica e Modelos", key: "semantica" },
+            { label: "Métodos de Raciocínio", key: "metodos" },
+            { label: "Limites e Perspectivas", key: "limites" },
           ].map((item) => (
-            <div key={item.label} className="flex items-center gap-1.5 text-[10px] font-sans-book text-muted-foreground">
-              <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: item.color }} />
+            <div key={item.key} className="flex items-center gap-1.5 text-[10px] font-sans-book text-muted-foreground">
+              <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: BRANCH_COLORS[item.key].badge }} />
               {item.label}
             </div>
           ))}
@@ -472,10 +548,7 @@ const MindMapContent = ({ onNavigate }: MindMapContentProps) => {
         {/* Navigation */}
         <div className="max-w-2xl mx-auto flex items-center justify-between mt-12 pt-8 border-t border-border">
           {prevChapter ? (
-            <button
-              onClick={() => onNavigate(prevChapter.id)}
-              className="flex items-center gap-2 text-sm font-sans-book text-muted-foreground hover:text-accent transition-colors group"
-            >
+            <button onClick={() => onNavigate(prevChapter.id)} className="flex items-center gap-2 text-sm font-sans-book text-muted-foreground hover:text-accent transition-colors group">
               <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
               <div className="text-left">
                 <span className="block text-[10px] uppercase tracking-widest">Anterior</span>
@@ -483,12 +556,8 @@ const MindMapContent = ({ onNavigate }: MindMapContentProps) => {
               </div>
             </button>
           ) : <div />}
-
           {nextChapter ? (
-            <button
-              onClick={() => onNavigate(nextChapter.id)}
-              className="flex items-center gap-2 text-sm font-sans-book text-muted-foreground hover:text-accent transition-colors group text-right"
-            >
+            <button onClick={() => onNavigate(nextChapter.id)} className="flex items-center gap-2 text-sm font-sans-book text-muted-foreground hover:text-accent transition-colors group text-right">
               <div>
                 <span className="block text-[10px] uppercase tracking-widest">Próximo</span>
                 <span className="block font-medium text-foreground">{nextChapter.title}</span>
