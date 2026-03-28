@@ -155,6 +155,58 @@ function collectIds(node: MapNode): string[] {
   return ids;
 }
 
+/* ── Default node→chapter mappings ─────────────────────────── */
+const DEFAULT_LINKS: Record<string, string> = {
+  // Linguagens Lógicas
+  linguagens: "intro",
+  lp: "cap2",
+  "lp-sint": "cap1-sec1",
+  "lp-sem": "cap1-sec2",
+  "lp-aval": "cap1-sec3",
+  "lp-sat": "cap1-sec4",
+  lpo: "cap7",
+  "lpo-sint": "cap7-sec2",
+  "lpo-quant": "cap4-sec2",
+  "lpo-interp": "cap7-sec3",
+  "lpo-igual": "cap7-sec6",
+  "lpo-arit": "cap7-sec5",
+  // Semântica e Modelos
+  semantica: "cap5",
+  tm: "cap5",
+  "tm-herb": "cap4-sec4",
+  "tm-val": "cap5-sec1",
+  "tm-conseq": "cap2-sec3",
+  pr: "cap2-sec1",
+  "pr-equiv": "cap2-sec2",
+  "pr-consist": "cap2-sec4",
+  "pr-arit": "cap7-sec5",
+  // Métodos de Raciocínio
+  metodos: "cap3",
+  pf: "cap3",
+  "pf-dn": "cap3-sec3",
+  "pf-tab": "cap5-sec1",
+  "pf-ax": "cap3-sec1",
+  res: "cap6",
+  "res-cl": "cap6-sec1",
+  "res-unif": "cap6-sec5",
+  "res-sld": "cap6-sec6",
+  gen: "cap8",
+  "gen-lin": "cap8-sec3",
+  "gen-arv": "cap8-sec4",
+  "gen-est": "cap8-sec5",
+  "gen-multi": "cap8-sec6",
+  // Limites e Perspectivas
+  limites: "cap9",
+  indec: "cap9-sec6",
+  "indec-par": "cap9-sec6",
+  "indec-god": "cap9-sec6",
+  "indec-comp": "cap9-sec6",
+  iaml: "cap9-sec4",
+  "iaml-rac": "cap9-sec4",
+  "iaml-ml": "cap9-sec5",
+  "iaml-prog": "cap6-sec9",
+};
+
 /* ── Available chapters for linking ───────────────────────────── */
 const linkableChapters = chapters
   .filter((ch) => !hiddenChapterPrefixes.some((p) => ch.id.startsWith(p)))
@@ -374,8 +426,8 @@ const MindMapContent = ({ onNavigate }: MindMapContentProps) => {
   const [linkedChapters, setLinkedChapters] = useState<Record<string, string>>(() => {
     try {
       const saved = localStorage.getItem("mindmap-linked-chapters");
-      return saved ? JSON.parse(saved) : {};
-    } catch { return {}; }
+      return saved ? { ...DEFAULT_LINKS, ...JSON.parse(saved) } : { ...DEFAULT_LINKS };
+    } catch { return { ...DEFAULT_LINKS }; }
   });
 
   useEffect(() => {
