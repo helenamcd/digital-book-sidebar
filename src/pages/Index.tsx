@@ -3,6 +3,7 @@ import BookSidebar from "@/components/BookSidebar";
 import BookContent from "@/components/BookContent";
 import BookCover from "@/components/BookCover";
 import GlossaryContent from "@/components/GlossaryContent";
+import MindMapContent from "@/components/MindMapContent";
 
 const Index = () => {
 const getInitialChapter = () => {
@@ -30,6 +31,8 @@ const getInitialChapter = () => {
       <BookSidebar activeChapter={activeChapter} onSelectChapter={handleNavigate} />
       {activeChapter === "glossario" ? (
         <GlossaryContent onNavigate={handleNavigate} />
+      ) : activeChapter === "mapa-mental" ? (
+        <MindMapContent onNavigate={handleNavigate} />
       ) : (
         <BookContent activeChapter={activeChapter} onNavigate={handleNavigate} />
       )}
