@@ -207,7 +207,7 @@ const TreeNode = React.memo(({ node, depth, expanded, onToggle, linkedChapters, 
   };
 
   return (
-    <div className="flex items-start" style={{ gap: isRoot ? 32 : depth === 1 ? 24 : 16 }}>
+    <div className="flex items-start">
       {/* ── Node pill ──────────────────────────── */}
       <div className="flex flex-col items-start gap-1 shrink-0">
         <div className="flex items-center gap-1.5">
