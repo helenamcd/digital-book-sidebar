@@ -166,6 +166,10 @@ export const chapters: Chapter[] = [
     ]
   },
   {
+    id: "mapa-mental",
+    title: "Mapa Mental do Livro",
+  },
+  {
     id: "glossario",
     title: "Glossário",
   },
