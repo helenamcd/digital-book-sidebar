@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import BookSidebar from "@/components/BookSidebar";
 import BookContent from "@/components/BookContent";
 import BookCover from "@/components/BookCover";
@@ -6,7 +6,13 @@ import GlossaryContent from "@/components/GlossaryContent";
 import MindMapContent from "@/components/MindMapContent";
 
 const Index = () => {
-const getInitialChapter = () => {
+  const getInitialChapter = () => {
+    // Check hash first
+    const hash = window.location.hash.replace("#", "");
+    if (hash) {
+      localStorage.setItem("book_visited", "true");
+      return hash;
+    }
     const visited = localStorage.getItem("book_visited");
     if (visited) return "prefacio";
     return "capa";
@@ -14,13 +20,28 @@ const getInitialChapter = () => {
 
   const [activeChapter, setActiveChapter] = useState(getInitialChapter);
 
-  const handleNavigate = (id: string) => {
+  // Sync hash → state on browser back/forward
+  useEffect(() => {
+    const onHashChange = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash) {
+        localStorage.setItem("book_visited", "true");
+        setActiveChapter(hash);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    };
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
+  const handleNavigate = useCallback((id: string) => {
     if (id !== "capa") {
       localStorage.setItem("book_visited", "true");
     }
+    window.location.hash = id === "capa" ? "" : id;
     setActiveChapter(id);
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  }, []);
 
   if (activeChapter === "capa") {
     return <BookCover onNavigate={handleNavigate} />;
