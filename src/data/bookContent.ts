@@ -93,13 +93,16 @@ export const chapters: Chapter[] = [
   },
   {
     id: "cap5",
-    title: "Capítulo 5 - Validação e Modelos",
+    title: "Capítulo 5 - Validação, Modelos e Provas Relacionais",
     sections: [
-      { id: "cap5-sec1", title: "O Método da Tabela-Verdade" },
-      { id: "cap5-sec2", title: "Modelos Booleanos: Propagação de Restrições" },
-      { id: "cap5-sec3", title: "Modelos Não-Booleanos: Representações Compactas" },
-      { id: "cap5-sec4", title: "Verificação de Modelos na Prática" },
-      { id: "cap5-sec5", title: "Resumo do Capítulo" },
+      { id: "cap5-sec1", title: "Introdução: da validação por modelos às provas" },
+      { id: "cap5-sec2", title: "Consequência lógica e verificação de modelos" },
+      { id: "cap5-sec3", title: "Provas, demonstrabilidade, correção e completude" },
+      { id: "cap5-sec4", title: "O sistema de Fitch e as regras de inferência" },
+      { id: "cap5-sec5", title: "Quantificador universal" },
+      { id: "cap5-sec6", title: "Quantificador existencial" },
+      { id: "cap5-sec7", title: "Provas e validação na prática" },
+      { id: "cap5-sec8", title: "Resumo do Capítulo" },
     ]
   },
 
