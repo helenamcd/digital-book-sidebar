@@ -95,7 +95,7 @@ export const chapters: Chapter[] = [
     id: "cap5",
     title: "Capítulo 5 - Validação, Modelos e Provas Relacionais",
     sections: [
-      { id: "cap5-sec1", title: "Introdução: da validação por modelos às provas" },
+      
       { id: "cap5-sec2", title: "Consequência lógica e verificação de modelos" },
       { id: "cap5-sec3", title: "Provas, demonstrabilidade, correção e completude" },
       { id: "cap5-sec4", title: "O sistema de Fitch e as regras de inferência" },
@@ -1298,18 +1298,6 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
-  "cap5-sec1": {
-    id: "cap5-sec1",
-    title: "Introdução: da validação por modelos às provas",
-    subtitle: "Capítulo 5",
-    paragraphs: [
-      "Nos capítulos anteriores, a lógica foi apresentada como uma ferramenta para analisar sentenças, conectivos e formas básicas de raciocínio. Agora entramos em uma etapa mais rica: a lógica relacional. Nela, deixamos de trabalhar apenas com proposições isoladas e passamos a considerar objetos, relações entre objetos, interpretações e modelos.",
-      "Essa mudança é importante porque muitos problemas reais exigem esse tipo de estrutura. Em ciência de dados, queremos expressar regras como \"todo registro aprovado deve ter data de aprovação\" ou \"existe pelo menos um caso com erro grave\". Em inteligência artificial, queremos representar dependências entre entidades, restrições de decisão e propriedades que valem para todos os elementos de um domínio ou para pelo menos um deles.",
-      "Neste capítulo, apresentamos dois caminhos complementares para responder perguntas lógicas:",
-      "1. verificar diretamente os modelos possíveis;\n2. construir provas formais por meio de regras de inferência.",
-      "A ideia central é que esses dois caminhos estão conectados. Quando uma conclusão decorre logicamente de um conjunto de premissas, isso significa que não existe interpretação em que as premissas sejam verdadeiras e a conclusão falsa. Ao mesmo tempo, se o sistema de prova for adequado, essa mesma conclusão pode ser demonstrada por um raciocínio finito e estruturado."
-    ]
-  },
 
   "cap5-sec2": {
     id: "cap5-sec2",
