@@ -93,13 +93,16 @@ export const chapters: Chapter[] = [
   },
   {
     id: "cap5",
-    title: "Capítulo 5 - Validação e Modelos",
+    title: "Capítulo 5 - Validação, Modelos e Provas Relacionais",
     sections: [
-      { id: "cap5-sec1", title: "O Método da Tabela-Verdade" },
-      { id: "cap5-sec2", title: "Modelos Booleanos: Propagação de Restrições" },
-      { id: "cap5-sec3", title: "Modelos Não-Booleanos: Representações Compactas" },
-      { id: "cap5-sec4", title: "Verificação de Modelos na Prática" },
-      { id: "cap5-sec5", title: "Resumo do Capítulo" },
+      { id: "cap5-sec1", title: "Introdução: da validação por modelos às provas" },
+      { id: "cap5-sec2", title: "Consequência lógica e verificação de modelos" },
+      { id: "cap5-sec3", title: "Provas, demonstrabilidade, correção e completude" },
+      { id: "cap5-sec4", title: "O sistema de Fitch e as regras de inferência" },
+      { id: "cap5-sec5", title: "Quantificador universal" },
+      { id: "cap5-sec6", title: "Quantificador existencial" },
+      { id: "cap5-sec7", title: "Provas e validação na prática" },
+      { id: "cap5-sec8", title: "Resumo do Capítulo" },
     ]
   },
 
@@ -1284,137 +1287,206 @@ export const chapterContents: Record<string, ChapterContent> = {
 
   cap5: {
     id: "cap5",
-    title: "Validação e Modelos",
+    title: "Validação, Modelos e Provas Relacionais",
     subtitle: "Capítulo 5",
     paragraphs: [
-      "Todo modelo de dados ou sistema de regras opera sobre um universo de possibilidades. A questão central da validação é: dentre todas as atribuições de verdade possíveis para as variáveis do sistema, quais satisfazem simultaneamente todas as restrições impostas? Esse é o problema de **model checking** — a verificação de modelos — e ele aparece em inúmeras situações práticas de ciência de dados.",
-      "Considere um pipeline de ingestão de dados com dezenas de restrições de qualidade: unicidade de chaves, integridade referencial, valores dentro de faixas válidas, dependências entre colunas. Verificar que um determinado estado do dataset satisfaz todas essas restrições é exatamente um problema de verificação de modelos. Da mesma forma, ao projetar um experimento A/B, queremos garantir que a atribuição de usuários a grupos satisfaz restrições de balanceamento e exclusividade — outro problema de model checking.",
-      "Neste capítulo, estudamos três abordagens progressivamente mais eficientes para verificação de modelos: o **método da tabela-verdade** (exaustivo, porém sempre correto), o **método de modelos booleanos** (propagação de restrições para redução do espaço de busca) e o **método de modelos não-booleanos** (representações compactas para restrições de unicidade e funcionalidade). Para cada método, apresentamos a teoria formal e um exemplo aplicado ao contexto de ciência de dados."
+      "Nos capítulos anteriores, a lógica foi apresentada como uma ferramenta para analisar sentenças, conectivos e formas básicas de raciocínio. Agora entramos em uma etapa mais rica: a lógica relacional. Nela, deixamos de trabalhar apenas com proposições isoladas e passamos a considerar objetos, relações entre objetos, interpretações e modelos.",
+      "Essa mudança é importante porque muitos problemas reais exigem esse tipo de estrutura. Em ciência de dados, queremos expressar regras como \"todo registro aprovado deve ter data de aprovação\" ou \"existe pelo menos um caso com erro grave\". Em inteligência artificial, queremos representar dependências entre entidades, restrições de decisão e propriedades que valem para todos os elementos de um domínio ou para pelo menos um deles. Em contextos sociais e organizacionais, também raciocinamos sobre relações: quem apoia quem, quem depende de quem, quem satisfaz determinadas condições.",
+      "Neste capítulo, apresentamos dois caminhos complementares para responder perguntas lógicas:",
+      "1. verificar diretamente os modelos possíveis;\n2. construir provas formais por meio de regras de inferência.",
+      "A ideia central é que esses dois caminhos estão conectados. Quando uma conclusão decorre logicamente de um conjunto de premissas, isso significa que não existe interpretação em que as premissas sejam verdadeiras e a conclusão falsa. Ao mesmo tempo, se o sistema de prova for adequado, essa mesma conclusão pode ser demonstrada por um raciocínio finito e estruturado."
     ]
   },
 
   "cap5-sec1": {
     id: "cap5-sec1",
-    title: "O Método da Tabela-Verdade",
+    title: "Introdução: da validação por modelos às provas",
     subtitle: "Capítulo 5",
     paragraphs: [
-      "## Fundamentos",
-      "O método mais direto de verificação de modelos é a enumeração exaustiva: construir a tabela-verdade completa para o vocabulário e verificar, linha a linha, quais atribuições satisfazem o conjunto de sentenças de interesse. Como vimos no capítulo anterior, para uma linguagem com *b* constantes de objeto e *m* constantes de relação de aridade *k*, a base de Herbrand tem *m · b^k* elementos, resultando em *2^(m · b^k)* linhas na tabela-verdade.",
-      "Essa explosão combinatorial é a principal limitação do método: com apenas 10 objetos e 5 relações binárias, temos 2⁵⁰⁰ possíveis atribuições de verdade — um número astronômico, inteiramente inviável para enumeração direta. Ainda assim, o método é conceitualmente fundamental e serve como referência de corretude para os métodos mais eficientes.",
-
-      "## Exemplo: Verificação de Implicação Lógica",
-      "Considere um vocabulário com dois objetos {a, b} e duas relações unárias p e q. Queremos verificar se as premissas abaixo implicam logicamente a conclusão ∃x.q(x):",
-      "```\nPremissa 1: p(a) ∨ p(b) — ao menos um dos objetos satisfaz p\nPremissa 2: ∀x.(p(x) ⇒ q(x)) — todo objeto que satisfaz p também satisfaz q\nConclusão: ∃x.q(x) — existe algum objeto que satisfaz q\n```",
-      "A tabela-verdade completa para esse problema tem 2⁴ = 16 linhas (quatro átomos ground: p(a), p(b), q(a), q(b)). A implicação lógica é verificada se e somente se toda linha que satisfaz ambas as premissas também satisfaz a conclusão:",
-      "```\n| p(a) | p(b) | q(a) | q(b) | P1: p(a)∨p(b) | P2: ∀x(p⇒q) | C: ∃x.q(x) |\n| --- | --- | --- | --- | --- | --- | --- |\n| 1 | 1 | 1 | 1 | 1 | 1 | 1 |\n| 1 | 1 | 1 | 0 | 1 | 0 | 1 |\n| 1 | 1 | 0 | 1 | 1 | 0 | 1 |\n| 1 | 1 | 0 | 0 | 1 | 0 | 0 |\n| 1 | 0 | 1 | 1 | 1 | 1 | 1 |\n| 1 | 0 | 1 | 0 | 1 | 1 | 1 |\n| 1 | 0 | 0 | 1 | 1 | 0 | 1 |\n| 1 | 0 | 0 | 0 | 1 | 0 | 0 |\n| 0 | 1 | 1 | 1 | 1 | 1 | 1 |\n| 0 | 1 | 0 | 1 | 1 | 1 | 1 |\n| 0 | 0 | 1 | 1 | 0 | 1 | 1 |\n| 0 | 0 | 0 | 0 | 0 | 1 | 0 |\n```",
-      "As linhas em que ambas as premissas são verdadeiras (P1=1 e P2=1) são as linhas 1, 5, 6, 9 e 10 da tabela completa. Em todas elas, a conclusão também é verdadeira. Portanto, as premissas implicam logicamente a conclusão.",
-
-      "## Complexidade e Limitações Práticas",
-      "A complexidade do método da tabela-verdade é exponencial no tamanho da base de Herbrand. Para problemas de ciência de dados reais, com milhares de atributos e registros, o método direto é inviável. O valor do método é duplo: (1) ele serve como fundamento teórico para os métodos mais eficientes, e (2) para problemas pequenos — como validação de lógica de regras de negócio com poucos objetos — ele é perfeitamente aplicável.",
-      "Em ciência de dados, esse tipo de verificação aparece ao validar regras de derivação em pipelines: *'Se todo registro com flag X recebe tratamento Y, e existe ao menos um registro com flag X, então existe ao menos um registro com tratamento Y.'* A tabela-verdade garante formalmente que essa conclusão é inevitável, independentemente de qualquer dado específico."
+      "Nos capítulos anteriores, a lógica foi apresentada como uma ferramenta para analisar sentenças, conectivos e formas básicas de raciocínio. Agora entramos em uma etapa mais rica: a lógica relacional. Nela, deixamos de trabalhar apenas com proposições isoladas e passamos a considerar objetos, relações entre objetos, interpretações e modelos.",
+      "Essa mudança é importante porque muitos problemas reais exigem esse tipo de estrutura. Em ciência de dados, queremos expressar regras como \"todo registro aprovado deve ter data de aprovação\" ou \"existe pelo menos um caso com erro grave\". Em inteligência artificial, queremos representar dependências entre entidades, restrições de decisão e propriedades que valem para todos os elementos de um domínio ou para pelo menos um deles.",
+      "Neste capítulo, apresentamos dois caminhos complementares para responder perguntas lógicas:",
+      "1. verificar diretamente os modelos possíveis;\n2. construir provas formais por meio de regras de inferência.",
+      "A ideia central é que esses dois caminhos estão conectados. Quando uma conclusão decorre logicamente de um conjunto de premissas, isso significa que não existe interpretação em que as premissas sejam verdadeiras e a conclusão falsa. Ao mesmo tempo, se o sistema de prova for adequado, essa mesma conclusão pode ser demonstrada por um raciocínio finito e estruturado."
     ]
   },
 
   "cap5-sec2": {
     id: "cap5-sec2",
-    title: "Modelos Booleanos: Propagação de Restrições",
+    title: "Consequência lógica, verificação de modelos e o limite da tabela-verdade",
     subtitle: "Capítulo 5",
     paragraphs: [
-      "## A Ideia Central",
-      "O método de modelos booleanos explora uma propriedade fundamental de muitos problemas práticos: as restrições não são todas independentes. Cada restrição que se torna determinada (tem valor de verdade fixo) pode propagar informação para outras restrições, eventualmente determinando o valor de verdade de átomos que ainda não foram fixados. Esse processo é chamado de **propagação de restrições** ou **unit propagation**.",
-      "O algoritmo é incremental: partimos de uma tabela vazia (todos os valores indeterminados), aplicamos as restrições mais simples primeiro (aquelas que determinam diretamente o valor de um único átomo), e usamos as conclusões derivadas para simplificar as restrições restantes. Em muitos casos práticos, esse processo converge para uma solução única sem necessidade de tentativa e erro.",
-      "```\n| Objetos (b) | Relações binárias (m) | Átomos ground | Linhas na tabela |\n| --- | --- | --- | --- |\n| 2 | 2 | 8 | 256 |\n| 3 | 2 | 18 | 262.144 |\n| 5 | 3 | 75 | ~3,78 × 10²² |\n| 10 | 5 | 500 | ~3,27 × 10¹⁵⁰ |\n```",
-
-      "## Exemplo Detalhado: Validação de Atribuição em Dataset",
-      "Para ilustrar o método de forma sistemática, considere um cenário de atribuição de analistas a projetos em uma equipe de dados. Temos quatro analistas (alice, bob, carol, dana) e uma relação binária trabalha_em(analista, projeto). As restrições do problema são:",
-      "- 1. alice trabalha no projeto alpha.\n- 2. bob não trabalha no projeto beta.\n- 3. dana não trabalha no projeto alpha.\n- 4. Todo analista que trabalha no projeto alpha também trabalha no beta: ∀x.(trabalha_em(x,alpha) ⇒ trabalha_em(x,beta)).\n- 5. carol ou dana trabalha no projeto gamma.\n- 6. alice e bob não trabalham no projeto gamma.\n- 7. Nenhum analista trabalha em mais de um projeto simultaneamente.",
-      "Iniciamos com uma tabela de atribuição vazia, onde cada célula representa o valor de verdade do átomo trabalha_em(analista, projeto):",
-
-      "#### Passo 0 — Tabela inicial (todos os valores indeterminados)",
-      "```\n| | Alpha | Beta | Gamma |\n| --- | --- | --- | --- |\n| Alice | ? | ? | ? |\n| Bob | ? | ? | ? |\n| Carol | ? | ? | ? |\n| Dana | ? | ? | ? |\n```",
-
-      "#### Passo 1 — Aplicar restrições unitárias (1, 2, 3 e 6)",
-      "As restrições 1, 2, 3 e 6 são unitárias: determinam diretamente o valor de um único átomo. Preenchemos imediatamente:",
-      "```\n| | Alpha | Beta | Gamma |\n| --- | --- | --- | --- |\n| Alice | 1 | ? | 0 |\n| Bob | ? | 0 | 0 |\n| Carol | ? | ? | ? |\n| Dana | 0 | ? | ? |\n```",
-
-      "#### Passo 2 — Propagar restrição 4 (universal: alpha ⇒ beta)",
-      "A restrição 4 diz que todo analista em alpha também está em beta. Alice está em alpha (valor 1), portanto alice também deve estar em beta. Propagamos:",
-      "```\n| | Alpha | Beta | Gamma |\n| --- | --- | --- | --- |\n| Alice | 1 | 1 | 0 |\n| Bob | ? | 0 | 0 |\n| Carol | ? | ? | ? |\n| Dana | 0 | ? | ? |\n```",
-
-      "#### Passo 3 — Aplicar restrição 7 (nenhum analista em mais de um projeto)",
-      "Alice já está em alpha e beta. Pela restrição 7, ela não pode estar em gamma (já determinado como 0 pela restrição 6 — consistente). Para os demais analistas, continuamos propagando.",
-
-      "#### Passo 4 — Propagar restrição 5 (carol ou dana em gamma)",
-      "A restrição 5 diz que carol ou dana trabalha em gamma. Como bob não está em gamma (0) e alice não está em gamma (0), a restrição 5 restringe a escolha a carol ou dana.",
-      "Neste ponto, o método sinalizaria que o problema ainda tem ambiguidade residual (carol e dana em gamma, e bob e carol em alpha). Em muitas aplicações práticas, essa ambiguidade é suficiente para responder à pergunta de interesse — por exemplo, *'alice trabalha em beta?'* já foi determinado como verdadeiro sem necessidade de resolver toda a atribuição.",
-
-      "## Exemplo Completo: Consistência de Regras de Negócio",
-      "Considere agora um cenário mais próximo de produção: um sistema de aprovação de crédito com três clientes (x1, x2, x3) e três relações unárias: score_alto, historico_limpo, aprovado. As regras de negócio são:",
-      "```\nR1: score_alto(x1) — x1 tem score alto (fato)\nR2: ~historico_limpo(x2) — x2 não tem histórico limpo (fato)\nR3: ~aprovado(x3) — x3 não é aprovado (fato)\nR4: ∀x.(score_alto(x) ⇒ aprovado(x)) — score alto ⇒ aprovação\nR5: ∀x.(~historico_limpo(x) ⇒ ~aprovado(x)) — sem histórico ⇒ negação\nR6: ∃x.aprovado(x) — existe ao menos um aprovado\n```",
-      "Iniciamos a propagação:",
-      "- De R1 e R4: score_alto(x1) = 1 e a regra R4 determinam aprovado(x1) = 1.\n- De R2 e R5: ~historico_limpo(x2) = 1 e a regra R5 determinam aprovado(x2) = 0.\n- De R3: aprovado(x3) = 0 diretamente.\n- De R6: ∃x.aprovado(x) = 1. Como aprovado(x1) = 1, o existencial é satisfeito.",
-      "O sistema é consistente: existe exatamente uma atribuição (para os átomos determinados) que satisfaz todas as regras. A resposta às perguntas de interesse — *'x1 é aprovado?'*, *'existe algum aprovado?'* — foram respondidas sem nenhuma busca exaustiva, apenas por propagação direta de restrições.",
-      "Uma propriedade fundamental do método de modelos booleanos é que ele pode ser usado mesmo quando não existe um único modelo. Se a propriedade de interesse é determinada antes de resolver toda a ambiguidade, já temos a resposta — sem precisar enumerar todos os modelos possíveis. Em ciência de dados, isso é análogo a **early stopping** em validação: paramos assim que temos informação suficiente para a decisão."
+      "A noção central deste capítulo é a de **consequência lógica**. Dizemos que um conjunto de premissas Δ implica logicamente uma fórmula φ, e escrevemos **Δ ⊨ φ**, quando toda interpretação que satisfaz Δ também satisfaz φ. Em linguagem simples: sempre que as premissas forem verdadeiras, a conclusão também será verdadeira. Não pode existir nenhum cenário em que as premissas sejam verdadeiras e a conclusão falsa.",
+      "Essa noção expressa uma garantia forte. Não estamos dizendo que a conclusão costuma ocorrer, nem que ela parece plausível. Estamos dizendo que ela é inevitável, dada a estrutura lógica das premissas.",
+      "## Exemplo intuitivo",
+      "Considere as seguintes afirmações:\n- todo registro com erro grave precisa ser revisado;\n- existe ao menos um registro com erro grave.",
+      "Dessas premissas segue logicamente a conclusão:\n- existe ao menos um registro que precisa ser revisado.",
+      "Podemos pensar também em um exemplo humano:\n- toda pessoa que sofre uma injustiça merece apoio;\n- existe alguém nessa situação.",
+      "Daí segue:\n- existe alguém que merece apoio.",
+      "Em ambos os casos, a conclusão não depende de opinião. Ela decorre da forma lógica das premissas.",
+      "## Verificação por modelos",
+      "Uma maneira de verificar se Δ ⊨ φ é analisar os modelos possíveis. A pergunta é:",
+      "> existe alguma interpretação em que as premissas sejam verdadeiras e a conclusão falsa?",
+      "Se existir, então não há consequência lógica. Se não existir, então a consequência lógica está confirmada.",
+      "Esse processo é chamado de **verificação de modelos**. Em muitos sistemas computacionais, validar significa exatamente isso: verificar se uma estrutura satisfaz um conjunto de restrições.",
+      "## O método da tabela-verdade",
+      "O método mais direto de verificação é a enumeração exaustiva. Construímos todas as interpretações possíveis e verificamos uma a uma. Esse método é conceitualmente importante porque explicita, de forma muito clara, o significado de consequência lógica.",
+      "Considere o exemplo:\n- p(a) ∨ p(b)\n- ∀x (p(x) → q(x))",
+      "Queremos saber se segue:\n- ∃x q(x)",
+      "A primeira premissa diz que ao menos um dos objetos satisfaz p. A segunda diz que todo objeto que satisfaz p também satisfaz q. Portanto, a conclusão natural é que existe ao menos um objeto que satisfaz q. Isso pode ser verificado listando todas as atribuições possíveis para os átomos relevantes p(a), p(b), q(a) e q(b), e conferindo se há alguma linha em que as premissas sejam verdadeiras e a conclusão falsa. Se não houver, a implicação está validada.",
+      "## A explosão combinatória",
+      "O problema da tabela-verdade é que ela cresce muito rapidamente. Se temos `n` constantes de objeto e `k` relações binárias, então a base de Herbrand cresce com `k · n²`, e o número de interpretações possíveis cresce como:",
+      "**2^(k · n²)**",
+      "Esse crescimento exponencial torna o método inviável muito cedo. Mesmo com poucos objetos e poucas relações, o número de cenários já pode ser gigantesco. Por isso, embora a tabela-verdade seja teoricamente correta e importante como fundamento semântico, ela não escala bem para problemas maiores."
     ]
   },
 
   "cap5-sec3": {
     id: "cap5-sec3",
-    title: "Modelos Não-Booleanos: Representações Compactas",
+    title: "Provas, demonstrabilidade, correção e completude",
     subtitle: "Capítulo 5",
     paragraphs: [
-      "## Limitações da Representação Booleana",
-      "O método de modelos booleanos trata cada átomo ground como uma variável binária independente. Essa representação é adequada para a maioria dos problemas, mas é ineficiente quando as restrições do problema impõem que cada relação seja funcional — ou seja, quando cada objeto deve ser mapeado a exatamente um valor.",
-      "Considere, por exemplo, uma restrição de atribuição exclusiva: cada tarefa deve ser atribuída a exatamente um analista. Em termos booleanos, isso significa que, para cada tarefa t, exatamente um dos átomos atribuido(t, a1), atribuido(t, a2), ..., atribuido(t, an) é verdadeiro. Com *n* analistas e *m* tarefas, há *n·m* variáveis booleanas, mas as restrições de unicidade eliminam a grande maioria das *2^(n·m)* combinações possíveis.",
-      "Em vez de representar cada átomo ground como uma variável booleana independente, podemos representar uma relação funcional como uma variável com domínio finito. Se cada tarefa pode ser atribuída a um de *n* analistas, representamos a atribuição de cada tarefa como uma variável com *n* possíveis valores — reduzindo o espaço de *n·m* variáveis booleanas para *m* variáveis com domínio de tamanho *n*. Para m=5, n=4: booleano = 2²⁰ ≈ 10⁶; não-booleano = 4⁵ = 1024. Uma redução dramática.",
-
-      "## Formalização: Restrições de Funcionalidade",
-      "Uma relação é funcional em seu primeiro argumento se para cada valor do primeiro argumento existe no máximo um valor do segundo argumento para o qual a relação é verdadeira.",
-      "Formalmente:",
-      "```\nFuncionalidade: ∀x.∀y.∀z.(rel(x,y) ∧ rel(x,z) ⇒ same(y,z))\n\nOnde same é a relação de identidade: same(a,b) é verdadeira se e somente se a e b\nsão a mesma constante de objeto.\n```",
-      "Com essa restrição, a relação rel se comporta como uma função: dado o primeiro argumento, o segundo é determinado de forma única.",
-
-      "## Exemplo Aplicado: Alocação de Modelos de Machine Learning",
-      "Considere um problema de alocação: temos quatro datasets (d1, d2, d3, d4) e quatro modelos de ML (regressão, árvore, rede_neural, ensemble). Cada dataset deve ser alocado a exatamente um modelo para treinamento. Usamos a relação binária alocado(dataset, modelo), com a restrição de funcionalidade:",
-      "```\n∀d.∀m1.∀m2.(alocado(d,m1) ∧ alocado(d,m2) ⇒ same(m1,m2)) — funcionalidade\n∀d.∃m.alocado(d,m) — totalidade\n\nRestrições adicionais do problema:\nalocado(d1, regressão) — d1 usa regressão (fato inicial)\nalocado(d3, árvore) — d3 usa árvore (fato inicial)\n~alocado(d2, regressão) — d2 não pode usar regressão\n~alocado(d4, rede_neural) — d4 não pode usar rede_neural\n```",
-      "Em vez de rastrear 4 × 4 = 16 variáveis booleanas, representamos o estado como quatro variáveis com domínio {regressão, árvore, rede_neural, ensemble}:",
-      "```\n| Dataset | Modelo Alocado | Estado |\n| --- | --- | --- |\n| d1 | regressão | Determinado (fato) |\n| d2 | ? (não regressão) | Parcialmente determinado |\n| d3 | árvore | Determinado (fato) |\n| d4 | ? (não rede_neural) | Parcialmente determinado |\n```",
-      "A propagação continua: como d1 usa regressão e d3 usa árvore, e cada modelo só pode ser alocado a um dataset (supondo alocação bijetiva), os modelos regressão e árvore ficam indisponíveis para d2 e d4.",
-      "- d2 deve ser alocado a rede_neural ou ensemble.\n- d4 não pode usar rede_neural, logo d4 deve usar ensemble ou regressão (mas regressão está alocado). Logo d4 usa ensemble.\n- Portanto d2 usa rede_neural.",
-      "A solução única é encontrada por propagação, sem nenhuma busca: d1=regressão, d2=rede_neural, d3=árvore, d4=ensemble. O espaço de busca efetivo foi apenas 4⁴ = 256 combinações (modelo não-booleano), versus 2¹⁶ = 65536 (modelo booleano puro)."
+      "A lógica oferece uma alternativa poderosa à enumeração exaustiva: a construção de provas. A boa notícia é que, se uma conclusão realmente decorre logicamente das premissas, então existe uma prova finita dela. Melhor ainda: essas provas costumam ser muito menores do que as tabelas correspondentes.",
+      "Aqui surge uma distinção importante entre duas ideias relacionadas, mas diferentes:",
+      "- **Δ ⊨ φ**: consequência lógica, isto é, verdade em todos os modelos;\n- **Δ ⊢ φ**: demonstrabilidade, isto é, existência de uma prova formal de φ a partir de Δ.",
+      "A primeira noção é semântica; a segunda é sintática. Em outras palavras:",
+      "- **⊨** fala sobre significado e verdade em interpretações;\n- **⊢** fala sobre derivação e regras de prova.",
+      "O objetivo de um bom sistema lógico é fazer essas duas noções se encontrarem.",
+      "## Correção e completude",
+      "Dois conceitos fundamentais entram aqui:",
+      "**Correção**: tudo o que pode ser provado é logicamente válido.\nEm símbolos: se **Δ ⊢ φ**, então **Δ ⊨ φ**.",
+      "**Completude**: tudo o que é logicamente válido pode ser provado.\nEm símbolos: se **Δ ⊨ φ**, então **Δ ⊢ φ**.",
+      "Esses dois conceitos mostram por que um sistema de prova é confiável. Se ele é correto, não prova coisas erradas. Se é completo, não deixa de fora verdades lógicas. Nos slides, essa ideia aparece como uma das justificativas centrais para trocar a tabela-verdade pelo método de provas: ambos levam aos mesmos casos de sucesso, mas a prova é muito mais eficiente."
     ]
   },
 
   "cap5-sec4": {
     id: "cap5-sec4",
-    title: "Verificação de Modelos na Prática",
+    title: "O sistema de Fitch e as regras de inferência",
     subtitle: "Capítulo 5",
     paragraphs: [
-      "## SAT Solvers e SMT Solvers",
-      "Os métodos de verificação de modelos estudados neste capítulo são os fundamentos teóricos de uma classe importante de ferramentas computacionais: os **SAT solvers** (para satisfatibilidade booleana) e os **SMT solvers** (Satisfiability Modulo Theories, para satisfatibilidade com teorias adicionais como aritmética ou igualdade).",
-      "Ferramentas como Z3 (Microsoft Research), CVC5 e MiniSAT implementam versões altamente otimizadas dos algoritmos de propagação de restrições, estendidos com técnicas de backtracking inteligente (DPLL, CDCL). Elas são capazes de resolver instâncias com milhões de variáveis em segundos — um salto quantitativo impressionante sobre a enumeração exaustiva, mas construído sobre os mesmos princípios lógicos estudados aqui.",
-      "Aplicações de SAT/SMT em Ciência de Dados:",
-      "- **Verificação de hiperparâmetros**: garantir que combinações de hiperparâmetros satisfazem restrições de compatibilidade antes de executar o grid search.\n- **Otimização de pipelines**: determinar se existe uma ordenação de etapas de um pipeline que satisfaz todas as dependências e restrições de recursos.\n- **Detecção de inconsistências em schemas**: verificar automaticamente se um schema de banco de dados contém restrições contraditórias.\n- **Geração de dados sintéticos**: gerar registros que satisfazem um conjunto especificado de restrições lógicas — útil para testes de software e balanceamento de datasets.",
-
-      "## Restrições como Especificações Executáveis",
-      "Uma perspectiva poderosa é tratar restrições lógicas como especificações executáveis do comportamento esperado de um sistema de dados. Nessa visão, o processo de verificação de modelos não é apenas uma ferramenta de análise — é uma forma de documentação formal que pode ser verificada automaticamente.",
-      "Ferramentas de qualidade de dados como **Great Expectations**, **dbt tests** e **Pandera** implementam, em essência, um subconjunto das técnicas de verificação de modelos estudadas neste capítulo. Cada 'expectativa' ou 'teste' é uma restrição lógica; o processo de validação é a verificação de que o dataset atual (o modelo) satisfaz esse conjunto de restrições.",
-      "```\n-- Restrição formal (Lógica Relacional):\n∀x.(registro(x) ⇒ ~nulo(x, coluna_id)) — nenhum registro tem ID nulo\n\n-- Implementação em Great Expectations (Python):\n# expect_column_values_to_not_be_null('id')\n\n-- Restrição formal:\n∀x.∀y.(registro(x) ∧ registro(y) ∧ mesmo_id(x,y) ⇒ mesmo_registro(x,y))\n\n-- Implementação em dbt:\n# tests: - unique (sobre a coluna id)\n```",
-      "A correspondência entre restrições lógicas formais e implementações práticas não é apenas pedagógica: ela permite que cientistas de dados raciocinem sobre a completude e consistência de seus testes, identifiquem restrições redundantes, e detectem casos não cobertos pelos testes existentes.",
-
-      "## Propagação de Restrições em Feature Engineering",
-      "Outra aplicação direta da propagação de restrições é o processo de feature engineering guiado por restrições. Em muitos domínios, as features não são independentes: restrições de negócio implicam relações lógicas entre elas que podem ser exploradas para derivar novas features ou detectar inconsistências.",
-      "Por exemplo, em um dataset de transações financeiras:",
-      "```\nR1: ∀x.(tipo_pix(x) ⇒ ~tipo_boleto(x)) — transação não pode ser pix E boleto\nR2: ∀x.(valor_alto(x) ⇒ requer_autorizacao(x)) — alto valor requer autorização\nR3: ∀x.(internacional(x) ⇒ ~tipo_pix(x)) — pix não existe para trans. internacionais\n\nDado: transação t com tipo_pix(t)=1 e internacional(t)=1\nPropagação de R3: ~tipo_pix(t) ⇒ CONTRADIÇÃO com tipo_pix(t)=1\nConclusão: o registro contém uma inconsistência — deve ser sinalizado para revisão.\n```",
-      "Esse processo de detecção de inconsistências por propagação é o que sistemas de monitoramento de dados fazem continuamente em produção. A base lógica formal garante que nenhuma inconsistência coberta pelas restrições passa despercebida."
+      "Para escrever provas de forma organizada, usamos o **sistema de Fitch**. Ele estrutura as demonstrações em linhas e subprovas, deixando claro:",
+      "- quais premissas estão disponíveis;\n- quais suposições temporárias foram abertas;\n- qual regra justifica cada passo.",
+      "Didaticamente, o sistema de Fitch funciona como um roteiro de raciocínio. Em vez de apenas afirmar que uma conclusão segue das premissas, mostramos como ela é construída.",
+      "Na lógica relacional, além das regras conhecidas dos conectivos, precisamos de regras para os quantificadores.",
+      "## Regras ligadas aos conectivos",
+      "As provas usam as regras usuais para:\n- introdução e eliminação da conjunção;\n- introdução e eliminação da disjunção;\n- introdução e eliminação da implicação;\n- introdução e eliminação da negação;\n- introdução e eliminação do bicondicional.",
+      "Essas regras já eram importantes na lógica proposicional e continuam valendo aqui.",
+      "## Novas regras da lógica relacional",
+      "Agora entram as regras específicas para os quantificadores:\n- eliminação universal;\n- fechamento do domínio;\n- introdução universal;\n- introdução existencial;\n- eliminação existencial.",
+      "Os slides também destacam a ideia de **raciocínio universal** e **raciocínio existencial**, que não são apenas regras isoladas, mas padrões de pensamento:",
+      "- no raciocínio universal, trabalhamos com um objeto arbitrário e depois generalizamos;\n- no raciocínio existencial, trabalhamos com um caso que sabemos existir, mas com cuidado para não transformar esse caso em algo arbitrário ou específico demais."
     ]
   },
 
   "cap5-sec5": {
     id: "cap5-sec5",
-    title: "Resumo do Capítulo",
+    title: "Quantificador universal: eliminação, fechamento e introdução",
+    subtitle: "Capítulo 5",
     paragraphs: [
-      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Verificação de modelos | Determinar quais atribuições de verdade satisfazem um conjunto de sentenças |\n| Tabela-verdade relacional | Enumeração exaustiva de todas as 2ⁿ atribuições; correto mas exponencial |\n| Modelos booleanos | Propagação incremental de restrições que reduz o espaço de busca |\n| Propagação de restrições | Técnica que determina átomos a partir de restrições unitárias e simplifica iterativamente |\n| Modelos não-booleanos | Representação compacta com variáveis de domínio finito para relações funcionais |\n| Restrição de funcionalidade | Axioma que garante que cada objeto mapeia para um único valor |\n| SAT/SMT solvers | Ferramentas computacionais que implementam verificação de modelos em escala |"
+      "O quantificador universal, **∀**, expressa a ideia de que uma propriedade vale para todos os elementos do domínio. Há três ideias importantes aqui: eliminação universal, fechamento do domínio e introdução universal.",
+      "## Eliminação universal",
+      "A eliminação universal formaliza a ideia intuitiva de que, se algo vale para todo mundo, então vale para um caso específico.",
+      "Se temos:\n**∀v φ**\npodemos obter uma instância específica de φ substituindo `v` por um termo **ground**, isto é, um termo fechado, sem variáveis.",
+      "Por exemplo, se sabemos:\n**∀x hates(jane, x)**\npodemos concluir:\n- hates(jane, jill)\n- hates(jane, jane)",
+      "Mas não podemos concluir diretamente algo como:\n- hates(jane, y)\nse `y` ainda estiver funcionando como variável livre. Esse é um erro importante: na eliminação universal, o termo usado precisa ser concreto.",
+      "A intuição didática é simples: vamos do geral para o específico.",
+      "## Fechamento do domínio",
+      "Em alguns contextos, o domínio é finito e completamente conhecido. Nesses casos, podemos usar o fechamento do domínio: se conseguimos provar uma propriedade para todas as constantes do domínio, então podemos concluir a versão universal da propriedade.",
+      "Suponha que o domínio seja exatamente: abby, bess, cody, dana\ne que já tenhamos:\n- likes(abby, cody)\n- likes(bess, cody)\n- likes(cody, cody)\n- likes(dana, cody)",
+      "Então podemos concluir:\n**∀x likes(x, cody)**",
+      "Isso é válido porque o domínio está fechado. Não existem outros elementos escondidos além dessas constantes.",
+      "## Introdução universal e objetos arbitrários",
+      "A introdução universal é a forma mais importante de provar conclusões universais. Em vez de testar todos os casos individualmente, escolhemos um objeto arbitrário, provamos que a propriedade vale para ele e então generalizamos.",
+      "Esse padrão é muito comum em matemática:\n1. escolha um objeto arbitrário;\n2. prove algo sobre ele;\n3. conclua que isso vale para todos.",
+      "## Placeholders",
+      "No sistema de Fitch, usamos **placeholders** para representar esses objetos arbitrários. Um placeholder não é uma constante real do domínio. Ele é apenas um marcador temporário usado dentro da prova.",
+      "Esse placeholder:\n- deve ser diferente das constantes reais do domínio;\n- só existe dentro do procedimento de prova;\n- precisa permanecer realmente arbitrário.",
+      "## Exemplo de prova com introdução universal",
+      "Considere as premissas:\n- ∀x (p(x) → q(x))\n- ∀x (q(x) → r(x))",
+      "Queremos provar:\n- ∀x (p(x) → r(x))",
+      "A estratégia é:\n1. escolher um objeto arbitrário `c`;\n2. instanciar as duas premissas para `c`;\n3. assumir `p(c)`;\n4. obter `q(c)` pela primeira premissa;\n5. obter `r(c)` pela segunda;\n6. concluir `p(c) → r(c)`;\n7. generalizar para `∀x (p(x) → r(x))`.",
+      "## Dois erros clássicos",
+      "**Primeiro erro: generalizar a partir de uma constante específica.**\nSe sabemos `happy(abby)`, não podemos concluir `∀x happy(x)`. Abby é um caso particular, não um objeto arbitrário.",
+      "**Segundo erro: generalizar enquanto ainda há suposições ativas envolvendo o placeholder.**\nSe assumimos `p(c)` e, dentro dessa hipótese, provamos `q(c)`, não podemos sair imediatamente para `∀x q(x)` enquanto a suposição `p(c)` continua ativa. Nesse caso, `c` não está livre; ele está preso à hipótese.",
+      "Esses erros aparecem como exemplos de \"prova ruim\" e \"conflito de nomes\", justamente para mostrar que introdução universal exige bastante cuidado."
+    ]
+  },
+
+  "cap5-sec6": {
+    id: "cap5-sec6",
+    title: "Quantificador existencial: introdução e eliminação",
+    subtitle: "Capítulo 5",
+    paragraphs: [
+      "O quantificador existencial, **∃**, expressa a ideia de que existe pelo menos um elemento com certa propriedade. Aqui aparecem duas regras principais: introdução existencial e eliminação existencial.",
+      "## Introdução existencial",
+      "A introdução existencial é relativamente simples. Se conseguimos provar um caso específico, então podemos concluir que existe pelo menos um caso que satisfaz aquela propriedade.",
+      "Se sabemos, por exemplo:\n- hates(jill, jill)\nentão podemos concluir:\n- ∃x hates(x, x)\n- ∃x hates(jill, x)\n- ∃x hates(x, jill)",
+      "A ideia é intuitiva: um exemplo concreto já basta para garantir uma afirmação existencial.",
+      "## Eliminação existencial",
+      "A eliminação existencial é uma das regras mais delicadas da lógica relacional. A dificuldade está em não transformar indevidamente um \"alguém que existe\" em uma constante comum ou em um objeto arbitrário.",
+      "A estrutura correta é:\n1. sabemos que existe um elemento com certa propriedade;\n2. introduzimos um representante novo para esse elemento;\n3. raciocinamos dentro de uma subprova;\n4. obtemos uma conclusão que não depende da identidade desse representante;\n5. então concluímos essa afirmação fora da subprova.",
+      "A condição essencial é:\n> o representante escolhido não pode aparecer livre na conclusão final.",
+      "Essa exigência garante que a conclusão não depende de quem era, exatamente, o indivíduo escolhido.",
+      "## Exemplo intuitivo",
+      "Suponha:\n- existe alguém que Jane odeia;\n- se Jane odeia alguém, então Jane é má.",
+      "Então podemos concluir:\n- Jane é má.",
+      "A conclusão não depende de saber quem é essa pessoa. Basta saber que existe alguém com a propriedade relevante.",
+      "## A equivalência importante ligada à EE",
+      "Um metateorema útil para entender a eliminação existencial:",
+      "**∀ν (φ ⇒ ψ)** é equivalente a **(∃ν φ ⇒ ψ)**, desde que `ψ` seja livre de `ν`.",
+      "Essa equivalência ajuda a entender por que a eliminação existencial funciona. Se, para qualquer valor de `ν`, de `φ` segue `ψ`, e `ψ` não depende especificamente de `ν`, então basta saber que existe um `ν` tal que `φ` vale para concluir `ψ`.",
+      "## EE e eliminação da disjunção",
+      "Uma maneira bastante didática de entender a eliminação existencial é compará-la com a eliminação da disjunção.",
+      "Na eliminação da disjunção, se temos `φ ∨ ψ` e conseguimos chegar a `χ` a partir de `φ` e também a partir de `ψ`, então concluímos `χ`.",
+      "Na eliminação existencial, a ideia é parecida: saber que \"existe alguém com a propriedade φ\" funciona como saber que há pelo menos um caso possível entre vários. Se qualquer representante adequado desse caso leva à mesma conclusão `ψ`, e essa conclusão não depende da identidade específica do representante, então podemos concluir `ψ`.",
+      "Por isso a EE é uma espécie de \"eliminação da disjunção turbinada\": o raciocínio é análogo, mas agora o número de casos possíveis não está explicitamente listado.",
+      "## Exemplo análogo, mais concreto",
+      "Considere:\n- ∃x passou(x)\ne suponha também:\n- se alguém passou, então a prova não estava impossível.",
+      "Podemos escolher um representante temporário `c`, assumir `passou(c)`, e a partir daí concluir que a prova não estava impossível. Como essa conclusão não depende de quem é `c`, podemos sair da subprova e concluir:\n- a prova não estava impossível.",
+      "Esse é exatamente o tipo de raciocínio existencial que procuramos tornar intuitivo."
+    ]
+  },
+
+  "cap5-sec7": {
+    id: "cap5-sec7",
+    title: "Provas e validação na prática",
+    subtitle: "Capítulo 5",
+    paragraphs: [
+      "Até aqui, vimos dois grandes caminhos: verificar modelos por enumeração e construir provas formais. Na prática, porém, muitas aplicações usam ideias intermediárias e mais eficientes, como a propagação de restrições e representações mais compactas.",
+      "## Propagação de restrições",
+      "Em muitos problemas, algumas restrições já determinam diretamente certos valores, e esses valores permitem deduzir outros. Isso evita a enumeração completa.",
+      "Por exemplo, suponha:\n- Alice está no projeto Alpha;\n- todo analista em Alpha também está em Beta;\n- Alice não está em Gamma.",
+      "Daí já concluímos que Alice está em Beta e que parte do problema foi resolvida sem testar todas as combinações possíveis.",
+      "Em IA e análise de risco, pense nas regras:\n- todo cliente com score alto é aprovado;\n- quem não tem histórico limpo não é aprovado;\n- existe pelo menos um aprovado.",
+      "Se sabemos:\n- x1 tem score alto;\n- x2 não tem histórico limpo;\n- x3 não foi aprovado,",
+      "podemos propagar:\n- x1 é aprovado;\n- x2 não é aprovado;\n- x3 não é aprovado.",
+      "E, como `x1` já satisfaz a existência de um aprovado, a pergunta \"existe algum aprovado?\" já está resolvida.",
+      "## Modelos não booleanos",
+      "Outra ideia útil é usar representações mais compactas quando a relação é funcional. Em vez de tratar tudo como várias variáveis booleanas independentes, podemos usar uma variável com domínio finito.",
+      "Por exemplo, em vez de representar:\n- alocado(d1, regressão)\n- alocado(d1, árvore)\n- alocado(d1, rede_neural)\n- alocado(d1, ensemble)",
+      "podemos representar diretamente:\n- modelo(d1) = regressão",
+      "Isso reduz muito o espaço de busca.",
+      "## Aplicações simples",
+      "Essas ideias aparecem em muitos contextos:\n- **validação de dados**: garantir unicidade, integridade, obrigatoriedade de campos;\n- **sistemas de decisão em IA**: impor restrições antes de classificar ou recomendar;\n- **engenharia de atributos**: detectar combinações inconsistentes de features;\n- **regras sociais e organizacionais**: representar relações de cuidado, apoio, dependência ou permissão.",
+      "Por exemplo:\n- toda pessoa que sofre violência merece acolhimento;\n- existe alguém nessa situação;\nlogo:\n- existe alguém que precisa de acolhimento.",
+      "Ou ainda:\n- toda mulher que apoia outra fortalece a rede de cuidado;\n- Ana apoia Beatriz;\nlogo:\n- existe ao menos uma relação de cuidado nessa rede.",
+      "Esses exemplos mostram que a lógica relacional não serve apenas para exercícios formais. Ela é uma ferramenta geral para raciocinar sobre estruturas, restrições e consequências em diferentes áreas."
+    ]
+  },
+
+  "cap5-sec8": {
+    id: "cap5-sec8",
+    title: "Resumo do Capítulo",
+    subtitle: "Capítulo 5",
+    paragraphs: [
+      "Neste capítulo, vimos que a lógica relacional amplia nossa capacidade de representar e analisar problemas porque nos permite trabalhar com objetos, relações, interpretações e quantificadores.",
+      "Aprendemos que a consequência lógica, escrita como **Δ ⊨ φ**, significa que toda interpretação que satisfaz as premissas também satisfaz a conclusão. Vimos também que a verificação por modelos pode ser feita por tabela-verdade, mas que esse método sofre com explosão combinatória e, por isso, não escala bem.",
+      "Em seguida, estudamos a alternativa das provas formais. Distinguimos consequência lógica (**⊨**) de demonstrabilidade (**⊢**), e vimos que um bom sistema de prova deve ser correto e completo. O sistema de Fitch apareceu como um modo estruturado de organizar demonstrações.",
+      "No núcleo do capítulo, estudamos as regras da lógica relacional: eliminação universal, fechamento do domínio, introdução universal, introdução existencial e eliminação existencial. Vimos o papel dos placeholders, o raciocínio sobre objetos arbitrários, o cuidado necessário para generalizar corretamente e os erros mais comuns quando essas condições não são respeitadas.",
+      "Também vimos que a eliminação existencial exige que a conclusão não dependa do indivíduo escolhido, e que sua intuição pode ser relacionada ao raciocínio por casos e à eliminação da disjunção.",
+      "Por fim, conectamos tudo isso a aplicações práticas, como validação de dados, propagação de restrições, sistemas de decisão em IA e representações compactas de problemas funcionais.",
+      "| **Conceito** | **Ideia central** | **Palavra-chave** |\n|---|---|---|\n| Consequência lógica | premissas verdadeiras garantem conclusão verdadeira | garantia |\n| Verificação de modelos | testar interpretações possíveis | validação |\n| Tabela-verdade | método exaustivo de verificação | enumeração |\n| Explosão combinatória | número de interpretações cresce muito rápido | exponencial |\n| Demonstrabilidade | provar formalmente uma conclusão | prova |\n| Correção | o sistema não prova coisas falsas | segurança |\n| Completude | o sistema consegue provar tudo que é logicamente válido | cobertura |\n| Sistema de Fitch | organiza provas em linhas e subprovas | estrutura |\n| Eliminação universal | do geral para o caso específico | instanciação |\n| Fechamento do domínio | provar para todas as constantes do domínio | domínio |\n| Introdução universal | provar para um objeto arbitrário e generalizar | generalização |\n| Placeholder | marcador temporário de objeto arbitrário | arbitrariedade |\n| Introdução existencial | um caso concreto garante um existencial | exemplo |\n| Eliminação existencial | usar um caso existente sem deixar sua identidade vazar | cuidado |\n| EE e disjunção | raciocínio existencial análogo a raciocínio por casos | analogia |\n| Propagação de restrições | deduzir novos valores sem testar tudo | eficiência |\n| Modelos não booleanos | usar domínios finitos em vez de muitos booleanos | compactação |"
     ]
   },
 
