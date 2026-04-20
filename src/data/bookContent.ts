@@ -407,8 +407,6 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Agora, aplicando esse mesmo raciocínio ao nosso contexto de ciência de dados:",
       "``` \ne ⇒ f\nf ⇒ r\n────────\ne ⇒ r\n```",
       "Lendo linha a linha:\n- **`e ⇒ f`**: se o estudante apresentou erro, então recebeu feedback.\n- **`f ⇒ r`**: se o estudante recebeu feedback, então o registro foi armazenado no log.\n- **`────────`**: separador entre premissas e conclusão.\n- **`e ⇒ r`**: logo, se o estudante apresentou erro, então sua interação foi registrada no log.",
-      "Veja como o exemplo abaixo ilustra esse encadeamento na prática:",
-      "``` \ne ⇒ f\nf ⇒ r\n────────\ne ⇒ r\n```",
 
       "##Conjunções e disjunções",
       "Muitos cenários envolvem múltiplas condições. Por exemplo:",
