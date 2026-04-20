@@ -412,7 +412,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     "##Automação como verificação de implicação lógica",
     "Para entender essa ideia, vamos retomar um exemplo que já foi trabalhado anteriormente.",
     "Considere as seguintes proposições:",
-    "- **p**: U2 apresentou erro\n- **q**: U2 recebeu feedback\n- **r**: U2 abandonou a atividade",
+    "- `p`: U2 apresentou erro\n- `q`: U2 recebeu feedback\n- `r`: U2 abandonou a atividade",
     "E as regras:",
     "- Se um estudante apresenta erro, então recebe feedback.\n- Se um estudante recebe feedback, então ele não abandona a atividade.",
     "Em linguagem lógica:",
