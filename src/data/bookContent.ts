@@ -570,7 +570,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Formalmente, uma atribuição de verdade associa a cada símbolo proposicional um valor de verdade. Neste livro, adotamos a convenção:",
       "- **1** para verdadeiro\n- **0** para falso",
       "Considere os seguintes símbolos proposicionais em um sistema educacional digital:",
-      "- **e**: o estudante apresentou erro\n- **f**: o estudante recebeu feedback\n- **r**: a interação foi registrada no log",
+      "- `e`: o estudante apresentou erro\n- `f`: o estudante recebeu feedback\n- `r`: a interação foi registrada no log",
       "Uma possível atribuição de verdade pode ser:",
       "- e = 1\n- f = 0\n- r = 1",
       "Outra atribuição, igualmente válida do ponto de vista lógico, poderia ser:",
