@@ -478,18 +478,11 @@ export const chapterContents: Record<string, ChapterContent> = {
       "##Um guia para as lógicas estudadas",
       "Embora a lógica seja frequentemente apresentada como um único campo, existem **vários sistemas lógicos distintos**, cada um com capacidades e limitações próprias. Neste livro, exploramos três grandes famílias de lógica, organizadas de forma progressiva.",
 
-      "##Lógica Proposicional",
-      "A **Lógica Proposicional** é a lógica das proposições, nas quais símbolos representam **condições globais sobre o mundo**.",
-      "Em ciência de dados, ela aparece naturalmente em regras IF-THEN, árvores de decisão, validações e sistemas baseados em regras.",
-      "Essa lógica é computacionalmente bem comportada e totalmente decidível.",
+      "**Lógica Proposicional:** é a lógica das proposições, nas quais símbolos representam condições globais sobre o mundo. Em ciência de dados, ela aparece naturalmente em regras IF-THEN, árvores de decisão, validações e sistemas baseados em regras, sendo computacionalmente bem comportada e totalmente decidível.",
 
-      "##Lógica Relacional",
-      "A **Lógica Relacional** amplia a lógica proposicional ao permitir falar sobre **objetos individuais e suas relações**.",
-      "Ela introduz variáveis, quantificadores e predicados, sendo fundamental para modelar bases de dados e regras gerais.",
+      "**Lógica Relacional:** amplia a lógica proposicional ao permitir falar sobre objetos individuais e suas relações. Ela introduz variáveis, quantificadores e predicados, sendo fundamental para modelar bases de dados e regras gerais.",
 
-      "##Lógica Funcional",
-      "A **Lógica Funcional** permite descrever mundos com **infinitos objetos**, aumentando significativamente o poder expressivo da linguagem.",
-      "Esse ganho vem acompanhado de um custo: algumas propriedades computacionais desejáveis são perdidas.",
+      "**Lógica Funcional:** permite descrever mundos com infinitos objetos, aumentando significativamente o poder expressivo da linguagem. Esse ganho vem acompanhado de um custo: algumas propriedades computacionais desejáveis são perdidas.",
 
       "##Expressividade versus complexidade",
       "Todas essas lógicas compartilham uma linguagem formal, uma semântica precisa e uma noção clara de **implicação lógica**.",
