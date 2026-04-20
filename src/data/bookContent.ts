@@ -403,10 +403,10 @@ export const chapterContents: Record<string, ChapterContent> = {
       "A lógica permite encadear implicações por meio de regras de inferência. Antes de ver um exemplo, é importante entender o símbolo **⇒**, lido como *“implica”* ou *“então”*. Quando escrevemos `p ⇒ q`, estamos dizendo que **sempre que p for verdadeiro, q também será verdadeiro**. Ou seja, p é uma condição suficiente para q. A linha horizontal (────────) separa as **premissas** (acima) da **conclusão** (abaixo): se aceitamos as premissas, então a conclusão segue necessariamente.",
       "Um exemplo clássico desse encadeamento é a **transitividade**:",
       "``` \np ⇒ q\nq ⇒ s\n────────\np ⇒ s\n```",
-      "Lendo linha a linha:\n- **`p ⇒ q`**: se p é verdadeiro, então q também é.\n- **`q ⇒ s`**: se q é verdadeiro, então s também é.\n- **`────────`**: separador entre premissas e conclusão.\n- **`p ⇒ s`**: portanto, se p é verdadeiro, s também é. A relação “atravessa” q e conecta diretamente p a s.",
+      "Lendo linha a linha:\n- **p ⇒ q**: se p é verdadeiro, então q também é.\n- **q ⇒ s**: se q é verdadeiro, então s também é.\n- **p ⇒ s**: portanto, se p é verdadeiro, s também é. A relação “atravessa” q e conecta diretamente p a s.",
       "Agora, aplicando esse mesmo raciocínio ao nosso contexto de ciência de dados:",
       "``` \ne ⇒ f\nf ⇒ r\n────────\ne ⇒ r\n```",
-      "Lendo linha a linha:\n- **`e ⇒ f`**: se o estudante apresentou erro, então recebeu feedback.\n- **`f ⇒ r`**: se o estudante recebeu feedback, então o registro foi armazenado no log.\n- **`────────`**: separador entre premissas e conclusão.\n- **`e ⇒ r`**: logo, se o estudante apresentou erro, então sua interação foi registrada no log.",
+      "Lendo linha a linha:\n- **e ⇒ f**: se o estudante apresentou erro, então recebeu feedback.\n- **f ⇒ r**: se o estudante recebeu feedback, então o registro foi armazenado no log.\n- **e ⇒ r**: logo, se o estudante apresentou erro, então sua interação foi registrada no log.",
 
       "##Conjunções e disjunções",
       "Muitos cenários envolvem múltiplas condições. Por exemplo:",
