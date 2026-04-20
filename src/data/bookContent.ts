@@ -1545,9 +1545,9 @@ export const chapterContents: Record<string, ChapterContent> = {
       "A lógica por trás da refutação é elegante: se φ é verdadeiro em todo modelo que satisfaz Δ, então ~φ é falso em todo modelo que satisfaz Δ. Logo, Δ ∪ {~φ} não tem nenhum modelo, é insatisfatível. A resolução detecta essa insatisfatibilidade derivando a cláusula vazia. Em ciência de dados, isso corresponde a testar uma hipótese por contraposição: em vez de provar diretamente que 'todo modelo treinado em dados limpos generaliza bem', negamos a conclusão ('existe um modelo treinado em dados limpos que não generaliza') e mostramos que essa afirmação é inconsistente com as premissas do sistema.",
       "### Exemplo Completo de Refutação",
       "Demonstremos a validade de `(p ⇒ (q ⇒ p))`, o esquema de Criação de Implicação, sem nenhuma premissa. A prova é puramente por refutação: negamos a sentença, convertemos para forma clausal e derivamos a cláusula vazia.",
-      "**Passo 1, Negar a conclusão e converter para forma clausal**",
+      "**Passo 1 — Negar a conclusão e converter para forma clausal**",
       "```\n| Passo | Expressão |\n|---|---|\n| Original | ~(p ⇒ (q ⇒ p)) |\n| I | ~(~p ∨ (~q ∨ p)) |\n| N | ~~p ∧ ~(~q ∨ p) ⇒ p ∧ (~~q ∧ ~p) ⇒ p ∧ q ∧ ~p |\n| D | p ∧ q ∧ ~p |\n| O | {p} e {q} e {~p} |\n```",
-      "**Passo 2, Derivação por resolução**",
+      "**Passo 2 — Derivação por resolução**",
       "```\n| Linha | Cláusula | Origem |\n|---|---|---|\n| 1 | {p} | Premissa (da negação) |\n| 2 | {q} | Premissa (da negação) |\n| 3 | {~p} | Premissa (da negação) |\n| 4 | {} | Resolução: 1 e 3 (cancelar p e ~p), CONTRADIÇÃO |\n```",
       "A cláusula vazia é derivada em um único passo, confirmando que a sentença é uma **tautologia**, verdadeira independentemente de qualquer premissa."
     ]
