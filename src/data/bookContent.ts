@@ -409,9 +409,9 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Lendo linha a linha:\n- **e ⇒ f**: se o estudante apresentou erro, então recebeu feedback.\n- **f ⇒ r**: se o estudante recebeu feedback, então o registro foi armazenado no log.\n- **e ⇒ r**: logo, se o estudante apresentou erro, então sua interação foi registrada no log.",
 
       "##Conjunções e disjunções",
-      "Muitos cenários envolvem múltiplas condições combinadas. Para isso, usamos dois conectivos: o **∧** (lido como *“e”*), que exige que **todas** as condições sejam verdadeiras ao mesmo tempo, e o **∨** (lido como *“ou”*), que exige que **pelo menos uma** das condições seja verdadeira. Vejamos o primeiro caso, com conjunção:",
+      "Muitos cenários envolvem múltiplas condições combinadas. Para isso, usamos dois conectivos: a **conjunção**, representada por **∧** (lida como *“e”*), que exige que **todas** as condições sejam verdadeiras ao mesmo tempo, e a **disjunção**, representada por **∨** (lida como *“ou”*), que exige que **pelo menos uma** das condições seja verdadeira. Vejamos o primeiro caso, com conjunção:",
       "``` \n(e ∧ a) ⇒ i\ni ⇒ r\n```",
-      "Lendo linha a linha:\n- **(e ∧ a) ⇒ i**: se o estudante apresentou erro **e** pediu ajuda, então houve uma interação.\n- **i ⇒ r**: se houve interação, então o registro foi armazenado no log.\n\nEncadeando as duas premissas pela transitividade vista antes, concluímos:",
+      "Lendo linha a linha:\n\n**(e ∧ a) ⇒ i**: se o estudante apresentou erro **e** pediu ajuda, então houve uma interação.\n\n**i ⇒ r**: se houve interação, então o registro foi armazenado no log.\n\nEncadeando as duas premissas pela transitividade vista antes, concluímos:",
       "``` \n(e ∧ a) ⇒ r\n```",
       "Ou seja: **se ocorreram erro e pedido de ajuda simultaneamente, então o log foi registrado**, sem precisar mencionar a interação intermediária.",
 
