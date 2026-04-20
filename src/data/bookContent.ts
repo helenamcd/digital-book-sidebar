@@ -500,7 +500,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Na Lógica Proposicional, distinguimos dois tipos fundamentais de sentenças: **sentenças simples (ou proposições atômicas)** e **sentenças compostas**.",
       "As sentenças simples expressam fatos elementares sobre o mundo. Elas não contêm conectivos lógicos e, do ponto de vista da Lógica Proposicional, são tratadas como **unidades atômicas**, isto é, sua estrutura interna não é analisada.",
       "Exemplos em ciência de dados educacionais:",
-      "- `erro` (o estudante cometeu erro)\n- `ajuda` (o estudante clicou no botão de ajuda)\n- `abandono` (o estudante abandonou a atividade)\n- `log` (a interação foi registrada no log)",
+      "- **erro**: o estudante cometeu erro\n- **ajuda**: o estudante clicou no botão de ajuda\n- **abandono**: o estudante abandonou a atividade\n- **log**: a interação foi registrada no log",
       "Cada uma dessas proposições pode ser avaliada como verdadeira ou falsa em um determinado cenário.",
       "Formalmente, essas sentenças são representadas por **símbolos proposicionais (ou variáveis proposicionais)**, normalmente escritos como identificadores simples, compostos por letras, números e sublinhados, iniciados por letra minúscula. Essa restrição sintática evita ambiguidades e aproxima a lógica das linguagens formais usadas em computação.",
       "##Conectivos lógicos e sentenças compostas",
