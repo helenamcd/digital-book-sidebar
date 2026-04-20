@@ -51,7 +51,6 @@ export const chapters: Chapter[] = [
       { id: "cap1-sec2", title: "Semântica" },
       { id: "cap1-sec3", title: "Avaliação ou Interpretação" },
       { id: "cap1-sec4", title: "Satisfatibilidade" },
-      { id: "cap1-sec5", title: "Exemplos" },
       { id: "cap2-sec1", title: "Propriedades Lógicas das Sentenças" },
       { id: "cap2-sec2", title: "Equivalência Lógica" },
       { id: "cap2-sec3", title: "Consequência Lógica" },
