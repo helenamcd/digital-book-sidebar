@@ -363,7 +363,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Assim como em problemas algébricos, o primeiro passo para o raciocínio lógico rigoroso em ciência de dados é a **formalização**. Em vez de trabalhar diretamente com frases em linguagem natural, identificamos os fatos relevantes e os representamos por **símbolos**.",
 
       "Considere as seguintes definições:",
-      "- `e` (o estudante apresentou erro)\n- `f` (o estudante recebeu feedback)\n- `a` (o estudante abandonou a atividade)\n- `r` (o registro foi armazenado no log)",
+      "- **e**: o estudante apresentou erro\n- **f**: o estudante recebeu feedback\n- **a**: o estudante abandonou a atividade\n- **r**: o registro foi armazenado no log",
 
       "Com essas abreviações, podemos escrever sentenças como:",
       "``` \ne ⇒ f\nf ⇒ r\n```",
