@@ -494,7 +494,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Sintaxe da Lógica Proposicional",
     subtitle: "Capítulo 2",
     paragraphs: [
-      "A Lógica Proposicional não se ocupa apenas do significado das sentenças, mas também da sua **forma**. Essa dimensão formal é chamada de **sintaxe**. A sintaxe define quais expressões são sentenças bem formadas e como sentenças mais complexas podem ser construídas a partir de sentenças simples.",
+      "A Lógica Proposicional não trata apenas do significado das sentenças, mas também da maneira como elas são construídas. Essa parte relacionada à estrutura é chamada de **sintaxe**. A sintaxe estabelece regras que dizem quais expressões são válidas (bem formadas) e como podemos construir sentenças mais complexas a partir de sentenças simples.",
       "Na ciência de dados, a sintaxe desempenha um papel semelhante ao da gramática em uma linguagem de programação: ela garante que regras, hipóteses e condições sejam expressas de maneira **precisa, não ambígua e verificável**.",
       "##Sentenças simples e sentenças compostas",
       "Na Lógica Proposicional, distinguimos dois tipos fundamentais de sentenças: **sentenças simples (ou proposições atômicas)** e **sentenças compostas**.",
