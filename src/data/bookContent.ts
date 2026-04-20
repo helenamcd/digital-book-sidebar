@@ -547,6 +547,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Essa convenção é amplamente adotada, mas o uso explícito de parênteses é sempre recomendado quando houver qualquer dúvida sobre a estrutura da sentença.",
       "Exemplos:",
       "```\\n¬ erro ∧ ajuda     ≡ ((¬ erro) ∧ ajuda)\nerro ∧ ajuda ∨ log ≡ ((erro ∧ ajuda) ∨ log)\nerro ⇒ ajuda ⇔ log ≡ ((erro ⇒ ajuda) ⇔ log)\\n```",
+      "Nos exemplos acima, o símbolo **≡** representa **equivalência**: indica que a sentença à esquerda e a sentença à direita têm exatamente o mesmo significado lógico, ou seja, a versão sem parênteses (à esquerda) deve ser interpretada como a versão totalmente parentizada (à direita).",
       "Quando operadores de mesma precedência aparecem em sequência, adotam-se **convenções de associatividade (à esquerda ou à direita)**, garantindo uma interpretação única da sentença.",
       "##Vocabulário e linguagem proposicional",
       "Um **vocabulário proposicional** é o conjunto de todos os símbolos proposicionais disponíveis (por exemplo, `{erro, ajuda, abandono, log}`).",
