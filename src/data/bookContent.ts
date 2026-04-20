@@ -409,17 +409,21 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Lendo linha a linha:\n- **e ⇒ f**: se o estudante apresentou erro, então recebeu feedback.\n- **f ⇒ r**: se o estudante recebeu feedback, então o registro foi armazenado no log.\n- **e ⇒ r**: logo, se o estudante apresentou erro, então sua interação foi registrada no log.",
 
       "##Conjunções e disjunções",
-      "Muitos cenários envolvem múltiplas condições. Por exemplo:",
+      "Muitos cenários envolvem múltiplas condições combinadas. Para isso, usamos dois conectivos: o **∧** (lido como *“e”*), que exige que **todas** as condições sejam verdadeiras ao mesmo tempo, e o **∨** (lido como *“ou”*), que exige que **pelo menos uma** das condições seja verdadeira. Vejamos o primeiro caso, com conjunção:",
       "``` \n(e ∧ a) ⇒ i\ni ⇒ r\n```",
-      "Nesse caso, concluímos:",
+      "Lendo linha a linha:\n- **(e ∧ a) ⇒ i**: se o estudante apresentou erro **e** pediu ajuda, então houve uma interação.\n- **i ⇒ r**: se houve interação, então o registro foi armazenado no log.\n\nEncadeando as duas premissas pela transitividade vista antes, concluímos:",
       "``` \n(e ∧ a) ⇒ r\n```",
+      "Ou seja: **se ocorreram erro e pedido de ajuda simultaneamente, então o log foi registrado**, sem precisar mencionar a interação intermediária.",
 
-      "Também podemos representar alternativas:",
+      "Também podemos representar **alternativas** com a disjunção. No exemplo abaixo, basta que uma das condições aconteça para que a conclusão valha:",
       "``` \n(e ∨ a) ⇒ i\n```",
+      "Leitura: se o estudante apresentou erro **ou** pediu ajuda (não importa qual dos dois, podendo ser até os dois), então houve uma interação. A disjunção é útil para capturar situações em que diferentes gatilhos levam ao mesmo efeito.",
 
       "##Esquema geral de inferência",
-      "De forma abstrata, podemos representar um padrão geral de raciocínio:",
+      "Generalizando os padrões anteriores, podemos representar qualquer regra de inferência envolvendo conjunções e disjunções no seguinte esquema abstrato:",
       "``` \np₁ ∧ … ∧ pₖ ⇒ q₁ ∨ … ∨ qₗ\nr₁ ∧ … ∧ rₘ ⇒ s₁ ∨ … ∨ sₙ\n────────────────────────\np₁ ∧ … ∧ pₖ ∧ r₁ ∧ … ∧ rₘ ⇒ q₁ ∨ … ∨ qₗ ∨ s₁ ∨ … ∨ sₙ\n```",
+      "Lendo linha a linha:\n- **p₁ ∧ … ∧ pₖ ⇒ q₁ ∨ … ∨ qₗ**: a primeira premissa diz que, se todas as condições p₁, …, pₖ forem verdadeiras ao mesmo tempo, então pelo menos uma das alternativas q₁, …, qₗ se realiza.\n- **r₁ ∧ … ∧ rₘ ⇒ s₁ ∨ … ∨ sₙ**: a segunda premissa segue a mesma estrutura, com outro conjunto de condições (r₁, …, rₘ) levando a outras alternativas (s₁, …, sₙ).\n- **p₁ ∧ … ∧ pₖ ∧ r₁ ∧ … ∧ rₘ ⇒ q₁ ∨ … ∨ qₗ ∨ s₁ ∨ … ∨ sₙ**: a conclusão combina os dois lados — se **todas** as condições das duas premissas valerem juntas, então **alguma** das alternativas das duas conclusões necessariamente valerá.",
+      "Em outras palavras: ao juntar as hipóteses de duas regras (com **∧**), também juntamos as possíveis consequências (com **∨**). Esse esquema é a base para descrever sistemas com muitas variáveis, como conjuntos de regras de negócio, políticas de acesso ou modelos de decisão.",
 
       "Esse tipo de formalização permite aplicar a lógica a **regras, logs, sistemas educacionais e modelos de decisão**, eliminando ambiguidades e garantindo conclusões corretas.",
 
