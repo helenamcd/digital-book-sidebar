@@ -184,7 +184,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Prefácio",
     paragraphs: [
       "## Origem e Motivação",
-      "Este livro nasceu de uma necessidade concreta: apresentar os fundamentos da lógica formal a estudantes de graduação em Inteligência Artificial e Ciência de Dados de forma rigorosa, mas sem perder de vista as aplicações que motivam o estudo dessas ferramentas. A lógica, frequentemente relegada a um papel secundário nos currículos modernos de computação, é na verdade o substrato conceitual de alguns dos sistemas de IA mais sofisticados — de provadores automáticos de teoremas a grafos de conhecimento, de programação lógica a sistemas de verificação formal de modelos de aprendizado de máquina.",
+      "Este livro nasceu de uma necessidade concreta: apresentar os fundamentos da lógica formal a estudantes de graduação em Inteligência Artificial e Ciência de Dados de forma rigorosa, mas sem perder de vista as aplicações que motivam o estudo dessas ferramentas. A lógica, frequentemente relegada a um papel secundário nos currículos modernos de computação, é na verdade o substrato conceitual de alguns dos sistemas de IA mais sofisticados, de provadores automáticos de teoremas a grafos de conhecimento, de programação lógica a sistemas de verificação formal de modelos de aprendizado de máquina.",
       "A literatura existente sobre lógica formal para computação divide-se, em geral, entre obras altamente abstratas (inacessíveis para a maioria dos estudantes de IA e Ciência de Dados) e introduções superficiais que tratam a lógica como mero pré-requisito. Este livro ocupa um espaço até então vazio: uma obra rigorosa e orientada à prática, que conecta os fundamentos da lógica formal a tecnologias e problemas concretos do ecossistema contemporâneo, como SAT solvers, bancos de dados relacionais, ontologias, grafos de conhecimento, programação lógica e IA neurossimbólica. Trata-se, ao nosso conhecimento, do primeiro texto em língua portuguesa a reunir esses tópicos em uma progressão pedagógica coerente, pensada especificamente para formar profissionais nas áreas de Inteligência Artificial e Ciência de Dados capazes de raciocinar com precisão sobre dados, modelos e decisões automatizadas.",
       "O ponto de partida foi a obra seminal *Introduction to Logic* (*Synthesis Lectures on Computer Science*, Volume 8, 3ª edição), de {{ref:genesereth|Michael Genesereth e Eric J. Kao|GENESERETH, M.; KAO, E. J. Introduction to Logic. 3rd ed. Synthesis Lectures on Computer Science, Vol. 8. Morgan & Claypool Publishers, 2017. Disponível em: https://intrologic.stanford.edu}}, publicada pela Morgan & Claypool. Complementarmente, o desenvolvimento deste trabalho também se apoiou em outras referências consolidadas da área. Em língua portuguesa, recorreu-se a {{ref:alencar|Alencar Filho (2000)|ALENCAR FILHO, E. Iniciação a lógica matemática. São Paulo: Nobel, 2000.}}, cuja obra *Iniciação à Lógica Matemática* oferece uma introdução acessível e sistemática aos fundamentos da disciplina, e a {{ref:souza|Souza (2002)|SOUZA, J. N. Lógica para Ciência da Computação. São Paulo: Campus, 2002.}}, com *Lógica para Ciência da Computação*, voltado especificamente ao contexto computacional. Para as discussões envolvendo inteligência artificial e representação do conhecimento, utilizou-se {{ref:russell|Russell e Norvig (2004)|RUSSEL, R.; NORVIG, P. Inteligência Artificial. 2a ed. Rio de Janeiro: Campus, 2004.}}, referência clássica no campo. Por fim, incorporou-se a contribuição de {{ref:vargas|Vargas, Silva e Finger (2022)|VARGAS, Ketrin Diovana Alves Rodrigues; DA SILVA, João Pablo Silva; FINGER, Alice Fonseca. Estratégias para o ensino de lógica matemática com pensamento computacional: Uma revisão sistemática da literatura. Simpósio Brasileiro de Informática na Educação (SBIE), p. 1391-1403, 2022.}}, estudo de revisão sistemática que investiga estratégias para o ensino de lógica matemática articuladas ao pensamento computacional, trazendo uma perspectiva contemporânea e educacional ao conjunto bibliográfico.",
       "Esta obra é organizada em três dimensões principais: (1) *adaptação do nível de apresentação* para estudantes de graduação em IA e Ciência de Dados, com maior ênfase em intuições e motivações; (2) *fusão e reorganização de capítulos*, condensando conteúdo onde apropriado e aprofundando onde relevante para o público-alvo; e (3) *introdução sistemática de conexões com IA e Ciência de Dados*, incluindo exemplos em Python, discussões sobre aprendizado de máquina, grafos de conhecimento, raciocínio neurossimbólico e limites computacionais.",
@@ -192,7 +192,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "## Para Quem é Este Livro",
       "Este livro é dirigido a estudantes de graduação em Inteligência Artificial, Ciência de Dados, Ciência da Computação e áreas afins que buscam uma fundamentação lógica sólida. Presume-se familiaridade com pensamento algorítmico básico e noções elementares de matemática discreta, mas não se exige experiência prévia com lógica formal.",
       "A progressão dos capítulos é deliberadamente gradual:",
-      "- **Capítulos 1–4:** Lógica Proposicional — conectivos, tabelas-verdade, sistema Fitch, satisfatibilidade\n- **Capítulos 5–6:** Lógica Relacional — variáveis, quantificadores, modelos de Herbrand\n- **Capítulo 7:** Lógica de Primeira Ordem — interpretações, igualdade, universos infinitos\n- **Capítulo 8:** Indução e Generalização — formas de indução completa e suas aplicações\n- **Capítulo 9:** Conclusão integrativa — panorama do raciocínio em IA, limites formais e fronteiras de pesquisa",
+      "- **Capítulos 1-4:** Lógica Proposicional, conectivos, tabelas-verdade, sistema Fitch, satisfatibilidade\n- **Capítulos 5-6:** Lógica Relacional, variáveis, quantificadores, modelos de Herbrand\n- **Capítulo 7:** Lógica de Primeira Ordem, interpretações, igualdade, universos infinitos\n- **Capítulo 8:** Indução e Generalização, formas de indução completa e suas aplicações\n- **Capítulo 9:** Conclusão integrativa, panorama do raciocínio em IA, limites formais e fronteiras de pesquisa",
       "## Termo de Uso de Inteligência Artificial na Produção deste Livro",
       "Em consonância com os valores de transparência e rigor que norteiam esta obra, os autores declaram explicitamente o uso de ferramentas de Inteligência Artificial Generativa no processo de produção deste livro. A seguir, descrevemos o processo adotado e os papéis desempenhados por humanos e sistemas de IA em cada etapa.",
       "### Descrição do Processo de Produção",
@@ -204,10 +204,10 @@ export const chapterContents: Record<string, ChapterContent> = {
       "### Princípios que Guiaram o Uso de IA",
       "O uso de IA neste projeto foi pautado por três princípios fundamentais, alinhados com boas práticas emergentes em publicação acadêmica assistida por IA:",
       "- **Supervisão humana em todas as fases.** Nenhum conteúdo técnico foi publicado sem revisão por um docente especialista. A IA atuou como ferramenta de produtividade e escrita, não como autoridade epistêmica.\n- **Transparência plena.** O uso de IA é declarado explicitamente neste prefácio, com descrição detalhada das fases e dos papéis de cada agente. Os autores consideram que a opacidade sobre o uso de IA em materiais didáticos é eticamente inaceitável.\n- **Responsabilidade pelos erros.** Eventuais imprecisões técnicas, pedagógicas ou conceituais são de responsabilidade dos autores humanos, que fizeram as escolhas finais em cada etapa do processo.",
-      "| **Nota sobre Limitações da IA Generativa**<br/>Sistemas de IA generativa como o utilizado neste projeto podem produzir conteúdo incorreto, incompleto ou impreciso — especialmente em domínios que exigem raciocínio formal rigoroso. O processo de revisão humana descrito acima foi desenhado precisamente para mitigar esses riscos. Leitores que identificarem imprecisões técnicas são encorajados a comunicá-las aos autores. |\n|---|",
+      "| **Nota sobre Limitações da IA Generativa**<br/>Sistemas de IA generativa como o utilizado neste projeto podem produzir conteúdo incorreto, incompleto ou impreciso, especialmente em domínios que exigem raciocínio formal rigoroso. O processo de revisão humana descrito acima foi desenhado precisamente para mitigar esses riscos. Leitores que identificarem imprecisões técnicas são encorajados a comunicá-las aos autores. |\n|---|",
       "## Agradecimentos",
       "Os autores expressam profunda gratidão aos professores **Michael Genesereth** e **Eric J. Kao**, cujo trabalho pioneiro em lógica formal para ciência da computação tornou este projeto possível. A clareza e a precisão da obra original foram o padrão que buscamos manter e superar em cada página desta adaptação.",
-      "Agradecemos também aos estudantes de graduação que utilizaram versões preliminares deste material em sala de aula — suas dúvidas, críticas e sugestões foram indispensáveis para moldar a versão final. A vocês, este livro é dedicado.",
+      "Agradecemos também aos estudantes de graduação que utilizaram versões preliminares deste material em sala de aula, suas dúvidas, críticas e sugestões foram indispensáveis para moldar a versão final. A vocês, este livro é dedicado.",
       "*Os Autores*",
       "## Nota sobre esta Edição em PDF",
       "Esta edição em formato PDF foi gerada automaticamente pelo sistema de Inteligência Artificial Claude (Anthropic) a partir do escaneamento e processamento do conteúdo do livro digital disponível em logica.livros.alicce.com.br. O processo envolveu a leitura estruturada do código-fonte da aplicação web, a extração do conteúdo textual, a conversão de formatações e a composição tipográfica do documento. Por ser um processo automatizado, esta versão pode conter inconsistências de formatação, quebras de página inesperadas, caracteres mal renderizados ou pequenas divergências em relação à versão digital interativa. Em caso de dúvida sobre o conteúdo, recomenda-se consultar a versão online, que é a versão oficial e continuamente atualizada do livro.",
@@ -227,7 +227,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     
       "##Lógica como base para modelos, regras e decisões",
       "Em cursos de ciência de dados, é comum que os alunos aprendam rapidamente ferramentas, linguagens e bibliotecas. No entanto, sem uma base lógica sólida, surge um problema recorrente: **modelos funcionam, mas as decisões não são bem compreendidas**. A lógica ajuda o estudante a responder perguntas como:",
-      "- O que exatamente meu modelo está afirmando?\n- Em quais condições essa conclusão é válida?\n- Que suposições estou fazendo sobre os dados?\n- Que inferências são justificadas — e quais não são?",
+      "- O que exatamente meu modelo está afirmando?\n- Em quais condições essa conclusão é válida?\n- Que suposições estou fazendo sobre os dados?\n- Que inferências são justificadas, e quais não são?",
       "Considere um exemplo típico em IHC e análise de comportamento do usuário:",
       "```\\nSE (Tempo_de_tarefa > esperado)\\nE  (Número_de_erros alto)\\nENTÃO (Usuário está confuso)\\n```",
       "Sem lógica, essa regra parece intuitiva. Com lógica, o aluno aprende a questionar:\n\n- Essa condição é suficiente ou apenas necessária?\n- O inverso é verdadeiro?\n- Existem exceções?\n- O que acontece se apenas uma das condições ocorrer?",
@@ -238,14 +238,14 @@ export const chapterContents: Record<string, ChapterContent> = {
       "```\\nIntuição humana\\n       ↓\\nExpressão lógica\\n       ↓\\nImplementação computacional\\n```",
       "Esse processo é central na ciência de dados. Um pipeline de dados pode ser visto como uma sequência de inferências:",
       "```\\nDados brutos\\n   ↓\\nPré-processamento (regras)\\n   ↓\\nModelo (hipóteses)\\n   ↓\\nInferência (conclusões)\\n```",
-      "Cada etapa envolve decisões lógicas, mesmo quando usamos modelos probabilísticos. A lógica não compete com a estatística ou o aprendizado de máquina — ela **organiza o pensamento que dá sentido a essas ferramentas**.",
+      "Cada etapa envolve decisões lógicas, mesmo quando usamos modelos probabilísticos. A lógica não compete com a estatística ou o aprendizado de máquina, ela **organiza o pensamento que dá sentido a essas ferramentas**.",
 
       "##Por que aprender lógica no curso de Ciência de Dados?",
       "Aprender lógica ajuda o aluno a:",
       "- **Pensar com precisão**, evitando ambiguidades em definições e análises.\n- **Interpretar resultados**, distinguindo correlação, implicação e causalidade.\n- **Projetar regras e sistemas explicáveis**, especialmente em contextos de IHC.\n- **Comunicar decisões**, tornando argumentos claros para equipes multidisciplinares.\n- **Detectar falácias**, tanto em análises próprias quanto em resultados automatizados.",
       "Em vez de ver a lógica como um conjunto abstrato de símbolos, este livro a apresenta como uma **ferramenta prática para estruturar o raciocínio em ciência de dados**, conectando formalismo e aplicação. Ao longo dos capítulos, o leitor verá como proposições, operadores lógicos, inferência e provas aparecem, de forma explícita ou implícita, em tarefas cotidianas da área.",
-      "Aprender lógica, portanto, não é apenas aprender a \"provar coisas\", mas aprender a **pensar melhor sobre dados, modelos e decisões** — uma habilidade essencial para qualquer cientista de dados contemporâneo.",
-      "\"Pensar logicamente é aprender a transformar dados em decisões justificáveis.\" — Fundamentos de Lógica Aplicada à Ciência de Dados",
+      "Aprender lógica, portanto, não é apenas aprender a \"provar coisas\", mas aprender a **pensar melhor sobre dados, modelos e decisões**, uma habilidade essencial para qualquer cientista de dados contemporâneo.",
+      "\"Pensar logicamente é aprender a transformar dados em decisões justificáveis.\", Fundamentos de Lógica Aplicada à Ciência de Dados",
 
     ],
   },
@@ -255,7 +255,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Sentenças Lógicas na Ciência de Dados",
     subtitle: "Introdução",
     paragraphs: [
-      "Para muitos estudantes, a lógica ainda parece um tema distante e excessivamente teórico, associada apenas a demonstrações matemáticas formais ou a provas abstratas sem ligação aparente com a prática profissional. Na ciência de dados, porém, essa percepção não poderia estar mais equivocada. Sempre que lidamos com dados reais, estamos cercados por **incerteza, múltiplas possibilidades e informação incompleta** — exatamente o tipo de cenário para o qual as sentenças lógicas foram criadas.",
+      "Para muitos estudantes, a lógica ainda parece um tema distante e excessivamente teórico, associada apenas a demonstrações matemáticas formais ou a provas abstratas sem ligação aparente com a prática profissional. Na ciência de dados, porém, essa percepção não poderia estar mais equivocada. Sempre que lidamos com dados reais, estamos cercados por **incerteza, múltiplas possibilidades e informação incompleta**, exatamente o tipo de cenário para o qual as sentenças lógicas foram criadas.",
       "Na ciência de dados, uma **sentença lógica** é uma afirmação que pode ser verdadeira ou falsa sobre o mundo representado pelos dados. Por exemplo:",
       "- “O usuário clicou no botão de ajuda”\n- “O tempo de execução da tarefa foi maior que o esperado”\n- “O modelo classificou o usuário como em risco de evasão”.",
       "Cada uma dessas afirmações descreve um aspecto do sistema ou do comportamento do usuário e, assim como na lógica clássica, pode ser avaliada como verdadeira ou falsa em diferentes situações.",
@@ -263,7 +263,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "##Mundos possíveis e dados",
       "Considere um sistema interativo analisado por uma equipe de ciência de dados em um contexto de IHC. Suponha que estamos observando quatro usuários (**U1, U2, U3 e U4**) e queremos modelar se cada usuário:",
       "- clicou no botão de ajuda;\n- apresentou erro na tarefa;\n- concluiu a atividade.",
-      "Cada uma dessas relações pode ser verdadeira ou falsa para cada usuário. Assim como no exemplo clássico de relações interpessoais, **não conhecemos inicialmente o estado real do sistema**, apenas sabemos que existem várias configurações possíveis.",
+      "Cada uma dessas relações pode ser verdadeira ou falsa para cada usuário. **Não conhecemos inicialmente o estado real do sistema**, apenas sabemos que existem várias configurações possíveis.",
       "Cada configuração possível desses fatos corresponde a um **mundo possível**. Um mundo é simplesmente uma maneira específica de o sistema estar naquele momento.",
       "Por exemplo:",
       "- Em um mundo possível, U1 clicou no botão de ajuda e concluiu a tarefa sem erros.\n- Em outro, U1 não clicou no botão de ajuda e abandonou a tarefa após vários erros.",
@@ -276,29 +276,29 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Cada uma dessas sentenças elimina certos mundos possíveis e mantém outros. Por exemplo, qualquer mundo em que U2 não tenha concluído a tarefa é automaticamente descartado se acreditamos na primeira sentença.",
       "Para visualizar esse processo, vamos definir as proposições envolvidas:",
       "- **p₁**: U2 concluiu a tarefa\n- **p₂**: U3 clicou no botão de ajuda\n- **p₃**: U1 apresentou erro\n- **p₄**: U1 abandonou a tarefa\n- **p₅**: U1 recebeu mensagem de apoio\n- **p₆**: U2 recebeu mensagem de apoio\n- **p₇**: U3 recebeu mensagem de apoio",
-      "####Passo 1 — Todos os mundos possíveis (antes de qualquer restrição)",
+      "####Passo 1, Todos os mundos possíveis (antes de qualquer restrição)",
       "Com 7 proposições, teríamos 128 mundos possíveis. Para simplificar, mostramos apenas alguns mundos representativos:",
-      "```\n| Mundo | p₁ | p₂ | p₃ | p₄ | p₅ | p₆ | p₇ | Status |\n| M1 | V | V | V | V | V | V | V | — |\n| M2 | V | V | V | F | V | F | F | — |\n| M3 | V | F | V | F | V | F | F | — |\n| M4 | V | F | F | V | F | F | F | — |\n| M5 | V | F | F | F | F | F | F | — |\n| M6 | F | V | V | V | V | V | V | — |\n| M7 | F | F | F | F | F | F | F | — |\n| M8 | V | F | V | V | V | F | F | — |\n```",
-      "####Passo 2 — Aplicando S1: \"U2 concluiu a tarefa\" (p₁ = V)",
+      "```\n| Mundo | p₁ | p₂ | p₃ | p₄ | p₅ | p₆ | p₇ | Status |\n| M1 | V | V | V | V | V | V | V |, |\n| M2 | V | V | V | F | V | F | F |, |\n| M3 | V | F | V | F | V | F | F |, |\n| M4 | V | F | F | V | F | F | F |, |\n| M5 | V | F | F | F | F | F | F |, |\n| M6 | F | V | V | V | V | V | V |, |\n| M7 | F | F | F | F | F | F | F |, |\n| M8 | V | F | V | V | V | F | F |, |\n```",
+      "####Passo 2, Aplicando S1: \"U2 concluiu a tarefa\" (p₁ = V)",
       "Eliminamos todo mundo em que p₁ = F:",
       "```\n| Mundo | p₁ | p₂ | p₃ | p₄ | p₅ | p₆ | p₇ | Status |\n| M1 | V | V | V | V | V | V | V | ✓ |\n| M2 | V | V | V | F | V | F | F | ✓ |\n| M3 | V | F | V | F | V | F | F | ✓ |\n| M4 | V | F | F | V | F | F | F | ✓ |\n| M5 | V | F | F | F | F | F | F | ✓ |\n| M6 | F | V | V | V | V | V | V | ✗ Eliminado |\n| M7 | F | F | F | F | F | F | F | ✗ Eliminado |\n| M8 | V | F | V | V | V | F | F | ✓ |\n```",
       "Os mundos M6 e M7 são descartados porque neles U2 não concluiu a tarefa.",
-      "####Passo 3 — Aplicando S2: \"U3 não clicou no botão de ajuda\" (p₂ = F)",
+      "####Passo 3, Aplicando S2: \"U3 não clicou no botão de ajuda\" (p₂ = F)",
       "Eliminamos todo mundo em que p₂ = V:",
       "```\n| Mundo | p₁ | p₂ | p₃ | p₄ | p₅ | p₆ | p₇ | Status |\n| M1 | V | V | V | V | V | V | V | ✗ Eliminado |\n| M2 | V | V | V | F | V | F | F | ✗ Eliminado |\n| M3 | V | F | V | F | V | F | F | ✓ |\n| M4 | V | F | F | V | F | F | F | ✓ |\n| M5 | V | F | F | F | F | F | F | ✓ |\n| M8 | V | F | V | V | V | F | F | ✓ |\n```",
       "Os mundos M1 e M2 são eliminados porque neles U3 clicou no botão de ajuda.",
-      "####Passo 4 — Aplicando S3: \"U1 apresentou erro ou abandonou a tarefa\" (p₃ ∨ p₄ = V)",
+      "####Passo 4, Aplicando S3: \"U1 apresentou erro ou abandonou a tarefa\" (p₃ ∨ p₄ = V)",
       "Eliminamos todo mundo em que tanto p₃ = F quanto p₄ = F:",
       "```\n| Mundo | p₁ | p₂ | p₃ | p₄ | p₅ | p₆ | p₇ | Status |\n| M3 | V | F | V | F | V | F | F | ✓ |\n| M4 | V | F | F | V | F | F | F | ✓ |\n| M5 | V | F | F | F | F | F | F | ✗ Eliminado |\n| M8 | V | F | V | V | V | F | F | ✓ |\n```",
       "O mundo M5 é descartado porque nele U1 não apresentou erro nem abandonou a tarefa.",
-      "####Passo 5 — Aplicando S4: \"Todo usuário que apresentou erro recebeu mensagem de apoio\" (p₃ → p₅)",
+      "####Passo 5, Aplicando S4: \"Todo usuário que apresentou erro recebeu mensagem de apoio\" (p₃ → p₅)",
       "Se p₃ = V, então p₅ deve ser V. Verificamos os mundos restantes:",
       "```\n| Mundo | p₁ | p₂ | p₃ | p₄ | p₅ | p₆ | p₇ | Status |\n| M3 | V | F | V | F | V | F | F | ✓ (p₃=V e p₅=V) |\n| M4 | V | F | F | V | F | F | F | ✓ (p₃=F, regra não se aplica) |\n| M8 | V | F | V | V | V | F | F | ✓ (p₃=V e p₅=V) |\n```",
       "Todos sobrevivem! Em M4, U1 não apresentou erro, então a regra não exige mensagem.",
-      "####Passo 6 — Aplicando S5: \"Nenhum usuário recebe mensagem sem ter apresentado erro\" (p₅ → p₃)",
+      "####Passo 6, Aplicando S5: \"Nenhum usuário recebe mensagem sem ter apresentado erro\" (p₅ → p₃)",
       "Se um usuário recebeu mensagem de apoio, ele deve ter apresentado erro. Além disso, p₆ → (U2 apresentou erro) e p₇ → (U3 apresentou erro). Como não temos proposições para erros de U2 e U3, verificamos se p₆ = F e p₇ = F nos mundos restantes:",
       "```\n| Mundo | p₁ | p₂ | p₃ | p₄ | p₅ | p₆ | p₇ | Status |\n| M3 | V | F | V | F | V | F | F | ✓ Sobrevive |\n| M4 | V | F | F | V | F | F | F | ✓ Sobrevive |\n| M8 | V | F | V | V | V | F | F | ✓ Sobrevive |\n```",
-      "####Resultado final — Mundos compatíveis com todas as sentenças",
+      "####Resultado final, Mundos compatíveis com todas as sentenças",
       "```\n| Mundo | p₁ | p₂ | p₃ | p₄ | p₅ | p₆ | p₇ | Interpretação |\n| M3 | V | F | V | F | V | F | F | U1 errou (sem abandono) e recebeu apoio |\n| M4 | V | F | F | V | F | F | F | U1 abandonou (sem erro) e não recebeu apoio |\n| M8 | V | F | V | V | V | F | F | U1 errou e abandonou, recebeu apoio |\n```",
       "Das 128 combinações iniciais, restam apenas **3 mundos possíveis** compatíveis com todas as sentenças. O mundo real deve ser um deles. Esse é o poder das sentenças lógicas como **restrições**: cada nova informação reduz o espaço de possibilidades, aproximando-nos progressivamente da verdade sobre os dados.",
       "Acreditar em uma sentença equivale a afirmar que o mundo real está **entre aqueles em que essa sentença é verdadeira**. Assim, as sentenças funcionam como filtros: elas reduzem o espaço de possibilidades compatíveis com os dados observados.",
@@ -322,13 +322,13 @@ export const chapterContents: Record<string, ChapterContent> = {
     subtitle: "Introdução",
     paragraphs: [
       "##Consequência lógica na ciência de dados",
-      "Na ciência de dados, raramente trabalhamos com informações completas. Em geral, temos um conjunto de sentenças derivadas de dados — como registros, logs e rótulos — ou de regras e modelos construídos sobre esses dados. Essas sentenças descrevem apenas parcialmente o sistema que estamos analisando. A partir delas, queremos responder perguntas fundamentais: *o que pode ser concluído com certeza?* O que é apenas possível? E o que não pode ser verdadeiro de forma alguma?",
+      "Na ciência de dados, raramente trabalhamos com informações completas. Em geral, temos um conjunto de sentenças derivadas de dados, como registros, logs e rótulos, ou de regras e modelos construídos sobre esses dados. Essas sentenças descrevem apenas parcialmente o sistema que estamos analisando. A partir delas, queremos responder perguntas fundamentais: *o que pode ser concluído com certeza?* O que é apenas possível? E o que não pode ser verdadeiro de forma alguma?",
       "É nesse contexto que surge a noção de **consequência lógica**: quando uma conclusão é verdadeira em *todo* cenário compatível com o que sabemos, dizemos que ela é uma consequência lógica das nossas premissas. Em outras palavras, não é possível aceitar as premissas como verdadeiras e ao mesmo tempo rejeitar a conclusão.",
-      "Atenção: consequência lógica não é o mesmo que o conectivo \"se… então\" (→). O conectivo é uma peça da linguagem formal — uma sentença que pode ser verdadeira ou falsa. A consequência lógica é uma *relação entre sentenças*: ela diz que sempre que as premissas são verdadeiras, a conclusão também é. Usamos o símbolo ⊨ para indicar essa relação: Γ ⊨ φ significa \"φ é consequência lógica de Γ\".",
+      "Atenção: consequência lógica não é o mesmo que o conectivo \"se… então\" (→). O conectivo é uma peça da linguagem formal, uma sentença que pode ser verdadeira ou falsa. A consequência lógica é uma *relação entre sentenças*: ela diz que sempre que as premissas são verdadeiras, a conclusão também é. Usamos o símbolo ⊨ para indicar essa relação: Γ ⊨ φ significa \"φ é consequência lógica de Γ\".",
       "##Exemplo: sistema educacional digital",
-      "Considere um sistema educacional digital em que mensagens de apoio são enviadas exatamente quando um estudante comete erro — nada mais, nada menos. A partir dos dados, sabemos que:",
+      "Considere um sistema educacional digital em que mensagens de apoio são enviadas exatamente quando um estudante comete erro, nada mais, nada menos. A partir dos dados, sabemos que:",
       "- Todo estudante que cometeu erro recebeu mensagem de apoio.\n- Todo estudante que recebeu mensagem de apoio cometeu erro.\n- O estudante U2 recebeu uma mensagem de apoio.",
-      "As duas primeiras sentenças estabelecem uma equivalência: cometer erro e receber mensagem de apoio são condições que sempre ocorrem juntas. Dado isso, os dados não precisam dizer diretamente que U2 cometeu erro — não é possível que U2 tenha recebido uma mensagem sem tê-lo cometido. Logo, \"U2 cometeu erro\" é uma consequência lógica das três premissas, derivada apenas pela estrutura lógica das sentenças, sem nenhum cálculo estatístico.",
+      "As duas primeiras sentenças estabelecem uma equivalência: cometer erro e receber mensagem de apoio são condições que sempre ocorrem juntas. Dado isso, os dados não precisam dizer diretamente que U2 cometeu erro, não é possível que U2 tenha recebido uma mensagem sem tê-lo cometido. Logo, \"U2 cometeu erro\" é uma consequência lógica das três premissas, derivada apenas pela estrutura lógica das sentenças, sem nenhum cálculo estatístico.",
       "##Quando as premissas não determinam completamente o que é verdadeiro",
       "Na prática, um conjunto de premissas costuma ser compatível com vários cenários ao mesmo tempo. Suponha que os dados indiquem apenas:",
       "- U1 cometeu erro ou abandonou a tarefa.\n- U1 não recebeu mensagem de apoio.",
@@ -337,7 +337,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "- **Certa:** verdadeira em todos os cenários compatíveis com as premissas. Podemos afirmá-la.\n- **Impossível:** falsa em todos os cenários. Podemos negá-la.\n- **Indeterminada:** verdadeira em alguns cenários e falsa em outros. Não podemos nem afirmar nem negar.",
       "##Verificando consequência lógica",
       "Uma forma de verificar se uma conclusão é consequência lógica das premissas é avaliá-la em todos os cenários compatíveis com as premissas e checar se ela é verdadeira em cada um. Essa ideia corresponde à verificação por modelos (*model checking*), onde avaliamos a conclusão em todos os cenários possíveis de forma sistemática.",
-      "Para problemas pequenos isso é viável. Mas em ciência de dados real o número de cenários cresce rapidamente — às vezes até ao infinito — tornando a enumeração impraticável. Por isso, nos próximos capítulos veremos como usar *regras formais de inferência* para chegar às mesmas conclusões de forma simbólica, sem precisar listar todos os cenários possíveis.",
+      "Para problemas pequenos isso é viável. Mas em ciência de dados real o número de cenários cresce rapidamente, às vezes até ao infinito, tornando a enumeração impraticável. Por isso, nos próximos capítulos veremos como usar *regras formais de inferência* para chegar às mesmas conclusões de forma simbólica, sem precisar listar todos os cenários possíveis.",
     ],
   },
 
@@ -352,7 +352,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Esse raciocínio é análogo ao que fazemos em álgebra. Em vez de testar valores aleatórios até encontrar uma solução, manipulamos simbolicamente as equações. De forma semelhante, em lógica, partimos de **premissas** e aplicamos **regras formais de inferência** para obter conclusões que já estão implicitamente contidas nessas premissas.",
 
       "##Regras de inferência e padrões de raciocínio",
-      "Uma contribuição central da lógica clássica foi a identificação de **regras de inferência** — padrões corretos de raciocínio que preservam a verdade.",
+      "Uma contribuição central da lógica clássica foi a identificação de **regras de inferência**, padrões corretos de raciocínio que preservam a verdade.",
       "Considere um exemplo simples em ciência de dados educacionais:",
       "- Todo estudante que cometeu erro recebeu feedback automático.\n- Todo estudante que recebeu feedback automático teve sua atividade registrada no log.",
       "Portanto:\n- Todo estudante que cometeu erro teve sua atividade registrada no log.",
@@ -374,7 +374,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "A **dedução** parte de princípios gerais ou regras já aceitas e chega a conclusões específicas. Quando as premissas são verdadeiras e o raciocínio é válido, a conclusão é **garantidamente verdadeira**. Por esse motivo, a dedução é o objeto central de estudo da Lógica.",
       "A **indução**, por outro lado, parte de observações particulares para formular generalizações. Por exemplo:",
       "- Observei muitos usuários com esse comportamento.\n- Nunca observei um caso contrário.\n- Portanto, esse comportamento sempre ocorre.",
-      "Esse tipo de raciocínio é a base da **Ciência empírica e da aprendizagem de máquina**. No entanto, quando a indução é incompleta — isto é, quando não observamos todos os casos possíveis —, ela **não oferece garantias absolutas**. Sempre pode existir um caso ainda não observado que contradiga a conclusão.",
+      "Esse tipo de raciocínio é a base da **Ciência empírica e da aprendizagem de máquina**. No entanto, quando a indução é incompleta, isto é, quando não observamos todos os casos possíveis -, ela **não oferece garantias absolutas**. Sempre pode existir um caso ainda não observado que contradiga a conclusão.",
       "Essa distinção esteve no cerne de uma famosa divergência entre o físico **Albert Einstein** e seu contemporâneo **Niels Bohr**. Bohr ridicularizou a ênfase de Einstein na dedução em vez da indução, afirmando: *“Você não está pensando; você está apenas sendo lógico”*. Bohr defendia a indução como motor da descoberta científica, enquanto Einstein atribuía grande valor à dedução e à coerência lógica.",
       "Na ciência de dados, essa tensão permanece atual: **a indução permite descobrir padrões**, enquanto **a dedução garante a correção das conclusões extraídas a partir de regras e modelos**.",
 
@@ -474,7 +474,7 @@ export const chapterContents: Record<string, ChapterContent> = {
 
       "##Lógica Proposicional",
       "A **Lógica Proposicional** é a lógica das proposições, nas quais símbolos representam **condições globais sobre o mundo**.",
-      "Em ciência de dados, ela aparece naturalmente em regras IF–THEN, árvores de decisão, validações e sistemas baseados em regras.",
+      "Em ciência de dados, ela aparece naturalmente em regras IF-THEN, árvores de decisão, validações e sistemas baseados em regras.",
       "Essa lógica é computacionalmente bem comportada e totalmente decidível.",
 
       "##Lógica Relacional",
@@ -512,12 +512,12 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Lógica Proposicional",
     subtitle: "Capítulo 2",
     paragraphs: [
-      "A **Lógica Proposicional** é o ponto de partida formal para o estudo da lógica aplicada à ciência de dados. Ela se ocupa de **proposições** e das **relações lógicas** entre elas. Uma proposição é uma possível condição do mundo que pode ser avaliada como **verdadeira ou falsa** — exemplos simples incluem 'está chovendo', 'o usuário clicou no botão de ajuda' ou 'o modelo classificou o aluno como em risco'.",
+      "A **Lógica Proposicional** é o ponto de partida formal para o estudo da lógica aplicada à ciência de dados. Ela se ocupa de **proposições** e das **relações lógicas** entre elas. Uma proposição é uma possível condição do mundo que pode ser avaliada como **verdadeira ou falsa**, exemplos simples incluem 'está chovendo', 'o usuário clicou no botão de ajuda' ou 'o modelo classificou o aluno como em risco'.",
       "É importante notar que uma proposição **não precisa ser conhecida como verdadeira** para ser considerada uma proposição. Ela representa uma possibilidade sobre o estado do mundo, definida justamente por poder ser avaliada em um determinado contexto. Em ciência de dados, frequentemente lidamos com proposições cujo valor ainda é desconhecido ou depende da verificação de outras condições.",
-      "Neste capítulo, apresentamos a Lógica Proposicional como uma **linguagem formal** para representar conhecimento de maneira precisa. Começamos pelos **elementos sintáticos** da linguagem (símbolos proposicionais e conectivos lógicos) e pela **semântica** (atribuições de valores de verdade e tabelas-verdade). Em seguida, avançamos para a **avaliação** mecânica de sentenças — o processo de calcular o valor de verdade de uma sentença a partir de uma atribuição — e para a noção de **satisfatibilidade**, que investiga quais atribuições tornam uma sentença verdadeira.",
+      "Neste capítulo, apresentamos a Lógica Proposicional como uma **linguagem formal** para representar conhecimento de maneira precisa. Começamos pelos **elementos sintáticos** da linguagem (símbolos proposicionais e conectivos lógicos) e pela **semântica** (atribuições de valores de verdade e tabelas-verdade). Em seguida, avançamos para a **avaliação** mecânica de sentenças, o processo de calcular o valor de verdade de uma sentença a partir de uma atribuição, e para a noção de **satisfatibilidade**, que investiga quais atribuições tornam uma sentença verdadeira.",
       "Ao longo dessas seções, mostramos como a Lógica Proposicional pode formalizar tanto fragmentos da **linguagem natural** quanto o funcionamento de **circuitos digitais**, evidenciando seu papel fundamental na computação.",
       "Na segunda parte do capítulo, mudamos o foco de sentenças individuais para **propriedades e relações entre sentenças**. Investigamos quando uma sentença é válida, contingente ou insatisfatível; quando duas sentenças são logicamente equivalentes; quando uma conclusão é consequência lógica de premissas; e quando um conjunto de regras é consistente. Encerramos conectando essas noções por meio dos principais metateoremas e mostrando como reescritas por equivalência permitem simplificar e transformar expressões lógicas.",
-      "A Lógica Proposicional ocupa um lugar especial por combinar **simplicidade conceitual** com **fortes garantias computacionais**. Embora sua capacidade expressiva seja limitada quando comparada a lógicas mais sofisticadas, ela permite compreender, de forma clara, conceitos centrais como **implicação lógica**, **consistência**, **satisfatibilidade** e **consequência lógica** — conceitos que servirão de base para os capítulos seguintes e para aplicações mais avançadas em ciência de dados e inteligência artificial.",
+      "A Lógica Proposicional ocupa um lugar especial por combinar **simplicidade conceitual** com **fortes garantias computacionais**. Embora sua capacidade expressiva seja limitada quando comparada a lógicas mais sofisticadas, ela permite compreender, de forma clara, conceitos centrais como **implicação lógica**, **consistência**, **satisfatibilidade** e **consequência lógica**, conceitos que servirão de base para os capítulos seguintes e para aplicações mais avançadas em ciência de dados e inteligência artificial.",
     ],
   },
 
@@ -596,7 +596,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Na álgebra, não nos importamos se uma variável representa idade, temperatura ou dinheiro. O que importa são as relações expressas pelas equações. De modo análogo, na **Lógica Proposicional**, não nos interessa o significado real das proposições, mas **como os valores de verdade das sentenças simples determinam o valor de verdade das sentenças compostas**.",
       "Essa abstração é fundamental para a **ciência de dados**. Ela permite que regras, modelos simbólicos e sistemas de decisão sejam avaliados de forma **independente do domínio específico**, garantindo consistência, verificabilidade e automatização do raciocínio.",
       "##Proposições e atribuições de verdade",
-      "Uma **proposição** representa uma possibilidade sobre o estado do mundo que pode ser avaliada como verdadeira ou falsa em um determinado cenário. A lógica não fixa se uma proposição é verdadeira ou falsa — isso depende do contexto observado ou assumido.",
+      "Uma **proposição** representa uma possibilidade sobre o estado do mundo que pode ser avaliada como verdadeira ou falsa em um determinado cenário. A lógica não fixa se uma proposição é verdadeira ou falsa, isso depende do contexto observado ou assumido.",
       "Para tornar esse contexto explícito, utilizamos o conceito de **atribuição de verdade**.",
       "Formalmente, uma atribuição de verdade associa a cada símbolo proposicional um valor de verdade. Neste livro, adotamos a convenção:",
       "- **1** para verdadeiro\n- **0** para falso",
@@ -625,7 +625,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "##Implicação (⇒)",
       "A implicação é falsa **apenas quando o antecedente é verdadeiro e o consequente é falso**. Em todos os outros casos, ela é verdadeira. Essa definição é conhecida como **implicação material**:",
       "```\\n| φ | ψ | φ ⇒ ψ |\n|---|---|-------|\n| 1 | 1 | 1     |\n| 1 | 0 | 0     |\n| 0 | 1 | 1     |\n| 0 | 0 | 1     |\\n```",
-      "*Exemplo:* \"Se o estudante apresentou erro, então recebeu feedback\". A lógica não afirma que o erro ocorreu — apenas verifica se, **caso tenha ocorrido**, a consequência foi respeitada.",
+      "*Exemplo:* \"Se o estudante apresentou erro, então recebeu feedback\". A lógica não afirma que o erro ocorreu, apenas verifica se, **caso tenha ocorrido**, a consequência foi respeitada.",
       "##Bicondicional (⇔)",
       "O bicondicional é verdadeiro quando as duas sentenças possuem **o mesmo valor de verdade**:",
       "```\\n| φ | ψ | φ ⇔ ψ |\n|---|---|-------|\n| 1 | 1 | 1     |\n| 1 | 0 | 0     |\n| 0 | 1 | 0     |\n| 0 | 0 | 1     |\\n```",
@@ -667,7 +667,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "```\\np = 0\nq = 1\nr = 0\\n```",
       "Avaliando a mesma sentença:",
       "```\\n(p ∨ q) ∧ (¬q ∨ r)\n(0 ∨ 1) ∧ (¬1 ∨ 0)\n1 ∧ (0 ∨ 0)\n1 ∧ 0\n0\n```",
-      "Nesse caso, a sentença avalia como **falsa**. A mesma regra lógica, aplicada a valores diferentes, pode produzir resultados diferentes — e isso é central em ciência de dados: **a validade de uma regra depende do estado dos dados**, não da regra isoladamente.",
+      "Nesse caso, a sentença avalia como **falsa**. A mesma regra lógica, aplicada a valores diferentes, pode produzir resultados diferentes, e isso é central em ciência de dados: **a validade de uma regra depende do estado dos dados**, não da regra isoladamente.",
       "##Avaliação como processo computacional",
       "O custo da avaliação de uma sentença lógica é proporcional ao tamanho da própria sentença. Em termos práticos, isso significa que regras lógicas podem ser avaliadas de forma eficiente mesmo em sistemas computacionais.",
       "Além disso, existem otimizações naturais:",
@@ -723,7 +723,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     paragraphs: [
       "Nesta seção, apresentamos exemplos clássicos de aplicação da **Lógica Proposicional** em dois contextos distintos: linguagem natural e circuitos digitais. O objetivo é mostrar como sentenças informais e sistemas físicos podem ser formalizados de maneira rigorosa, permitindo análise, verificação e inferência.",
       "Para garantir clareza conceitual, os exemplos a seguir foram cuidadosamente estruturados, explicitando o papel de cada símbolo proposicional e o significado lógico de cada sentença.",
-      "##Exemplo 1 — Linguagem Natural",
+      "##Exemplo 1, Linguagem Natural",
       "Considere três propriedades associadas a uma mesma pessoa (ou entidade analisada):",
       "- **c**: a pessoa é confiável;\n- **f**: a pessoa é flexível;\n- **p**: a pessoa é produtiva.",
       "Cada símbolo proposicional representa uma **afirmação atômica** que pode ser verdadeira ou falsa em um determinado cenário.",
@@ -750,8 +750,8 @@ export const chapterContents: Record<string, ChapterContent> = {
       "```\\\np ⇔ (c ∨ f)\n1 ⇔ 1\n1\n```",
       "Avaliação da negação:",
       "```\\\n¬(c ∧ f)\n¬(1 ∧ 1)\n¬1\n0\n```",
-      "Nesse cenário, três sentenças são verdadeiras e uma é falsa. Isso mostra que **formalizar sentenças não garante sua veracidade** — a lógica permite justamente verificar a consistência entre regras e dados.",
-      "##Exemplo 2 — Circuitos Digitais",
+      "Nesse cenário, três sentenças são verdadeiras e uma é falsa. Isso mostra que **formalizar sentenças não garante sua veracidade**, a lógica permite justamente verificar a consistência entre regras e dados.",
+      "##Exemplo 2, Circuitos Digitais",
       "| **Nota de contexto**<br/>Este exemplo conecta a Lógica Proposicional a sistemas físicos. Se você ainda não teve contato com circuitos digitais, não se preocupe: o importante aqui não é o hardware em si, mas perceber que os mesmos conectivos lógicos (∧, ∨, ¬) que usamos para formalizar linguagem natural são exatamente os que descrevem o comportamento de portas lógicas. Leia focando nos símbolos e nas sentenças, não nos detalhes do circuito. |\n|---|",
       "A Lógica Proposicional é amplamente utilizada para modelar sistemas físicos determinísticos, como **circuitos digitais**. Cada nó do circuito pode estar ligado (1) ou desligado (0), o que se alinha naturalmente à semântica proposicional.",
       "###Definição dos símbolos",
@@ -784,7 +784,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "###Sentenças válidas",
       "Uma sentença é **válida** quando é satisfeita por **todas** as atribuições de valores de verdade. Em termos práticos, isso significa que ela nunca falha, independentemente do cenário.",
       "Por exemplo, `p ∨ ¬p` é válida: se **p** for verdadeiro, a disjunção é verdadeira; se **p** for falso, **¬p** é verdadeiro.",
-      "Do ponto de vista aplicado, sentenças válidas se comportam como tautologias: não impõem restrições reais e, portanto, não ajudam a discriminar cenários. Por outro lado, são úteis como base para transformações corretas, simplificações e verificações automáticas — não servem para decidir, mas servem para garantir.",
+      "Do ponto de vista aplicado, sentenças válidas se comportam como tautologias: não impõem restrições reais e, portanto, não ajudam a discriminar cenários. Por outro lado, são úteis como base para transformações corretas, simplificações e verificações automáticas, não servem para decidir, mas servem para garantir.",
       "###Sentenças insatisfatíveis",
       "Uma sentença é **insatisfatível** quando nenhuma atribuição consegue torná-la verdadeira; ela falha em qualquer cenário possível.",
       "Por exemplo, `p ∧ ¬p` é insatisfatível: **p** não pode ser verdadeiro e falso ao mesmo tempo.",
@@ -846,7 +846,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "```\n| p | q | p | p ∧ q |\n|---|---|---|-------|\n| 1 | 1 | 1 |   1   |\n| 1 | 0 | 1 |   0   |\n| 0 | 1 | 0 |   0   |\n| 0 | 0 | 0 |   0   |\n```",
       "A segunda linha mostra a falha: a premissa é verdadeira e a conclusão é falsa. A consequência lógica não vale.",
       "###Consequência lógica versus equivalência",
-      "Consequência lógica não é simétrica: φ ⊨ ψ não implica ψ ⊨ φ. A relação expressa inclusão de comportamentos — é mais próxima de uma desigualdade do que de uma igualdade.",
+      "Consequência lógica não é simétrica: φ ⊨ ψ não implica ψ ⊨ φ. A relação expressa inclusão de comportamentos, é mais próxima de uma desigualdade do que de uma igualdade.",
       "###Exemplo aplicado: inferência segura em regras",
       "Considere as premissas `m ⇒ (p ∨ q)` e `p ⇒ q`. Podemos concluir `m ⇒ q`, pois toda atribuição que satisfaz as duas premissas torna a conclusão verdadeira.",
     ]
@@ -866,13 +866,13 @@ export const chapterContents: Record<string, ChapterContent> = {
       "###Consistência não é equivalência nem consequência",
       "Duas sentenças podem ser consistentes sem serem equivalentes e sem que uma implique a outra. No exemplo anterior, `p ∨ q` e `¬p ∨ ¬q` coexistem em alguns cenários, mas não dizem a mesma coisa e não garantem uma à outra.",
       "###Consequência lógica por vacuidade",
-      "Um resultado importante — e contraintuitivo à primeira vista — surge quando o conjunto de premissas é **insatisfatível**.",
-      "Se um conjunto Δ é insatisfatível, não existe nenhuma atribuição que o satisfaça. Portanto, não existe nenhuma atribuição que satisfaça Δ e ao mesmo tempo falsifique qualquer conclusão φ. Pela definição de consequência lógica, isso significa que Δ ⊨ φ para **qualquer** φ — um conjunto insatisfatível implica logicamente qualquer coisa.",
+      "Um resultado importante, e contraintuitivo à primeira vista, surge quando o conjunto de premissas é **insatisfatível**.",
+      "Se um conjunto Δ é insatisfatível, não existe nenhuma atribuição que o satisfaça. Portanto, não existe nenhuma atribuição que satisfaça Δ e ao mesmo tempo falsifique qualquer conclusão φ. Pela definição de consequência lógica, isso significa que Δ ⊨ φ para **qualquer** φ, um conjunto insatisfatível implica logicamente qualquer coisa.",
       "Esse resultado é chamado de **consequência por vacuidade**: a implicação vale não porque as premissas garantem a conclusão, mas porque não existe nenhum contraexemplo possível.",
-      "Considere o conjunto `{p, ¬p}`. Não existe atribuição que satisfaça simultaneamente `p` e `¬p`. Logo, esse conjunto implica logicamente `q`, `¬q`, `r ∧ s` — qualquer sentença que queiramos.",
+      "Considere o conjunto `{p, ¬p}`. Não existe atribuição que satisfaça simultaneamente `p` e `¬p`. Logo, esse conjunto implica logicamente `q`, `¬q`, `r ∧ s`, qualquer sentença que queiramos.",
       "```\n| Situação das premissas | O que acontece |\n|---|---|\n| Conjunto vazio {} | Só tautologias são consequências |\n| Conjunto satisfatível | A consequência depende do conteúdo |\n| Conjunto insatisfatível | Toda sentença é consequência |\n```",
       "###Por que isso é importante em Ciência de Dados",
-      "Inconsistência costuma indicar regras incompatíveis, restrições impossíveis ou falhas de modelagem. O resultado da vacuidade mostra **por que** conjuntos inconsistentes são perigosos: deles é possível inferir qualquer coisa, tornando o raciocínio completamente inútil. Um sistema de decisão com regras contraditórias pode justificar qualquer conclusão — inclusive conclusões opostas para o mesmo caso.",
+      "Inconsistência costuma indicar regras incompatíveis, restrições impossíveis ou falhas de modelagem. O resultado da vacuidade mostra **por que** conjuntos inconsistentes são perigosos: deles é possível inferir qualquer coisa, tornando o raciocínio completamente inútil. Um sistema de decisão com regras contraditórias pode justificar qualquer conclusão, inclusive conclusões opostas para o mesmo caso.",
       "Por isso, checar consistência é um passo fundamental antes de inferir, otimizar ou explicar regras.",
     ]
   },
@@ -882,8 +882,8 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Conexões entre Propriedades e Relações Lógicas",
     subtitle: "Capítulo 2",
     paragraphs: [
-      "Até aqui, estudamos propriedades de sentenças individuais (validade, satisfatibilidade, insatisfatibilidade) e relações entre sentenças (equivalência, consequência, consistência) como conceitos separados. Nesta seção, vemos como eles se conectam — e por que essas conexões são úteis na prática.",
-      "É importante distinguir dois níveis: o **nível lógico**, onde vivem os conectivos (∧, ∨, ¬, ⇒, ⇔) e as sentenças da nossa linguagem formal; e o **metanível**, onde fazemos afirmações *sobre* sentenças — equivalência, consequência e consistência são conceitos do metanível. O que os teoremas a seguir mostram é que podemos expressar relações do metanível indiretamente, construindo sentenças compostas e verificando suas propriedades.",
+      "Até aqui, estudamos propriedades de sentenças individuais (validade, satisfatibilidade, insatisfatibilidade) e relações entre sentenças (equivalência, consequência, consistência) como conceitos separados. Nesta seção, vemos como eles se conectam, e por que essas conexões são úteis na prática.",
+      "É importante distinguir dois níveis: o **nível lógico**, onde vivem os conectivos (∧, ∨, ¬, ⇒, ⇔) e as sentenças da nossa linguagem formal; e o **metanível**, onde fazemos afirmações *sobre* sentenças, equivalência, consequência e consistência são conceitos do metanível. O que os teoremas a seguir mostram é que podemos expressar relações do metanível indiretamente, construindo sentenças compostas e verificando suas propriedades.",
       "###Teorema da Equivalência",
       "φ e ψ são logicamente equivalentes se, e somente se, `φ ⇔ ψ` é válida.",
       "Isso significa que verificar equivalência entre duas sentenças é o mesmo que verificar a validade do bicondicional que as conecta.",
@@ -897,10 +897,10 @@ export const chapterContents: Record<string, ChapterContent> = {
       "###Teorema da Monotonicidade",
       "Se Γ ⊨ φ, então para qualquer conjunto Δ ⊇ Γ, também Δ ⊨ φ.",
       "Em palavras: **acrescentar premissas nunca invalida conclusões já garantidas**. Saber mais não faz você perder conclusões anteriores.",
-      "Em ciência de dados, isso significa que adicionar novas regras de negócio a um sistema existente não quebra as inferências que já eram válidas — desde que o conjunto permaneça consistente. Se uma nova regra introduz inconsistência, o problema não é a monotonicidade, mas a própria inconsistência.",
+      "Em ciência de dados, isso significa que adicionar novas regras de negócio a um sistema existente não quebra as inferências que já eram válidas, desde que o conjunto permaneça consistente. Se uma nova regra introduz inconsistência, o problema não é a monotonicidade, mas a própria inconsistência.",
       "###Teorema da Ramificação",
       "Se φ₁ ⊨ ψ e φ₂ ⊨ ψ, então (φ₁ ∨ φ₂) ⊨ ψ.",
-      "Em palavras: se dois caminhos diferentes levam à mesma conclusão, então a disjunção dos dois também leva. Muito usado em sistemas de regras com múltiplos caminhos para a mesma decisão — por exemplo, um cliente pode ser negado por score baixo *ou* por histórico negativo, e em ambos os casos a conclusão é a mesma.",
+      "Em palavras: se dois caminhos diferentes levam à mesma conclusão, então a disjunção dos dois também leva. Muito usado em sistemas de regras com múltiplos caminhos para a mesma decisão, por exemplo, um cliente pode ser negado por score baixo *ou* por histórico negativo, e em ambos os casos a conclusão é a mesma.",
     ]
   },
 
@@ -926,7 +926,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     id: "cap2-sec7",
     title: "Resumo do Capítulo",
     paragraphs: [
-      "```\n| **Conceito** | **Definição Resumida** |\n|---|---|\n| Proposição | Afirmação que pode ser verdadeira ou falsa; unidade básica da lógica proposicional |\n| Conectivos lógicos | Operadores (¬, ∧, ∨, ⇒, ⇔) que combinam proposições em sentenças compostas |\n| Tabela-verdade | Enumeração de todas as atribuições possíveis para avaliar sentenças |\n| Válida (tautologia) | Verdadeira em toda atribuição; nunca falha |\n| Insatisfatível (contradição) | Falsa em toda atribuição; indica erro no modelo |\n| Contingente | Verdadeira em algumas atribuições e falsa em outras; a mais informativa |\n| Satisfatível | Verdadeira em ao menos uma atribuição (válidas + contingentes) |\n| Falsificável | Falsa em ao menos uma atribuição (contingentes + insatisfatíveis) |\n| Equivalência lógica | Duas sentenças com os mesmos valores em toda atribuição |\n| Consequência lógica (⊨) | Toda atribuição que satisfaz as premissas também satisfaz a conclusão |\n| Consequência por vacuidade | Conjunto insatisfatível implica logicamente qualquer sentença |\n| Consistência lógica | Existe ao menos uma atribuição que satisfaz todas as sentenças simultaneamente |\n| Monotonicidade | Acrescentar premissas nunca invalida conclusões já garantidas |\n| Ramificação | Se φ₁⊨ψ e φ₂⊨ψ, então (φ₁∨φ₂)⊨ψ |\n| Forma Normal Conjuntiva | Conjunção de disjunções — base para resolução e SAT solvers |\n```",
+      "```\n| **Conceito** | **Definição Resumida** |\n|---|---|\n| Proposição | Afirmação que pode ser verdadeira ou falsa; unidade básica da lógica proposicional |\n| Conectivos lógicos | Operadores (¬, ∧, ∨, ⇒, ⇔) que combinam proposições em sentenças compostas |\n| Tabela-verdade | Enumeração de todas as atribuições possíveis para avaliar sentenças |\n| Válida (tautologia) | Verdadeira em toda atribuição; nunca falha |\n| Insatisfatível (contradição) | Falsa em toda atribuição; indica erro no modelo |\n| Contingente | Verdadeira em algumas atribuições e falsa em outras; a mais informativa |\n| Satisfatível | Verdadeira em ao menos uma atribuição (válidas + contingentes) |\n| Falsificável | Falsa em ao menos uma atribuição (contingentes + insatisfatíveis) |\n| Equivalência lógica | Duas sentenças com os mesmos valores em toda atribuição |\n| Consequência lógica (⊨) | Toda atribuição que satisfaz as premissas também satisfaz a conclusão |\n| Consequência por vacuidade | Conjunto insatisfatível implica logicamente qualquer sentença |\n| Consistência lógica | Existe ao menos uma atribuição que satisfaz todas as sentenças simultaneamente |\n| Monotonicidade | Acrescentar premissas nunca invalida conclusões já garantidas |\n| Ramificação | Se φ₁⊨ψ e φ₂⊨ψ, então (φ₁∨φ₂)⊨ψ |\n| Forma Normal Conjuntiva | Conjunção de disjunções, base para resolução e SAT solvers |\n```",
       "###Tabela comparativa dos conceitos fundamentais",
       "```\n| Conceito | O que verifica | Quantas atribuições? | Ideia central | Exemplo |\n|---|---|---|---|---|\n| Validade | Se uma sentença é sempre verdadeira | Todas | Nunca falha | {} ⊨ p∨¬p |\n| Consistência | Se sentenças podem ser verdadeiras juntas | Pelo menos uma | Coexistem em algum cenário | p é consistente com q |\n| Consequência lógica | Se a verdade é preservada das premissas à conclusão | Todas as que satisfazem Δ | Premissas garantem a conclusão | {p, p⇒q} ⊨ q |\n| Equivalência lógica | Se duas sentenças têm o mesmo valor em todo cenário | Todas | Sempre concordam | p⇒q ≡ ¬p∨q |\n```",
     ]
@@ -939,7 +939,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     paragraphs: [
       "Em ciência de dados, raramente trabalhamos com verdades absolutas. Modelos preditivos geram hipóteses, pipelines de dados transformam premissas em conclusões, e sistemas de recomendação inferem preferências a partir de comportamentos observados. Em todos esses cenários, a mesma questão fundamental se repete: como garantir que uma conclusão é válida a partir de um conjunto de dados e suposições?",
       "A lógica formal oferece uma resposta rigorosa por meio dos conceitos de **inferência** e **prova**. Neste capítulo, exploraremos dois mecanismos complementares: as **provas diretas** e o **sistema de dedução natural de Fitch**. Ao longo do texto, traduziremos sistematicamente os conceitos lógicos para o vocabulário e os desafios típicos da ciência de dados.",
-      "Considere um pipeline de decisão em produção: você tem regras de negócio (premissas), dados de entrada e precisa garantir que as saídas sejam corretas. Verificar essa corretude por enumeração exaustiva — equivalente a examinar todas as linhas de uma tabela-verdade — torna-se computacionalmente inviável quando o número de variáveis cresce. Métodos de prova oferecem um caminho alternativo: derivar a corretude de forma simbólica, em muito menos passos.",
+      "Considere um pipeline de decisão em produção: você tem regras de negócio (premissas), dados de entrada e precisa garantir que as saídas sejam corretas. Verificar essa corretude por enumeração exaustiva, equivalente a examinar todas as linhas de uma tabela-verdade, torna-se computacionalmente inviável quando o número de variáveis cresce. Métodos de prova oferecem um caminho alternativo: derivar a corretude de forma simbólica, em muito menos passos.",
     ],
   },
 
@@ -949,7 +949,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     subtitle: "Capítulo 3",
     paragraphs: [
       "##Esquemas de Axiomas",
-      "Um **esquema de axioma** é uma expressão que satisfaz as regras gramaticais da linguagem, exceto pela presença de **metavariáveis** — variáveis que representam sentenças arbitrárias. Uma instância de um esquema é obtida substituindo-se as metavariáveis por sentenças concretas de forma consistente.",
+      "Um **esquema de axioma** é uma expressão que satisfaz as regras gramaticais da linguagem, exceto pela presença de **metavariáveis**, variáveis que representam sentenças arbitrárias. Uma instância de um esquema é obtida substituindo-se as metavariáveis por sentenças concretas de forma consistente.",
       "Para o cientista de dados, esquemas de axiomas funcionam como *templates de raciocínio*. Considere o esquema abaixo, em que φ e ψ são metavariáveis:",
       "```\nφ ⇒ (ψ ⇒ φ)\n```",
       "Este esquema diz que qualquer proposição verdadeira permanece verdadeira mesmo sob hipóteses adicionais. Em termos de modelagem: se um modelo aprovou um cliente (φ), essa aprovação permanece válida mesmo que introduzamos condições extras (ψ). Instâncias concretas incluem:",
@@ -959,7 +959,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "##Regras de Inferência",
       "Uma **regra de inferência** é um padrão de raciocínio composto por premissas (acima de uma linha) e conclusões (abaixo da linha). A regra mais fundamental é a **Eliminação da Implicação** (também chamada de Modus Ponens):",
       "```\n  φ ⇒ ψ\n  φ\n  ─────────\n  ψ\n```",
-      "Para o cientista de dados, essa regra é onipresente. Se temos a regra 'cliente com score > 700 recebe aprovação' e sabemos que o cliente X tem score = 750, podemos derivar que X recebe aprovação — sem precisar consultar toda a base de dados.",
+      "Para o cientista de dados, essa regra é onipresente. Se temos a regra 'cliente com score > 700 recebe aprovação' e sabemos que o cliente X tem score = 750, podemos derivar que X recebe aprovação, sem precisar consultar toda a base de dados.",
       "> tipo:aviso\n**Atenção: Aplicação Incorreta de Regras de Inferência**\nUm erro comum é aplicar regras de inferência a subcomponentes de sentenças, e não a sentenças completas. Por exemplo: de (p ⇒ q) e (p ⇒ r), não se pode inferir (q ⇒ r). Sempre verifique que as premissas da regra correspondem a sentenças inteiras, não a partes delas.",
       "Além da Eliminação da Implicação, o **sistema de Hilbert** faz uso de três esquemas adicionais:",
       "- **Criação de Implicação (IC):** Se ψ é verdadeiro, então (φ ⇒ ψ) para qualquer φ.\n- **Distribuição de Implicação (ID):** (φ ⇒ (ψ ⇒ χ)) implica ((φ ⇒ ψ) ⇒ (φ ⇒ χ)).\n- **Reversão de Implicação (IR):** (¬ψ ⇒ ¬φ) implica (φ ⇒ ψ).",
@@ -975,7 +975,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "##Definição Formal",
       "Uma **prova direta** de uma conclusão φ a partir de um conjunto de premissas Δ é uma sequência finita de sentenças que termina em φ, onde cada sentença é:",
       "- Uma premissa (membro de Δ);\n- Uma instância de um esquema de axioma válido; ou\n- O resultado da aplicação de uma regra de inferência a sentenças anteriores na sequência.",
-      "A notação Δ ⊢ φ indica que existe tal sequência. O conceito de **provabilidade** (⊢) é distinto do de **implicação lógica** (⊨). A implicação lógica é semântica — baseia-se em atribuições de valores-verdade. A provabilidade é sintática — baseia-se em manipulação simbólica. A ponte entre esses dois mundos é garantida pelas propriedades de solidez e completude, discutidas na Seção 3.7.",
+      "A notação Δ ⊢ φ indica que existe tal sequência. O conceito de **provabilidade** (⊢) é distinto do de **implicação lógica** (⊨). A implicação lógica é semântica, baseia-se em atribuições de valores-verdade. A provabilidade é sintática, baseia-se em manipulação simbólica. A ponte entre esses dois mundos é garantida pelas propriedades de solidez e completude, discutidas na Seção 3.7.",
       "##Exemplo: Pipeline de Decisão de Crédito",
       "Considere um sistema de concessão de crédito com as seguintes regras formalizadas como premissas:",
       "```\nPremissa 1: score_alto ⇒ pre_aprovado\nPremissa 2: pre_aprovado ⇒ liberado\nPremissa 3: (score_alto ⇒ liberado) ⇒ enviar_oferta\n```",
@@ -983,7 +983,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "| Linha | Sentença | Justificativa |\n|---|---|---|\n| 1 | score_alto ⇒ pre_aprovado | Premissa |\n| 2 | pre_aprovado ⇒ liberado | Premissa |\n| 3 | (score_alto ⇒ liberado) ⇒ enviar_oferta | Premissa |\n| 4 | score_alto ⇒ (pre_aprovado ⇒ liberado) | Criação de Implicação: 2 |\n| 5 | (score_alto ⇒ pre_aprovado) ⇒ (score_alto ⇒ liberado) | Distribuição de Implicação: 4 |\n| 6 | score_alto ⇒ liberado | Eliminação de Implicação: 5, 1 |\n| 7 | enviar_oferta | Eliminação de Implicação: 3, 6 |",
       "A prova é uma sequência determinística: cada passo é justificado por premissas ou por passos anteriores. Isso é exatamente o que queremos de um sistema de decisão auditável: uma cadeia de raciocínio rastreável, onde cada conclusão pode ser verificada independentemente.",
       "##Limitações das Provas Diretas",
-      "As provas diretas têm uma limitação estrutural: não permitem fazer suposições temporárias dentro da prova. Toda sentença deve ser uma premissa ou derivada de premissas e axiomas anteriores. Isso torna certos resultados — como provar implicações a partir de implicações — verbosos e contraintuitivos. O sistema de Fitch, apresentado a seguir, resolve essa limitação de maneira elegante.",
+      "As provas diretas têm uma limitação estrutural: não permitem fazer suposições temporárias dentro da prova. Toda sentença deve ser uma premissa ou derivada de premissas e axiomas anteriores. Isso torna certos resultados, como provar implicações a partir de implicações, verbosos e contraintuitivos. O sistema de Fitch, apresentado a seguir, resolve essa limitação de maneira elegante.",
     ],
   },
 
@@ -997,7 +997,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Essa operação é formalizada pela regra de **Introdução da Implicação (II)**:",
       "```\n  [ φ  (suposição)\n    ...\n    ψ ]\n  ─────────────────────\n  φ ⇒ ψ\n```",
       "Para o cientista de dados, isso corresponde ao raciocínio hipotético tão comum na análise exploratória: 'Suponha que esta feature seja relevante. O que podemos concluir?' Ao final, formalizamos a conclusão como uma implicação condicionada à hipótese.",
-      "> tipo:info\n**Regra de Escopo em Subprovas**\nSentenças derivadas dentro de uma subprova não podem ser usadas diretamente em subprovas externas — apenas como antecedentes de implicações criadas pela regra II. Isso é análogo ao escopo de variáveis em programação: uma variável local não é acessível fora de sua função.",
+      "> tipo:info\n**Regra de Escopo em Subprovas**\nSentenças derivadas dentro de uma subprova não podem ser usadas diretamente em subprovas externas, apenas como antecedentes de implicações criadas pela regra II. Isso é análogo ao escopo de variáveis em programação: uma variável local não é acessível fora de sua função.",
       "##As Regras de Inferência do Sistema de Fitch",
       "O sistema de Fitch para lógica proposicional possui **dez regras de inferência**. Nove são regras ordinárias (aplicáveis diretamente a sentenças disponíveis); uma é condicional (a Introdução da Implicação).",
       "###Introdução e Eliminação da Conjunção (E)",
@@ -1018,7 +1018,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "##Regras Auxiliares: False Introduction e False Elimination",
       "Para simplificar provas por contradição, o sistema de Fitch pode ser estendido com duas regras auxiliares:",
       "```\n  False Introduction:    False Elimination:\n  φ                      [ φ  (suposição)\n  ¬φ                       ...\n  ──────                   false ]\n  false                  ──────────\n                         ¬φ\n```",
-      "Essas regras não adicionam poder expressivo ao sistema — tudo que se prova com elas pode ser provado sem elas — mas tornam as provas mais curtas e legíveis. Em termos de código, são equivalentes a funções auxiliares que encapsulam padrões repetitivos.",
+      "Essas regras não adicionam poder expressivo ao sistema, tudo que se prova com elas pode ser provado sem elas, mas tornam as provas mais curtas e legíveis. Em termos de código, são equivalentes a funções auxiliares que encapsulam padrões repetitivos.",
     ],
   },
 
@@ -1032,9 +1032,9 @@ export const chapterContents: Record<string, ChapterContent> = {
       "- **p:** Os dados são completos (sem valores faltantes críticos)\n- **p ⇒ q:** Dados completos implicam pré-processamento bem-sucedido\n- **q ⇒ r:** Pré-processamento bem-sucedido implica dados utilizáveis para treinamento",
       "Queremos provar **(p ⇒ r)**: se os dados são completos, então são utilizáveis para treinamento.",
       "| Linha | Sentença | Justificativa |\n|---|---|---|\n| 1 | p ⇒ q | Premissa |\n| 2 | q ⇒ r | Premissa |\n| 3 | p | Suposição (início de subprova) |\n| 4 | q | Eliminação de Impl.: 1, 3 |\n| 5 | r | Eliminação de Impl.: 2, 4 |\n| 6 | p ⇒ r | Introdução de Impl.: 3, 5 |",
-      "Observe a estrutura: nas linhas 1 e 2 estão as premissas. Na linha 3, abrimos uma subprova com a suposição p. Dentro da subprova (linhas 3–5), derivamos r aplicando as regras de eliminação da implicação em cadeia. Na linha 6, saímos da subprova com a Introdução da Implicação, concluindo (p ⇒ r) no nível externo.",
-      "Esse padrão — supor o antecedente, derivar o consequente, concluir a implicação — é o esqueleto da maioria das provas de propriedades de pipelines. Em ciência de dados, ele aparece sempre que precisamos demonstrar que uma transformação preserva alguma propriedade do dado.",
-      "> tipo:dica\n**Analogia com Testes Automatizados**\nUma prova no sistema de Fitch é, em essência, um teste formal de corretude. Assim como um teste unitário verifica que uma função produz o output esperado dado um input específico, uma prova verifica que uma conclusão segue necessariamente de um conjunto de premissas — para qualquer instância de dados, não apenas para os casos testados. Provas são, portanto, uma forma de 'cobertura de 100%' logicamente garantida.",
+      "Observe a estrutura: nas linhas 1 e 2 estão as premissas. Na linha 3, abrimos uma subprova com a suposição p. Dentro da subprova (linhas 3-5), derivamos r aplicando as regras de eliminação da implicação em cadeia. Na linha 6, saímos da subprova com a Introdução da Implicação, concluindo (p ⇒ r) no nível externo.",
+      "Esse padrão, supor o antecedente, derivar o consequente, concluir a implicação, é o esqueleto da maioria das provas de propriedades de pipelines. Em ciência de dados, ele aparece sempre que precisamos demonstrar que uma transformação preserva alguma propriedade do dado.",
+      "> tipo:dica\n**Analogia com Testes Automatizados**\nUma prova no sistema de Fitch é, em essência, um teste formal de corretude. Assim como um teste unitário verifica que uma função produz o output esperado dado um input específico, uma prova verifica que uma conclusão segue necessariamente de um conjunto de premissas, para qualquer instância de dados, não apenas para os casos testados. Provas são, portanto, uma forma de 'cobertura de 100%' logicamente garantida.",
     ],
   },
 
@@ -1053,7 +1053,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "##Provas por Contradição",
       "Quando nenhuma das abordagens anteriores funciona diretamente, a prova por contradição é uma alternativa poderosa. Para provar φ:",
       "- Assuma ¬φ em uma subprova.\n- Derive uma contradição (qualquer sentença ψ e sua negação ¬ψ).\n- Use False Introduction para derivar 'false' dentro da subprova.\n- Use False Elimination (ou Introdução da Negação) para concluir φ fora da subprova.",
-      "Em ciência de dados, esse padrão aparece ao validar hipóteses nulas: assumimos que a hipótese nula é verdadeira e mostramos que ela leva a uma contradição com os dados observados — a base lógica do teste de hipótese estatístico.",
+      "Em ciência de dados, esse padrão aparece ao validar hipóteses nulas: assumimos que a hipótese nula é verdadeira e mostramos que ela leva a uma contradição com os dados observados, a base lógica do teste de hipótese estatístico.",
     ],
   },
 
@@ -1065,9 +1065,9 @@ export const chapterContents: Record<string, ChapterContent> = {
       "O valor prático de um sistema de prova depende de duas propriedades fundamentais que relacionam provabilidade sintática e implicação lógica semântica:",
       "| Propriedade | Definição Formal | Implicação Prática |\n|---|---|---|\n| Solidez (Soundness) | Se Δ ⊢ φ, então Δ ⊨ φ | Toda conclusão provada é de fato verdadeira. O sistema não gera falsos positivos. |\n| Completude (Completeness) | Se Δ ⊨ φ, então Δ ⊢ φ | Toda verdade lógica pode ser provada. O sistema não tem lacunas. |",
       "Tanto o sistema de Hilbert quanto o sistema de Fitch são **sólidos e completos para a lógica proposicional**. Isso significa que, para esses sistemas, provabilidade e implicação lógica são noções equivalentes: Δ ⊢ φ se e somente se Δ ⊨ φ.",
-      "> tipo:aviso\n**Atenção: essa garantia é válida para a lógica proposicional.**\nNos Capítulos 4 e 7, veremos que o sistema de Fitch é estendido com regras para quantificadores. Para a Lógica Relacional (Herbrand), a completude ainda se mantém. Para a Lógica de Primeira Ordem completa (com universos infinitos), a situação muda: o sistema permanece sólido e completo para derivar consequências, mas verificar se uma sentença é consequência lógica torna-se indecidível — não existe algoritmo que sempre termine com a resposta certa. Esse resultado, demonstrado por Church e Turing, será discutido no Capítulo 9.",
+      "> tipo:aviso\n**Atenção: essa garantia é válida para a lógica proposicional.**\nNos Capítulos 4 e 7, veremos que o sistema de Fitch é estendido com regras para quantificadores. Para a Lógica Relacional (Herbrand), a completude ainda se mantém. Para a Lógica de Primeira Ordem completa (com universos infinitos), a situação muda: o sistema permanece sólido e completo para derivar consequências, mas verificar se uma sentença é consequência lógica torna-se indecidível, não existe algoritmo que sempre termine com a resposta certa. Esse resultado, demonstrado por Church e Turing, será discutido no Capítulo 9.",
       "Para o cientista de dados, a equivalência entre ⊢ e ⊨ tem uma consequência prática importante: ao escrever uma prova formal das propriedades de um pipeline ou modelo, você tem a garantia de que:",
-      "- Qualquer conclusão derivada na prova é de fato válida (solidez — sem falsos positivos lógicos).\n- Se uma propriedade é logicamente verdadeira, é possível em princípio construir uma prova para ela (completude — sem lacunas de cobertura).",
+      "- Qualquer conclusão derivada na prova é de fato válida (solidez, sem falsos positivos lógicos).\n- Se uma propriedade é logicamente verdadeira, é possível em princípio construir uma prova para ela (completude, sem lacunas de cobertura).",
       "*Vantagem prática sobre tabelas-verdade:* provas são tipicamente muito menores do que as tabelas-verdade correspondentes, cujo tamanho cresce exponencialmente com o número de variáveis. Para problemas com dezenas de features booleanas, uma prova de meia página substitui uma tabela com bilhões de linhas.",
     ],
   },
@@ -1078,12 +1078,12 @@ export const chapterContents: Record<string, ChapterContent> = {
     subtitle: "Capítulo 3",
     paragraphs: [
       "##Verificação de Regras de Negócio",
-      "Sistemas de decisão automatizada — como aprovação de crédito, detecção de fraude ou recomendação de produtos — frequentemente implementam dezenas ou centenas de regras de negócio. Garantir que essas regras sejam consistentes (sem contradições) e completas (sem casos não tratados) é um problema de verificação formal.",
+      "Sistemas de decisão automatizada, como aprovação de crédito, detecção de fraude ou recomendação de produtos, frequentemente implementam dezenas ou centenas de regras de negócio. Garantir que essas regras sejam consistentes (sem contradições) e completas (sem casos não tratados) é um problema de verificação formal.",
       "Usando o sistema de Fitch, é possível:",
       "- Representar cada regra de negócio como uma implicação ou bicondicional.\n- Provar que determinadas combinações de regras nunca geram contradições.\n- Verificar que todas as categorias de entrada estão cobertas por alguma regra de saída.",
       "##Auditoria e Explicabilidade de Modelos",
       "Regulamentações como a LGPD e o GDPR europeu exigem que decisões automatizadas sejam explicáveis. Uma prova formal oferece a forma mais rigorosa de explicação: uma cadeia de passos logicamente válidos que conecta as premissas (dados de entrada e regras) à conclusão (decisão do modelo).",
-      "Cada linha de uma prova no sistema de Fitch é uma justificativa auditável. Isso é superior a abordagens de explicabilidade baseadas em importância de features (como SHAP ou LIME), que são aproximações estatísticas — não garantias formais.",
+      "Cada linha de uma prova no sistema de Fitch é uma justificativa auditável. Isso é superior a abordagens de explicabilidade baseadas em importância de features (como SHAP ou LIME), que são aproximações estatísticas, não garantias formais.",
       "##Validação de Hipóteses em Análise de Dados",
       "Na análise exploratória, frequentemente construímos cadeias de raciocínio: 'Se a variável X é relevante e o modelo Y captura relações não-lineares, então o modelo Y com a variável X deve superar o baseline.' Esse raciocínio pode ser formalizado como uma prova, tornando explícita cada suposição (premissa) e cada passo de inferência.",
       "Isso é especialmente útil em ciência de dados reproduzível: ao documentar não apenas o código, mas também o raciocínio lógico por trás das escolhas de modelagem, criamos artefatos que podem ser verificados e questionados por outros membros da equipe.",
@@ -1095,7 +1095,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Resumo do Capítulo",
     subtitle: "Capítulo 3",
     paragraphs: [
-      "| Conceito | Definição resumida |\n|---|---|\n| Esquema de axioma | Template de raciocínio com metavariáveis; válido quando todas as instâncias são tautologias. |\n| Regra de inferência | Padrão de raciocínio com premissas e conclusões; aplica-se apenas a sentenças completas. |\n| Prova direta | Sequência de sentenças onde cada item é premissa, instância de axioma ou resultado de regra de inferência. |\n| Sistema de Hilbert | Sistema minimalista com uma regra (Eliminação da Implicação) e três esquemas (IC, ID, IR); completo para lógica proposicional. |\n| Sistema de Fitch | Sistema de dedução natural com dez regras que suporta subprovas e suposições temporárias; mais intuitivo que Hilbert. |\n| Solidez | Toda conclusão provável é logicamente válida (sem falsos positivos). |\n| Completude | Toda verdade lógica é provável (sem lacunas) — válido para lógica proposicional e relacional. |\n| Δ ⊢ φ ⟺ Δ ⊨ φ | Para sistemas sólidos e completos, provabilidade e implicação lógica são equivalentes. |",
+      "| Conceito | Definição resumida |\n|---|---|\n| Esquema de axioma | Template de raciocínio com metavariáveis; válido quando todas as instâncias são tautologias. |\n| Regra de inferência | Padrão de raciocínio com premissas e conclusões; aplica-se apenas a sentenças completas. |\n| Prova direta | Sequência de sentenças onde cada item é premissa, instância de axioma ou resultado de regra de inferência. |\n| Sistema de Hilbert | Sistema minimalista com uma regra (Eliminação da Implicação) e três esquemas (IC, ID, IR); completo para lógica proposicional. |\n| Sistema de Fitch | Sistema de dedução natural com dez regras que suporta subprovas e suposições temporárias; mais intuitivo que Hilbert. |\n| Solidez | Toda conclusão provável é logicamente válida (sem falsos positivos). |\n| Completude | Toda verdade lógica é provável (sem lacunas), válido para lógica proposicional e relacional. |\n| Δ ⊢ φ ⟺ Δ ⊨ φ | Para sistemas sólidos e completos, provabilidade e implicação lógica são equivalentes. |",
     ],
   },
 
@@ -1116,25 +1116,25 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap4-sec1": {
     "id": "cap4-sec1",
     "title": "Vocabulário: Constantes, Variáveis e Relações",
-    "subtitle": "Capítulo 4 — Sintaxe da Lógica Relacional",
+    "subtitle": "Capítulo 4, Sintaxe da Lógica Relacional",
     "paragraphs": [
       "Na Lógica Proposicional, o vocabulário é composto por constantes proposicionais. Na Lógica Relacional, o vocabulário é estruturado em três categorias distintas:",
-      "- **Constantes de objeto**: representam entidades individuais do domínio. Por convenção, começam com letras que não sejam u, v, w, x, y, z ou com dígitos. Exemplos: `cliente_001`, `produto_42`, `regiao_sul`.\n- **Constantes de relação**: representam predicados ou propriedades. Cada constante de relação tem uma *aridade* — o número de argumentos que aceita. Exemplos: `ativo` (unário), `comprou` (binário), `transferiu` (ternário).\n- **Variáveis**: começam por letras do final do alfabeto (u, v, w, x, y, z). Funcionam como placeholders para objetos arbitrários do domínio. Exemplos: `x`, `y`, `cliente_var`.",
-      "Um **vocabulário** é um conjunto finito e não vazio de constantes de objeto, um conjunto finito e não vazio de constantes de relação, e uma atribuição de aridade para cada constante de relação. Um **termo** é uma variável ou uma constante de objeto — os 'substantivos' da linguagem."
+      "- **Constantes de objeto**: representam entidades individuais do domínio. Por convenção, começam com letras que não sejam u, v, w, x, y, z ou com dígitos. Exemplos: `cliente_001`, `produto_42`, `regiao_sul`.\n- **Constantes de relação**: representam predicados ou propriedades. Cada constante de relação tem uma *aridade*, o número de argumentos que aceita. Exemplos: `ativo` (unário), `comprou` (binário), `transferiu` (ternário).\n- **Variáveis**: começam por letras do final do alfabeto (u, v, w, x, y, z). Funcionam como placeholders para objetos arbitrários do domínio. Exemplos: `x`, `y`, `cliente_var`.",
+      "Um **vocabulário** é um conjunto finito e não vazio de constantes de objeto, um conjunto finito e não vazio de constantes de relação, e uma atribuição de aridade para cada constante de relação. Um **termo** é uma variável ou uma constante de objeto, os 'substantivos' da linguagem."
     ]
   },
 
   "cap4-sec2": {
     "id": "cap4-sec2",
     "title": "Três Tipos de Sentenças",
-    "subtitle": "Capítulo 4 — Sintaxe da Lógica Relacional",
+    "subtitle": "Capítulo 4, Sintaxe da Lógica Relacional",
     "paragraphs": [
       "A Lógica Relacional possui três tipos de sentenças, que se combinam para formar expressões cada vez mais ricas:",
       "### Sentenças Relacionais (Átomos)",
-      "Uma sentença relacional é formada por uma constante de relação n-ária seguida de n termos. É o elemento atômico da linguagem — o equivalente das constantes proposicionais, mas com estrutura interna. Exemplos:",
+      "Uma sentença relacional é formada por uma constante de relação n-ária seguida de n termos. É o elemento atômico da linguagem, o equivalente das constantes proposicionais, mas com estrutura interna. Exemplos:",
       "```\nativo(cliente_001)                    -- cliente_001 é um cliente ativo\ncomprou(joao, produto_42)             -- joao comprou produto_42\ntransferiu(alice, bob, valor_x)       -- alice transferiu valor_x para bob\n```",
       "### Sentenças Lógicas",
-      "Sentenças lógicas são formadas combinando sentenças menores com os mesmos operadores da Lógica Proposicional: negação (~), conjunção (∧), disjunção (∨), implicação (⇒), e bicondicional (⇔). A sintaxe é idêntica — apenas os átomos são mais ricos.",
+      "Sentenças lógicas são formadas combinando sentenças menores com os mesmos operadores da Lógica Proposicional: negação (~), conjunção (∧), disjunção (∨), implicação (⇒), e bicondicional (⇔). A sintaxe é idêntica, apenas os átomos são mais ricos.",
       "```\n~inadimplente(x)                      -- x não é inadimplente\nativo(x) ∧ sem_divida(x)              -- x é ativo E sem dívida\nscore_alto(x) ⇒ pre_aprovado(x)       -- score alto implica pré-aprovação\naprovado(x) ⇔ score_alto(x) ∧ ativo(x)  -- bicondicional de aprovação\n```",
       "### Sentenças Quantificadas",
       "Sentenças quantificadas são o grande diferencial da Lógica Relacional. Há dois tipos:",
@@ -1142,18 +1142,18 @@ export const chapterContents: Record<string, ChapterContent> = {
       "```\n∀x.(ativo(x) ⇒ score_valido(x))       -- todo cliente ativo tem score válido\n∃x.(score_alto(x) ∧ inadimplente(x))  -- existe cliente com score alto e inadimplente\n∀x.∃y.(comprou(x,y))                  -- todo cliente comprou algum produto\n∃y.∀x.(recomendado(x,y))              -- existe produto recomendado para todos\n```",
       "A ordem dos quantificadores é crítica. As duas últimas sentenças acima expressam conceitos radicalmente diferentes: a terceira diz que cada cliente tem seu próprio produto comprado (pode ser um produto diferente para cada um); a quarta diz que existe um único produto que é recomendado para todos os clientes simultaneamente.",
       "#### Precedência de Operadores na Lógica Relacional",
-      "Os quantificadores têm precedência sobre os operadores lógicos. Isso significa que `∀x.p(x) ⇒ q(x)` é lido como `(∀x.p(x)) ⇒ q(x)`, e não como `∀x.(p(x) ⇒ q(x))`. Para aplicar um quantificador a uma sentença composta, use parênteses explicitamente: `∀x.(p(x) ⇒ q(x))`. Em ciência de dados, esse erro de parênteses é equivalente a um erro de escopo em programação — a variável quantificada não alcança a subexpressão desejada."
+      "Os quantificadores têm precedência sobre os operadores lógicos. Isso significa que `∀x.p(x) ⇒ q(x)` é lido como `(∀x.p(x)) ⇒ q(x)`, e não como `∀x.(p(x) ⇒ q(x))`. Para aplicar um quantificador a uma sentença composta, use parênteses explicitamente: `∀x.(p(x) ⇒ q(x))`. Em ciência de dados, esse erro de parênteses é equivalente a um erro de escopo em programação, a variável quantificada não alcança a subexpressão desejada."
     ]
   },
 
   "cap4-sec3": {
     "id": "cap4-sec3",
     "title": "Variáveis Livres e Ligadas",
-    "subtitle": "Capítulo 4 — Sintaxe da Lógica Relacional",
+    "subtitle": "Capítulo 4, Sintaxe da Lógica Relacional",
     "paragraphs": [
       "Uma ocorrência de variável é **ligada** se está dentro do escopo de um quantificador daquela variável; caso contrário, é **livre**. Uma sentença é **aberta** se tem variáveis livres, e **fechada** (ou sentença) caso contrário.",
       "```\n∃x.comprou(x, y)             -- x é ligada; y é livre ⇒ sentença aberta\n∀y.(∃x.comprou(x,y))         -- x e y são ambas ligadas ⇒ sentença fechada\nscore_alto(x)                -- x é livre ⇒ sentença aberta\n```",
-      "Em ciência de dados, sentenças abertas correspondem a templates parametrizados de regras. Uma sentença aberta como `score_alto(x)` pode ser lida como uma função de x para um valor booleano — ela representa uma condição aplicável a qualquer cliente específico. Sentenças fechadas, por sua vez, fazem afirmações completas sobre o domínio, sem dependência de parâmetros externos.",
+      "Em ciência de dados, sentenças abertas correspondem a templates parametrizados de regras. Uma sentença aberta como `score_alto(x)` pode ser lida como uma função de x para um valor booleano, ela representa uma condição aplicável a qualquer cliente específico. Sentenças fechadas, por sua vez, fazem afirmações completas sobre o domínio, sem dependência de parâmetros externos.",
       "```\n| Tipo de Sentença | Definição | Analogia em Dados |\n|---|---|---|\n| Sentença ground | Sem variáveis | Registro específico: score_alto(cliente_007) |\n| Sentença aberta | Com variáveis livres | Template de regra: score_alto(x) |\n| Sentença fechada | Sem variáveis livres | Afirmação geral: ∀x.(ativo(x) ⇒ score_valido(x)) |\n```"
     ]
   },
@@ -1161,9 +1161,9 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap4-sec4": {
     "id": "cap4-sec4",
     "title": "Base de Herbrand",
-    "subtitle": "Capítulo 4 — Semântica",
+    "subtitle": "Capítulo 4, Semântica",
     "paragraphs": [
-      "A semântica da Lógica Relacional adotada aqui é chamada de **Semântica de Herbrand**, em homenagem ao lógico Jacques Herbrand. Sua ideia central é que o universo de discurso é exatamente o conjunto de constantes de objeto presentes no vocabulário — nada mais, nada menos.",
+      "A semântica da Lógica Relacional adotada aqui é chamada de **Semântica de Herbrand**, em homenagem ao lógico Jacques Herbrand. Sua ideia central é que o universo de discurso é exatamente o conjunto de constantes de objeto presentes no vocabulário, nada mais, nada menos.",
       "A **base de Herbrand** de um vocabulário é o conjunto de todas as sentenças relacionais ground (sem variáveis) que podem ser formadas com as constantes do vocabulário. Formalmente, para cada constante de relação r de aridade n e cada n-upla de constantes de objeto (t1,...,tn), a sentença r(t1,...,tn) pertence à base de Herbrand.",
       "#### Tamanho da Base de Herbrand",
       "Para b constantes de objeto e uma constante de relação de aridade n, há **b^n** sentenças atômicas ground. O total da base de Herbrand é a soma sobre todas as constantes de relação.",
@@ -1175,9 +1175,9 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap4-sec5": {
     "id": "cap4-sec5",
     "title": "Atribuições de Verdade",
-    "subtitle": "Capítulo 4 — Semântica",
+    "subtitle": "Capítulo 4, Semântica",
     "paragraphs": [
-      "Uma **atribuição de verdade** para uma linguagem relacional é uma função que mapeia cada sentença ground da base de Herbrand a um valor booleano (0 ou 1). Isso é exatamente análogo a uma linha de uma tabela-verdade na Lógica Proposicional — mas agora as 'proposições' têm estrutura interna (um predicado aplicado a constantes).",
+      "Uma **atribuição de verdade** para uma linguagem relacional é uma função que mapeia cada sentença ground da base de Herbrand a um valor booleano (0 ou 1). Isso é exatamente análogo a uma linha de uma tabela-verdade na Lógica Proposicional, mas agora as 'proposições' têm estrutura interna (um predicado aplicado a constantes).",
       "Uma vez fixada a atribuição para os átomos ground, a verdade de sentenças mais complexas é determinada recursivamente pelos mesmos operadores lógicos da Lógica Proposicional. A novidade está nos quantificadores:",
       "- `∀x.φ(x)` é verdadeira se e somente se φ(t) é verdadeira para **toda** constante de objeto t do vocabulário.\n- `∃x.φ(x)` é verdadeira se e somente se φ(t) é verdadeira para **pelo menos uma** constante de objeto t do vocabulário.",
       "Em outras palavras, o universal age como uma conjunção sobre todas as instâncias, e o existencial age como uma disjunção sobre todas as instâncias. Essa correspondência é fundamental para entender a avaliação de sentenças quantificadas.",
@@ -1195,22 +1195,22 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Propriedades Lógicas de Sentenças",
     "subtitle": "Capítulo 4",
     "paragraphs": [
-      "No Capítulo 2, definimos três propriedades que classificam sentenças pelo seu comportamento em todas as atribuições possíveis: **validade**, **insatisfatibilidade** e **contingência**. Essas mesmas categorias se aplicam integralmente à Lógica Relacional — a diferença está no que conta como 'todas as atribuições possíveis'.",
-      "Em lógica proposicional, uma atribuição era um mapeamento de símbolos para {0,1}. Na Lógica Relacional, uma atribuição é um subconjunto da base de Herbrand — uma escolha de quais átomos ground são verdadeiros. O espaço é exponencialmente maior, mas a estrutura das três propriedades é idêntica:",
+      "No Capítulo 2, definimos três propriedades que classificam sentenças pelo seu comportamento em todas as atribuições possíveis: **validade**, **insatisfatibilidade** e **contingência**. Essas mesmas categorias se aplicam integralmente à Lógica Relacional, a diferença está no que conta como 'todas as atribuições possíveis'.",
+      "Em lógica proposicional, uma atribuição era um mapeamento de símbolos para {0,1}. Na Lógica Relacional, uma atribuição é um subconjunto da base de Herbrand, uma escolha de quais átomos ground são verdadeiros. O espaço é exponencialmente maior, mas a estrutura das três propriedades é idêntica:",
       "```\n| Propriedade | Definição | Exemplo |\n|---|---|---|\n| Válida (tautologia) | Verdadeira em toda atribuição | ∀x.p(x) ⇒ ∃x.p(x) |\n| Contingente | Verdadeira em algumas, falsa em outras | ∃x.ativo(x) |\n| Insatisfatível | Falsa em toda atribuição | ∀x.(p(x) ∧ ~p(x)) |\n| Satisfatível | Verdadeira em ao menos uma atribuição | ativo(alice) ∧ ativo(bob) |\n```",
-      "O que a Lógica Relacional acrescenta são **valididades que não existem na lógica proposicional** — tautologias que envolvem a interação entre quantificadores. Essas são as novidades genuínas desta seção.",
+      "O que a Lógica Relacional acrescenta são **valididades que não existem na lógica proposicional**, tautologias que envolvem a interação entre quantificadores. Essas são as novidades genuínas desta seção.",
       "### Reversão de quantificadores do mesmo tipo",
-      "A ordem de quantificadores do mesmo tipo pode ser invertida sem alterar o valor de verdade — análogo a trocar a ordem de iteração em loops aninhados:",
+      "A ordem de quantificadores do mesmo tipo pode ser invertida sem alterar o valor de verdade, análogo a trocar a ordem de iteração em loops aninhados:",
       "```\n∀x.∀y.q(x,y) ⇔ ∀y.∀x.q(x,y)    -- válido\n∃x.∃y.q(x,y) ⇔ ∃y.∃x.q(x,y)    -- válido\n```",
-      "Esse resultado não tem equivalente em lógica proposicional — é exclusivo de linguagens com variáveis e quantificadores.",
+      "Esse resultado não tem equivalente em lógica proposicional, é exclusivo de linguagens com variáveis e quantificadores.",
       "### Distribuição existencial",
       "Um existencial pode ser movido para dentro de um universal, mas o inverso não é válido. Essa **assimetria** é uma das propriedades mais importantes da Lógica Relacional:",
       "```\n∃y.∀x.q(x,y) ⇒ ∀x.∃y.q(x,y)    -- válido (o inverso NÃO é válido)\n\nInterpretação em dados:\n∃y.∀x.q(x,y): existe um produto recomendado para TODOS os clientes\n∀x.∃y.q(x,y): cada cliente tem ALGUM produto recomendado (pode ser diferente)\n```",
       "A sentença da esquerda é mais forte: garante um único testemunho para todos. A da direita permite testemunhos distintos para cada indivíduo. Essa distinção não tem paralelo em lógica proposicional e é frequentemente fonte de erros na formalização de regras de negócio.",
       "### Distribuição da negação sobre quantificadores (Leis de De Morgan quantificadas)",
-      "A negação distribui sobre quantificadores invertendo seu tipo — generalização direta das leis de De Morgan do Capítulo 2:",
+      "A negação distribui sobre quantificadores invertendo seu tipo, generalização direta das leis de De Morgan do Capítulo 2:",
       "```\n~∀x.p(x) ≡ ∃x.~p(x)    -- não é verdade que todos são p ⇔ existe algum que não é p\n~∃x.p(x) ≡ ∀x.~p(x)    -- não existe nenhum p ⇔ todos não são p\n```",
-      "Compare com De Morgan proposicional: `~(p ∧ q) ≡ (~p ∨ ~q)`. O universal se comporta como conjunção infinita e o existencial como disjunção infinita — a negação inverte ambos exatamente como esperado. Em ciência de dados, essa equivalência permite reformular restrições de qualidade em formas mais convenientes para implementação sem alterar seu significado.",
+      "Compare com De Morgan proposicional: `~(p ∧ q) ≡ (~p ∨ ~q)`. O universal se comporta como conjunção infinita e o existencial como disjunção infinita, a negação inverte ambos exatamente como esperado. Em ciência de dados, essa equivalência permite reformular restrições de qualidade em formas mais convenientes para implementação sem alterar seu significado.",
     ]
   },
 
@@ -1219,16 +1219,16 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Relações Lógicas entre Sentenças",
     "subtitle": "Capítulo 4",
     "paragraphs": [
-      "No Capítulo 2, definimos três relações entre sentenças: **equivalência lógica**, **consequência lógica** e **consistência**. As definições formais são idênticas na Lógica Relacional — o que muda é o espaço de atribuições sobre o qual essas relações são verificadas.",
+      "No Capítulo 2, definimos três relações entre sentenças: **equivalência lógica**, **consequência lógica** e **consistência**. As definições formais são idênticas na Lógica Relacional, o que muda é o espaço de atribuições sobre o qual essas relações são verificadas.",
       "| **Relação** | **Definição (igual ao Cap. 2)** | **Diferença na Lógica Relacional** |\n|---|---|---|\n| Equivalência lógica (φ ≡ ψ) | Mesmas atribuições satisfazem φ e ψ | Atribuições agora incluem átomos com quantificadores |\n| Consequência lógica (Δ ⊨ φ) | Toda atribuição que satisfaz Δ satisfaz φ | Premissas e conclusões podem conter ∀ e ∃ |\n| Consistência (φ consistente com Δ) | Existe atribuição que satisfaz ambos | Verificação pode requerer instanciar variáveis |",
-      "O valor desta seção não está em redefinir esses conceitos, mas em mostrar **como eles se comportam com quantificadores** — situações que não existem em lógica proposicional.",
+      "O valor desta seção não está em redefinir esses conceitos, mas em mostrar **como eles se comportam com quantificadores**, situações que não existem em lógica proposicional.",
       "### Exemplos de consequência lógica com quantificadores",
       "Os exemplos a seguir ilustram implicações que dependem essencialmente da interação entre quantificadores:",
       "```\n-- 'existe produto único para todos' implica 'produto para cada um'\n∃y.∀x.q(x,y) |= ∀x.∃y.q(x,y)\n\n-- relação total implica sua simétrica\n∀x.∀y.q(x,y) |= ∀x.∀y.q(y,x)\n\n-- fato específico implica sua disjunção\np(a) |= p(a) ∨ p(b)\n\n-- dois fatos implicam sua conjunção\np(a), p(b) |= p(a) ∧ p(b)\n```",
-      "O primeiro exemplo é o mais importante: a implicação é estritamente unidirecional — o inverso não vale. Em ciência de dados, 'existe um modelo de ML adequado para todos os datasets' é uma afirmação muito mais forte do que 'para cada dataset existe algum modelo adequado'.",
+      "O primeiro exemplo é o mais importante: a implicação é estritamente unidirecional, o inverso não vale. Em ciência de dados, 'existe um modelo de ML adequado para todos os datasets' é uma afirmação muito mais forte do que 'para cada dataset existe algum modelo adequado'.",
       "### Consistência e adição de regras de negócio",
       "A situação mais comum em que a consistência é testada é ao **adicionar uma nova regra de negócio** a um sistema existente. A nova regra é consistente com o conjunto anterior se existe ao menos uma atribuição de verdade que satisfaça simultaneamente todas as regras antigas e a nova.",
-      "Se a nova regra for inconsistente, o sistema não terá nenhum estado válido possível, e qualquer conclusão poderá ser derivada dele — tornando o raciocínio inútil. Esse princípio é idêntico ao do Capítulo 2; o que a Lógica Relacional acrescenta é a capacidade de expressar essas regras com quantificadores, tornando a verificação computacionalmente mais desafiadora mas conceitualmente equivalente.",
+      "Se a nova regra for inconsistente, o sistema não terá nenhum estado válido possível, e qualquer conclusão poderá ser derivada dele, tornando o raciocínio inútil. Esse princípio é idêntico ao do Capítulo 2; o que a Lógica Relacional acrescenta é a capacidade de expressar essas regras com quantificadores, tornando a verificação computacionalmente mais desafiadora mas conceitualmente equivalente.",
     ]
   },
 
@@ -1272,7 +1272,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "### Consequências Teóricas: Decidibilidade e Compacidade",
       "A equivalência entre Lógica Relacional (com vocabulário finito) e Lógica Proposicional tem duas consequências teóricas de grande importância prática:",
       "- **Decidibilidade**: como a insatisfatibilidade da Lógica Proposicional é decidível (verificável em tempo finito via tabelas-verdade ou algoritmos de SAT), a insatisfatibilidade da Lógica Relacional com vocabulário finito também é decidível. Isso garante que podemos, em princípio, verificar automaticamente se um conjunto de regras de negócio é consistente.\n- **Compacidade**: assim como a Lógica Proposicional, a Lógica Relacional (com vocabulário finito) é compacta: todo conjunto insatisfatível de sentenças contém um subconjunto finito insatisfatível. Isso é importante porque garante que a insatisfatibilidade pode sempre ser demonstrada analisando apenas um número finito de sentenças.",
-      "Essas propriedades — decidibilidade e compacidade — distinguem a Lógica Relacional com vocabulário finito da Lógica de Primeira Ordem (que permite funções e vocabulários infinitos). Quando introduzimos termos funcionais (que geram vocabulários infinitos), perdemos a decidibilidade e, com ela, a garantia de provas finitas."
+      "Essas propriedades, decidibilidade e compacidade, distinguem a Lógica Relacional com vocabulário finito da Lógica de Primeira Ordem (que permite funções e vocabulários infinitos). Quando introduzimos termos funcionais (que geram vocabulários infinitos), perdemos a decidibilidade e, com ela, a garantia de provas finitas."
     ]
   },
 
@@ -1484,8 +1484,8 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Resolução Automática",
     subtitle: "Capítulo 6",
     paragraphs: [
-      "Os métodos de prova estudados nos capítulos anteriores — o sistema de Hilbert e o sistema de Fitch — são poderosos, mas exigem que o humano guie cada passo da derivação: escolher qual regra aplicar, a quais sentenças, em que ordem. Para problemas de pequeno porte, isso é gerenciável. Para sistemas de dados com centenas de regras de negócio ou pipelines com dezenas de restrições encadeadas, o processo manual se torna inviável.",
-      "O **Princípio da Resolução** oferece uma solução elegante: uma única regra de inferência que, aplicada sistematicamente, é suficiente para verificar qualquer propriedade lógica expressável — sem necessidade de axiomas adicionais ou de guia humano nos passos intermediários. Esse é o fundamento teórico dos modernos motores de inferência automática, dos SAT solvers e dos sistemas de verificação formal utilizados em produção.",
+      "Os métodos de prova estudados nos capítulos anteriores, o sistema de Hilbert e o sistema de Fitch, são poderosos, mas exigem que o humano guie cada passo da derivação: escolher qual regra aplicar, a quais sentenças, em que ordem. Para problemas de pequeno porte, isso é gerenciável. Para sistemas de dados com centenas de regras de negócio ou pipelines com dezenas de restrições encadeadas, o processo manual se torna inviável.",
+      "O **Princípio da Resolução** oferece uma solução elegante: uma única regra de inferência que, aplicada sistematicamente, é suficiente para verificar qualquer propriedade lógica expressável, sem necessidade de axiomas adicionais ou de guia humano nos passos intermediários. Esse é o fundamento teórico dos modernos motores de inferência automática, dos SAT solvers e dos sistemas de verificação formal utilizados em produção.",
       "Neste capítulo, estudamos a Resolução em duas versões progressivamente mais ricas: primeiro para a Lógica Proposicional (Seções 6.2 a 6.5), depois estendida para a Lógica Relacional com o uso de unificação (Seções 6.6 a 6.10). Em cada versão, cobrimos a forma clausal, a regra de inferência, o raciocínio por refutação, a extração de respostas e as estratégias de otimização. Ao longo do capítulo, ancoramos cada conceito em exemplos aplicados à ciência de dados."
     ]
   },
@@ -1493,50 +1493,50 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap6-sec1": {
     id: "cap6-sec1",
     title: "Forma Clausal",
-    subtitle: "6.2 — Literais, Cláusulas e Conversão",
+    subtitle: "6.2, Literais, Cláusulas e Conversão",
     paragraphs: [
       "### Literais, Cláusulas e Conjuntos de Cláusulas",
       "O Princípio da Resolução opera exclusivamente sobre expressões em **forma clausal**. Antes de aplicar a regra, todas as premissas e conclusões devem ser convertidas para esse formato. As definições são:",
-      "- **Literal**: uma sentença atômica ou sua negação. Exemplos: `score_alto(x)`, `~inadimplente(cliente_7)`, `p(a,b)`.\n- **Cláusula**: um conjunto de literais, interpretado como sua disjunção. Exemplo: `{~p(x), q(x)}` representa `p(x) ⇒ q(x)`.\n- **Cláusula vazia {}**: disjunção de zero literais — sempre falsa. Sua derivação sinaliza uma contradição no conjunto de premissas.\n- **Conjunto de cláusulas**: um conjunto de cláusulas, interpretado como sua conjunção.",
+      "- **Literal**: uma sentença atômica ou sua negação. Exemplos: `score_alto(x)`, `~inadimplente(cliente_7)`, `p(a,b)`.\n- **Cláusula**: um conjunto de literais, interpretado como sua disjunção. Exemplo: `{~p(x), q(x)}` representa `p(x) ⇒ q(x)`.\n- **Cláusula vazia {}**: disjunção de zero literais, sempre falsa. Sua derivação sinaliza uma contradição no conjunto de premissas.\n- **Conjunto de cláusulas**: um conjunto de cláusulas, interpretado como sua conjunção.",
       "A tradução entre a notação habitual e a forma clausal é direta para literais e disjunções. Para implicações, usamos a equivalência `(φ ⇒ ψ) ≡ (~φ ∨ ψ)`, que transforma a implicação em uma cláusula de dois literais. Isso é fundamental: a maioria das regras de negócio e restrições de pipelines tem a forma de implicação, e a forma clausal as representa compactamente.",
       "```\n| Sentença Original | Forma Clausal | Interpretação |\n|---|---|---|\n| p | {p} | p é verdadeiro |\n| ~p | {~p} | p é falso |\n| p ∨ q | {p, q} | p ou q |\n| p ⇒ q | {~p, q} | se p então q |\n| p ⇔ q | {~p, q} e {p, ~q} | p se e somente se q |\n| p ∧ q | {p} e {q} | dois fatos separados |\n| {} | {} | contradição (cláusula vazia) |\n```",
       "### Procedimento de Conversão para a Forma Clausal",
       "Qualquer sentença proposicional pode ser convertida para um conjunto equivalente de cláusulas seguindo quatro passos em ordem. Os passos são aplicados de forma mecânica e sempre terminam em tempo finito.",
-      "```\n| Passo | Operação e Regras |\n|---|---|\n| I — Impl. | Eliminar ⇒ e ⇔: (φ⇒ψ) → (~φ ∨ ψ); (φ⇔ψ) → (~φ ∨ ψ) ∧ (φ ∨ ~ψ) |\n| N — Neg. | Mover negações para dentro: ~~φ→φ; ~(φ∧ψ)→(~φ ∨ ~ψ); ~(φ ∨ ψ)→(~φ ∧ ~ψ) |\n| D — Dist. | Distribuir ∨ sobre ∧: φ ∨ (ψ∧χ) → (φ ∨ ψ) ∧ (φ ∨ χ); e variantes simétricas |\n| O — Oper. | Eliminar operadores: separar conjunções em cláusulas; escrever cada disjunção como conjunto |\n```",
-      "A seguir, dois exemplos de conversão lado a lado — um para uma sentença e outro para sua negação — que ilustram como uma pequena diferença na entrada pode gerar resultados muito diferentes na forma clausal:",
+      "```\n| Passo | Operação e Regras |\n|---|---|\n| I, Impl. | Eliminar ⇒ e ⇔: (φ⇒ψ) → (~φ ∨ ψ); (φ⇔ψ) → (~φ ∨ ψ) ∧ (φ ∨ ~ψ) |\n| N, Neg. | Mover negações para dentro: ~~φ→φ; ~(φ∧ψ)→(~φ ∨ ~ψ); ~(φ ∨ ψ)→(~φ ∧ ~ψ) |\n| D, Dist. | Distribuir ∨ sobre ∧: φ ∨ (ψ∧χ) → (φ ∨ ψ) ∧ (φ ∨ χ); e variantes simétricas |\n| O, Oper. | Eliminar operadores: separar conjunções em cláusulas; escrever cada disjunção como conjunto |\n```",
+      "A seguir, dois exemplos de conversão lado a lado, um para uma sentença e outro para sua negação, que ilustram como uma pequena diferença na entrada pode gerar resultados muito diferentes na forma clausal:",
       "### Exemplo A: g ∧ (r ⇒ f)",
       "```\n| Passo | Expressão |\n|---|---|\n| Original | g ∧ (r ⇒ f) |\n| I | g ∧ (~r ∨ f) |\n| N | g ∧ (~r ∨ f) [sem mudança] |\n| D | g ∧ (~r ∨ f) [sem mudança] |\n| O | {g} e {~r, f} |\n```",
-      "### Exemplo B: ~(g ∧ (r ⇒ f)) — negação do Exemplo A",
+      "### Exemplo B: ~(g ∧ (r ⇒ f)), negação do Exemplo A",
       "```\n| Passo | Expressão |\n|---|---|\n| Original | ~(g ∧ (r ⇒ f)) |\n| I | ~(g ∧ (~r ∨ f)) |\n| N | ~g ∨ (~(~r ∨ f)) ⇒ ~g ∨ (~~r ∧ ~f) ⇒ ~g ∨ (r ∧ ~f) |\n| D | (~g ∨ r) ∧ (~g ∨ ~f) |\n| O | {~g, r} e {~g, ~f} |\n```",
       "Observe que, apesar de diferirem em apenas uma negação, os dois exemplos resultam em conjuntos de cláusulas completamente distintos. Isso ilustra por que a conversão para forma clausal deve ser feita cuidadosamente, passo a passo.",
       "#### Analogia com Filtros em SQL",
-      "A forma clausal é, em essência, a **Forma Normal Conjuntiva (CNF)** — uma conjunção de disjunções. Em SQL, a cláusula `WHERE` de uma query complexa pode ser vista como uma CNF: cada condição de filtragem é uma 'cláusula', e o conjunto de todas elas é satisfeito quando cada cláusula individualmente é satisfeita. A conversão para CNF em lógica é o análogo formal de reescrever uma condição SQL complexa em uma forma em que cada subcondição pode ser avaliada independentemente — base dos otimizadores de query modernos."
+      "A forma clausal é, em essência, a **Forma Normal Conjuntiva (CNF)**, uma conjunção de disjunções. Em SQL, a cláusula `WHERE` de uma query complexa pode ser vista como uma CNF: cada condição de filtragem é uma 'cláusula', e o conjunto de todas elas é satisfeito quando cada cláusula individualmente é satisfeita. A conversão para CNF em lógica é o análogo formal de reescrever uma condição SQL complexa em uma forma em que cada subcondição pode ser avaliada independentemente, base dos otimizadores de query modernos."
     ]
   },
 
   "cap6-sec2": {
     id: "cap6-sec2",
     title: "O Princípio da Resolução Proposicional",
-    subtitle: "6.3 — A Regra e Exemplo Prático",
+    subtitle: "6.3, A Regra e Exemplo Prático",
     paragraphs: [
       "### A Regra",
       "O Princípio da Resolução é surpreendentemente simples: dadas duas cláusulas que contêm um par de literais complementares (um positivo e um negativo sobre o mesmo átomo), podemos derivar uma nova cláusula contendo todos os demais literais de ambas, excluindo o par complementar.",
       "```\n{φ₁, ..., χ, ..., φₘ}\n{ψ₁, ..., ~χ, ..., ψₙ}\n--------------------------------\n{φ₁, ..., φₘ, ψ₁, ..., ψₙ}\n```",
-      "A cláusula derivada é chamada de **resolvente**. Como cláusulas são conjuntos, literais duplicados aparecem apenas uma vez no resolvente. Quando as duas cláusulas de entrada são singleton com literais complementares, o resolvente é a cláusula vazia — sinal de contradição.",
+      "A cláusula derivada é chamada de **resolvente**. Como cláusulas são conjuntos, literais duplicados aparecem apenas uma vez no resolvente. Quando as duas cláusulas de entrada são singleton com literais complementares, o resolvente é a cláusula vazia, sinal de contradição.",
       "```\n| Cláusula 1 | Cláusula 2 | Resolvente | Observação |\n|---|---|---|---|\n| {p, q} | {~q, r} | {p, r} | Eliminação de q e ~q |\n| {~p, q} | {p, q} | {q} | Literal q aparece uma vez (união de conjuntos) |\n| {p, q, r} | {~p} | {q, r} | Cláusula unitária elimina p |\n| {p} | {~p} | {} | Cláusula vazia: contradição detectada |\n| {~p, q, r} | {p, ~q, ~r} | {q, r, ~q, ~r} ou {r, ~r} | Múltiplos resolventes possíveis |\n```",
       "#### Atenção: Uma Resolução por Vez",
       "Quando duas cláusulas têm múltiplos pares de literais complementares, apenas **UM** par pode ser resolvido por vez. Por exemplo, de `{p, q}` e `{~p, ~q}`, podemos derivar `{q, ~q}` ou `{p, ~p}`, mas NÃO a cláusula vazia `{}` diretamente. Tentar resolver dois pares simultaneamente é um erro lógico: `{p ∨ q}` e `{~p ∨ ~q}` são satisfatíveis (basta p=1, q=0), portanto não implicam a cláusula vazia.",
       "### Exemplo: Regras de Negócio em Pipeline",
       "Considere um pipeline de decisão de crédito com as seguintes regras (já em forma clausal):",
-      "```\n| Linha | Cláusula | Origem |\n|---|---|---|\n| 1 | {~p, r} | Se score_alto(p) então pré_aprovado(r) [Premissa] |\n| 2 | {~q, r} | Se histórico_limpo(q) então pré_aprovado(r) [Premissa] |\n| 3 | {p, q} | Score alto OU histórico limpo [Premissa] |\n| 4 | {~r} | Negação do objetivo: ~pré_aprovado [Meta negada] |\n| 5 | {q, r} | Resolução: 1 e 3 (cancelar p e ~p) |\n| 6 | {r} | Resolução: 2 e 5 (cancelar q e ~q) |\n| 7 | {} | Resolução: 4 e 6 (cancelar r e ~r) — CONTRADIÇÃO |\n```",
-      "A cláusula vazia na linha 7 demonstra que a negação do objetivo é inconsistente com as premissas — portanto, o objetivo (pré_aprovado) é uma consequência lógica inevitável das regras. Essa técnica de negar o objetivo e buscar uma contradição é chamada de **refutação por resolução**."
+      "```\n| Linha | Cláusula | Origem |\n|---|---|---|\n| 1 | {~p, r} | Se score_alto(p) então pré_aprovado(r) [Premissa] |\n| 2 | {~q, r} | Se histórico_limpo(q) então pré_aprovado(r) [Premissa] |\n| 3 | {p, q} | Score alto OU histórico limpo [Premissa] |\n| 4 | {~r} | Negação do objetivo: ~pré_aprovado [Meta negada] |\n| 5 | {q, r} | Resolução: 1 e 3 (cancelar p e ~p) |\n| 6 | {r} | Resolução: 2 e 5 (cancelar q e ~q) |\n| 7 | {} | Resolução: 4 e 6 (cancelar r e ~r), CONTRADIÇÃO |\n```",
+      "A cláusula vazia na linha 7 demonstra que a negação do objetivo é inconsistente com as premissas, portanto, o objetivo (pré_aprovado) é uma consequência lógica inevitável das regras. Essa técnica de negar o objetivo e buscar uma contradição é chamada de **refutação por resolução**."
     ]
   },
 
   "cap6-sec3": {
     id: "cap6-sec3",
     title: "Raciocínio por Refutação",
-    subtitle: "6.4 — O Teorema da Refutação",
+    subtitle: "6.4, O Teorema da Refutação",
     paragraphs: [
       "### O Teorema da Refutação",
       "A Resolução não é gerativalmente completa: nem toda cláusula logicamente implicada pelas premissas pode ser derivada diretamente por resolução. Por exemplo, de `{p}` e `{q}`, não se pode derivar `{p, q}` por resolução, mesmo que essa cláusula seja implicada.",
@@ -1544,34 +1544,34 @@ export const chapterContents: Record<string, ChapterContent> = {
       "```\nProcedimento de Refutação por Resolução:\n\n1. Negar a conclusão desejada φ ⇒ obter ~φ\n2. Converter Δ ∪ {~φ} para forma clausal\n3. Aplicar o Princípio da Resolução até:\n   (a) Derivar a cláusula vazia {} ⇒ φ é implicado por Δ\n   (b) Não haver mais resoluções possíveis ⇒ φ não é implicado\n```",
       "Esse procedimento é a base de todos os sistemas de prova automática modernos. A negação da conclusão é adicionada ao conjunto de premissas para criar uma 'tensão' que, se a conclusão for de fato implicada, necessariamente leva a uma contradição detectável pela resolução.",
       "#### Por que Refutação Funciona",
-      "A lógica por trás da refutação é elegante: se φ é verdadeiro em todo modelo que satisfaz Δ, então ~φ é falso em todo modelo que satisfaz Δ. Logo, Δ ∪ {~φ} não tem nenhum modelo — é insatisfatível. A resolução detecta essa insatisfatibilidade derivando a cláusula vazia. Em ciência de dados, isso corresponde a testar uma hipótese por contraposição: em vez de provar diretamente que 'todo modelo treinado em dados limpos generaliza bem', negamos a conclusão ('existe um modelo treinado em dados limpos que não generaliza') e mostramos que essa afirmação é inconsistente com as premissas do sistema.",
+      "A lógica por trás da refutação é elegante: se φ é verdadeiro em todo modelo que satisfaz Δ, então ~φ é falso em todo modelo que satisfaz Δ. Logo, Δ ∪ {~φ} não tem nenhum modelo, é insatisfatível. A resolução detecta essa insatisfatibilidade derivando a cláusula vazia. Em ciência de dados, isso corresponde a testar uma hipótese por contraposição: em vez de provar diretamente que 'todo modelo treinado em dados limpos generaliza bem', negamos a conclusão ('existe um modelo treinado em dados limpos que não generaliza') e mostramos que essa afirmação é inconsistente com as premissas do sistema.",
       "### Exemplo Completo de Refutação",
-      "Demonstremos a validade de `(p ⇒ (q ⇒ p))` — o esquema de Criação de Implicação — sem nenhuma premissa. A prova é puramente por refutação: negamos a sentença, convertemos para forma clausal e derivamos a cláusula vazia.",
-      "**Passo 1 — Negar a conclusão e converter para forma clausal**",
+      "Demonstremos a validade de `(p ⇒ (q ⇒ p))`, o esquema de Criação de Implicação, sem nenhuma premissa. A prova é puramente por refutação: negamos a sentença, convertemos para forma clausal e derivamos a cláusula vazia.",
+      "**Passo 1, Negar a conclusão e converter para forma clausal**",
       "```\n| Passo | Expressão |\n|---|---|\n| Original | ~(p ⇒ (q ⇒ p)) |\n| I | ~(~p ∨ (~q ∨ p)) |\n| N | ~~p ∧ ~(~q ∨ p) ⇒ p ∧ (~~q ∧ ~p) ⇒ p ∧ q ∧ ~p |\n| D | p ∧ q ∧ ~p |\n| O | {p} e {q} e {~p} |\n```",
-      "**Passo 2 — Derivação por resolução**",
-      "```\n| Linha | Cláusula | Origem |\n|---|---|---|\n| 1 | {p} | Premissa (da negação) |\n| 2 | {q} | Premissa (da negação) |\n| 3 | {~p} | Premissa (da negação) |\n| 4 | {} | Resolução: 1 e 3 (cancelar p e ~p) — CONTRADIÇÃO |\n```",
-      "A cláusula vazia é derivada em um único passo, confirmando que a sentença é uma **tautologia** — verdadeira independentemente de qualquer premissa."
+      "**Passo 2, Derivação por resolução**",
+      "```\n| Linha | Cláusula | Origem |\n|---|---|---|\n| 1 | {p} | Premissa (da negação) |\n| 2 | {q} | Premissa (da negação) |\n| 3 | {~p} | Premissa (da negação) |\n| 4 | {} | Resolução: 1 e 3 (cancelar p e ~p), CONTRADIÇÃO |\n```",
+      "A cláusula vazia é derivada em um único passo, confirmando que a sentença é uma **tautologia**, verdadeira independentemente de qualquer premissa."
     ]
   },
 
   "cap6-sec4": {
     id: "cap6-sec4",
     title: "Estratégias de Resolução",
-    subtitle: "6.5 — Otimizações para Reduzir o Espaço de Busca",
+    subtitle: "6.5, Otimizações para Reduzir o Espaço de Busca",
     paragraphs: [
-      "Sem restrições, a resolução pode gerar um número muito grande de cláusulas intermediárias — muitas delas redundantes ou irrelevantes para a conclusão desejada. As estratégias a seguir reduzem o espaço de busca sem comprometer a completude por refutação.",
+      "Sem restrições, a resolução pode gerar um número muito grande de cláusulas intermediárias, muitas delas redundantes ou irrelevantes para a conclusão desejada. As estratégias a seguir reduzem o espaço de busca sem comprometer a completude por refutação.",
       "### Eliminação de Literais Puros",
-      "Um literal é **puro** em um conjunto de cláusulas se ele aparece sempre com o mesmo sinal (sempre positivo ou sempre negativo) — nunca há um complementar. Cláusulas com literais puros nunca contribuem para a derivação da cláusula vazia (pois o literal nunca será cancelado) e podem ser removidas com segurança.",
+      "Um literal é **puro** em um conjunto de cláusulas se ele aparece sempre com o mesmo sinal (sempre positivo ou sempre negativo), nunca há um complementar. Cláusulas com literais puros nunca contribuem para a derivação da cláusula vazia (pois o literal nunca será cancelado) e podem ser removidas com segurança.",
       "```\nExemplo: {~p, ~q, r}, {~p, s}, {~q, s}, {p}, {q}, {~r}\n\nO literal 's' aparece apenas positivo ⇒ 's' é puro ⇒ remover {~p, s} e {~q, s}\nO conjunto restante {~p, ~q, r}, {p}, {q}, {~r} ainda é insatisfatível e suficiente.\n```",
       "### Eliminação de Tautologias",
-      "Uma cláusula é uma **tautologia** se contém um par de literais complementares (por exemplo, `{p, ~p, q}`). Tautologias são sempre verdadeiras e, portanto, não afetam a satisfatibilidade do conjunto — podem ser removidas sem consequências.",
+      "Uma cláusula é uma **tautologia** se contém um par de literais complementares (por exemplo, `{p, ~p, q}`). Tautologias são sempre verdadeiras e, portanto, não afetam a satisfatibilidade do conjunto, podem ser removidas sem consequências.",
       "### Eliminação por Subsunção",
       "Uma cláusula Φ **subsume** uma cláusula Ψ se existe uma substituição σ tal que Φ·σ é um subconjunto de Ψ. Cláusulas mais específicas (subsumíveis) podem ser eliminadas, pois a cláusula mais geral (que as subsume) já cobre toda a informação relevante.",
-      "```\nExemplo: {p(x), q(y)} subsume {p(a), q(v), r(w)}\npois {p(x), q(y)}{x←a, y←v} = {p(a), q(v)} ⊆ {p(a), q(v), r(w)}\n\nLogo {p(a), q(v), r(w)} pode ser eliminada — ela é redundante.\n```",
+      "```\nExemplo: {p(x), q(y)} subsume {p(a), q(v), r(w)}\npois {p(x), q(y)}{x←a, y←v} = {p(a), q(v)} ⊆ {p(a), q(v), r(w)}\n\nLogo {p(a), q(v), r(w)} pode ser eliminada, ela é redundante.\n```",
       "### Resolução Unitária e Resolução Linear",
-      "A **resolução unitária** restringe cada passo a usar ao menos uma cláusula unitária (com um único literal). Isso garante que cada resolução reduz o tamanho das cláusulas, focando a busca em direção à cláusula vazia. A resolução unitária é completa para cláusulas de Horn (ao máximo um literal positivo por cláusula) — exatamente o formato de regras de negócio do tipo 'se... então...'.",
-      "A **resolução linear** (ou resolução filtrada por ancestralidade) é uma generalização: cada resolução deve ter ao menos um pai que seja uma cláusula inicial ou um ancestral do outro pai. Ela gera provas com estrutura linear — mais fáceis de inspecionar e auditável — e é refutativamente completa para qualquer conjunto de cláusulas.",
+      "A **resolução unitária** restringe cada passo a usar ao menos uma cláusula unitária (com um único literal). Isso garante que cada resolução reduz o tamanho das cláusulas, focando a busca em direção à cláusula vazia. A resolução unitária é completa para cláusulas de Horn (ao máximo um literal positivo por cláusula), exatamente o formato de regras de negócio do tipo 'se... então...'.",
+      "A **resolução linear** (ou resolução filtrada por ancestralidade) é uma generalização: cada resolução deve ter ao menos um pai que seja uma cláusula inicial ou um ancestral do outro pai. Ela gera provas com estrutura linear, mais fáceis de inspecionar e auditável, e é refutativamente completa para qualquer conjunto de cláusulas.",
       "### Resolução com Conjunto de Suporte",
       "A estratégia de **conjunto de suporte** é especialmente útil quando as premissas são satisfatíveis e apenas a adição da conclusão negada cria a insatisfatibilidade. Nesse caso, designamos as cláusulas derivadas da conclusão negada como o conjunto de suporte: cada resolução deve envolver ao menos uma cláusula do conjunto de suporte ou descendente dele. O efeito prático é orientar a busca a partir da conclusão negada (raciocínio regressivo), evitando resoluções entre premissas que não têm relação com o objetivo.",
       "```\n| Estratégia | Completude | Eficiência | Uso Típico |\n|---|---|---|---|\n| Irrestrita | Completa | Baixa (muitas cláusulas redundantes) | Referência teórica |\n| Lit. puro | Completa | Média (poupa cláusulas inúteis) | Pré-processamento |\n| Tautologia | Completa | Média | Pré-processamento |\n| Subsunção | Completa | Alta (elimina redundâncias) | Sistemas de produção |\n| Unitária | Incompleta (geral) / Completa (Horn) | Alta | Regras de negócio (Horn) |\n| Linear | Completa | Alta (provas lineares) | Auditoria e explicabilidade |\n| Conj. suporte | Completa | Alta (orientada ao objetivo) | Verificação de propriedades |\n```"
@@ -1581,10 +1581,10 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap6-sec5": {
     id: "cap6-sec5",
     title: "Resolução Relacional e Unificação",
-    subtitle: "6.6 — O Salto para a Lógica Relacional",
+    subtitle: "6.6, O Salto para a Lógica Relacional",
     paragraphs: [
       "### O Salto para a Lógica Relacional",
-      "A Resolução Proposicional opera sobre átomos ground — sem variáveis. Para aplicar o mesmo princípio à Lógica Relacional, precisamos de um mecanismo que identifique literais 'essencialmente complementares', mesmo quando expressos com variáveis diferentes. Esse mecanismo é a **unificação**.",
+      "A Resolução Proposicional opera sobre átomos ground, sem variáveis. Para aplicar o mesmo princípio à Lógica Relacional, precisamos de um mecanismo que identifique literais 'essencialmente complementares', mesmo quando expressos com variáveis diferentes. Esse mecanismo é a **unificação**.",
       "Na Resolução Proposicional, dois literais são complementares se um é a negação exata do outro: `p` e `~p`. Na Resolução Relacional, a condição é relaxada: φ e ~ψ são complementares se existe uma substituição de variáveis que os torna idênticos. A busca por essa substituição é o processo de unificação.",
       "#### Analogia com Casamento de Padrões em Dados",
       "A unificação é o análogo lógico do casamento de padrões (*pattern matching*) em linguagens de programação e do `JOIN` em SQL. Em SQL, ao fazer `tabela_a JOIN tabela_b ON a.id = b.id`, estamos 'unificando' as colunas de chave. Na Resolução Relacional, ao unificar `p(x,a)` com `p(b,y)`, estamos encontrando os valores `(x=b, y=a)` que fazem as duas expressões coincidirem. A diferença crucial: o casamento de padrões em SQL opera sobre valores concretos; a unificação opera sobre expressões com variáveis, e o resultado é a substituição mais geral que realiza o casamento.",
@@ -1592,12 +1592,12 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Uma **substituição** é um mapeamento finito de variáveis para termos, escrito como um conjunto de regras de reescrita. Quando aplicada a uma expressão, cada variável no domínio da substituição é substituída pelo termo correspondente.",
       "```\nSubstituição σ = {x←a, y←f(b), z←v}\n\nq(x, y) aplicada a σ ⇒ q(a, f(b))\nq(x, x) aplicada a σ ⇒ q(a, a)\nq(z, v) aplicada a σ ⇒ q(v, v) [z→v; v sem binding, permanece v]\n```",
       "Uma substituição σ é um **unificador** de φ e ψ se φ·σ = ψ·σ, ou seja, aplicar σ a ambas as expressões produz o mesmo resultado. Se duas expressões têm um unificador, são unificáveis; caso contrário, não-unificáveis. Entre todos os unificadores de um par de expressões, o mais útil é o **Unificador Mais Geral (UMG)**: aquele que faz as substituições mínimas necessárias, preservando o máximo de liberdade nas variáveis restantes.",
-      "```\n| Expressão 1 | Expressão 2 | Unificável? | UMG |\n|---|---|---|---|\n| p(x, b) | p(a, y) | Sim | {x←a, y←b} |\n| p(x, x) | p(a, y) | Sim | {x←a, y←a} |\n| p(x, f(x)) | p(a, y) | Sim | {x←a, y←f(a)} |\n| p(x, x) | p(f(y), y) | Não (occur check) | — |\n| p(a, b) | p(b, a) | Não (constantes diferentes) | — |\n| p(x) | q(x) | Não (predicados diferentes) | — |\n```",
+      "```\n| Expressão 1 | Expressão 2 | Unificável? | UMG |\n|---|---|---|---|\n| p(x, b) | p(a, y) | Sim | {x←a, y←b} |\n| p(x, x) | p(a, y) | Sim | {x←a, y←a} |\n| p(x, f(x)) | p(a, y) | Sim | {x←a, y←f(a)} |\n| p(x, x) | p(f(y), y) | Não (occur check) |, |\n| p(a, b) | p(b, a) | Não (constantes diferentes) |, |\n| p(x) | q(x) | Não (predicados diferentes) |, |\n```",
       "#### O Occur Check",
-      "Antes de unificar uma variável `x` com um termo `t`, é necessário verificar se `x` não ocorre dentro de `t`. Sem essa verificação, a unificação de `p(x)` e `p(f(x))` produziria a substituição `{x←f(x)}`, que ao ser aplicada gera `p(f(x))`, depois `p(f(f(x)))`, ad infinitum — uma substituição circular sem solução finita. Na prática, muitos sistemas de produção omitem o occur check por razões de desempenho. Em sistemas críticos de verificação formal, o occur check deve ser mantido.",
+      "Antes de unificar uma variável `x` com um termo `t`, é necessário verificar se `x` não ocorre dentro de `t`. Sem essa verificação, a unificação de `p(x)` e `p(f(x))` produziria a substituição `{x←f(x)}`, que ao ser aplicada gera `p(f(x))`, depois `p(f(f(x)))`, ad infinitum, uma substituição circular sem solução finita. Na prática, muitos sistemas de produção omitem o occur check por razões de desempenho. Em sistemas críticos de verificação formal, o occur check deve ser mantido.",
       "### O Algoritmo de Unificação",
       "O algoritmo de unificação é recursivo: compara as duas expressões subexpressão por subexpressão, acumulando a substituição à medida que avança. Em cada passo:",
-      "- Se as subexpressões (após aplicar a substituição acumulada) são idênticas: sucesso, nada a fazer.\n- Se uma é uma variável e a outra não a contém (occur check): adicionar o binding variável ← expressão à substituição.\n- Se nenhuma é variável e pelo menos uma é uma constante diferente da outra: falha — não unificáveis.\n- Se ambas são termos compostos com o mesmo símbolo de função: comparar recursivamente os argumentos.",
+      "- Se as subexpressões (após aplicar a substituição acumulada) são idênticas: sucesso, nada a fazer.\n- Se uma é uma variável e a outra não a contém (occur check): adicionar o binding variável ← expressão à substituição.\n- Se nenhuma é variável e pelo menos uma é uma constante diferente da outra: falha, não unificáveis.\n- Se ambas são termos compostos com o mesmo símbolo de função: comparar recursivamente os argumentos.",
       "A seguir, um trace completo para a unificação de `p(x, b)` e `p(a, y)`:",
       "```\n| Passo | Comparação e Resultado |\n|---|---|\n| Início | Comparar p(x,b) com p(a,y), σ={} |\n| Nível 1 | Comparar 'p' com 'p' ⇒ idênticos, σ={} |\n| Nível 1 | Comparar x com a ⇒ x é variável, não ocorre em a ⇒ σ={x←a} |\n| Nível 1 | Comparar b com y (após aplicar σ) ⇒ y é variável, não ocorre em b ⇒ σ={x←a, y←b} |\n| Resultado | UMG = {x←a, y←b}; p(x,b){x←a,y←b}=p(a,b)=p(a,y){x←a,y←b} |\n```"
     ]
@@ -1606,23 +1606,23 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap6-sec6": {
     id: "cap6-sec6",
     title: "O Princípio da Resolução Relacional",
-    subtitle: "6.7 — A Regra com Unificação",
+    subtitle: "6.7, A Regra com Unificação",
     paragraphs: [
       "### A Regra com Unificação",
       "O Princípio da Resolução para a Lógica Relacional é análogo ao proposicional, com a adição da unificação. Dados uma cláusula com um literal φ e outra cláusula com um literal ~ψ tais que φ e ψ têm um UMG σ, o resolvente é obtido aplicando σ ao conjunto dos literais restantes de ambas as cláusulas.",
       "```\n{φ₁, ..., φ, ..., φₘ}\n{ψ₁, ..., ~ψ, ..., ψₙ}\n------------------------------------------\n{φ₁, ..., φₘ, ψ₁, ..., ψₙ} · σ\n\nonde σ = mgu(φ, ψ)\ne as cláusulas foram renomeadas para evitar variáveis em comum\n```",
-      "Dois refinamentos são necessários em relação à versão proposicional: (1) antes de tentar a resolução, uma das cláusulas tem suas variáveis renomeadas para evitar conflitos com as da outra; (2) para lidar com casos em que múltiplos literais em uma mesma cláusula podem ser unificados entre si, usa-se o conceito de **fator** — uma cláusula derivada aplicando um UMG a um subconjunto de seus próprios literais.",
+      "Dois refinamentos são necessários em relação à versão proposicional: (1) antes de tentar a resolução, uma das cláusulas tem suas variáveis renomeadas para evitar conflitos com as da outra; (2) para lidar com casos em que múltiplos literais em uma mesma cláusula podem ser unificados entre si, usa-se o conceito de **fator**, uma cláusula derivada aplicando um UMG a um subconjunto de seus próprios literais.",
       "### Exemplo: Derivação em Relações de Parentesco",
       "Considere uma base de conhecimento sobre relações de parentesco e o objetivo de provar que Art é avô de Coe:",
-      "```\n| Lin | Cláusula | Origem |\n|---|---|---|\n| 1 | {p(art, bob)} | Art é pai de Bob [Premissa] |\n| 2 | {p(art, bud)} | Art é pai de Bud [Premissa] |\n| 3 | {p(bob, cal)} | Bob é pai de Cal [Premissa] |\n| 4 | {p(bud, coe)} | Bud é pai de Coe [Premissa] |\n| 5 | {~p(x,y), ~p(y,z), g(x,z)} | Avô = pai do pai [Premissa] |\n| 6 | {~p(bob, z), g(art, z)} | Resolução 1 e 5: σ={x←art, y←bob} |\n| 7 | {g(art, cal)} | Resolução 3 e 6: σ={z←cal} [avô de Cal — caminho morto] |\n| 8 | {~p(bud, z), g(art, z)} | Resolução 2 e 5: σ={x←art, y←bud} |\n| 9 | {g(art, coe)} | Resolução 4 e 8: σ={z←coe} — OBJETIVO ATINGIDO |\n```",
-      "Observe que a linha 7 é um caminho morto — Art também é avô de Cal, mas esse não era o objetivo. A resolução explora o espaço de consequências sem necessidade de guia humano, terminando ao atingir o objetivo. Note também que, ao contrário do sistema de Fitch, nenhuma suposição arbitrária foi feita — as substituições de variáveis foram todas determinadas pela unificação."
+      "```\n| Lin | Cláusula | Origem |\n|---|---|---|\n| 1 | {p(art, bob)} | Art é pai de Bob [Premissa] |\n| 2 | {p(art, bud)} | Art é pai de Bud [Premissa] |\n| 3 | {p(bob, cal)} | Bob é pai de Cal [Premissa] |\n| 4 | {p(bud, coe)} | Bud é pai de Coe [Premissa] |\n| 5 | {~p(x,y), ~p(y,z), g(x,z)} | Avô = pai do pai [Premissa] |\n| 6 | {~p(bob, z), g(art, z)} | Resolução 1 e 5: σ={x←art, y←bob} |\n| 7 | {g(art, cal)} | Resolução 3 e 6: σ={z←cal} [avô de Cal, caminho morto] |\n| 8 | {~p(bud, z), g(art, z)} | Resolução 2 e 5: σ={x←art, y←bud} |\n| 9 | {g(art, coe)} | Resolução 4 e 8: σ={z←coe}, OBJETIVO ATINGIDO |\n```",
+      "Observe que a linha 7 é um caminho morto, Art também é avô de Cal, mas esse não era o objetivo. A resolução explora o espaço de consequências sem necessidade de guia humano, terminando ao atingir o objetivo. Note também que, ao contrário do sistema de Fitch, nenhuma suposição arbitrária foi feita, as substituições de variáveis foram todas determinadas pela unificação."
     ]
   },
 
   "cap6-sec7": {
     id: "cap6-sec7",
     title: "Forma Clausal Relacional: Skolemização",
-    subtitle: "6.8 — Eliminação de Quantificadores Existenciais",
+    subtitle: "6.8, Eliminação de Quantificadores Existenciais",
     paragraphs: [
       "Para aplicar a resolução a sentenças relacionais com quantificadores, é necessário um passo adicional na conversão para a forma clausal: a eliminação dos quantificadores existenciais por **Skolemização**.",
       "### O Procedimento Completo de Conversão",
@@ -1630,35 +1630,35 @@ export const chapterContents: Record<string, ChapterContent> = {
       "```\n| Passo | Nome | Operação |\n|---|---|---|\n| I | Implicações fora | Eliminar ⇒, ⇐, ⇔ usando equivalências booleanas |\n| N | Negações dentro | Mover negações até literais atômicos (De Morgan + quantificadores) |\n| S | Padronizar variáveis | Renomear variáveis para que cada quantificador use uma variável única |\n| E | Existenciais fora | Skolemização: substituir variáveis existenciais por constantes/funções de Skolem |\n| A | Universais fora | Remover todos os quantificadores universais (variáveis ficam implicitamente universais) |\n| D | Disjunções dentro | Distribuir ∨ sobre ∧ para atingir a forma normal conjuntiva |\n| O | Operadores fora | Separar conjunções em cláusulas e escrever disjunções como conjuntos |\n```",
       "### Skolemização: A Chave para Eliminar Existenciais",
       "A Skolemização é o passo menos intuitivo, mas conceitualmente elegante. A ideia: um quantificador existencial ∃y dentro do escopo de universais ∀x₁,...,∀xₙ diz que 'existe um y que depende dos valores de x₁,...,xₙ'. Esse y pode ser representado por uma **função de Skolem** f(x₁,...,xₙ).",
-      "A Skolemização não preserva equivalência lógica — o conjunto de cláusulas resultante está em um vocabulário expandido e pode ter modelos diferentes. Porém, ela preserva a **satisfatibilidade**: o conjunto original é satisfatível se e somente se o conjunto skolemizado é satisfatível. Para a resolução por refutação, isso é tudo que precisamos."
+      "A Skolemização não preserva equivalência lógica, o conjunto de cláusulas resultante está em um vocabulário expandido e pode ter modelos diferentes. Porém, ela preserva a **satisfatibilidade**: o conjunto original é satisfatível se e somente se o conjunto skolemizado é satisfatível. Para a resolução por refutação, isso é tudo que precisamos."
     ]
   },
 
   "cap6-sec8": {
     id: "cap6-sec8",
     title: "Extração de Respostas",
-    subtitle: "6.9 — Respondendo Perguntas com Resolução",
+    subtitle: "6.9, Respondendo Perguntas com Resolução",
     paragraphs: [
       "Até aqui, usamos a resolução para responder perguntas do tipo verdadeiro/falso: 'o conjunto de premissas implica esta conclusão?'. Mas a resolução também pode ser usada para responder perguntas do tipo **preencha-o-espaço**: 'quais valores satisfazem esta condição?'.",
       "### Literais de Resposta",
       "Para extrair respostas, adicionamos ao processo um literal especial de resposta: `goal(v₁,...,vₙ)`, onde v₁,...,vₙ são as variáveis livres da pergunta. Esse literal acompanha a cláusula derivada da pergunta negada e é propagado pelas resoluções. O processo termina não quando a cláusula vazia é derivada, mas quando uma cláusula contendo apenas literais de resposta é produzida.",
       "Exemplo: 'Quem é o pai de Jon?' A pergunta é `p(x, jon)`. O literal de resposta é `goal(x)`. A cláusula objetivo é `{~p(x, jon), goal(x)}`.",
-      "```\n| Linha | Cláusula | Origem |\n|---|---|---|\n| 1 | {p(art, jon)} | Art é pai de Jon [Premissa] |\n| 2 | {p(bob, kim)} | Bob é pai de Kim [Premissa] |\n| 3 | {~p(x,y), pai(x,y)} | Definição de pai [Premissa] |\n| 4 | {~p(x,jon), goal(x)} | Pergunta negada com literal de resposta |\n| 5 | {~p(x,jon), goal(x)} | Resolução 3 e 4: σ={y←jon} |\n| 6 | {goal(art)} | Resolução 1 e 5: σ={x←art} — RESPOSTA: art |\n```",
+      "```\n| Linha | Cláusula | Origem |\n|---|---|---|\n| 1 | {p(art, jon)} | Art é pai de Jon [Premissa] |\n| 2 | {p(bob, kim)} | Bob é pai de Kim [Premissa] |\n| 3 | {~p(x,y), pai(x,y)} | Definição de pai [Premissa] |\n| 4 | {~p(x,jon), goal(x)} | Pergunta negada com literal de resposta |\n| 5 | {~p(x,jon), goal(x)} | Resolução 3 e 4: σ={y←jon} |\n| 6 | {goal(art)} | Resolução 1 e 5: σ={x←art}, RESPOSTA: art |\n```",
       "### Respostas Múltiplas e Ambiguidade",
       "Quando o problema tem múltiplas respostas corretas, diferentes caminhos de resolução produzem diferentes literais de resposta. O processo pode ser continuado até que respostas suficientes sejam encontradas.",
-      "Em casos de incerteza — quando se sabe que uma de várias respostas é correta, mas não qual delas — a resolução pode produzir cláusulas com múltiplos literais de resposta, como `{goal(art), goal(bob)}`. Isso não significa duas respostas simultâneas, mas sim a informação de que ao menos uma das opções é correta.",
+      "Em casos de incerteza, quando se sabe que uma de várias respostas é correta, mas não qual delas, a resolução pode produzir cláusulas com múltiplos literais de resposta, como `{goal(art), goal(bob)}`. Isso não significa duas respostas simultâneas, mas sim a informação de que ao menos uma das opções é correta.",
       "#### Extração de Respostas em Sistemas de Recomendação",
-      "A extração de respostas por resolução é o fundamento lógico de sistemas de busca e recomendação baseados em regras. Em vez de filtrar um dataset linha por linha, o sistema deriva as respostas possíveis por encadeamento de regras — equivalente a um `JOIN` com resolução automática de variáveis. Por exemplo: dado um sistema de regras de elegibilidade para crédito e um conjunto de clientes, a extração de respostas identifica automaticamente o conjunto de clientes elegíveis sem inspeção exaustiva de cada combinação possível de atributos."
+      "A extração de respostas por resolução é o fundamento lógico de sistemas de busca e recomendação baseados em regras. Em vez de filtrar um dataset linha por linha, o sistema deriva as respostas possíveis por encadeamento de regras, equivalente a um `JOIN` com resolução automática de variáveis. Por exemplo: dado um sistema de regras de elegibilidade para crédito e um conjunto de clientes, a extração de respostas identifica automaticamente o conjunto de clientes elegíveis sem inspeção exaustiva de cada combinação possível de atributos."
     ]
   },
 
   "cap6-sec9": {
     id: "cap6-sec9",
     title: "Aplicações em Ciência de Dados",
-    subtitle: "6.10 — Verificação, Cláusulas de Horn e Sistemas de Regras",
+    subtitle: "6.10, Verificação, Cláusulas de Horn e Sistemas de Regras",
     paragraphs: [
       "### Verificação Automática de Restrições de Qualidade",
-      "A aplicação mais direta da resolução em ciência de dados é a verificação automática de restrições de qualidade. Cada restrição de qualidade — unicidade de chaves, integridade referencial, ausência de nulos, faixas de valores — pode ser expressa como um conjunto de cláusulas. A verificação de que o dataset satisfaz todas as restrições equivale a verificar que o conjunto cláusulas `{restrições} ∪ {~propriedade_desejada}` é insatisfatível.",
+      "A aplicação mais direta da resolução em ciência de dados é a verificação automática de restrições de qualidade. Cada restrição de qualidade, unicidade de chaves, integridade referencial, ausência de nulos, faixas de valores, pode ser expressa como um conjunto de cláusulas. A verificação de que o dataset satisfaz todas as restrições equivale a verificar que o conjunto cláusulas `{restrições} ∪ {~propriedade_desejada}` é insatisfatível.",
       "```\nRestrição: nenhum cliente aprovado tem histórico negativo\n  Formal: ∀x.(aprovado(x) ⇒ ~histórico_negativo(x))\n  Clausal: {~aprovado(x), ~histórico_negativo(x)}\n\nDados: aprovado(c42), histórico_negativo(c42)\n  Clausal: {aprovado(c42)}, {histórico_negativo(c42)}\n\nNegação da propriedade: 'existe cliente aprovado com histórico negativo'\n  Clausal: {aprovado(a)}, {histórico_negativo(a)}  [a: constante de Skolem]\n\nDerivação:\n  {~aprovado(x), ~histórico_negativo(x)} + {aprovado(c42)} ⇒\n{~histórico_negativo(c42)}\n  {~histórico_negativo(c42)} + {histórico_negativo(c42)} ⇒ {}\n\nCláusula vazia derivada ⇒ VIOLAÇÃO DETECTADA em c42.\n```",
       "### Cláusulas de Horn e Sistemas de Regras",
       "Uma **cláusula de Horn** é uma cláusula com no máximo um literal positivo. Toda regra do tipo 'se A e B então C' pode ser escrita como a cláusula de Horn `{~A, ~B, C}`. Conjuntos de cláusulas de Horn têm propriedades especiais: a resolução unitária é completa para eles, e o algoritmo de resolução é equivalente ao encadeamento progressivo (*forward chaining*) de sistemas de regras.",
@@ -1682,7 +1682,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     subtitle: "Capítulo 7",
     paragraphs: [
       "Os capítulos anteriores apresentaram a Lógica Proposicional e a Lógica Relacional (também chamada de Lógica de Herbrand), ferramentas capazes de representar conhecimento em domínios finitos e bem delimitados. No entanto, à medida que os problemas de Inteligência Artificial e Ciência de Dados crescem em escala e complexidade, essas abordagens revelam limitações importantes: não conseguem, por si sós, expressar afirmações sobre todos os objetos de um domínio sem enumerá-los explicitamente, nem lidar naturalmente com universos infinitos ou com objetos que não possuem nomes únicos na linguagem.",
-      "A **Lógica de Primeira Ordem (LPO)** — também denominada lógica de predicados de primeira ordem ou, em inglês, *First-Order Logic (FOL)* — supera essas limitações ao dissociar o universo de objetos do espaço de termos da linguagem. Em vez de supor uma correspondência biunívoca entre nomes e objetos, a LPO permite que o mesmo objeto tenha múltiplos nomes, que alguns objetos não tenham nome algum, e que o universo seja infinito. Essas características tornam a LPO a linguagem de representação de conhecimento mais amplamente utilizada em IA clássica, sendo o fundamento de sistemas como Prolog, OWL (Web Ontology Language) e motores de inferência para bases de conhecimento.",
+      "A **Lógica de Primeira Ordem (LPO)**, também denominada lógica de predicados de primeira ordem ou, em inglês, *First-Order Logic (FOL)*, supera essas limitações ao dissociar o universo de objetos do espaço de termos da linguagem. Em vez de supor uma correspondência biunívoca entre nomes e objetos, a LPO permite que o mesmo objeto tenha múltiplos nomes, que alguns objetos não tenham nome algum, e que o universo seja infinito. Essas características tornam a LPO a linguagem de representação de conhecimento mais amplamente utilizada em IA clássica, sendo o fundamento de sistemas como Prolog, OWL (Web Ontology Language) e motores de inferência para bases de conhecimento.",
       "Este capítulo apresenta a sintaxe, a semântica e as propriedades centrais da LPO, articulando-as com os conceitos de Lógica de Herbrand vistos anteriormente e destacando as conexões com problemas reais de IA e Ciência de Dados.",
       "| **Leitura do Capítulo** |\n|---|\n| Este capítulo pressupõe familiaridade com quantificadores (∀, ∃), lógica relacional e o sistema de prova de Fitch. Caso necessite revisar esses tópicos, consulte os Capítulos 5 e 6 antes de prosseguir. |"
     ],
@@ -1691,18 +1691,18 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap7-sec1": {
     id: "cap7-sec1",
     title: "Conceitualização do Mundo",
-    subtitle: "7.2 — Objetos, Relações e Funções",
+    subtitle: "7.2, Objetos, Relações e Funções",
     paragraphs: [
       "A semântica da LPO é construída sobre a noção de uma **conceitualização**, que consiste em três componentes: objetos, funções e relações. Compreender cada um desses componentes é essencial para construir e interpretar corretamente modelos lógicos.",
 
       "### Objetos e Universo de Discurso",
       "Em LPO, um objeto pode ser qualquer entidade sobre a qual desejamos fazer afirmações: objetos concretos (um nó de uma rede neural, um registro em um banco de dados), objetos abstratos (o número 2, o conjunto dos inteiros) ou mesmo objetos fictícios. O conjunto de todos os objetos relevantes para um problema é denominado **universo de discurso** (∀ᵢ).",
-      "A escolha do universo de discurso é uma decisão de modelagem. Em um sistema de recomendação, o universo pode ser o conjunto de usuários e itens; em um sistema de diagnóstico médico, pode ser o conjunto de pacientes e sintomas; em aritmética, pode ser o conjunto dos números naturais — um universo infinito.",
+      "A escolha do universo de discurso é uma decisão de modelagem. Em um sistema de recomendação, o universo pode ser o conjunto de usuários e itens; em um sistema de diagnóstico médico, pode ser o conjunto de pacientes e sintomas; em aritmética, pode ser o conjunto dos números naturais, um universo infinito.",
       "| **Definição: Universo de Discurso** |\n|---|\n| O universo de discurso (∀ᵢ) é o conjunto de todos os objetos sobre os quais as afirmações de uma interpretação são feitas. Pode ser finito ou infinito, concreto ou abstrato. |",
 
       "### Relações",
       "Uma relação de aridade n é um conjunto de n-uplas de objetos do universo de discurso. Formalmente, uma relação n-ária R sobre ∀ᵢ é um subconjunto do produto cartesiano ∀ᵢⁿ. Por exemplo, em um grafo de conhecimento sobre filmes, a relação binária `dirigidoPor(filme, diretor)` contém pares como [Inception, Nolan]; a relação unária `oscarizado(filme)` contém filmes que ganharam o Oscar.",
-      "Na Lógica de Herbrand, uma relação era completamente determinada pela enumeração de suas tuplas, pois o universo era finito. Na LPO, relações sobre universos infinitos podem ser caracterizadas apenas por axiomas gerais — uma distinção fundamental.",
+      "Na Lógica de Herbrand, uma relação era completamente determinada pela enumeração de suas tuplas, pois o universo era finito. Na LPO, relações sobre universos infinitos podem ser caracterizadas apenas por axiomas gerais, uma distinção fundamental.",
 
       "### Funções",
       "Uma função de aridade n associa a cada combinação de n objetos exatamente um objeto. Matematicamente, uma função n-ária é uma relação (n+1)-ária em que, para cada combinação de n argumentos, existe exatamente um valor. Por exemplo, a função `sucessor(s)` mapeia cada número natural n para n+1; a função `pai` mapeia cada pessoa para sua única mãe biológica.",
@@ -1713,7 +1713,7 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap7-sec2": {
     id: "cap7-sec2",
     title: "Sintaxe da Lógica de Primeira Ordem",
-    subtitle: "7.3 — Elementos Sintáticos",
+    subtitle: "7.3, Elementos Sintáticos",
     paragraphs: [
       "A sintaxe da LPO é uma extensão da Lógica Relacional com a incorporação de constantes de função e termos compostos. Os elementos sintáticos são os seguintes:",
       "| **Elemento Sintático** | **Descrição e Exemplos** |\n|---|---|\n| **Constantes de objeto** | Nomes para objetos específicos: a, b, joão, 0, nil |\n| **Variáveis** | Representam objetos arbitrários: x, y, z |\n| **Constantes de função** | Nomes para funções: s (sucessor), pai, cons |\n| **Termos compostos** | Aplicação de função a termos: s(0), pai(joão), cons(a, nil) |\n| **Constantes de relação** | Nomes para relações (predicados): on, plus, member |\n| **Sentenças atômicas** | Aplicação de relação a termos: on(a,b), plus(0,y,y) |\n| **Conectivos lógicos** | ¬, ∧, ∨, ⇒, ⇔ |\n| **Quantificadores** | ∀ (para todo), ∃ (existe) |",
@@ -1725,10 +1725,10 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap7-sec3": {
     id: "cap7-sec3",
     title: "Semântica: Interpretações e Atribuições",
-    subtitle: "7.4 — Interpretações e Verdade",
+    subtitle: "7.4, Interpretações e Verdade",
     paragraphs: [
       "A semântica da LPO é definida por meio do conceito de **interpretação**. Uma interpretação i especifica:",
-      "- ∀ᵢ — o universo de discurso (um conjunto não-vazio de objetos)\n- Para cada constante de objeto c: um objeto cᵢ ∈ ∀ᵢ\n- Para cada constante de função f de aridade n: uma função fᵢ : ∀ᵢⁿ → ∀ᵢ\n- Para cada constante de relação r de aridade n: um conjunto rᵢ ⊆ ∀ᵢⁿ",
+      "- ∀ᵢ, o universo de discurso (um conjunto não-vazio de objetos)\n- Para cada constante de objeto c: um objeto cᵢ ∈ ∀ᵢ\n- Para cada constante de função f de aridade n: uma função fᵢ : ∀ᵢⁿ → ∀ᵢ\n- Para cada constante de relação r de aridade n: um conjunto rᵢ ⊆ ∀ᵢⁿ",
       "Note que a interpretação é um mapeamento do nível sintático (nomes) para o nível semântico (objetos, funções e relações matemáticas). Diferentes interpretações do mesmo conjunto de sentenças correspondem a diferentes mundos possíveis.",
 
       "### Exemplo Concreto de Interpretação",
@@ -1748,7 +1748,7 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap7-sec4": {
     id: "cap7-sec4",
     title: "Exemplo: Mundo dos Blocos",
-    subtitle: "7.5 — Diferenças entre Herbrand e LPO",
+    subtitle: "7.5, Diferenças entre Herbrand e LPO",
     paragraphs: [
       "Para ilustrar as diferenças fundamentais entre a Lógica de Herbrand e a LPO, retomamos o clássico **Mundo dos Blocos** (Blocks World). Considere uma cena com cinco blocos A, B, C, D e E, onde A está sobre B, B está sobre C, e D está sobre E. Usamos constantes de objeto a, b, c, d, e e a relação binária `on(x, y)` para representar \"x está diretamente sobre y\".",
       "```\n[A]   [D]\n[B]   [E]\n[C]   ____\n__________________________\non(a,b), on(b,c), on(d,e)\n```",
@@ -1757,15 +1757,15 @@ export const chapterContents: Record<string, ChapterContent> = {
       "### A Diferença Central",
       "Na Lógica de Herbrand, as cinco constantes de objeto fixam exatamente um universo de cinco objetos. O conjunto Σ determina univocamente o estado do mundo.",
       "Na LPO, as constantes a, b, c, d, e são apenas nomes que apontam para objetos em um universo ∀ᵢ que pode ter qualquer cardinalidade. O conjunto Σ é satisfeito por **múltiplas interpretações distintas**:",
-      "| **Interpretação** | **Característica** |\n|---|---|\n| ∀ᵢ = {o₁,o₂,o₃,o₄,o₅}; aᵢ=o₁, bᵢ=o₂, ... | Cinco objetos distintos — corresponde ao diagrama |\n| ∀ᵢ = {o₁,o₂,o₃}; aᵢ=dᵢ=o₁, bᵢ=eᵢ=o₂, cᵢ=o₃ | Três objetos: a e d são o mesmo bloco |\n| ∀ᵢ = {o₁,...,o₈}; aᵢ=dᵢ=o₁, bᵢ=eᵢ=o₂, cᵢ=o₃ | Oito objetos: universo tem objetos extras sem nome |",
-      "Embora essas interpretações correspondam a mundos diferentes, todas compartilham a propriedade de que pelo menos três blocos estão empilhados. Isso reflete o fato de que Σ faz afirmações sobre os **nomes**, e não sobre a identidade dos objetos subjacentes — uma distinção filosófica e prática de grande importância em representação de conhecimento."
+      "| **Interpretação** | **Característica** |\n|---|---|\n| ∀ᵢ = {o₁,o₂,o₃,o₄,o₅}; aᵢ=o₁, bᵢ=o₂, ... | Cinco objetos distintos, corresponde ao diagrama |\n| ∀ᵢ = {o₁,o₂,o₃}; aᵢ=dᵢ=o₁, bᵢ=eᵢ=o₂, cᵢ=o₃ | Três objetos: a e d são o mesmo bloco |\n| ∀ᵢ = {o₁,...,o₈}; aᵢ=dᵢ=o₁, bᵢ=eᵢ=o₂, cᵢ=o₃ | Oito objetos: universo tem objetos extras sem nome |",
+      "Embora essas interpretações correspondam a mundos diferentes, todas compartilham a propriedade de que pelo menos três blocos estão empilhados. Isso reflete o fato de que Σ faz afirmações sobre os **nomes**, e não sobre a identidade dos objetos subjacentes, uma distinção filosófica e prática de grande importância em representação de conhecimento."
     ],
   },
 
   "cap7-sec5": {
     id: "cap7-sec5",
     title: "Aritmética e Universos Infinitos",
-    subtitle: "7.6 — Axiomatizando o Infinito",
+    subtitle: "7.6, Axiomatizando o Infinito",
     paragraphs: [
       "Um dos maiores poderes da LPO é a capacidade de axiomatizar relações sobre universos infinitos com um vocabulário finito. A **Aritmética de Peano** é o exemplo paradigmático: representa todos os números naturais usando apenas a constante 0 e a função unária s (sucessor), onde s(0)=1, s(s(0))=2, e assim por diante.",
 
@@ -1775,14 +1775,14 @@ export const chapterContents: Record<string, ChapterContent> = {
       "O axioma (1) diz que 0 + y = y para todo y. O axioma (2) é indutivo: se x + y = z, então (x+1) + y = z+1. O axioma (3) é o axioma de funcionalidade: a soma de dois números é única.",
       "Esses três axiomas são satisfeitos por múltiplas interpretações, incluindo:",
       "- Aritmética modular mod 2: ∀ᵢ = {0,1}, s = {0→1, 1→0}, plus = adição módulo 2\n- Aritmética modular mod 4: ∀ᵢ = {0,1,2,3}\n- Naturais padrão: ∀ᵢ = ℕ = {0,1,2,...}\n- Aritmética não-padrão: ∀ᵢ = {0,1}, s = {0→1, 1→1} (onde 1+1=1)",
-      "| **Implicação para IA: Incompletude de Gödel** |\n|---|\n| O fato de que os axiomas de Peano têm múltiplos modelos está relacionado ao primeiro **Teorema de Incompletude de Gödel** (1931): qualquer sistema axiomático consistente e suficientemente expressivo para descrever a aritmética dos naturais não pode ser completo — existem verdades que não podem ser provadas dentro do sistema. Isso impõe limites fundamentais ao que qualquer sistema de IA baseado em lógica pode deduzir automaticamente. |"
+      "| **Implicação para IA: Incompletude de Gödel** |\n|---|\n| O fato de que os axiomas de Peano têm múltiplos modelos está relacionado ao primeiro **Teorema de Incompletude de Gödel** (1931): qualquer sistema axiomático consistente e suficientemente expressivo para descrever a aritmética dos naturais não pode ser completo, existem verdades que não podem ser provadas dentro do sistema. Isso impõe limites fundamentais ao que qualquer sistema de IA baseado em lógica pode deduzir automaticamente. |"
     ],
   },
 
   "cap7-sec6": {
     id: "cap7-sec6",
     title: "Igualdade em LPO",
-    subtitle: "7.7 — Co-referencialidade e Provas",
+    subtitle: "7.7, Co-referencialidade e Provas",
     paragraphs: [
       "A **igualdade** é uma relação binária especial que expressa co-referencialidade: dois termos são iguais se e somente se referem ao mesmo objeto no universo de discurso. Escrevemos τ₁ = τ₂ como açúcar sintático para equal(τ₁, τ₂).",
 
@@ -1803,40 +1803,40 @@ export const chapterContents: Record<string, ChapterContent> = {
       "### Exemplo: Teoria de Grupos",
       "A teoria de grupos é um domínio clássico para raciocínio com igualdade. Um grupo é uma estrutura com uma operação binária *, um elemento identidade e e uma função de inverso inv, satisfazendo:",
       "- ∀x.∀y.∀z. (x*y)*z = x*(y*z)   [associatividade]\n- ∀x. x*e = x   [identidade à direita]\n- ∀x. e*x = x   [identidade à esquerda]\n- ∀x. x*inv(x) = e   [inverso à direita]\n- ∀x. inv(x)*x = e   [inverso à esquerda]",
-      "A partir desses axiomas, é possível provar, por exemplo, que ∀x. inv(inv(x)) = x — o inverso do inverso é o próprio elemento. A prova usa repetidas aplicações de Eliminação Universal e Eliminação de Igualdade, e exemplifica como o raciocínio equacional em LPO permite derivar propriedades gerais de estruturas algébricas."
+      "A partir desses axiomas, é possível provar, por exemplo, que ∀x. inv(inv(x)) = x, o inverso do inverso é o próprio elemento. A prova usa repetidas aplicações de Eliminação Universal e Eliminação de Igualdade, e exemplifica como o raciocínio equacional em LPO permite derivar propriedades gerais de estruturas algébricas."
     ],
   },
 
   "cap7-sec7": {
     id: "cap7-sec7",
     title: "Propriedades Lógicas",
-    subtitle: "7.8 — O que muda na LPO",
+    subtitle: "7.8, O que muda na LPO",
     paragraphs: [
-      "Nos Capítulos 2 e 4, estudamos as propriedades lógicas das sentenças — validade, insatisfatibilidade, contingência — e as relações entre sentenças — equivalência, consequência e consistência. Todas essas noções se transferem integralmente para a Lógica de Primeira Ordem. A definição formal permanece a mesma; o que muda é o **espaço de modelos** sobre o qual essas propriedades são avaliadas.",
-      "Na Lógica Proposicional, um modelo era uma atribuição de {0,1} a símbolos. Na Lógica Relacional (Herbrand), um modelo era um subconjunto da base de Herbrand. Na **LPO**, um modelo é uma **interpretação completa**: um universo de discurso ∀ᵢ, mais mapeamentos para objetos, funções e relações nesse universo. Esse espaço é radicalmente mais rico — e tem consequências teóricas importantes.",
+      "Nos Capítulos 2 e 4, estudamos as propriedades lógicas das sentenças, validade, insatisfatibilidade, contingência, e as relações entre sentenças, equivalência, consequência e consistência. Todas essas noções se transferem integralmente para a Lógica de Primeira Ordem. A definição formal permanece a mesma; o que muda é o **espaço de modelos** sobre o qual essas propriedades são avaliadas.",
+      "Na Lógica Proposicional, um modelo era uma atribuição de {0,1} a símbolos. Na Lógica Relacional (Herbrand), um modelo era um subconjunto da base de Herbrand. Na **LPO**, um modelo é uma **interpretação completa**: um universo de discurso ∀ᵢ, mais mapeamentos para objetos, funções e relações nesse universo. Esse espaço é radicalmente mais rico, e tem consequências teóricas importantes.",
       "### O que muda na prática",
       "As três categorias de propriedades lógicas são as mesmas, mas o espaço de verificação é distinto:",
       "| **Propriedade** | **Lógica Proposicional / Herbrand** | **LPO** |\n|---|---|---|\n| Válida | Verdadeira em toda atribuição de {0,1}ⁿ | Verdadeira em toda interpretação (todo universo, todo mapeamento) |\n| Insatisfatível | Falsa em toda atribuição | Falsa em toda interpretação |\n| Contingente | Verdadeira em algumas atribuições | Verdadeira em algumas interpretações, falsa em outras |",
-      "A diferença crítica está nas sentenças **válidas**: uma tautologia em LPO deve ser verdadeira não apenas para vocabulários finitos, mas para **qualquer universo de discurso**, incluindo universos infinitos. Por isso, o conjunto de tautologias de LPO é um subconjunto das tautologias de Herbrand — há sentenças verdadeiras em todos os modelos de Herbrand que falham em alguma interpretação com universo infinito.",
+      "A diferença crítica está nas sentenças **válidas**: uma tautologia em LPO deve ser verdadeira não apenas para vocabulários finitos, mas para **qualquer universo de discurso**, incluindo universos infinitos. Por isso, o conjunto de tautologias de LPO é um subconjunto das tautologias de Herbrand, há sentenças verdadeiras em todos os modelos de Herbrand que falham em alguma interpretação com universo infinito.",
       "### Consequência lógica em LPO",
-      "A definição de consequência lógica (Δ ⊨ φ) é a mesma do Capítulo 2: toda atribuição que satisfaz Δ também satisfaz φ. Em LPO, 'toda atribuição' significa 'toda interpretação de primeira ordem' — incluindo interpretações com universos infinitos e com múltiplos nomes para o mesmo objeto.",
+      "A definição de consequência lógica (Δ ⊨ φ) é a mesma do Capítulo 2: toda atribuição que satisfaz Δ também satisfaz φ. Em LPO, 'toda atribuição' significa 'toda interpretação de primeira ordem', incluindo interpretações com universos infinitos e com múltiplos nomes para o mesmo objeto.",
       "Essa generalização tem uma consequência prática imediata: **verificar consequência lógica em LPO é indecidível**. Ao contrário da Lógica Proposicional (decidível por tabelas-verdade) e da Lógica Relacional com vocabulário finito (redutível a proposicional por grounding), não existe algoritmo que determine, para qualquer par (Δ, φ) em LPO, se Δ ⊨ φ. Esse é o resultado de Church-Turing, discutido em detalhes no Capítulo 9.",
-      "Existe um sistema de prova sólido e completo para LPO — o sistema de Fitch estendido com regras para igualdade e quantificadores — mas sua completude não implica decidibilidade: para alguns pares (Δ, φ) em que Δ ⊭ φ, nenhuma busca finita confirmará isso.",
+      "Existe um sistema de prova sólido e completo para LPO, o sistema de Fitch estendido com regras para igualdade e quantificadores, mas sua completude não implica decidibilidade: para alguns pares (Δ, φ) em que Δ ⊭ φ, nenhuma busca finita confirmará isso.",
     ],
   },
 
   "cap7-sec8": {
     id: "cap7-sec8",
     title: "Conexões com IA e Ciência de Dados",
-    subtitle: "7.9 — Aplicações da LPO",
+    subtitle: "7.9, Aplicações da LPO",
     paragraphs: [
       "A LPO é o substrato lógico de diversas tecnologias e paradigmas fundamentais em IA e Ciência de Dados.",
 
       "### Programação em Lógica e Prolog",
-      "O **Prolog** é uma linguagem de programação baseada diretamente em LPO. Programas Prolog são conjuntos de cláusulas de Horn — um subconjunto restrito de sentenças de LPO — e a execução corresponde a busca por prova por refutação usando resolução SLD. Prolog foi amplamente utilizado em sistemas especialistas, análise de linguagem natural e planejamento automático.",
+      "O **Prolog** é uma linguagem de programação baseada diretamente em LPO. Programas Prolog são conjuntos de cláusulas de Horn, um subconjunto restrito de sentenças de LPO, e a execução corresponde a busca por prova por refutação usando resolução SLD. Prolog foi amplamente utilizado em sistemas especialistas, análise de linguagem natural e planejamento automático.",
 
       "### Ontologias e Web Semântica",
-      "**OWL** (Web Ontology Language), a linguagem padrão para ontologias na Web Semântica, é baseada em Lógicas de Descrição — fragmentos decidíveis da LPO. Bases de conhecimento como Wikidata, DBpedia e ontologias biomédicas (como Gene Ontology) são formalizadas nesse arcabouço, permitindo inferência automática de novos fatos.",
+      "**OWL** (Web Ontology Language), a linguagem padrão para ontologias na Web Semântica, é baseada em Lógicas de Descrição, fragmentos decidíveis da LPO. Bases de conhecimento como Wikidata, DBpedia e ontologias biomédicas (como Gene Ontology) são formalizadas nesse arcabouço, permitindo inferência automática de novos fatos.",
 
       "### Representação de Conhecimento e Grafos de Conhecimento",
       "**Grafos de conhecimento** (Knowledge Graphs), como o Google Knowledge Graph e o Freebase, são essencialmente bases de dados relacionais que podem ser interpretadas em LPO: nós são objetos, arestas são relações binárias. Sistemas de completamento de grafos (como TransE) aprendem embeddings que respeitam a estrutura relacional.",
@@ -1849,7 +1849,7 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap7-sec9": {
     id: "cap7-sec9",
     title: "Exemplo Computacional: Z3",
-    subtitle: "7.10 — LPO com a Biblioteca Z3",
+    subtitle: "7.10, LPO com a Biblioteca Z3",
     paragraphs: [
       "A biblioteca **Z3** (Microsoft Research) é um SMT solver (*Satisfiability Modulo Theories*) com suporte a LPO, disponível em Python. Pode ser utilizada para verificar a validade de sentenças sobre relações binárias.",
       "O princípio usado é **refutação por contradição**: se a negação da conclusão é insatisfatível junto com as premissas, então a conclusão é uma consequência lógica. Esse é exatamente o princípio da resolução por refutação, base do Prolog e de provadores automáticos de teoremas."
@@ -1859,9 +1859,9 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap7-sec10": {
     id: "cap7-sec10",
     title: "Resumo do Capítulo",
-    subtitle: "7.11 — Conceitos-Chave",
+    subtitle: "7.11, Conceitos-Chave",
     paragraphs: [
-      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Conceitualização | Tripla (objetos, funções, relações) que estrutura um domínio de conhecimento |\n| Universo de discurso (∀ᵢ) | Conjunto de objetos sobre os quais uma interpretação é definida |\n| Interpretação | Mapeamento de constantes da linguagem para objetos/funções/relações do universo |\n| Atribuição de variáveis | Mapeamento de variáveis para objetos do universo |\n| Modelo (⊨ᵢ φ) | Interpretação que satisfaz φ para toda atribuição de variáveis |\n| Igualdade | Relação reflexiva, simétrica, transitiva com substituição — axiomatizável em LPO |\n| Consequência lógica (Δ⊨φ) | Toda interpretação que satisfaz Δ também satisfaz φ |\n| Validade | Sentença satisfeita por toda interpretação |\n| Insatisfatibilidade | Sentença não satisfeita por nenhuma interpretação |"
+      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Conceitualização | Tripla (objetos, funções, relações) que estrutura um domínio de conhecimento |\n| Universo de discurso (∀ᵢ) | Conjunto de objetos sobre os quais uma interpretação é definida |\n| Interpretação | Mapeamento de constantes da linguagem para objetos/funções/relações do universo |\n| Atribuição de variáveis | Mapeamento de variáveis para objetos do universo |\n| Modelo (⊨ᵢ φ) | Interpretação que satisfaz φ para toda atribuição de variáveis |\n| Igualdade | Relação reflexiva, simétrica, transitiva com substituição, axiomatizável em LPO |\n| Consequência lógica (Δ⊨φ) | Toda interpretação que satisfaz Δ também satisfaz φ |\n| Validade | Sentença satisfeita por toda interpretação |\n| Insatisfatibilidade | Sentença não satisfeita por nenhuma interpretação |"
     ],
   },
 
@@ -1870,7 +1870,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Indução e Generalização",
     subtitle: "Capítulo 8",
     paragraphs: [
-      "No capítulo anterior, vimos como a Lógica de Primeira Ordem permite expressar afirmações sobre universos potencialmente infinitos de objetos usando um vocabulário finito. Mas como *provar* que uma propriedade vale para todos os elementos de um universo infinito? Não é possível verificar cada elemento individualmente — o processo jamais terminaria. A resposta a esse desafio é a **indução**, um dos princípios de raciocínio mais fundamentais da matemática e da ciência da computação.",
+      "No capítulo anterior, vimos como a Lógica de Primeira Ordem permite expressar afirmações sobre universos potencialmente infinitos de objetos usando um vocabulário finito. Mas como *provar* que uma propriedade vale para todos os elementos de um universo infinito? Não é possível verificar cada elemento individualmente, o processo jamais terminaria. A resposta a esse desafio é a **indução**, um dos princípios de raciocínio mais fundamentais da matemática e da ciência da computação.",
       "A indução é o processo de raciocinar do *específico para o geral*: a partir de um conjunto de casos particulares verdadeiros, conclui-se uma afirmação universal. Há, porém, uma distinção crucial entre dois tipos de indução:",
       "- **Indução incompleta:** generaliza a partir de uma amostra não-exaustiva. Útil na ciência empírica e no aprendizado de máquina, mas não garante a verdade da conclusão.\n- **Indução completa:** cobre todos os casos de forma estruturada e garante a validade da conclusão. É esta que estudamos neste capítulo.",
       "Em IA e Ciência de Dados, a tensão entre esses dois tipos de indução está no centro de debates fundamentais: modelos de aprendizado de máquina fazem indução incompleta (generalizam a partir de dados); sistemas de verificação formal utilizam indução completa para garantir propriedades de algoritmos. Compreender ambos é essencial para um profissional rigoroso da área.",
@@ -1884,9 +1884,9 @@ export const chapterContents: Record<string, ChapterContent> = {
     paragraphs: [
       "Para motivar a distinção, considere dois exemplos históricos. O primeiro é favorável: a função f definida por f(1)=1 e f(n+1)=f(n)+2n+1 produz, para os primeiros valores, o seguinte padrão:",
       "| **n** | **f(n)** | **n²** | **f(n) = n²?** |\n|---|---|---|---|\n| 1 | 1 | 1 | ✓ |\n| 2 | 4 | 4 | ✓ |\n| 3 | 9 | 9 | ✓ |\n| 4 | 16 | 16 | ✓ |\n| 5 | 25 | 25 | ✓ |",
-      "A observação de que f(n) parece sempre ser n² é uma *conjectura indutiva incompleta*. Felizmente, neste caso ela é verdadeira — e *pode ser provada por indução completa*. O segundo exemplo, histórico, é um alerta: Fermat observou que 2^(2ⁿ)+1 era primo para n=1,2,3,4 e conjecturou que isso sempre ocorria. A conjectura foi refutada por Euler no caso n=5, onde 2^32+1 = 4.294.967.297 = 641 × 6.700.417.",
+      "A observação de que f(n) parece sempre ser n² é uma *conjectura indutiva incompleta*. Felizmente, neste caso ela é verdadeira, e *pode ser provada por indução completa*. O segundo exemplo, histórico, é um alerta: Fermat observou que 2^(2ⁿ)+1 era primo para n=1,2,3,4 e conjecturou que isso sempre ocorria. A conjectura foi refutada por Euler no caso n=5, onde 2^32+1 = 4.294.967.297 = 641 × 6.700.417.",
       "| **Lição para IA/ML**<br/>Em aprendizado de máquina, todo modelo treinado faz *indução incompleta*: generaliza de um conjunto de treinamento finito para um universo potencialmente infinito de exemplos. O erro de generalização (*generalization gap*) é exatamente a diferença entre o desempenho no treino e no mundo real. A teoria de aprendizado PAC (Probably Approximately Correct) formaliza as condições sob as quais essa indução incompleta tem garantias probabilísticas de sucesso. |",
-      "| **Definição: Indução Completa**<br/>Indução onde o conjunto de instâncias verificadas é exaustivo — cobre todos os casos possíveis de forma estruturada. A validade da conclusão é garantida, não meramente plausível. Quando aplicada a números, é usualmente denominada indução matemática. |"
+      "| **Definição: Indução Completa**<br/>Indução onde o conjunto de instâncias verificadas é exaustivo, cobre todos os casos possíveis de forma estruturada. A validade da conclusão é garantida, não meramente plausível. Quando aplicada a números, é usualmente denominada indução matemática. |"
     ]
   },
 
@@ -1894,7 +1894,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     id: "cap8-sec2",
     title: "Fechamento de Domínio",
     paragraphs: [
-      "O caso mais simples de indução completa ocorre quando o universo de discurso é *finito*. Se a linguagem possui apenas n constantes de objeto σ₁, ..., σₙ, e conseguimos provar que uma propriedade φ vale para cada uma delas individualmente, podemos concluir que φ vale para todo elemento do universo. Isso é formalizado pela regra de **Fechamento de Domínio (DC — Domain Closure)**:",
+      "O caso mais simples de indução completa ocorre quando o universo de discurso é *finito*. Se a linguagem possui apenas n constantes de objeto σ₁, ..., σₙ, e conseguimos provar que uma propriedade φ vale para cada uma delas individualmente, podemos concluir que φ vale para todo elemento do universo. Isso é formalizado pela regra de **Fechamento de Domínio (DC, Domain Closure)**:",
       "| **Regra de Fechamento de Domínio (DC)**<br/>**φ[σ₁]**<br/>**φ[σ₂]**<br/>**⋮**<br/>**φ[σₙ]**<br/>**──────────**<br/>**∀ν. φ[ν]** |",
       "Como exemplo, considere um domínio com quatro objetos: abby, bess, cody, dana. Se provarmos que cada um deles tem alguém de quem gosta, podemos concluir que todos gostam de alguém:",
       "| **Prova em Fitch** | | |\n|---|---|---|\n| 1. | ∃y. likes(abby, y) | Premissa |\n| 2. | ∃y. likes(bess, y) | Premissa |\n| 3. | ∃y. likes(cody, y) | Premissa |\n| 4. | ∃y. likes(dana, y) | Premissa |\n| 5. | ∀x. ∃y. likes(x, y) | DC: 1, 2, 3, 4 |",
@@ -1909,14 +1909,14 @@ export const chapterContents: Record<string, ChapterContent> = {
       "A forma mais clássica de indução completa para universos infinitos é a **Indução Linear**, também conhecida como *indução matemática* ou *indução sobre os naturais*. Ela se aplica a linguagens com uma única constante de objeto (o *elemento base*) e uma única constante de função unária (o *sucessor*), cujos termos formam uma sequência linear:",
       "```\na  →  s(a)  →  s(s(a))  →  s(s(s(a)))  →  ...\n```",
       "A intuição é a dos dominós em fila: se o primeiro cai (caso base), e sempre que um cai o próximo também cai (caso indutivo), então todos os dominós caem.",
-      "| **Regra de Indução Linear (Ind)**<br/>**φ[a]                              (caso base)**<br/>**∀μ. (φ[μ] ⇒ φ[s(μ)])    (caso indutivo)**<br/>**──────────────────────────────**<br/>**∀ν. φ[ν]                          (conclusão geral)**<br/><br/>O antecedente do caso indutivo — φ[μ] — é a **hipótese indutiva**. O consequente φ[s(μ)] é a **conclusão indutiva**. |",
+      "| **Regra de Indução Linear (Ind)**<br/>**φ[a]                              (caso base)**<br/>**∀μ. (φ[μ] ⇒ φ[s(μ)])    (caso indutivo)**<br/>**──────────────────────────────**<br/>**∀ν. φ[ν]                          (conclusão geral)**<br/><br/>O antecedente do caso indutivo, φ[μ], é a **hipótese indutiva**. O consequente φ[s(μ)] é a **conclusão indutiva**. |",
       "### 8.4.1 Exemplo: Zero como Identidade à Direita",
       "Nos axiomas de Peano, temos as seguintes propriedades da adição (onde plus(x,y,z) representa x+y=z):",
       "```\n(A1) ∀y. plus(0, y, y)\n(A2) ∀x.∀y.∀z. (plus(x,y,z) ⇒ plus(s(x), y, s(z)))\n(A3) ∀x.∀y.∀z.∀w. (plus(x,y,z) ∧ ¬same(z,w) ⇒ ¬plus(x,y,w))\n```",
-      "O axioma (A1) afirma que 0 é identidade à *esquerda*: 0+y=y. Mas será que 0 também é identidade à *direita*, ou seja, que x+0=x para todo x? Isso não é um axioma — precisa ser *provado* por indução:",
-      "| **Prova em Fitch** | | |\n|---|---|---|\n| 1. | ∀y. plus(0, y, y) | Premissa (A1) |\n| 2. | ∀x.∀y.∀z. (plus(x,y,z) ⇒ plus(s(x),y,s(z))) | Premissa (A2) |\n| 3. | ∀x.∀y.∀z.∀w. (plus(x,y,z) ∧ ¬same(z,w) ⇒ ¬plus(x,y,w)) | Premissa (A3) |\n| 4. | plus(0, 0, 0) | EU: 1 [y←0] — CASO BASE |\n| 5. | ∀y.∀z. (plus(c,y,z) ⇒ plus(s(c),y,s(z))) | EU: 2 [x←c] |\n| 6. | ∀z. (plus(c,0,z) ⇒ plus(s(c),0,s(z))) | EU: 5 [y←0] |\n| 7. | plus(c,0,c) ⇒ plus(s(c), 0, s(c)) | EU: 6 [z←c] |\n| 8. | ∀x. (plus(x,0,x) ⇒ plus(s(x),0,s(x))) | UI: 7 — CASO INDUTIVO |\n| 9. | ∀x. plus(x, 0, x) | Ind: 4, 8 |",
+      "O axioma (A1) afirma que 0 é identidade à *esquerda*: 0+y=y. Mas será que 0 também é identidade à *direita*, ou seja, que x+0=x para todo x? Isso não é um axioma, precisa ser *provado* por indução:",
+      "| **Prova em Fitch** | | |\n|---|---|---|\n| 1. | ∀y. plus(0, y, y) | Premissa (A1) |\n| 2. | ∀x.∀y.∀z. (plus(x,y,z) ⇒ plus(s(x),y,s(z))) | Premissa (A2) |\n| 3. | ∀x.∀y.∀z.∀w. (plus(x,y,z) ∧ ¬same(z,w) ⇒ ¬plus(x,y,w)) | Premissa (A3) |\n| 4. | plus(0, 0, 0) | EU: 1 [y←0], CASO BASE |\n| 5. | ∀y.∀z. (plus(c,y,z) ⇒ plus(s(c),y,s(z))) | EU: 2 [x←c] |\n| 6. | ∀z. (plus(c,0,z) ⇒ plus(s(c),0,s(z))) | EU: 5 [y←0] |\n| 7. | plus(c,0,c) ⇒ plus(s(c), 0, s(c)) | EU: 6 [z←c] |\n| 8. | ∀x. (plus(x,0,x) ⇒ plus(s(x),0,s(x))) | UI: 7, CASO INDUTIVO |\n| 9. | ∀x. plus(x, 0, x) | Ind: 4, 8 |",
       "A estrutura da prova é sempre a mesma: (i) provar o caso base para o elemento zero; (ii) provar, usando um marcador arbitrário c, que se a propriedade vale para c então vale para s(c); (iii) aplicar a regra de Indução Linear. Esse padrão de três etapas é a espinha dorsal de toda prova por indução matemática.",
-      "| **Conexão com IA: Recursão e Aprendizado em Sequências**<br/>A Indução Linear é o fundamento lógico da **recursão** e da **prova de corretude de algoritmos recursivos**. Em IA, modelos de linguagem autoregressivos (GPT, BERT causal) geram texto de forma análoga: token a token, usando o estado anterior para produzir o próximo — exatamente a estrutura s(s(...s(a)...)). A prova de que um RNN ou LSTM mantém uma invariante ao longo do tempo tipicamente usa um argumento de indução sobre os passos de tempo. |"
+      "| **Conexão com IA: Recursão e Aprendizado em Sequências**<br/>A Indução Linear é o fundamento lógico da **recursão** e da **prova de corretude de algoritmos recursivos**. Em IA, modelos de linguagem autoregressivos (GPT, BERT causal) geram texto de forma análoga: token a token, usando o estado anterior para produzir o próximo, exatamente a estrutura s(s(...s(a)...)). A prova de que um RNN ou LSTM mantém uma invariante ao longo do tempo tipicamente usa um argumento de indução sobre os passos de tempo. |"
     ]
   },
 
@@ -1932,8 +1932,8 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Modelemos a árvore genealógica de um cão Rex. Usamos a constante rex, a função f para mapear um cão a seu pai, g para sua mãe, e a relação unária purebred. O axioma fundamental é:",
       "```\n∀x. (purebred(x) ⇒ purebred(f(x)) ∧ purebred(g(x)))\n```",
       "Se Rex é purebred, então todo antepassado de Rex também é. A prova por indução em árvore é:",
-      "| **Prova em Fitch** | | |\n|---|---|---|\n| 1. | purebred(rex) | Premissa |\n| 2. | ∀x. (purebred(x) ⇒ purebred(f(x)) ∧ purebred(g(x))) | Premissa |\n| 3. | purebred(c) ⇒ purebred(f(c)) ∧ purebred(g(c)) | EU: 2 |\n| 4. | purebred(c) | Suposição |\n| 5. | purebred(f(c)) ∧ purebred(g(c)) | IE: 3, 4 |\n| 6. | purebred(f(c)) | EA: 5 |\n| 7. | purebred(c) ⇒ purebred(f(c)) | II: 4, 6 |\n| 8. | ∀x. (purebred(x) ⇒ purebred(f(x))) | UI: 7 — caso f |\n| 9. | purebred(c) | Suposição |\n| 10. | purebred(f(c)) ∧ purebred(g(c)) | IE: 3, 9 |\n| 11. | purebred(g(c)) | EA: 10 |\n| 12. | purebred(c) ⇒ purebred(g(c)) | II: 9, 11 |\n| 13. | ∀x. (purebred(x) ⇒ purebred(g(x))) | UI: 12 — caso g |\n| 14. | ∀x. purebred(x) | Ind: 1, 8, 13 |",
-      "| **Conexão com IA: Árvores de Decisão e Grafos de Computação**<br/>Indução em árvore é o mecanismo lógico por trás da prova de propriedades de **árvores de decisão**, **grafos de computação** (como os de frameworks de autodiferenciação, e.g. PyTorch) e **parsers** de linguagem natural. A propriedade de que uma transformação preserva um invariante ao longo de toda uma árvore de derivação é tipicamente provada por indução estrutural sobre a árvore — exatamente o conteúdo desta seção. |"
+      "| **Prova em Fitch** | | |\n|---|---|---|\n| 1. | purebred(rex) | Premissa |\n| 2. | ∀x. (purebred(x) ⇒ purebred(f(x)) ∧ purebred(g(x))) | Premissa |\n| 3. | purebred(c) ⇒ purebred(f(c)) ∧ purebred(g(c)) | EU: 2 |\n| 4. | purebred(c) | Suposição |\n| 5. | purebred(f(c)) ∧ purebred(g(c)) | IE: 3, 4 |\n| 6. | purebred(f(c)) | EA: 5 |\n| 7. | purebred(c) ⇒ purebred(f(c)) | II: 4, 6 |\n| 8. | ∀x. (purebred(x) ⇒ purebred(f(x))) | UI: 7, caso f |\n| 9. | purebred(c) | Suposição |\n| 10. | purebred(f(c)) ∧ purebred(g(c)) | IE: 3, 9 |\n| 11. | purebred(g(c)) | EA: 10 |\n| 12. | purebred(c) ⇒ purebred(g(c)) | II: 9, 11 |\n| 13. | ∀x. (purebred(x) ⇒ purebred(g(x))) | UI: 12, caso g |\n| 14. | ∀x. purebred(x) | Ind: 1, 8, 13 |",
+      "| **Conexão com IA: Árvores de Decisão e Grafos de Computação**<br/>Indução em árvore é o mecanismo lógico por trás da prova de propriedades de **árvores de decisão**, **grafos de computação** (como os de frameworks de autodiferenciação, e.g. PyTorch) e **parsers** de linguagem natural. A propriedade de que uma transformação preserva um invariante ao longo de toda uma árvore de derivação é tipicamente provada por indução estrutural sobre a árvore, exatamente o conteúdo desta seção. |"
     ]
   },
 
@@ -1942,7 +1942,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Indução Estrutural",
     paragraphs: [
       "A forma mais geral de indução completa é a **Indução Estrutural**, que acomoda linguagens com múltiplas constantes de objeto e múltiplas constantes de função com aridade arbitrária. É a generalização natural das formas anteriores.",
-      "Considere uma linguagem com duas constantes de objeto a, b e uma constante de função binária h. Seus termos incluem a, b, h(a,a), h(a,b), h(b,a), h(b,b), h(a,h(a,a)), ... — uma estrutura nem linear nem estritamente arbórea.",
+      "Considere uma linguagem com duas constantes de objeto a, b e uma constante de função binária h. Seus termos incluem a, b, h(a,a), h(a,b), h(b,a), h(b,b), h(a,h(a,a)), ..., uma estrutura nem linear nem estritamente arbórea.",
       "| **Regra de Indução Estrutural (Ind)**<br/>**φ[a]                                                          (caso base a)**<br/>**φ[b]                                                          (caso base b)**<br/>**∀λ.∀μ. ((φ[λ] ∧ φ[μ]) ⇒ φ[h(λ,μ)])    (caso indutivo para h)**<br/>**────────────────────────────────────**<br/>**∀ν. φ[ν]** |",
       "### 8.6.1 Exemplo: Relações p e q sobre Estruturas Aninhadas",
       "Defina duas relações unárias sobre o domínio com constantes a, b e função binária h:",
@@ -1951,9 +1951,9 @@ export const chapterContents: Record<string, ChapterContent> = {
       "```\np(a)\n∀u.∀v. (p(u) ∧ p(v)  ⇒ p(h(u,v)))\n¬p(b)\n∀u.∀v. (p(h(u,v)) ⇒  p(u))\n∀u.∀v. (p(h(u,v)) ⇒  p(v))\n```",
       "E para q:",
       "```\nq(a)\n∀u.∀v. (q(u) ⇒ q(h(u,v)))\n∀u.∀v. (q(v) ⇒ q(h(u,v)))\n¬q(b)\n∀u.∀v. (q(h(u,v)) ⇒  q(u)   ∨ q(v))\n```",
-      "Queremos provar: **∀x. (p(x) ⇒ q(x))** — se todos os nós-folha são a, então pelo menos um é a. A estrutura da prova por Indução Estrutural tem três partes:",
+      "Queremos provar: **∀x. (p(x) ⇒ q(x))**, se todos os nós-folha são a, então pelo menos um é a. A estrutura da prova por Indução Estrutural tem três partes:",
       "| **Parte da Prova** | **O que provar** |\n|---|---|\n| Caso base para a | p(a) ⇒ q(a)  [trivial: q(a) é premissa] |\n| Caso base para b | p(b) ⇒ q(b)  [ex-falso: p(b) é falso, qualquer coisa se segue] |\n| Caso indutivo para h(c,d) | Se (p(c)⇒q(c)) ∧ (p(d)⇒q(d)), então p(h(c,d)) ⇒ q(h(c,d)) |",
-      "O caso base para b merece atenção: como ¬p(b) é uma premissa, ao *supor* p(b) temos uma contradição imediata, da qual qualquer conclusão (incluindo q(b)) se segue — pelo princípio *ex contradictione quodlibet*. Isso mostra que provas formais podem lidar com hipóteses falsas de modo rigoroso.",
+      "O caso base para b merece atenção: como ¬p(b) é uma premissa, ao *supor* p(b) temos uma contradição imediata, da qual qualquer conclusão (incluindo q(b)) se segue, pelo princípio *ex contradictione quodlibet*. Isso mostra que provas formais podem lidar com hipóteses falsas de modo rigoroso.",
       "Para o caso indutivo, a prova assume que p(c)⇒q(c) e p(d)⇒q(d) (hipótese indutiva), supõe p(h(c,d)), e deriva q(h(c,d)) em quatro passos: (1) p(h(c,d)) ⇒ p(c) pelo axioma de p; (2) p(c) ⇒ q(c) pela hipótese; (3) q(c) ⇒ q(h(c,d)) pelo axioma de q; (4) portanto q(h(c,d)). A Indução Estrutural fecha a prova."
     ]
   },
@@ -1962,14 +1962,14 @@ export const chapterContents: Record<string, ChapterContent> = {
     id: "cap8-sec6",
     title: "Indução Multidimensional",
     paragraphs: [
-      "Em muitas situações práticas, queremos provar propriedades que envolvem *mais de uma* variável universalmente quantificada. A **indução multidimensional** — ou indução multivariada — trata desses casos aplicando induções aninhadas: primeiro sobre a variável mais externa, e dentro de cada caso sobre as variáveis internas.",
+      "Em muitas situações práticas, queremos provar propriedades que envolvem *mais de uma* variável universalmente quantificada. A **indução multidimensional**, ou indução multivariada, trata desses casos aplicando induções aninhadas: primeiro sobre a variável mais externa, e dentro de cada caso sobre as variáveis internas.",
       "O princípio é direto: para provar ∀x.∀y. φ(x,y) por indução em x, basta provar o caso base ∀y. φ(a,y) e o caso indutivo ∀y. (φ(c,y) ⇒ φ(s(c),y)). Cada um desses subproblemas pode eles mesmos requerer indução em y.",
       "### 8.7.1 Exemplo: Simetria de uma Relação de Equivalência",
       "Considere uma linguagem com constante 0, sucessor s e relação binária e (de equidade), com os axiomas:",
       "```\ne(0,0)\n∀x. ¬e(0,s(x))\n∀x. ¬e(s(x),0)\n∀x.∀y. (e(x,y) ⇒ e(s(x),s(y)))\n∀x.∀y. (e(s(x),s(y)) ⇒ e(x,y))\n```",
       "A relação e é uma relação de equivalência. Vamos provar sua **simetria**: ∀x.∀y. (e(x,y) ⇒ e(y,x)). A estratégia é:",
-      "- Indução em x para provar ∀x. [∀y. (e(x,y) ⇒ e(y,x))]\n- Caso base (x=0): provar ∀y. (e(0,y) ⇒ e(y,0)) — por indução em y\n- Caso indutivo (x=s(c)): assumindo ∀y.(e(c,y)⇒e(y,c)), provar ∀y.(e(s(c),y)⇒e(y,s(c))) — também por indução em y",
-      "O caso base do caso base (y=0 na indução interna) usa o fato de que e(0,0)⇒e(0,0) é trivial. O caso indutivo interno para y=s(d) usa os axiomas de subida e descida da relação e para repassar a simetria de um nível ao próximo. A prova completa tem cerca de 49 passos — é tediosa, mas *completamente mecânica*, o que é exatamente o que queremos de um sistema formal."
+      "- Indução em x para provar ∀x. [∀y. (e(x,y) ⇒ e(y,x))]\n- Caso base (x=0): provar ∀y. (e(0,y) ⇒ e(y,0)), por indução em y\n- Caso indutivo (x=s(c)): assumindo ∀y.(e(c,y)⇒e(y,c)), provar ∀y.(e(s(c),y)⇒e(y,s(c))), também por indução em y",
+      "O caso base do caso base (y=0 na indução interna) usa o fato de que e(0,0)⇒e(0,0) é trivial. O caso indutivo interno para y=s(d) usa os axiomas de subida e descida da relação e para repassar a simetria de um nível ao próximo. A prova completa tem cerca de 49 passos, é tediosa, mas *completamente mecânica*, o que é exatamente o que queremos de um sistema formal."
     ]
   },
 
@@ -1977,14 +1977,14 @@ export const chapterContents: Record<string, ChapterContent> = {
     id: "cap8-sec7",
     title: "Indução Embutida",
     paragraphs: [
-      "Nem sempre é possível provar uma conclusão desejada diretamente por indução padrão. Em alguns casos, é necessário **fortalecer a hipótese indutiva** — provar uma afirmação mais forte como passo intermediário, e então derivar a conclusão original a partir dela.",
+      "Nem sempre é possível provar uma conclusão desejada diretamente por indução padrão. Em alguns casos, é necessário **fortalecer a hipótese indutiva**, provar uma afirmação mais forte como passo intermediário, e então derivar a conclusão original a partir dela.",
       "### 8.8.1 Exemplo: Passo de Dois em Dois",
       "Considere a linguagem com constante a, sucessor s e relação p, com os axiomas:",
       "```\np(a)\np(s(a))\n∀x. (p(x) ⇒ p(s(s(x))))\n```",
-      "Intuitivamente, ∀x. p(x) deveria ser verdadeiro: p vale para 0 e 1, e se vale para n então vale para n+2. Mas a indução linear padrão exige provar ∀x.(p(x) ⇒ p(s(x))), ou seja, que o passo de 1 em 1 funciona — o que não é possível derivar diretamente dos axiomas (que dão saltos de 2).",
+      "Intuitivamente, ∀x. p(x) deveria ser verdadeiro: p vale para 0 e 1, e se vale para n então vale para n+2. Mas a indução linear padrão exige provar ∀x.(p(x) ⇒ p(s(x))), ou seja, que o passo de 1 em 1 funciona, o que não é possível derivar diretamente dos axiomas (que dão saltos de 2).",
       "**Solução:** provar o fortalecimento ∀x. (p(x) ∧ p(s(x))) por indução, e então extrair ∀x. p(x) dessa conclusão intermediária.",
-      "| **Prova em Fitch** | | |\n|---|---|---|\n| 1. | ∀x. (p(x) ⇒ p(s(s(x)))) | Premissa |\n| 2. | p(a) | Premissa |\n| 3. | p(s(a)) | Premissa |\n| 4. | p(a) ∧ p(s(a)) | EI: 2, 3 — CASO BASE do fortalecimento |\n| 5. | p(c) ∧ p(s(c)) | Suposição — hip. indutiva |\n| 6. | p(c) | EA: 5 |\n| 7. | p(s(c)) | EA: 5 |\n| 8. | p(c) ⇒ p(s(s(c))) | EU: 1 |\n| 9. | p(s(s(c))) | IE: 8, 6 |\n| 10. | p(s(c)) ∧ p(s(s(c))) | EI: 7, 9 — CONCLUSÃO INDUTIVA |\n| 11. | p(c)∧p(s(c)) ⇒ p(s(c))∧p(s(s(c))) | II: 5, 10 |\n| 12. | ∀x. (p(x)∧p(s(x)) ⇒ p(s(x))∧p(s(s(x)))) | UI: 11 — caso indutivo |\n| 13. | ∀x. (p(x) ∧ p(s(x))) | Ind: 4, 12 — CONCLUSÃO INTERMEDIÁRIA |\n| 14. | p(c) ∧ p(s(c)) | EU: 13 |\n| 15. | p(c) | EA: 14 |\n| 16. | ∀x. p(x) | UI: 15 — CONCLUSÃO GERAL |",
-      "| **Por que o fortalecimento funciona?**<br/>Ao fortalecer a conclusão de p(x) para p(x)∧p(s(x)), incorporamos na hipótese indutiva a informação sobre dois elementos consecutivos. Isso torna o caso indutivo provável: de p(c)∧p(s(c)) podemos derivar p(s(s(c))) pelo axioma de salto, obtendo p(s(c))∧p(s(s(c))) — exatamente o que precisamos. Essa técnica de *fortalecimento da hipótese indutiva* é ubíqua em provas de correção de algoritmos. |"
+      "| **Prova em Fitch** | | |\n|---|---|---|\n| 1. | ∀x. (p(x) ⇒ p(s(s(x)))) | Premissa |\n| 2. | p(a) | Premissa |\n| 3. | p(s(a)) | Premissa |\n| 4. | p(a) ∧ p(s(a)) | EI: 2, 3, CASO BASE do fortalecimento |\n| 5. | p(c) ∧ p(s(c)) | Suposição, hip. indutiva |\n| 6. | p(c) | EA: 5 |\n| 7. | p(s(c)) | EA: 5 |\n| 8. | p(c) ⇒ p(s(s(c))) | EU: 1 |\n| 9. | p(s(s(c))) | IE: 8, 6 |\n| 10. | p(s(c)) ∧ p(s(s(c))) | EI: 7, 9, CONCLUSÃO INDUTIVA |\n| 11. | p(c)∧p(s(c)) ⇒ p(s(c))∧p(s(s(c))) | II: 5, 10 |\n| 12. | ∀x. (p(x)∧p(s(x)) ⇒ p(s(x))∧p(s(s(x)))) | UI: 11, caso indutivo |\n| 13. | ∀x. (p(x) ∧ p(s(x))) | Ind: 4, 12, CONCLUSÃO INTERMEDIÁRIA |\n| 14. | p(c) ∧ p(s(c)) | EU: 13 |\n| 15. | p(c) | EA: 14 |\n| 16. | ∀x. p(x) | UI: 15, CONCLUSÃO GERAL |",
+      "| **Por que o fortalecimento funciona?**<br/>Ao fortalecer a conclusão de p(x) para p(x)∧p(s(x)), incorporamos na hipótese indutiva a informação sobre dois elementos consecutivos. Isso torna o caso indutivo provável: de p(c)∧p(s(c)) podemos derivar p(s(s(c))) pelo axioma de salto, obtendo p(s(c))∧p(s(s(c))), exatamente o que precisamos. Essa técnica de *fortalecimento da hipótese indutiva* é ubíqua em provas de correção de algoritmos. |"
     ]
   },
 
@@ -1995,9 +1995,9 @@ export const chapterContents: Record<string, ChapterContent> = {
       "A indução, nos seus diferentes sentidos, é um dos conceitos mais transversais em IA e Ciência de Dados. A tabela abaixo sistematiza as principais manifestações:",
       "| **Contexto em IA/CD** | **Tipo de Indução / Conceito Relacionado** |\n|---|---|\n| Aprendizado supervisionado | Indução incompleta: generalização de dados de treino para dados não vistos |\n| Verificação de algoritmos recursivos | Indução linear: provar invariante em cada passo recursivo |\n| Análise de árvores de decisão / parsers | Indução em árvore: propriedades preservadas em cada nó |\n| Processamento de grafos (GNNs) | Indução estrutural: propagação de mensagens em estruturas arbitrárias |\n| Prova de terminação de loops | Indução linear com medida decrescente (ordinal) |\n| Teoria PAC Learning | Limites de generalização com base no número de amostras |\n| LLMs autoregressivos | Geração token-a-token análoga ao passo s(s(...s(a)...)) |",
       "### 8.9.1 Exemplo Computacional: Verificação de Invariante em Python",
-      "O código abaixo ilustra como uma prova por indução linear guia a verificação de que a soma dos primeiros n inteiros é n*(n+1)/2 — provando a base e o passo indutivo via teste:",
+      "O código abaixo ilustra como uma prova por indução linear guia a verificação de que a soma dos primeiros n inteiros é n*(n+1)/2, provando a base e o passo indutivo via teste:",
       "```\ndef soma_ate(n):\n    \"\"\"Soma 0+1+2+...+n (definição recursiva).\"\"\"\n    if n == 0:\n        return 0\n    return n + soma_ate(n - 1)\n\ndef formula(n):\n    \"\"\"Fórmula fechada: n*(n+1)/2.\"\"\"\n    return n * (n + 1) // 2\n\n# Caso base: n = 0\nassert soma_ate(0) == formula(0), 'Caso base falhou!'\n\n# Passo indutivo: se vale para n, vale para n+1\n# Verificação empírica para n = 0..99 (não substitui a prova formal!)\nfor n in range(100):\n    # Hipótese indutiva: soma_ate(n) == formula(n)\n    assert soma_ate(n) == formula(n), f'Falhou para n={n}'\n    # Conclusão indutiva: soma_ate(n+1) == formula(n+1)\n    assert soma_ate(n+1) == formula(n+1), f'Passo falhou para n={n}'\n\nprint('Verificação empírica aprovada para n=0..100.')\n# Nota: verificação empírica ≠ prova formal.\n# A prova formal requer o argumento de indução matemática.\n```",
-      "| **Diferença Crucial para o Profissional de IA**<br/>Testes passando para n=0..99 é indução **incompleta** — não garante que a propriedade valha para n=10¹⁰⁰. A prova por indução matemática é **completa** e garante a propriedade para *todos* os naturais. Sistemas de verificação formal de software (Coq, Lean, Isabelle) utilizam exatamente as regras de indução deste capítulo para construir provas garantidas de propriedades de algoritmos. |"
+      "| **Diferença Crucial para o Profissional de IA**<br/>Testes passando para n=0..99 é indução **incompleta**, não garante que a propriedade valha para n=10¹⁰⁰. A prova por indução matemática é **completa** e garante a propriedade para *todos* os naturais. Sistemas de verificação formal de software (Coq, Lean, Isabelle) utilizam exatamente as regras de indução deste capítulo para construir provas garantidas de propriedades de algoritmos. |"
     ]
   },
 
@@ -2013,108 +2013,108 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Conclusão: Lógica, Raciocínio e Inteligência Artificial",
     subtitle: "Capítulo 9",
     paragraphs: [
-      "Chegamos ao final de uma jornada pelo fundamento lógico da Inteligência Artificial e da Ciência de Dados. Ao longo dos oito capítulos anteriores, construímos progressivamente uma teoria formal do raciocínio — da Lógica Proposicional às formas mais sofisticadas de indução — sempre mantendo em perspectiva as aplicações práticas que motivam o estudo dessas ferramentas.",
-      "Este capítulo final tem três objetivos. Primeiro, **revisar e integrar** os conceitos centrais do livro, mostrando como eles se articulam em uma estrutura coerente. Segundo, **situar a lógica formal** no panorama mais amplo dos tipos de raciocínio usados em IA — incluindo indução, abdução e analogia. Terceiro, **apontar caminhos** para estudo e pesquisa futuros, especialmente nas fronteiras entre lógica clássica e aprendizado de máquina moderno.",
+      "Chegamos ao final de uma jornada pelo fundamento lógico da Inteligência Artificial e da Ciência de Dados. Ao longo dos oito capítulos anteriores, construímos progressivamente uma teoria formal do raciocínio, da Lógica Proposicional às formas mais sofisticadas de indução, sempre mantendo em perspectiva as aplicações práticas que motivam o estudo dessas ferramentas.",
+      "Este capítulo final tem três objetivos. Primeiro, **revisar e integrar** os conceitos centrais do livro, mostrando como eles se articulam em uma estrutura coerente. Segundo, **situar a lógica formal** no panorama mais amplo dos tipos de raciocínio usados em IA, incluindo indução, abdução e analogia. Terceiro, **apontar caminhos** para estudo e pesquisa futuros, especialmente nas fronteiras entre lógica clássica e aprendizado de máquina moderno.",
       "| **Como usar este capítulo**<br/>Este capítulo é de natureza integrativa e reflexiva. Não introduz nova notação formal, mas exige que o leitor relacione ativamente os conceitos vistos. Recomenda-se relê-lo após uma revisão dos capítulos anteriores, e utilizá-lo como guia de estudo para avaliações e para a transição a tópicos avançados. |\n|---|",
     ],
   },
   "cap9-sec1": {
     id: "cap9-sec1",
     title: "Introdução",
-    subtitle: "Capítulo 9 — Seção 9.1",
+    subtitle: "Capítulo 9, Seção 9.1",
     paragraphs: [
-      "Chegamos ao final de uma jornada pelo fundamento lógico da Inteligência Artificial e da Ciência de Dados. Ao longo dos oito capítulos anteriores, construímos progressivamente uma teoria formal do raciocínio — da Lógica Proposicional às formas mais sofisticadas de indução — sempre mantendo em perspectiva as aplicações práticas que motivam o estudo dessas ferramentas.",
-      "Este capítulo final tem três objetivos. Primeiro, **revisar e integrar** os conceitos centrais do livro, mostrando como eles se articulam em uma estrutura coerente. Segundo, **situar a lógica formal** no panorama mais amplo dos tipos de raciocínio usados em IA — incluindo indução, abdução e analogia. Terceiro, **apontar caminhos** para estudo e pesquisa futuros, especialmente nas fronteiras entre lógica clássica e aprendizado de máquina moderno.",
+      "Chegamos ao final de uma jornada pelo fundamento lógico da Inteligência Artificial e da Ciência de Dados. Ao longo dos oito capítulos anteriores, construímos progressivamente uma teoria formal do raciocínio, da Lógica Proposicional às formas mais sofisticadas de indução, sempre mantendo em perspectiva as aplicações práticas que motivam o estudo dessas ferramentas.",
+      "Este capítulo final tem três objetivos. Primeiro, **revisar e integrar** os conceitos centrais do livro, mostrando como eles se articulam em uma estrutura coerente. Segundo, **situar a lógica formal** no panorama mais amplo dos tipos de raciocínio usados em IA, incluindo indução, abdução e analogia. Terceiro, **apontar caminhos** para estudo e pesquisa futuros, especialmente nas fronteiras entre lógica clássica e aprendizado de máquina moderno.",
       "| **Como usar este capítulo**<br/>Este capítulo é de natureza integrativa e reflexiva. Não introduz nova notação formal, mas exige que o leitor relacione ativamente os conceitos vistos. Recomenda-se relê-lo após uma revisão dos capítulos anteriores, e utilizá-lo como guia de estudo para avaliações e para a transição a tópicos avançados. |\n|---|",
     ],
   },
   "cap9-sec2": {
     id: "cap9-sec2",
     title: "Revisão Integrada: Uma Lógica, Três Perspectivas",
-    subtitle: "Capítulo 9 — Seção 9.2",
+    subtitle: "Capítulo 9, Seção 9.2",
     paragraphs: [
-      "Os sistemas lógicos estudados neste livro — Lógica Proposicional, Lógica Relacional (Herbrand) e Lógica de Primeira Ordem (com Igualdade e Indução) — não são teorias independentes. São *camadas progressivas* de um único edifício formal, cada uma estendendo a anterior em expressividade.",
+      "Os sistemas lógicos estudados neste livro, Lógica Proposicional, Lógica Relacional (Herbrand) e Lógica de Primeira Ordem (com Igualdade e Indução), não são teorias independentes. São *camadas progressivas* de um único edifício formal, cada uma estendendo a anterior em expressividade.",
       "| **Sistema Lógico** | **O que adiciona** | **Limitação principal** |\n|---|---|---|\n| Lógica Proposicional | Conectivos lógicos (¬, ∧, ∨, ⇒, ⇔) sobre átomos | Sem variáveis nem quantificadores; não generaliza |\n| Lógica Relacional / Herbrand | Variáveis, quantificadores (∀, ∃), relações n-árias | Universo fixo pelos termos base; domínio finito ou contável |\n| Term Logic (Herbrand + funções) | Termos compostos; universo de Herbrand potencialmente infinito | Semi-decidível; sem separação nomes/objetos |\n| Lógica de Primeira Ordem (LPO) | Universo independente dos termos; múltiplos modelos | Indecidível; provas podem não terminar |\n| LPO + Igualdade | Co-referencialidade; substituição de iguais por iguais | Requer axiomas extras ou regras especiais |\n| LPO + Indução | Provas sobre universos infinitos em finitos passos | Incompletude de Gödel para aritmética e além |",
       "### A Arquitetura Semântica",
-      "Em todos os sistemas, a semântica segue a mesma arquitetura tripartida: (1) uma **linguagem** com sintaxe precisa; (2) uma **estrutura semântica** que dá significado às expressões (atribuição de verdade em lógica proposicional, modelo de Herbrand em lógica relacional, interpretação em LPO); e (3) uma **noção de satisfação** que define quando uma sentença é verdadeira em uma estrutura. Essa arquitetura — linguagem, estrutura, satisfação — é o padrão universal da lógica matemática moderna.",
+      "Em todos os sistemas, a semântica segue a mesma arquitetura tripartida: (1) uma **linguagem** com sintaxe precisa; (2) uma **estrutura semântica** que dá significado às expressões (atribuição de verdade em lógica proposicional, modelo de Herbrand em lógica relacional, interpretação em LPO); e (3) uma **noção de satisfação** que define quando uma sentença é verdadeira em uma estrutura. Essa arquitetura, linguagem, estrutura, satisfação, é o padrão universal da lógica matemática moderna.",
       "### A Arquitetura Sintática: O Sistema Fitch",
       "Do lado sintático, o **sistema de prova Fitch** oferece um mecanismo uniforme de derivação formal. As regras básicas (Eliminação/Introdução de Implicação, Eliminação/Introdução Universal, etc.) se acumulam ao longo dos capítulos, com extensões para igualdade (EI, EE) e indução (DC, Ind Linear, Ind em Árvore, Ind Estrutural). A **solidez** garante que toda prova produz uma conclusão logicamente verdadeira; a **completude** garante (quando existe) que toda verdade logicamente entailada pode ser provada.",
       "| **Propriedade do Sistema de Prova** | **Lógica Proposicional** | **Lógica Relacional** | **Herbrand (Term) Logic** | **LPO** |\n|---|---|---|---|---|\n| Solidez | ✓ | ✓ | ✓ | ✓ |\n| Completude | ✓ | ✓ | ✗ (parcial) | ✗ (semi-decidível) |\n| Decidibilidade do entailment | ✓ | ✓ | ✗ | ✗ |",
-      "| **Solidez vs. Completude: a distinção que importa**<br/>**Solidez** significa que o sistema nunca mente: se provamos φ a partir de Δ, então Δ ⊨ φ.<br/>**Completude** significa que o sistema nunca perde uma verdade: se Δ ⊨ φ, então podemos provar φ a partir de Δ.<br/>Em sistemas incompletos (como Herbrand Logic e LPO), pode haver verdades que são logicamente consequências das premissas mas que *jamais serão alcançadas por nenhuma prova finita* — um limite fundamental, não uma falha de implementação. |\n|---|",
+      "| **Solidez vs. Completude: a distinção que importa**<br/>**Solidez** significa que o sistema nunca mente: se provamos φ a partir de Δ, então Δ ⊨ φ.<br/>**Completude** significa que o sistema nunca perde uma verdade: se Δ ⊨ φ, então podemos provar φ a partir de Δ.<br/>Em sistemas incompletos (como Herbrand Logic e LPO), pode haver verdades que são logicamente consequências das premissas mas que *jamais serão alcançadas por nenhuma prova finita*, um limite fundamental, não uma falha de implementação. |\n|---|",
     ],
   },
   "cap9-sec3": {
     id: "cap9-sec3",
     title: "Mapa Conceitual do Livro",
-    subtitle: "Capítulo 9 — Seção 9.3",
+    subtitle: "Capítulo 9, Seção 9.3",
     paragraphs: [
       "A tabela a seguir consolida os conceitos essenciais de todos os capítulos, funcionando como guia de referência rápida e roteiro de revisão.",
-      "| **Conceito** | **Definição Essencial e Localização** |\n|---|---|\n| Átomo / Sentença atômica | Expressão indivisível de valor verdadeiro; base da Herbrand base (Cap. 1–2) |\n| Conectivos lógicos | ¬, ∧, ∨, ⇒, ⇔: operadores que combinam sentenças (Cap. 2–3) |\n| Atribuição de verdade | Mapeamento de átomos para {V, F}; determina verdade de sentenças complexas (Cap. 2) |\n| Validade / Tautologia | Sentença verdadeira em toda atribuição/interpretação (Cap. 2, 7, 8) |\n| Insatisfatibilidade | Sentença falsa em toda atribuição/interpretação (Cap. 2, 7) |\n| Consequência lógica (⊨) | Δ ⊨ φ: toda atribuição que satisfaz Δ satisfaz φ (Cap. 2–9) |\n| Equivalência lógica | Duas sentenças satisfeitas pelos mesmos modelos (Cap. 2) |\n| Variáveis e quantificadores | ∀x.φ e ∃x.φ: generalização sobre objetos do domínio (Cap. 5–6) |\n| Herbrand base / modelo | Conjunto de átomos ground; subconjunto verdadeiro = modelo (Cap. 6) |\n| Termos compostos / funções | Construção de infinitos nomes com vocabulário finito (Cap. 6, 8) |\n| Interpretação em LPO | Mapeamento de nomes para objetos/funções/relações do universo ∀ᵢ (Cap. 7) |\n| Igualdade | Relação de equivalência + substituição; regras EI/EE em Fitch (Cap. 7) |\n| Indução completa | Prova de ∀x.φ(x) via caso base + caso indutivo estrutural (Cap. 8) |\n| Fortalecimento indutivo | Provar conclusão mais forte como passo intermediário (Cap. 8) |\n| Solidez / Completude | Propriedades do sistema de prova; LPO é sólida mas incompleta (Cap. 3, 9) |",
+      "| **Conceito** | **Definição Essencial e Localização** |\n|---|---|\n| Átomo / Sentença atômica | Expressão indivisível de valor verdadeiro; base da Herbrand base (Cap. 1-2) |\n| Conectivos lógicos | ¬, ∧, ∨, ⇒, ⇔: operadores que combinam sentenças (Cap. 2-3) |\n| Atribuição de verdade | Mapeamento de átomos para {V, F}; determina verdade de sentenças complexas (Cap. 2) |\n| Validade / Tautologia | Sentença verdadeira em toda atribuição/interpretação (Cap. 2, 7, 8) |\n| Insatisfatibilidade | Sentença falsa em toda atribuição/interpretação (Cap. 2, 7) |\n| Consequência lógica (⊨) | Δ ⊨ φ: toda atribuição que satisfaz Δ satisfaz φ (Cap. 2-9) |\n| Equivalência lógica | Duas sentenças satisfeitas pelos mesmos modelos (Cap. 2) |\n| Variáveis e quantificadores | ∀x.φ e ∃x.φ: generalização sobre objetos do domínio (Cap. 5-6) |\n| Herbrand base / modelo | Conjunto de átomos ground; subconjunto verdadeiro = modelo (Cap. 6) |\n| Termos compostos / funções | Construção de infinitos nomes com vocabulário finito (Cap. 6, 8) |\n| Interpretação em LPO | Mapeamento de nomes para objetos/funções/relações do universo ∀ᵢ (Cap. 7) |\n| Igualdade | Relação de equivalência + substituição; regras EI/EE em Fitch (Cap. 7) |\n| Indução completa | Prova de ∀x.φ(x) via caso base + caso indutivo estrutural (Cap. 8) |\n| Fortalecimento indutivo | Provar conclusão mais forte como passo intermediário (Cap. 8) |\n| Solidez / Completude | Propriedades do sistema de prova; LPO é sólida mas incompleta (Cap. 3, 9) |",
     ],
   },
   "cap9-sec4": {
     id: "cap9-sec4",
     title: "Tipos de Raciocínio em Inteligência Artificial",
-    subtitle: "Capítulo 9 — Seção 9.4",
+    subtitle: "Capítulo 9, Seção 9.4",
     paragraphs: [
-      "A lógica dedutiva formal — foco deste livro — é apenas um dos modos de raciocínio relevantes para a IA. Compreender como ela se relaciona com outras formas de inferência é essencial para construir sistemas inteligentes robustos.",
+      "A lógica dedutiva formal, foco deste livro, é apenas um dos modos de raciocínio relevantes para a IA. Compreender como ela se relaciona com outras formas de inferência é essencial para construir sistemas inteligentes robustos.",
       "### Dedução",
-      "A **dedução** é o raciocínio das premissas para conclusões que são *necessariamente* verdadeiras sempre que as premissas o são. É o único tipo de raciocínio que garante suas conclusões em todos os casos. Todo o aparato formal deste livro — sistema Fitch, consequência lógica, validade — é dedicado à dedução.",
+      "A **dedução** é o raciocínio das premissas para conclusões que são *necessariamente* verdadeiras sempre que as premissas o são. É o único tipo de raciocínio que garante suas conclusões em todos os casos. Todo o aparato formal deste livro, sistema Fitch, consequência lógica, validade, é dedicado à dedução.",
       "| **Exemplo clássico de dedução (silogismo de Aristóteles):**<br/>     `∀x. (humano(x) ⇒ mortal(x))`<br/>     `humano(sócrates)`<br/>     ─────────────────────────<br/>     `mortal(sócrates)           [garantido]` |\n|---|",
       "### Indução",
-      "A **indução** raciocina do *particular para o geral*. Como vimos no Capítulo 8, há dois tipos: a indução *incompleta* (inferência a partir de amostras, sem garantia — base do aprendizado de máquina) e a indução *completa* (indução matemática, com garantia formal). A ciência empírica opera fundamentalmente por indução incompleta — conjectura e refutação, na formulação de Karl Popper.",
+      "A **indução** raciocina do *particular para o geral*. Como vimos no Capítulo 8, há dois tipos: a indução *incompleta* (inferência a partir de amostras, sem garantia, base do aprendizado de máquina) e a indução *completa* (indução matemática, com garantia formal). A ciência empírica opera fundamentalmente por indução incompleta, conjectura e refutação, na formulação de Karl Popper.",
       "| **Exemplo de indução incompleta (heurística):**<br/>     `Observei 10.000 corvos. Todos eram pretos.`<br/>     `Nunca vi um corvo não-preto.`<br/>     ─────────────────────────────────<br/>     `Todo corvo é preto.    [plausível, mas não garantido]` |\n|---|",
       "### Abdução",
-      "A **abdução** raciocina dos *efeitos para as causas*: dada uma observação e um conjunto de hipóteses explicativas, infere-se a causa mais provável ou mais simples. Diferentemente da dedução, a conclusão abdutiva pode ser falsa mesmo que as premissas sejam verdadeiras — há sempre causas alternativas não consideradas.",
+      "A **abdução** raciocina dos *efeitos para as causas*: dada uma observação e um conjunto de hipóteses explicativas, infere-se a causa mais provável ou mais simples. Diferentemente da dedução, a conclusão abdutiva pode ser falsa mesmo que as premissas sejam verdadeiras, há sempre causas alternativas não consideradas.",
       "| **Exemplo de abdução:**<br/>     `Se não há combustível, o carro não liga.`<br/>     `Se não há centelha, o carro não liga.`<br/>     `Há centelha. O carro não liga.`<br/>     ──────────────────────────────────<br/>     `Provavelmente: não há combustível.  [mas pode haver outro motivo]` |\n|---|",
-      "A abdução é o mecanismo central do diagnóstico médico, da depuração de software e dos sistemas de diagnóstico baseados em conhecimento. Em IA, aparece formalmente em **Probabilistic Graphical Models** (como redes Bayesianas com inferência MAP) e em **sistemas de explicação de modelos de ML** (XAI — Explainable AI).",
+      "A abdução é o mecanismo central do diagnóstico médico, da depuração de software e dos sistemas de diagnóstico baseados em conhecimento. Em IA, aparece formalmente em **Probabilistic Graphical Models** (como redes Bayesianas com inferência MAP) e em **sistemas de explicação de modelos de ML** (XAI, Explainable AI).",
       "### Raciocínio por Analogia",
       "O **raciocínio por analogia** infere uma conclusão com base na *semelhança estrutural* entre duas situações. É poderoso e ubíquo no pensamento humano, mas sujeito a erros quando a analogia é superficial. Em IA, manifesta-se em:",
       "- **Case-Based Reasoning (CBR):** sistemas que recuperam casos similares de uma base de conhecimento e adaptam suas soluções\n- **Transfer Learning:** reutilização de representações aprendidas em uma tarefa para resolver outra similar\n- **Few-Shot Learning:** generalização a partir de poucos exemplos, por analogia com exemplos de suporte",
       "| **Tipo de Raciocínio** | **Direção** | **Garante conclusão?** | **Principal uso em IA** |\n|---|---|---|---|\n| Dedução | Premissas → Conclusão necessária | Sim | Sistemas especialistas, verificação formal, LPO/Prolog |\n| Indução completa | Casos estruturais → Universal | Sim (formalmente) | Prova de correção de algoritmos |\n| Indução incompleta | Amostras → Geral | Não | Aprendizado de máquina (toda a área) |\n| Abdução | Efeitos → Causa provável | Não | Diagnóstico, XAI, redes Bayesianas |\n| Analogia | Similar → Similar | Não | CBR, transfer learning, few-shot |",
-      "| **Reflexão: IA Moderna e os Tipos de Raciocínio**<br/>Os grandes modelos de linguagem (LLMs) como GPT-4, Claude e Gemini realizam primariamente **indução incompleta em escala massiva** — aprendem padrões estatísticos de trilhões de tokens. Há evidências de que emergem capacidades de raciocínio analógico e até dedutivo em contexto (*chain-of-thought prompting*). Contudo, esses sistemas são propensos a *alucinações* — justamente porque não possuem um mecanismo formal de verificação de consequência lógica. A integração de LLMs com provadores de teoremas formais (como Lean e Coq) é uma das fronteiras mais ativas da pesquisa em IA (**neurosymbolic AI**). |\n|---|",
+      "| **Reflexão: IA Moderna e os Tipos de Raciocínio**<br/>Os grandes modelos de linguagem (LLMs) como GPT-4, Claude e Gemini realizam primariamente **indução incompleta em escala massiva**, aprendem padrões estatísticos de trilhões de tokens. Há evidências de que emergem capacidades de raciocínio analógico e até dedutivo em contexto (*chain-of-thought prompting*). Contudo, esses sistemas são propensos a *alucinações*, justamente porque não possuem um mecanismo formal de verificação de consequência lógica. A integração de LLMs com provadores de teoremas formais (como Lean e Coq) é uma das fronteiras mais ativas da pesquisa em IA (**neurosymbolic AI**). |\n|---|",
     ],
   },
   "cap9-sec5": {
     id: "cap9-sec5",
     title: "Lógica e Aprendizado de Máquina: Tensões e Convergências",
-    subtitle: "Capítulo 9 — Seção 9.5",
+    subtitle: "Capítulo 9, Seção 9.5",
     paragraphs: [
-      "A lógica formal e o aprendizado de máquina representam duas tradições distintas dentro da IA — e por décadas foram tratadas como abordagens concorrentes. Hoje, a comunidade reconhece que elas são *complementares*: cada uma supre exatamente as limitações da outra.",
+      "A lógica formal e o aprendizado de máquina representam duas tradições distintas dentro da IA, e por décadas foram tratadas como abordagens concorrentes. Hoje, a comunidade reconhece que elas são *complementares*: cada uma supre exatamente as limitações da outra.",
       "| **Dimensão** | **Lógica Formal** | **Aprendizado de Máquina** |\n|---|---|---|\n| Conhecimento | Explícito, simbólico, interpretável | Implícito, distribuído, opaco |\n| Generalização | Por axiomas gerais (dedução) | Por padrões estatísticos (indução incompleta) |\n| Robustez a ruído | Frágil (um axioma errado invalida tudo) | Robusta (aprende com dados ruidosos) |\n| Escalabilidade | Limitada (espaço de busca exponencial) | Alta (redes neurais escalam com dados) |\n| Garantias | Provas formais de corretude | Garantias probabilísticas (PAC, VC) |\n| Dados | Não necessita (razão pura) | Essencial (depende de dados de treino) |\n| Incerteza | Tratada por lógica modal / probabilística | Modelada por distribuições de probabilidade |",
       "### Áreas de Convergência",
       "Várias linhas de pesquisa ativas buscam integrar as duas abordagens:",
       "#### Programação Lógica Indutiva (ILP)",
-      "A **Programação Lógica Indutiva** (Inductive Logic Programming — ILP) aprende regras lógicas de primeira ordem a partir de exemplos positivos e negativos. Sistemas como FOIL, Progol e mais recentemente ∂ILP (differentiable ILP) combinam o poder expressivo da LPO com o aprendizado por dados. ILP é particularmente útil quando os dados são escassos e o conhecimento de domínio é rico.",
+      "A **Programação Lógica Indutiva** (Inductive Logic Programming, ILP) aprende regras lógicas de primeira ordem a partir de exemplos positivos e negativos. Sistemas como FOIL, Progol e mais recentemente ∂ILP (differentiable ILP) combinam o poder expressivo da LPO com o aprendizado por dados. ILP é particularmente útil quando os dados são escassos e o conhecimento de domínio é rico.",
       "#### Redes Neurais com Restrições Lógicas",
-      "Frameworks como **Logic Tensor Networks** (LTN) e **DeepProbLog** permitem incorporar restrições lógicas diretamente na função de perda de redes neurais. A ideia central é que sentenças lógicas podem ser interpretadas como restrições de otimização — permitindo que o treinamento respeite conhecimento simbólico a priori.",
+      "Frameworks como **Logic Tensor Networks** (LTN) e **DeepProbLog** permitem incorporar restrições lógicas diretamente na função de perda de redes neurais. A ideia central é que sentenças lógicas podem ser interpretadas como restrições de otimização, permitindo que o treinamento respeite conhecimento simbólico a priori.",
       "#### Grafos de Conhecimento e Raciocínio por Embeddings",
       "Grafos de conhecimento (Wikidata, Freebase, YAGO) são essencialmente bases de fatos em LPO. Sistemas de **completamento de grafos** como TransE, RotatE e ComplEx aprendem embeddings vetoriais de entidades e relações que preservam propriedades lógicas implícitas (transitividade, simetria, inversão). Há resultados teóricos mostrando que certas famílias de embeddings conseguem capturar exatamente as relações expressáveis em fragmentos de LPO.",
       "#### LLMs como Motores de Raciocínio",
-      "Uma das descobertas mais surpreendentes dos últimos anos é que LLMs treinados em escala suficiente exibem capacidades emergentes de raciocínio formal — resolução de problemas matemáticos, verificação de argumentos, geração de provas. Técnicas como **chain-of-thought**, **tree-of-thought** e **self-consistency decoding** estruturam o raciocínio do modelo de forma análoga a uma prova formal. Embora não haja garantias de corretude, a integração com verificadores formais externos (como Lean) começa a produzir sistemas de prova automática com nível de confiança sem precedentes.",
-      "| **Fronteira de Pesquisa: IA Neurossimbólica**<br/>A **IA neurossimbólica** (neurosymbolic AI) é atualmente uma das áreas de pesquisa mais promissoras. O objetivo é criar sistemas que combinam a *aprendizagem perceptiva* das redes neurais com o *raciocínio estruturado* da lógica formal. Exemplos de sistemas representativos: **AlphaGeometry** (DeepMind, 2024) — resolve problemas de geometria olímpica combinando um LLM com um provador formal de Gelfand; **AlphaProof** (DeepMind, 2024) — prova teoremas matemáticos formais usando aprendizado por reforço sobre Lean; **Eudoxus/FunSearch** — descobre novos resultados matemáticos combinando busca evolutiva com verificação formal. |\n|---|",
+      "Uma das descobertas mais surpreendentes dos últimos anos é que LLMs treinados em escala suficiente exibem capacidades emergentes de raciocínio formal, resolução de problemas matemáticos, verificação de argumentos, geração de provas. Técnicas como **chain-of-thought**, **tree-of-thought** e **self-consistency decoding** estruturam o raciocínio do modelo de forma análoga a uma prova formal. Embora não haja garantias de corretude, a integração com verificadores formais externos (como Lean) começa a produzir sistemas de prova automática com nível de confiança sem precedentes.",
+      "| **Fronteira de Pesquisa: IA Neurossimbólica**<br/>A **IA neurossimbólica** (neurosymbolic AI) é atualmente uma das áreas de pesquisa mais promissoras. O objetivo é criar sistemas que combinam a *aprendizagem perceptiva* das redes neurais com o *raciocínio estruturado* da lógica formal. Exemplos de sistemas representativos: **AlphaGeometry** (DeepMind, 2024), resolve problemas de geometria olímpica combinando um LLM com um provador formal de Gelfand; **AlphaProof** (DeepMind, 2024), prova teoremas matemáticos formais usando aprendizado por reforço sobre Lean; **Eudoxus/FunSearch**, descobre novos resultados matemáticos combinando busca evolutiva com verificação formal. |\n|---|",
     ],
   },
   "cap9-sec6": {
     id: "cap9-sec6",
     title: "Limites Fundamentais do Raciocínio Formal",
-    subtitle: "Capítulo 9 — Seção 9.6",
+    subtitle: "Capítulo 9, Seção 9.6",
     paragraphs: [
       "Dois resultados teóricos do século XX definem os limites absolutos do que qualquer sistema formal pode alcançar. Todo profissional de IA deve conhecê-los.",
       "### Indecidibilidade de Church-Turing (1936)",
       "Alan Turing e Alonzo Church provaram independentemente, em 1936, que **não existe algoritmo que determine, para toda sentença de LPO, se ela é válida ou não**. Isso implica que nenhum sistema de IA baseado em LPO pode ser simultaneamente completo e garantir terminação. Na prática:",
-      "- Provadores automáticos de teoremas (como Prolog, E, Vampire) são **semi-decidíveis**: se a conclusão é consequência lógica, eventualmente provam; se não é, podem não terminar\n- Estratégias como **cláusulas de Horn** (subconjunto de LPO) tornam a inferência decidível ao custo de expressividade reduzida\n- A indecidibilidade não é uma falha de engenharia — é um limite matemático absoluto",
+      "- Provadores automáticos de teoremas (como Prolog, E, Vampire) são **semi-decidíveis**: se a conclusão é consequência lógica, eventualmente provam; se não é, podem não terminar\n- Estratégias como **cláusulas de Horn** (subconjunto de LPO) tornam a inferência decidível ao custo de expressividade reduzida\n- A indecidibilidade não é uma falha de engenharia, é um limite matemático absoluto",
       "### Teoremas de Incompletude de Gödel (1931)",
       "Kurt Gödel provou dois resultados devastadores sobre sistemas axiomáticos suficientemente expressivos (como a Aritmética de Peano, vista no Capítulo 8):",
       "- **Primeiro Teorema:** em qualquer sistema consistente e suficientemente expressivo, existem sentenças verdadeiras que não podem ser provadas dentro do sistema\n- **Segundo Teorema:** nenhum sistema suficientemente expressivo pode provar sua própria consistência",
-      "A consequência prática para IA é profunda: qualquer IA baseada em um sistema lógico formal suficientemente rico não pode ser ao mesmo tempo *completa* (provar tudo que é verdadeiro) e *consistente* (nunca provar o falso). Essa tensão fundamenta o debate filosófico sobre os limites da inteligência artificial — e sobre se sistemas cognitivos humanos, que parecem superar esses limites, operam por princípios radicalmente diferentes.",
-      "| **Perspectiva para o Cientista de Dados**<br/>Os limites de Gödel e Church-Turing aplicam-se a sistemas *formais determinísticos*. Sistemas de aprendizado de máquina não são sistemas axiomáticos no sentido de Gödel — eles operam com indução incompleta, probabilidade e otimização. Isso não os torna *superiores* aos sistemas formais, mas sim *diferentes*: fazem afirmações probabilísticas, não garantidas. O profissional rigoroso deve saber **quando cada abordagem é apropriada** e quais garantias cada uma oferece. |\n|---|",
+      "A consequência prática para IA é profunda: qualquer IA baseada em um sistema lógico formal suficientemente rico não pode ser ao mesmo tempo *completa* (provar tudo que é verdadeiro) e *consistente* (nunca provar o falso). Essa tensão fundamenta o debate filosófico sobre os limites da inteligência artificial, e sobre se sistemas cognitivos humanos, que parecem superar esses limites, operam por princípios radicalmente diferentes.",
+      "| **Perspectiva para o Cientista de Dados**<br/>Os limites de Gödel e Church-Turing aplicam-se a sistemas *formais determinísticos*. Sistemas de aprendizado de máquina não são sistemas axiomáticos no sentido de Gödel, eles operam com indução incompleta, probabilidade e otimização. Isso não os torna *superiores* aos sistemas formais, mas sim *diferentes*: fazem afirmações probabilísticas, não garantidas. O profissional rigoroso deve saber **quando cada abordagem é apropriada** e quais garantias cada uma oferece. |\n|---|",
     ],
   },
   "cap9-sec7": {
     id: "cap9-sec7",
     title: "Caminhos para Estudo Avançado",
-    subtitle: "Capítulo 9 — Seção 9.7",
+    subtitle: "Capítulo 9, Seção 9.7",
     paragraphs: [
       "Os fundamentos construídos neste livro abrem portas para diversas áreas de estudo avançado. A seguir, apresentamos um mapa de continuidade para o leitor que deseja aprofundar seu conhecimento.",
       "### Lógicas Avançadas",
@@ -2128,22 +2128,22 @@ export const chapterContents: Record<string, ChapterContent> = {
   "cap9-sec8": {
     id: "cap9-sec8",
     title: "Princípios para o Profissional de IA e Ciência de Dados",
-    subtitle: "Capítulo 9 — Seção 9.8",
+    subtitle: "Capítulo 9, Seção 9.8",
     paragraphs: [
-      "Encerramos o livro com um conjunto de princípios práticos — síntese dos fundamentos lógicos estudados, formulados como orientações para o profissional em formação.",
-      "| **Dez Princípios do Raciocínio Rigoroso em IA**<br/>1. **Distinga sintaxe de semântica.** Uma sentença bem-formada não é necessariamente verdadeira. A validade é uma propriedade semântica, não sintática.<br/>2. **Distinga entailment de implicação material.** φ ⇒ ψ é uma sentença; φ ⊨ ψ é uma relação entre sentenças. Confundi-las é um erro comum e grave.<br/>3. **Saiba o que seu modelo garante.** Um modelo de ML com 99% de acurácia faz indução incompleta. Um provador formal com prova verificada faz dedução. São garantias de natureza radicalmente distinta.<br/>4. **Respeite os limites da decidibilidade.** Para qualquer sistema suficientemente expressivo, há perguntas que não podem ser respondidas algoritmicamente. Reconhecer esses limites previne a busca de soluções impossíveis.<br/>5. **Use o formalismo certo para o problema certo.** LPO para raciocínio simbólico garantido; aprendizado estatístico para padrões em dados ruidosos; lógica probabilística para a zona intermediária.<br/>6. **Formalize antes de implementar.** Sistemas críticos (medicina, direito, infraestrutura) devem ter suas propriedades formalmente especificadas antes de implementados. A verificação formal detecta erros que testes nunca encontrariam.<br/>7. **Hipótese indutiva não é verdade.** Qualquer conjectura derivada de dados é uma hipótese, não um fato. Buscar contraexemplos é tão importante quanto confirmar instâncias.<br/>8. **Abdução exige revisão.** Quando novos dados contradizem uma explicação abduída, ela deve ser revisada — não defendida a todo custo. Sistemas de manutenção da verdade (TMS) formalizam esse processo.<br/>9. **Interpretabilidade tem base lógica.** Explicar um modelo é, em parte, encontrar uma representação lógica de seu comportamento. As ferramentas de XAI mais rigorosas (SHAP, LIME, contrastive explanations) têm conexões formais com a lógica.<br/>10. **A lógica é a linguagem da precisão.** Quando a imprecisão de linguagem natural causa ambiguidade em uma especificação, a formalização lógica é o remédio. Toda vez que alguém diz \"sempre que X então Y\", há uma sentença de LPO esperando para ser escrita. |\n|---|",
+      "Encerramos o livro com um conjunto de princípios práticos, síntese dos fundamentos lógicos estudados, formulados como orientações para o profissional em formação.",
+      "| **Dez Princípios do Raciocínio Rigoroso em IA**<br/>1. **Distinga sintaxe de semântica.** Uma sentença bem-formada não é necessariamente verdadeira. A validade é uma propriedade semântica, não sintática.<br/>2. **Distinga entailment de implicação material.** φ ⇒ ψ é uma sentença; φ ⊨ ψ é uma relação entre sentenças. Confundi-las é um erro comum e grave.<br/>3. **Saiba o que seu modelo garante.** Um modelo de ML com 99% de acurácia faz indução incompleta. Um provador formal com prova verificada faz dedução. São garantias de natureza radicalmente distinta.<br/>4. **Respeite os limites da decidibilidade.** Para qualquer sistema suficientemente expressivo, há perguntas que não podem ser respondidas algoritmicamente. Reconhecer esses limites previne a busca de soluções impossíveis.<br/>5. **Use o formalismo certo para o problema certo.** LPO para raciocínio simbólico garantido; aprendizado estatístico para padrões em dados ruidosos; lógica probabilística para a zona intermediária.<br/>6. **Formalize antes de implementar.** Sistemas críticos (medicina, direito, infraestrutura) devem ter suas propriedades formalmente especificadas antes de implementados. A verificação formal detecta erros que testes nunca encontrariam.<br/>7. **Hipótese indutiva não é verdade.** Qualquer conjectura derivada de dados é uma hipótese, não um fato. Buscar contraexemplos é tão importante quanto confirmar instâncias.<br/>8. **Abdução exige revisão.** Quando novos dados contradizem uma explicação abduída, ela deve ser revisada, não defendida a todo custo. Sistemas de manutenção da verdade (TMS) formalizam esse processo.<br/>9. **Interpretabilidade tem base lógica.** Explicar um modelo é, em parte, encontrar uma representação lógica de seu comportamento. As ferramentas de XAI mais rigorosas (SHAP, LIME, contrastive explanations) têm conexões formais com a lógica.<br/>10. **A lógica é a linguagem da precisão.** Quando a imprecisão de linguagem natural causa ambiguidade em uma especificação, a formalização lógica é o remédio. Toda vez que alguém diz \"sempre que X então Y\", há uma sentença de LPO esperando para ser escrita. |\n|---|",
     ],
   },
   "cap9-sec9": {
     id: "cap9-sec9",
     title: "Palavras Finais",
-    subtitle: "Capítulo 9 — Seção 9.9",
+    subtitle: "Capítulo 9, Seção 9.9",
     paragraphs: [
-      "A lógica é, em última instância, a ciência do raciocínio correto. Estudá-la não é um exercício de abstração acadêmica — é construir a *infraestrutura mental* necessária para pensar com precisão sobre problemas complexos, especificar sistemas sem ambiguidade, reconhecer o que pode e o que não pode ser garantido, e dialogar com rigor na fronteira entre o que as máquinas podem computar e o que a inteligência — humana ou artificial — pode raciocinar.",
-      "Os grandes desafios da IA contemporânea — confiabilidade, interpretabilidade, alinhamento de valores, raciocínio causal — têm, em seu núcleo, problemas que a lógica formal ajuda a precisar, mesmo quando não resolve completamente. O profissional que domina tanto o rigor formal quanto o poder empírico do aprendizado de máquina está excepcionalmente bem posicionado para contribuir com essas questões.",
-      "\"A matemática é a linguagem na qual Deus escreveu o universo.\" — Galileu Galilei",
-      "\"A lógica é a anatomia do pensamento.\" — John Locke",
-      "— Fim do Livro —",
+      "A lógica é, em última instância, a ciência do raciocínio correto. Estudá-la não é um exercício de abstração acadêmica, é construir a *infraestrutura mental* necessária para pensar com precisão sobre problemas complexos, especificar sistemas sem ambiguidade, reconhecer o que pode e o que não pode ser garantido, e dialogar com rigor na fronteira entre o que as máquinas podem computar e o que a inteligência, humana ou artificial, pode raciocinar.",
+      "Os grandes desafios da IA contemporânea, confiabilidade, interpretabilidade, alinhamento de valores, raciocínio causal, têm, em seu núcleo, problemas que a lógica formal ajuda a precisar, mesmo quando não resolve completamente. O profissional que domina tanto o rigor formal quanto o poder empírico do aprendizado de máquina está excepcionalmente bem posicionado para contribuir com essas questões.",
+      "\"A matemática é a linguagem na qual Deus escreveu o universo.\", Galileu Galilei",
+      "\"A lógica é a anatomia do pensamento.\", John Locke",
+      "- Fim do Livro -",
     ],
   },
   glossario: {
@@ -2152,9 +2152,9 @@ export const chapterContents: Record<string, ChapterContent> = {
     subtitle: "Termos e Definições",
     paragraphs: [
       "Este glossário reúne os principais termos utilizados ao longo do livro, com definições voltadas ao contexto da ciência de dados e da lógica aplicada.",
-      "**Implicação** — Relação lógica entre duas proposições na qual a verdade da primeira (antecedente) garante a verdade da segunda (consequente). Em lógica formal, é representada pelo conectivo →. Por exemplo: *\"Se o usuário apresentou erro, então o sistema exibe uma mensagem de apoio\"* é uma implicação. É importante notar que a implicação lógica não exige relação causal entre as proposições — ela apenas estabelece que não pode ocorrer o caso em que o antecedente é verdadeiro e o consequente é falso.",
-      "**Máxima Verossimilhança** — Método estatístico de estimação de parâmetros que busca encontrar os valores que tornam os dados observados mais prováveis. Dado um modelo estatístico com parâmetros desconhecidos, a estimativa de máxima verossimilhança (MLE) é aquela que maximiza a função de verossimilhança. É amplamente utilizado em aprendizado de máquina, regressão logística e modelos probabilísticos em ciência de dados.",
-      "**Verossimilhança** — Função que mede o quão compatíveis são os dados observados com um determinado conjunto de parâmetros de um modelo estatístico. Diferente da probabilidade, que vai do modelo para os dados, a verossimilhança vai dos dados para o modelo: ela avalia quão \"plausíveis\" são os parâmetros à luz das observações. É um conceito fundamental para inferência estatística e para a construção de modelos preditivos em ciência de dados.",
+      "**Implicação**, Relação lógica entre duas proposições na qual a verdade da primeira (antecedente) garante a verdade da segunda (consequente). Em lógica formal, é representada pelo conectivo →. Por exemplo: *\"Se o usuário apresentou erro, então o sistema exibe uma mensagem de apoio\"* é uma implicação. É importante notar que a implicação lógica não exige relação causal entre as proposições, ela apenas estabelece que não pode ocorrer o caso em que o antecedente é verdadeiro e o consequente é falso.",
+      "**Máxima Verossimilhança**, Método estatístico de estimação de parâmetros que busca encontrar os valores que tornam os dados observados mais prováveis. Dado um modelo estatístico com parâmetros desconhecidos, a estimativa de máxima verossimilhança (MLE) é aquela que maximiza a função de verossimilhança. É amplamente utilizado em aprendizado de máquina, regressão logística e modelos probabilísticos em ciência de dados.",
+      "**Verossimilhança**, Função que mede o quão compatíveis são os dados observados com um determinado conjunto de parâmetros de um modelo estatístico. Diferente da probabilidade, que vai do modelo para os dados, a verossimilhança vai dos dados para o modelo: ela avalia quão \"plausíveis\" são os parâmetros à luz das observações. É um conceito fundamental para inferência estatística e para a construção de modelos preditivos em ciência de dados.",
     ],
   },
 };
