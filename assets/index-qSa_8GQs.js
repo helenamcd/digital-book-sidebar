@@ -167,25 +167,25 @@ Error generating stack: `+r.message+`
 - Nenhum usuário recebe mensagem de apoio sem ter apresentado erro.`,"Cada uma dessas sentenças elimina certos mundos possíveis e mantém outros. Por exemplo, qualquer mundo em que U2 não tenha concluído a tarefa é automaticamente descartado se acreditamos na primeira sentença.","Para visualizar esse processo, vamos definir as proposições envolvidas:",`- **p₁**: U2 concluiu a tarefa
 - **p₂**: U1 apresentou erro
 - **p₃**: U1 abandonou a tarefa
-- **p₄**: U1 recebeu mensagem de apoio`,"####Passo 1, Todos os mundos possíveis (antes de qualquer restrição)","Com 4 proposições, temos exatamente 2⁴ = 16 mundos possíveis. Cada linha representa uma combinação distinta de valores-verdade para p₁, p₂, p₃ e p₄, conforme apresentado na **Tabela 1**.",`\`\`\`
+- **p₄**: U1 recebeu mensagem de apoio`,"####Passo 1 — Todos os mundos possíveis (antes de qualquer restrição)","Com 4 proposições, temos exatamente 2⁴ = 16 mundos possíveis. Cada linha representa uma combinação distinta de valores-verdade para p₁, p₂, p₃ e p₄, conforme apresentado na **Tabela 1**.",`\`\`\`
 | Mundo | p₁ | p₂ | p₃ | p₄ | Status |
-| M1  | V | V | V | V |, |
-| M2  | V | V | V | F |, |
-| M3  | V | V | F | V |, |
-| M4  | V | V | F | F |, |
-| M5  | V | F | V | V |, |
-| M6  | V | F | V | F |, |
-| M7  | V | F | F | V |, |
-| M8  | V | F | F | F |, |
-| M9  | F | V | V | V |, |
-| M10 | F | V | V | F |, |
-| M11 | F | V | F | V |, |
-| M12 | F | V | F | F |, |
-| M13 | F | F | V | V |, |
-| M14 | F | F | V | F |, |
-| M15 | F | F | F | V |, |
-| M16 | F | F | F | F |, |
-\`\`\``,'####Passo 2, Aplicando S1: "U2 concluiu a tarefa" (p₁ = V)',"A primeira sentença afirma que U2 concluiu a tarefa, ou seja, p₁ deve ser verdadeira. Portanto, todo mundo em que p₁ = F é incompatível com essa restrição e precisa ser eliminado. A **Tabela 2** mostra o resultado dessa filtragem, marcando quais mundos sobrevivem e quais são descartados.",`\`\`\`
+| M1  | V | V | V | V | — |
+| M2  | V | V | V | F | — |
+| M3  | V | V | F | V | — |
+| M4  | V | V | F | F | — |
+| M5  | V | F | V | V | — |
+| M6  | V | F | V | F | — |
+| M7  | V | F | F | V | — |
+| M8  | V | F | F | F | — |
+| M9  | F | V | V | V | — |
+| M10 | F | V | V | F | — |
+| M11 | F | V | F | V | — |
+| M12 | F | V | F | F | — |
+| M13 | F | F | V | V | — |
+| M14 | F | F | V | F | — |
+| M15 | F | F | F | V | — |
+| M16 | F | F | F | F | — |
+\`\`\``,'####Passo 2 — Aplicando S1: "U2 concluiu a tarefa" (p₁ = V)',"A primeira sentença afirma que U2 concluiu a tarefa, ou seja, p₁ deve ser verdadeira. Portanto, todo mundo em que p₁ = F é incompatível com essa restrição e precisa ser eliminado. A **Tabela 2** mostra o resultado dessa filtragem, marcando quais mundos sobrevivem e quais são descartados.",`\`\`\`
 | Mundo | p₁ | p₂ | p₃ | p₄ | Status |
 | M1  | V | V | V | V | ✓ |
 | M2  | V | V | V | F | ✓ |
@@ -203,7 +203,7 @@ Error generating stack: `+r.message+`
 | M14 | F | F | V | F | ✗ Eliminado |
 | M15 | F | F | F | V | ✗ Eliminado |
 | M16 | F | F | F | F | ✗ Eliminado |
-\`\`\``,"Como pode ser observado na Tabela 2, os mundos M9 a M16 são descartados porque neles U2 não concluiu a tarefa.",'####Passo 3, Aplicando S2: "U1 apresentou erro ou abandonou a tarefa" (p₂ ∨ p₃ = V)',"A segunda sentença é uma disjunção: U1 apresentou erro (p₂) ou abandonou a tarefa (p₃). Para satisfazê-la, ao menos uma das duas proposições deve ser verdadeira. Logo, eliminamos todo mundo em que tanto p₂ = F quanto p₃ = F. A **Tabela 3** apresenta o efeito dessa restrição sobre os mundos remanescentes.",`\`\`\`
+\`\`\``,"Como pode ser observado na Tabela 2, os mundos M9 a M16 são descartados porque neles U2 não concluiu a tarefa.",'####Passo 3 — Aplicando S2: "U1 apresentou erro ou abandonou a tarefa" (p₂ ∨ p₃ = V)',"A segunda sentença é uma disjunção: U1 apresentou erro (p₂) ou abandonou a tarefa (p₃). Para satisfazê-la, ao menos uma das duas proposições deve ser verdadeira. Logo, eliminamos todo mundo em que tanto p₂ = F quanto p₃ = F. A **Tabela 3** apresenta o efeito dessa restrição sobre os mundos remanescentes.",`\`\`\`
 | Mundo | p₁ | p₂ | p₃ | p₄ | Status |
 | M1  | V | V | V | V | ✓ |
 | M2  | V | V | V | F | ✓ |
@@ -213,7 +213,7 @@ Error generating stack: `+r.message+`
 | M6  | V | F | V | F | ✓ |
 | M7  | V | F | F | V | ✗ Eliminado |
 | M8  | V | F | F | F | ✗ Eliminado |
-\`\`\``,"Conforme indicado na Tabela 3, os mundos M7 e M8 são descartados porque neles U1 não apresentou erro nem abandonou a tarefa.",'####Passo 4, Aplicando S3: "Todo usuário que apresentou erro recebeu mensagem de apoio" (p₂ → p₄)',"A terceira sentença é uma implicação: se U1 apresentou erro (p₂), então deve ter recebido mensagem de apoio (p₄). Portanto, mundos em que p₂ = V e p₄ = F violam a regra e são eliminados. Quando p₂ = F, a implicação é trivialmente satisfeita. A **Tabela 4** ilustra a aplicação dessa regra aos mundos restantes.",`\`\`\`
+\`\`\``,"Conforme indicado na Tabela 3, os mundos M7 e M8 são descartados porque neles U1 não apresentou erro nem abandonou a tarefa.",'####Passo 4 — Aplicando S3: "Todo usuário que apresentou erro recebeu mensagem de apoio" (p₂ → p₄)',"A terceira sentença é uma implicação: se U1 apresentou erro (p₂), então deve ter recebido mensagem de apoio (p₄). Portanto, mundos em que p₂ = V e p₄ = F violam a regra e são eliminados. Quando p₂ = F, a implicação é trivialmente satisfeita. A **Tabela 4** ilustra a aplicação dessa regra aos mundos restantes.",`\`\`\`
 | Mundo | p₁ | p₂ | p₃ | p₄ | Status |
 | M1  | V | V | V | V | ✓ |
 | M2  | V | V | V | F | ✗ Eliminado |
@@ -221,7 +221,7 @@ Error generating stack: `+r.message+`
 | M4  | V | V | F | F | ✗ Eliminado |
 | M5  | V | F | V | V | ✓ (p₂=F, regra não se aplica) |
 | M6  | V | F | V | F | ✓ (p₂=F, regra não se aplica) |
-\`\`\``,"Como evidenciado na Tabela 4, os mundos M2 e M4 são descartados porque neles U1 apresentou erro mas não recebeu apoio.",'####Passo 5, Aplicando S4: "Nenhum usuário recebe mensagem sem ter apresentado erro" (p₄ → p₂)',"A quarta sentença estabelece a implicação inversa: se U1 recebeu mensagem de apoio (p₄), então deve ter apresentado erro (p₂). Sendo assim, mundos em que p₄ = V e p₂ = F são incompatíveis com essa restrição. A **Tabela 5** mostra o resultado da aplicação dessa regra.","```\n| Mundo | p₁ | p₂ | p₃ | p₄ | Status |\n| M1  | V | V | V | V | ✓ |\n| M3  | V | V | F | V | ✓ |\n| M5  | V | F | V | V | ✗ Eliminado |\n| M6  | V | F | V | F | ✓ |\n```","Conforme observado na Tabela 5, o mundo M5 é descartado porque nele U1 recebeu apoio sem ter apresentado erro.","####Resultado final, Mundos compatíveis com todas as sentenças","Após a aplicação sucessiva de todas as sentenças, restam apenas três mundos possíveis compatíveis com o conjunto de restrições. Cada um deles representa uma interpretação distinta do estado do sistema, conforme sintetizado na **Tabela 6**.","```\n| Mundo | p₁ | p₂ | p₃ | p₄ | Interpretação |\n| M1 | V | V | V | V | U1 errou e abandonou, recebeu apoio |\n| M3 | V | V | F | V | U1 errou (sem abandono) e recebeu apoio |\n| M6 | V | F | V | F | U1 abandonou (sem erro) e não recebeu apoio |\n```","Como mostra a Tabela 6, das 16 combinações iniciais restam apenas **3 mundos possíveis** compatíveis com todas as sentenças. O mundo real deve ser um deles. Esse é o poder das sentenças lógicas como **restrições**: cada nova informação reduz o espaço de possibilidades, aproximando-nos progressivamente da verdade sobre os dados.","Acreditar em uma sentença equivale a afirmar que o mundo real está **entre aqueles em que essa sentença é verdadeira**. Assim, as sentenças funcionam como filtros: elas reduzem o espaço de possibilidades compatíveis com os dados observados.","Quando combinamos várias sentenças, o conjunto de mundos possíveis vai se tornando cada vez menor. Cada nova informação adiciona uma nova restrição, refinando nossa compreensão do sistema.","O mundo real, portanto, deve estar na **interseção dos mundos compatíveis com todas as sentenças conhecidas**. Esse processo de restrição progressiva está na base do raciocínio lógico, da inferência e, mais adiante, da modelagem estatística e probabilística em ciência de dados.","##Conhecimento incompleto e raciocínio lógico","Um ponto central da ciência de dados é o fato de que **raramente dispomos de todas as informações relevantes** sobre um fenômeno. Em muitos cenários, sabemos apenas parte do que ocorreu: por exemplo, podemos identificar que um usuário apresentou erro durante uma tarefa, mas não saber se ele buscou ajuda no sistema ou tentou resolver o problema de forma autônoma.","A lógica oferece um **instrumento fundamental para lidar com esse tipo de situação**, pois permite expressar com precisão não apenas **o que sabemos**, mas também **aquilo que permanece desconhecido**. Essa distinção é crucial para evitar interpretações equivocadas dos dados e para preservar a **integridade do raciocínio analítico**.","Ao explicitar os **limites do nosso conhecimento**, a lógica sustenta atividades essenciais da ciência de dados, como:",`- a interpretação correta de logs de interação;
+\`\`\``,"Como evidenciado na Tabela 4, os mundos M2 e M4 são descartados porque neles U1 apresentou erro mas não recebeu apoio.",'####Passo 5 — Aplicando S4: "Nenhum usuário recebe mensagem sem ter apresentado erro" (p₄ → p₂)',"A quarta sentença estabelece a implicação inversa: se U1 recebeu mensagem de apoio (p₄), então deve ter apresentado erro (p₂). Sendo assim, mundos em que p₄ = V e p₂ = F são incompatíveis com essa restrição. A **Tabela 5** mostra o resultado da aplicação dessa regra.","```\n| Mundo | p₁ | p₂ | p₃ | p₄ | Status |\n| M1  | V | V | V | V | ✓ |\n| M3  | V | V | F | V | ✓ |\n| M5  | V | F | V | V | ✗ Eliminado |\n| M6  | V | F | V | F | ✓ |\n```","Conforme observado na Tabela 5, o mundo M5 é descartado porque nele U1 recebeu apoio sem ter apresentado erro.","####Resultado final — Mundos compatíveis com todas as sentenças","Após a aplicação sucessiva de todas as sentenças, restam apenas três mundos possíveis compatíveis com o conjunto de restrições. Cada um deles representa uma interpretação distinta do estado do sistema, conforme sintetizado na **Tabela 6**.","```\n| Mundo | p₁ | p₂ | p₃ | p₄ | Interpretação |\n| M1 | V | V | V | V | U1 errou e abandonou, recebeu apoio |\n| M3 | V | V | F | V | U1 errou (sem abandono) e recebeu apoio |\n| M6 | V | F | V | F | U1 abandonou (sem erro) e não recebeu apoio |\n```","Como mostra a Tabela 6, das 16 combinações iniciais restam apenas **3 mundos possíveis** compatíveis com todas as sentenças. O mundo real deve ser um deles. Esse é o poder das sentenças lógicas como **restrições**: cada nova informação reduz o espaço de possibilidades, aproximando-nos progressivamente da verdade sobre os dados.","Acreditar em uma sentença equivale a afirmar que o mundo real está **entre aqueles em que essa sentença é verdadeira**. Assim, as sentenças funcionam como filtros: elas reduzem o espaço de possibilidades compatíveis com os dados observados.","Quando combinamos várias sentenças, o conjunto de mundos possíveis vai se tornando cada vez menor. Cada nova informação adiciona uma nova restrição, refinando nossa compreensão do sistema.","O mundo real, portanto, deve estar na **interseção dos mundos compatíveis com todas as sentenças conhecidas**. Esse processo de restrição progressiva está na base do raciocínio lógico, da inferência e, mais adiante, da modelagem estatística e probabilística em ciência de dados.","##Conhecimento incompleto e raciocínio lógico","Um ponto central da ciência de dados é o fato de que **raramente dispomos de todas as informações relevantes** sobre um fenômeno. Em muitos cenários, sabemos apenas parte do que ocorreu: por exemplo, podemos identificar que um usuário apresentou erro durante uma tarefa, mas não saber se ele buscou ajuda no sistema ou tentou resolver o problema de forma autônoma.","A lógica oferece um **instrumento fundamental para lidar com esse tipo de situação**, pois permite expressar com precisão não apenas **o que sabemos**, mas também **aquilo que permanece desconhecido**. Essa distinção é crucial para evitar interpretações equivocadas dos dados e para preservar a **integridade do raciocínio analítico**.","Ao explicitar os **limites do nosso conhecimento**, a lógica sustenta atividades essenciais da ciência de dados, como:",`- a interpretação correta de logs de interação;
 - a definição de regras de decisão em sistemas adaptativos;
 - a construção de modelos mais **transparentes e explicáveis**;
 - a prevenção de **inferências indevidas** baseadas em informações incompletas.`,"Em vez de impor conclusões apressadas, o **raciocínio lógico** orienta o analista a trabalhar com **conjuntos de possibilidades** consistentes com as evidências disponíveis, mantendo abertas apenas aquelas que **não entram em contradição com os dados observados**."]},"intro-sec2":{id:"intro-sec2",title:"Consequência lógica",subtitle:"Introdução",paragraphs:["##Consequência lógica na ciência de dados","Na ciência de dados, raramente trabalhamos com informações completas. Em geral, temos um conjunto de sentenças derivadas de dados, como registros, logs e rótulos, ou de regras e modelos construídos sobre esses dados. Essas sentenças descrevem apenas parcialmente o sistema que estamos analisando. A partir delas, queremos responder perguntas fundamentais: *o que pode ser concluído com certeza?* O que é apenas possível? E o que não pode ser verdadeiro de forma alguma?","É nesse contexto que surge a noção de **consequência lógica**: quando uma conclusão é verdadeira em *todo* cenário compatível com o que sabemos, dizemos que ela é uma consequência lógica das nossas premissas. Em outras palavras, não é possível aceitar as premissas como verdadeiras e ao mesmo tempo rejeitar a conclusão.",'Atenção: consequência lógica não é o mesmo que o conectivo "se… então" (→). O conectivo é uma peça da linguagem formal, uma sentença que pode ser verdadeira ou falsa. A consequência lógica é uma *relação entre sentenças*: ela diz que sempre que as premissas são verdadeiras, a conclusão também é. Usamos o símbolo ⊨ para indicar essa relação: Γ ⊨ φ significa "φ é consequência lógica de Γ".',"##Exemplo: sistema educacional digital","Considere um sistema educacional digital em que mensagens de apoio são enviadas exatamente quando um estudante comete erro, nada mais, nada menos. A partir dos dados, sabemos que:",`- Todo estudante que cometeu erro recebeu mensagem de apoio.
@@ -672,7 +672,7 @@ Procedimento de Refutação por Resolução:
 3. Aplicar o Princípio da Resolução até:
    (a) Derivar a cláusula vazia {} ⇒ φ é implicado por Δ
    (b) Não haver mais resoluções possíveis ⇒ φ não é implicado
-\`\`\``,"Esse procedimento é a base de todos os sistemas de prova automática modernos. A negação da conclusão é adicionada ao conjunto de premissas para criar uma 'tensão' que, se a conclusão for de fato implicada, necessariamente leva a uma contradição detectável pela resolução.","#### Por que Refutação Funciona","A lógica por trás da refutação é elegante: se φ é verdadeiro em todo modelo que satisfaz Δ, então ~φ é falso em todo modelo que satisfaz Δ. Logo, Δ ∪ {~φ} não tem nenhum modelo, é insatisfatível. A resolução detecta essa insatisfatibilidade derivando a cláusula vazia. Em ciência de dados, isso corresponde a testar uma hipótese por contraposição: em vez de provar diretamente que 'todo modelo treinado em dados limpos generaliza bem', negamos a conclusão ('existe um modelo treinado em dados limpos que não generaliza') e mostramos que essa afirmação é inconsistente com as premissas do sistema.","### Exemplo Completo de Refutação","Demonstremos a validade de `(p ⇒ (q ⇒ p))`, o esquema de Criação de Implicação, sem nenhuma premissa. A prova é puramente por refutação: negamos a sentença, convertemos para forma clausal e derivamos a cláusula vazia.","**Passo 1, Negar a conclusão e converter para forma clausal**",`\`\`\`
+\`\`\``,"Esse procedimento é a base de todos os sistemas de prova automática modernos. A negação da conclusão é adicionada ao conjunto de premissas para criar uma 'tensão' que, se a conclusão for de fato implicada, necessariamente leva a uma contradição detectável pela resolução.","#### Por que Refutação Funciona","A lógica por trás da refutação é elegante: se φ é verdadeiro em todo modelo que satisfaz Δ, então ~φ é falso em todo modelo que satisfaz Δ. Logo, Δ ∪ {~φ} não tem nenhum modelo, é insatisfatível. A resolução detecta essa insatisfatibilidade derivando a cláusula vazia. Em ciência de dados, isso corresponde a testar uma hipótese por contraposição: em vez de provar diretamente que 'todo modelo treinado em dados limpos generaliza bem', negamos a conclusão ('existe um modelo treinado em dados limpos que não generaliza') e mostramos que essa afirmação é inconsistente com as premissas do sistema.","### Exemplo Completo de Refutação","Demonstremos a validade de `(p ⇒ (q ⇒ p))`, o esquema de Criação de Implicação, sem nenhuma premissa. A prova é puramente por refutação: negamos a sentença, convertemos para forma clausal e derivamos a cláusula vazia.","**Passo 1 — Negar a conclusão e converter para forma clausal**",`\`\`\`
 | Passo | Expressão |
 |---|---|
 | Original | ~(p ⇒ (q ⇒ p)) |
@@ -680,7 +680,7 @@ Procedimento de Refutação por Resolução:
 | N | ~~p ∧ ~(~q ∨ p) ⇒ p ∧ (~~q ∧ ~p) ⇒ p ∧ q ∧ ~p |
 | D | p ∧ q ∧ ~p |
 | O | {p} e {q} e {~p} |
-\`\`\``,"**Passo 2, Derivação por resolução**",`\`\`\`
+\`\`\``,"**Passo 2 — Derivação por resolução**",`\`\`\`
 | Linha | Cláusula | Origem |
 |---|---|---|
 | 1 | {p} | Premissa (da negação) |
