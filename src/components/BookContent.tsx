@@ -331,6 +331,16 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
               if (isTable) {
                 const isSeparator = (line: string) => /^\|[\s\-:|]+\|$/.test(line.trim());
                 const tableLines = lines.filter((l) => l.trim().startsWith("|") && l.trim().endsWith("|") && !isSeparator(l));
+                // Optional caption: first non-table line matching ":::caption: ...:::" or starting with "Tabela "
+                let caption: string | null = null;
+                for (const l of lines) {
+                  const t = l.trim();
+                  if (!t) continue;
+                  if (t.startsWith("|")) break;
+                  const capMatch = t.match(/^:::caption:\s*(.+?):::$/);
+                  if (capMatch) { caption = capMatch[1]; break; }
+                  if (/^Tabela\s+\d+/i.test(t)) { caption = t; break; }
+                }
                 const parseRow = (line: string) =>
                   line.split("|").slice(1, -1).map((c) => c.trim());
                 const headers = parseRow(tableLines[0]);
@@ -338,8 +348,8 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
                   .slice(1)
                   .map(parseRow);
                 return (
-                  <div key={i} className="my-4 inline-block border border-foreground/40">
-                    <table className="border-collapse">
+                  <figure key={i} className="my-4 inline-block">
+                    <table className="border-collapse border border-foreground/40">
                       <thead>
                         <tr className="border-b-2 border-foreground/40">
                           {headers.map((h, hi) => (
@@ -364,7 +374,12 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
                         })}
                       </tbody>
                     </table>
-                  </div>
+                    {caption && (
+                      <figcaption className="font-serif-book text-xs italic text-muted-foreground text-center mt-2">
+                        {caption}
+                      </figcaption>
+                    )}
+                  </figure>
                 );
               }
 
