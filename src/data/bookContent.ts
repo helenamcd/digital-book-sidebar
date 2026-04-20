@@ -363,7 +363,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Assim como em problemas algébricos, o primeiro passo para o raciocínio lógico rigoroso em ciência de dados é a **formalização**. Em vez de trabalhar diretamente com frases em linguagem natural, identificamos os fatos relevantes e os representamos por **símbolos**.",
 
       "Considere as seguintes definições:",
-      "- `e` (o estudante apresentou erro)\n- `f` (o estudante recebeu feedback)\n- `a` (o estudante abandonou a atividade)\n- `r` (o registro foi armazenado no log)",
+      "- **e**: o estudante apresentou erro\n- **f**: o estudante recebeu feedback\n- **a**: o estudante abandonou a atividade\n- **r**: o registro foi armazenado no log",
 
       "Com essas abreviações, podemos escrever sentenças como:",
       "``` \ne ⇒ f\nf ⇒ r\n```",
@@ -412,7 +412,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     "##Automação como verificação de implicação lógica",
     "Para entender essa ideia, vamos retomar um exemplo que já foi trabalhado anteriormente.",
     "Considere as seguintes proposições:",
-    "- `p` (U2 apresentou erro)\n- `q` (U2 recebeu feedback)\n- `r` (U2 abandonou a atividade)",
+    "- **p**: U2 apresentou erro\n- **q**: U2 recebeu feedback\n- **r**: U2 abandonou a atividade",
     "E as regras:",
     "- Se um estudante apresenta erro, então recebe feedback.\n- Se um estudante recebe feedback, então ele não abandona a atividade.",
     "Em linguagem lógica:",
@@ -500,7 +500,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Na Lógica Proposicional, distinguimos dois tipos fundamentais de sentenças: **sentenças simples (ou proposições atômicas)** e **sentenças compostas**.",
       "As sentenças simples expressam fatos elementares sobre o mundo. Elas não contêm conectivos lógicos e, do ponto de vista da Lógica Proposicional, são tratadas como **unidades atômicas**, isto é, sua estrutura interna não é analisada.",
       "Exemplos em ciência de dados educacionais:",
-      "- `erro` (o estudante cometeu erro)\n- `ajuda` (o estudante clicou no botão de ajuda)\n- `abandono` (o estudante abandonou a atividade)\n- `log` (a interação foi registrada no log)",
+      "- **erro**: o estudante cometeu erro\n- **ajuda**: o estudante clicou no botão de ajuda\n- **abandono**: o estudante abandonou a atividade\n- **log**: a interação foi registrada no log",
       "Cada uma dessas proposições pode ser avaliada como verdadeira ou falsa em um determinado cenário.",
       "Formalmente, essas sentenças são representadas por **símbolos proposicionais (ou variáveis proposicionais)**, normalmente escritos como identificadores simples, compostos por letras, números e sublinhados, iniciados por letra minúscula. Essa restrição sintática evita ambiguidades e aproxima a lógica das linguagens formais usadas em computação.",
       "##Conectivos lógicos e sentenças compostas",
