@@ -579,6 +579,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "##Avaliação semântica de sentenças compostas",
       "Embora a lógica não determine os valores das proposições simples, **ela determina completamente o valor de qualquer sentença composta**, uma vez que a atribuição de verdade esteja definida.",
       "Essa avaliação é feita por meio de regras semânticas, tradicionalmente representadas por **tabelas-verdade**.",
+      "Nas tabelas a seguir, usamos as letras gregas **φ** (lê-se *fi*) e **ψ** (lê-se *psi*) como **metavariáveis**, isto é, símbolos genéricos que representam *qualquer* sentença da Lógica Proposicional, seja ela uma proposição simples (como `erro`) ou uma sentença composta (como `(erro ∧ ajuda)`). Cada linha da tabela mostra uma combinação possível de valores-verdade (1 para verdadeiro, 0 para falso) das sentenças envolvidas, e a coluna final indica o valor resultante da sentença composta. Essa convenção permite descrever o comportamento de cada conectivo de forma totalmente geral, sem depender de um exemplo específico.",
       "##Negação (¬)",
       "A negação inverte o valor de verdade da sentença original:",
       "```\\n| φ | ¬φ |\n|---|----|\n| 1 | 0  |\n| 0 | 1  |\\n```",
