@@ -2,6 +2,12 @@ import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { chapterContents, chapters, hiddenChapterPrefixes } from "@/data/bookContent";
 import ReferenceTooltip from "@/components/ReferenceTooltip";
+import conjuntosFig1 from "@/assets/conjuntos-fig1-proposicao.jpg";
+import conjuntosFig2 from "@/assets/conjuntos-fig2-conjuncao.jpg";
+import conjuntosFig3 from "@/assets/conjuntos-fig3-disjuncao.jpg";
+import conjuntosFig4 from "@/assets/conjuntos-fig4-negacao.jpg";
+import conjuntosFig5 from "@/assets/conjuntos-fig5-tautologia.jpg";
+import conjuntosFig6 from "@/assets/conjuntos-fig6-contradicao.jpg";
 import {
   Table,
   TableHeader,
@@ -12,6 +18,16 @@ import {
 } from "@/components/ui/table";
 import { glossaryTerms } from "@/components/GlossaryContent";
 import GlossaryTooltip from "@/components/GlossaryTooltip";
+
+// Map of figure keys → imported assets, used by the ![alt](key) markdown syntax
+const figureAssets: Record<string, string> = {
+  "conjuntos-fig1": conjuntosFig1,
+  "conjuntos-fig2": conjuntosFig2,
+  "conjuntos-fig3": conjuntosFig3,
+  "conjuntos-fig4": conjuntosFig4,
+  "conjuntos-fig5": conjuntosFig5,
+  "conjuntos-fig6": conjuntosFig6,
+};
 
 interface BookContentProps {
   activeChapter: string;
