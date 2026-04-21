@@ -480,6 +480,13 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
                 line.split("|").slice(1, -1).map((c) => c.trim());
 
               if (dataLines.length > 0) {
+                // Optional caption: a line like "Tabela 3.1 — ..." appearing
+                // before or after the table rows (any non-table line).
+                let tableCaption: string | null = null;
+                for (const t of allLines) {
+                  if (t.startsWith("|")) continue;
+                  if (/^Tabela\s+[\d.]+/i.test(t)) { tableCaption = t; break; }
+                }
                 const headers = parseRow(dataLines[0]);
                 const rows = dataLines.slice(1).map(parseRow);
                 const isSingleCol = headers.length === 1;
@@ -524,7 +531,8 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
 
                 // Multi-column table
                 return (
-                  <div key={i} className="my-4 overflow-x-auto inline-block border border-foreground/40">
+                  <figure key={i} className="my-4">
+                    <div className="overflow-x-auto inline-block border border-foreground/40">
                     <table className="border-collapse">
                       <thead>
                         <tr className="border-b-2 border-foreground/40">
@@ -547,7 +555,13 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
                         ))}
                       </tbody>
                     </table>
-                  </div>
+                    </div>
+                    {tableCaption && (
+                      <figcaption className="font-serif-book text-xs italic text-muted-foreground text-center mt-2">
+                        {renderInlineMarkdown(tableCaption)}
+                      </figcaption>
+                    )}
+                  </figure>
                 );
               }
             }
