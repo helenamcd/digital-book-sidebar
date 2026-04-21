@@ -53,6 +53,7 @@ export const chapters: Chapter[] = [
       { id: "cap1-sec4", title: "Satisfatibilidade" },
       { id: "cap2-sec1", title: "Propriedades Lógicas das Sentenças" },
       { id: "cap2-sec2", title: "Equivalência Lógica" },
+      { id: "cap2-sec2b", title: "Proposições como Conjuntos" },
       { id: "cap2-sec3", title: "Consequência Lógica" },
       { id: "cap2-sec4", title: "Consistência Lógica" },
       { id: "cap2-sec5", title: "Conexões entre Propriedades" },
