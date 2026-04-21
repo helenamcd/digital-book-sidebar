@@ -913,7 +913,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Neste capítulo, serão apresentados dois mecanismos fundamentais para esse processo: as **provas diretas** e o **sistema de dedução natural de Fitch**. Ao longo do texto, os conceitos serão conectados a situações típicas da ciência de dados, de modo a evidenciar sua aplicação prática.",
       "Considere, por exemplo, um sistema em produção que toma decisões automaticamente. Esse sistema recebe dados de entrada, aplica regras previamente definidas e gera uma saída que precisa ser confiável. Uma forma de verificar se o sistema está correto seria analisar todas as possibilidades, como em uma tabela-verdade. No entanto, à medida que o número de variáveis aumenta, essa abordagem se torna inviável, pois o número de casos cresce rapidamente.",
       "Nesse contexto, os métodos de prova oferecem uma alternativa mais eficiente. Em vez de testar todos os cenários possíveis, é possível demonstrar simbolicamente que uma conclusão é válida em qualquer situação que satisfaça as premissas. Assim, a lógica não apenas permite chegar a conclusões, mas também garante, de forma rigorosa, que essas conclusões estão corretas.",
-      "```\n| *“Inferência”* é tirar conclusões a partir de premissas; *“prova”* é demonstrar que essas conclusões estão corretas. |\n```",
+      "```\n| **Inferência** é tirar conclusões a partir de premissas; **prova** é demonstrar que essas conclusões estão corretas. |\n```",
     ],
   },
 
