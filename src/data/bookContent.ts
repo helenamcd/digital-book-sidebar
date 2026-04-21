@@ -1075,7 +1075,8 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Uma ocorrência de variável é **ligada** se está dentro do escopo de um quantificador daquela variável; caso contrário, é **livre**. Uma sentença é **aberta** se tem variáveis livres, e **fechada** (ou sentença) caso contrário.",
       "```\n∃x.comprou(x, y)             -- x é ligada; y é livre ⇒ sentença aberta\n∀y.(∃x.comprou(x,y))         -- x e y são ambas ligadas ⇒ sentença fechada\nscore_alto(x)                -- x é livre ⇒ sentença aberta\n```",
       "Em ciência de dados, sentenças abertas correspondem a templates parametrizados de regras. Uma sentença aberta como `score_alto(x)` pode ser lida como uma função de x para um valor booleano, ela representa uma condição aplicável a qualquer cliente específico. Sentenças fechadas, por sua vez, fazem afirmações completas sobre o domínio, sem dependência de parâmetros externos.",
-      "```\n| Tipo de Sentença | Definição | Analogia em Dados |\n|---|---|---|\n| Sentença ground | Sem variáveis | Registro específico: score_alto(cliente_007) |\n| Sentença aberta | Com variáveis livres | Template de regra: score_alto(x) |\n| Sentença fechada | Sem variáveis livres | Afirmação geral: ∀x.(ativo(x) ⇒ score_valido(x)) |\n```"
+      "Para sintetizar essas distinções, a **Tabela 4.1** apresenta os três tipos de sentenças com suas definições e analogias em dados.",
+      "```\n| Tipo de Sentença | Definição | Analogia em Dados |\n|---|---|---|\n| Sentença ground | Sem variáveis | Registro específico: score_alto(cliente_007) |\n| Sentença aberta | Com variáveis livres | Template de regra: score_alto(x) |\n| Sentença fechada | Sem variáveis livres | Afirmação geral: ∀x.(ativo(x) ⇒ score_valido(x)) |\nTabela 4.1: Tipos de sentenças relacionais quanto à presença de variáveis livres.\n```"
     ]
   },
 
