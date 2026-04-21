@@ -755,7 +755,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "O método da tabela-verdade pode ser usado para verificar consequência: avaliamos premissas e conclusão em todas as atribuições e verificamos se existe alguma linha em que as premissas sejam verdadeiras e a conclusão seja falsa.",
       "###Exemplo: p ⊨ (p ∨ q)",
       "Para verificar se `p ⊨ (p ∨ q)`, avaliamos premissa e conclusão em todas as atribuições possíveis e checamos se há alguma linha em que a premissa seja verdadeira e a conclusão falsa. A **Tabela 2.4** apresenta essa avaliação.",
-      "```\n| p | q | p | p ∨ q |\n|---|---|---|-------|\n| 1 | 1 | 1 |   1   |\n| 1 | 0 | 1 |   1   |\n| 0 | 1 | 0 |   1   |\n| 0 | 0 | 0 |   0   |\n|---|---|---|-------|\nTabela 2.4: Avaliação de `p` (premissa) e `p ∨ q` (conclusão) em todas as atribuições.\n```",
+      "```\n| p | q | p | p ∨ q |\n|---|---|---|-------|\n| 1 | 1 | 1 |   1   |\n| 1 | 0 | 1 |   1   |\n| 0 | 1 | 0 |   1   |\n| 0 | 0 | 0 |   0   |\nTabela 2.4: Avaliação de `p` (premissa) e `p ∨ q` (conclusão) em todas as atribuições.\n```",
       "Como mostra a Tabela 2.4, toda linha em que a premissa é verdadeira tem a conclusão também verdadeira. A consequência lógica vale.",
       "###Exemplo: p ⊭ (p ∧ q)",
       "De forma análoga, testamos se `p ⊨ (p ∧ q)` enumerando todas as atribuições. A **Tabela 2.5** apresenta a avaliação correspondente.",
