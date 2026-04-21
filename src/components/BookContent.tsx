@@ -356,10 +356,6 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
               );
             }
 
-            if (p.startsWith("```")) {
-              // Will fall through normal code-block rendering below
-            }
-
             // Custom callout: ":::exemplo-ds\n<title>\n<description...>\n```python\n<code>\n```:::"
             if (p.startsWith(":::exemplo-ds")) {
               const body = p.replace(/^:::exemplo-ds\s*\n?/, "").replace(/:::\s*$/, "");
