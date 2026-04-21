@@ -734,7 +734,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "```\n| p | q | p ∧ q | p ∨ q |\n|---|---|-------|-------|\n| 1 | 1 |   1   |   1   |\n| 1 | 0 |   0   |   1   |\n| 0 | 1 |   0   |   1   |\n| 0 | 0 |   0   |   0   |\nTabela 2.4: Tabela-verdade comparando `p ∧ q` e `p ∨ q`.\n```",
       "Conforme indicado na Tabela 2.4, as colunas diferem nas linhas intermediárias; portanto, não há equivalência.",
       "###Substituibilidade e reescrita de regras",
-      "Uma propriedade central da equivalência é a **substituibilidade**: se φ ⇔ ψ, podemos trocar uma pela outra dentro de qualquer expressão proposicional sem alterar o comportamento lógico do sistema.",
+      "Uma propriedade central da equivalência lógica é a **substituibilidade**: se φ e ψ são logicamente equivalentes (isto é, φ ⇔ ψ é sempre verdadeiro), então podemos substituir uma pela outra dentro de qualquer expressão proposicional sem alterar o comportamento lógico do sistema.",
       "Isso permite reescrever regras, simplificar expressões e otimizar validações, mantendo exatamente o mesmo conjunto de cenários aceitos. (Em lógicas mais expressivas, como a de predicados, essa substituição exige cuidados adicionais.)",
     ]
   },
