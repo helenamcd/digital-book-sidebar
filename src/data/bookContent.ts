@@ -1068,8 +1068,8 @@ export const chapterContents: Record<string, ChapterContent> = {
     paragraphs: [
       "##Exemplo simples: p implica p (Reflexividade)",
       "Objetivo: provar que qualquer proposição implica ela mesma. Em símbolos: p ⇒ p. Isso parece óbvio, mas vamos provar formalmente.",
-      "A estratégia: para provar uma implicação, usamos ⇒I. Então abrimos uma subprova com hipótese p e tentamos derivar p dentro dela. Mas p já é a própria hipótese — não precisamos fazer nada mais! A Tabela 3.3 apresenta a prova completa em uma única linha de subprova.",
-      "| Linha | Fórmula | Por quê? (justificativa) |\n|---|---|---|\n| 1 | \│ p | Hipótese (assunção da subprova) |\n| ∴ | p ⇒ p | ⇒I — fechando a subprova da linha 1 a 1 |\nTabela 3.3 — Prova em Fitch da reflexividade da implicação (p ⇒ p).",
+      "A estratégia: para provar uma implicação, usamos ⇒I. Então abrimos uma subprova com hipótese p e tentamos derivar p dentro dela. Mas p já é a própria hipótese — não precisamos fazer nada mais! A Tabela 3.7 apresenta a prova completa em uma única linha de subprova.",
+      "| Linha | Fórmula | Por quê? (justificativa) |\n|---|---|---|\n| 1 | \│ p | Hipótese (assunção da subprova) |\n| ∴ | p ⇒ p | ⇒I — fechando a subprova da linha 1 a 1 |\nTabela 3.7 — Prova em Fitch da reflexividade da implicação (p ⇒ p).",
       "Simples assim: assumimos p (linha 1) e dentro da subprova já temos p. Ao fechar com ⇒I, geramos p ⇒ p. A prova tem apenas um passo interno.",
       "##Exemplo médio: Transitividade",
       "Objetivo: dado que p implica q, e q implica r, provar que p implica r. Estratégia: para provar p ⇒ r, vamos usar ⇒I — abrimos uma subprova assumindo p e tentamos provar r dentro dela. A Tabela 3.4 apresenta a prova completa, com a subprova destacada pela barra vertical.",
