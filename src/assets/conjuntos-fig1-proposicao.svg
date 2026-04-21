@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" font-family="Georgia, 'Times New Roman', serif">
+<rect width="100%" height="100%" fill="white"/>
+<rect x="80" y="60" width="640" height="320" fill="none" stroke="#1a1a1a" stroke-width="2"/><text x="708" y="82" text-anchor="end" font-size="22" font-style="italic">U</text><circle cx="400" cy="220" r="110" fill="#6FA8DC" fill-opacity="0.55" stroke="#1a1a1a" stroke-width="2"/><text x="400" y="232" text-anchor="middle" font-size="38" font-style="italic">p</text><text x="400" y="430" text-anchor="middle" font-size="20" font-style="italic" fill="#444">situações onde p é verdadeiro</text></svg>
