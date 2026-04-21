@@ -356,6 +356,71 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
               );
             }
 
+            // Custom callout: ":::exemplo-ds\n<title>\n<description...>\n```python\n<code>\n```:::"
+            if (p.startsWith(":::exemplo-ds")) {
+              const body = p.replace(/^:::exemplo-ds\s*\n?/, "").replace(/:::\s*$/, "");
+              // Split body into "before code" and python code
+              const codeMatch = body.match(/```python\s*\n?([\s\S]*?)```/);
+              const codeText = codeMatch ? codeMatch[1].replace(/\n$/, "") : "";
+              const beforeCode = codeMatch ? body.slice(0, codeMatch.index).trim() : body.trim();
+              const lines = beforeCode.split(/\n/).filter((l) => l.length > 0);
+              const title = lines[0] || "";
+              const descLines = lines.slice(1);
+              return (
+                <div
+                  key={i}
+                  className="my-6 rounded-lg overflow-hidden"
+                  style={{
+                    backgroundColor: "hsl(var(--example-ds-bg))",
+                    border: "1px solid hsl(var(--example-ds-border))",
+                  }}
+                >
+                  <div
+                    className="px-5 py-3"
+                    style={{
+                      backgroundColor: "hsl(var(--example-ds-header-bg))",
+                      borderBottom: "1px solid hsl(var(--example-ds-border))",
+                    }}
+                  >
+                    <p
+                      className="font-sans text-sm md:text-[0.95rem] font-semibold flex items-center gap-2"
+                      style={{ color: "hsl(var(--example-ds))" }}
+                    >
+                      <span aria-hidden>🐍</span>
+                      <span>{renderInlineMarkdown(title)}</span>
+                    </p>
+                  </div>
+                  {descLines.length > 0 && (
+                    <div className="px-5 pt-3 pb-2">
+                      {descLines.map((line, li) => (
+                        <p
+                          key={li}
+                          className="font-serif-book text-sm md:text-[0.95rem] leading-[1.75] text-[hsl(var(--book-text))]"
+                        >
+                          {renderInlineMarkdown(line)}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+                  {codeText && (
+                    <pre
+                      className="mx-3 mb-3 mt-1 rounded-md p-4 overflow-x-auto font-mono text-xs md:text-sm leading-relaxed border border-foreground/10"
+                      style={{
+                        backgroundColor: "hsl(var(--code-bg))",
+                        color: "hsl(var(--code-fg))",
+                      }}
+                    >
+                      {codeText.split("\n").map((line, li) => (
+                        <div key={li}>
+                          {line.length === 0 ? "\u00A0" : line}
+                        </div>
+                      ))}
+                    </pre>
+                  )}
+                </div>
+              );
+            }
+
             if (p.startsWith("```")) {
               // Remove opening/closing ``` and split lines (handle both real \n and literal \\n)
               let code = p.replace(/^```/, "").replace(/```$/, "");
