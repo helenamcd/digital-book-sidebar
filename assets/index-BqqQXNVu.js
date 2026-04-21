@@ -381,25 +381,25 @@ Tabela 3.1 — Prova em Hilbert da transitividade das implicações: de p ⇒ q 
 | False | FE | Subprova [φ → false] | ¬φ | Supor X e chegar ao absurdo → X é falso (¬X) |
 Tabela 3.2 — Resumo das regras de inferência do Sistema de Fitch, organizadas por conectivo lógico.`,"**Como usar esta tabela:** as regras de Introdução (I) criam novas fórmulas com aquele conectivo. As regras de Eliminação (E) usam fórmulas que já têm aquele conectivo para extrair informação delas. *Dica:* na coluna 'O que precisa ter', as subprovas indicam que é necessário abrir um bloco com hipótese antes de aplicar a regra."]},"cap3-sec6":{id:"cap3-sec6",title:"Exemplos completos de provas em Fitch",subtitle:"Capítulo 3",paragraphs:["##Exemplo simples: p implica p (Reflexividade)","Objetivo: provar que qualquer proposição implica ela mesma. Em símbolos: p ⇒ p. Isso parece óbvio, mas vamos provar formalmente.","A estratégia: para provar uma implicação, usamos ⇒I. Então abrimos uma subprova com hipótese p e tentamos derivar p dentro dela. Mas p já é a própria hipótese — não precisamos fazer nada mais! A Tabela 3.3 apresenta a prova completa em uma única linha de subprova.",`| Linha | Fórmula | Por quê? (justificativa) |
 |---|---|---|
-| 1 | \\| p | Hipótese (assunção da subprova) |
+| 1 | │ p | Hipótese (assunção da subprova) |
 | ∴ | p ⇒ p | ⇒I — fechando a subprova da linha 1 a 1 |
 Tabela 3.3 — Prova em Fitch da reflexividade da implicação (p ⇒ p).`,"Simples assim: assumimos p (linha 1) e dentro da subprova já temos p. Ao fechar com ⇒I, geramos p ⇒ p. A prova tem apenas um passo interno.","##Exemplo médio: Transitividade","Objetivo: dado que p implica q, e q implica r, provar que p implica r. Estratégia: para provar p ⇒ r, vamos usar ⇒I — abrimos uma subprova assumindo p e tentamos provar r dentro dela. A Tabela 3.4 apresenta a prova completa, com a subprova destacada pela barra vertical.",`| Linha | Fórmula | Por quê? (justificativa) |
 |---|---|---|
 | 1 | p ⇒ q | Premissa |
 | 2 | q ⇒ r | Premissa |
-| 3 | \\| p | Hipótese (vamos assumir p para provar r) |
-| 4 | \\| q | ⇒E nas linhas 1 e 3 (temos p⇒q e temos p) |
-| 5 | \\| r | ⇒E nas linhas 2 e 4 (temos q⇒r e temos q) |
+| 3 | │ p | Hipótese (vamos assumir p para provar r) |
+| 4 | │ q | ⇒E nas linhas 1 e 3 (temos p⇒q e temos p) |
+| 5 | │ r | ⇒E nas linhas 2 e 4 (temos q⇒r e temos q) |
 | ∴ | p ⇒ r | ⇒I — fechando a subprova (linhas 3 a 5) |
 Tabela 3.4 — Prova em Fitch da transitividade da implicação a partir das premissas p ⇒ q e q ⇒ r.`,"Lendo em português: assumimos p (linha 3). Como temos p⇒q (linha 1), concluímos q por Modus Ponens (linha 4). Como temos q⇒r (linha 2), concluímos r (linha 5). Logo, assumir p levou a r — ou seja, p implica r.","##Exemplo com disjunção: o problema das três pessoas","Cenário: Maria, Pat e Quincy estão em uma sala. Sabe-se que:",`- Se Pat está na sala (p), então Quincy está na sala (q). → p ⇒ q
 - Se Maria está na sala (m), então Pat ou Quincy está na sala (p ∨ q). → m ⇒ (p ∨ q)`,"Objetivo: provar que se Maria está na sala, então Quincy está na sala. → m ⇒ q. Estratégia: para provar m ⇒ q, vamos usar ⇒I: abrimos uma subprova assumindo m e tentamos provar q. A Tabela 3.5 apresenta a prova completa, combinando ⇒E e ∨E para tratar a disjunção que aparece como consequência da hipótese.",`| Linha | Fórmula | Por quê? (justificativa) |
 |---|---|---|
 | 1 | p ⇒ q | Premissa |
 | 2 | m ⇒ (p ∨ q) | Premissa |
-| 3 | \\| m | Hipótese (assumimos que Maria está na sala) |
-| 4 | \\| p ∨ q | ⇒E nas linhas 2 e 3 (temos m⇒(p∨q) e temos m) |
-| 5 | \\| q ⇒ q | Reflexividade (p ⇒ p para qualquer p; aqui q ⇒ q) |
-| 6 | \\| q | ∨E nas linhas 4, 1 e 5 (p∨q; se p→q; se q→q; logo q) |
+| 3 | │ m | Hipótese (assumimos que Maria está na sala) |
+| 4 | │ p ∨ q | ⇒E nas linhas 2 e 3 (temos m⇒(p∨q) e temos m) |
+| 5 | │ q ⇒ q | Reflexividade (p ⇒ p para qualquer p; aqui q ⇒ q) |
+| 6 | │ q | ∨E nas linhas 4, 1 e 5 (p∨q; se p→q; se q→q; logo q) |
 | ∴ | m ⇒ q | ⇒I — fechando a subprova (linhas 3 a 6) |
 Tabela 3.5 — Prova em Fitch de m ⇒ q a partir das premissas p ⇒ q e m ⇒ (p ∨ q).`,"Em português: assumimos que Maria está na sala (linha 3). Pela premissa 2, Pat ou Quincy está lá (linha 4). Se for Pat (p), então pela premissa 1 Quincy está lá. Se já for Quincy (q), está resolvido. Em qualquer caso, Quincy está na sala — logo, Maria implica Quincy."]},"cap3-sec7":{id:"cap3-sec7",title:"Hilbert e Fitch lado a lado",subtitle:"Capítulo 3",paragraphs:["Os dois sistemas chegam às mesmas conclusões — são equivalentes em poder. Mas funcionam de formas bem diferentes. A Tabela 3.6 apresenta uma comparação direta entre Hilbert e Fitch segundo critérios como uso de axiomas, hipóteses temporárias, facilidade de uso e tamanho típico das provas.",`| Aspecto | Sistema de Hilbert | Sistema de Fitch |
 |---|---|---|
