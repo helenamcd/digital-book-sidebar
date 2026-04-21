@@ -49,6 +49,14 @@
     --book-heading: 220 25% 18%;
     --chapter-marker: 28 80% 52%;
 
+    /* Example callout (Data Science + Python) */
+    --example-ds: 155 35% 30%;
+    --example-ds-bg: 150 30% 95%;
+    --example-ds-border: 155 30% 70%;
+    --example-ds-header-bg: 150 30% 90%;
+    --code-bg: 220 25% 14%;
+    --code-fg: 140 40% 88%;
+
     --sidebar-background: 220 25% 18%;
     --sidebar-foreground: 220 10% 80%;
     --sidebar-primary: 28 80% 52%;
@@ -89,6 +97,13 @@
     --book-text: 40 15% 80%;
     --book-heading: 40 20% 90%;
     --chapter-marker: 28 80% 52%;
+
+    --example-ds: 155 50% 70%;
+    --example-ds-bg: 155 25% 14%;
+    --example-ds-border: 155 30% 30%;
+    --example-ds-header-bg: 155 30% 18%;
+    --code-bg: 220 25% 8%;
+    --code-fg: 140 40% 85%;
     --sidebar-background: 220 25% 8%;
     --sidebar-foreground: 220 10% 70%;
     --sidebar-primary: 28 80% 52%;

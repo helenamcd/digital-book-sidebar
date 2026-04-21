@@ -373,10 +373,23 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
               return (
                 <div
                   key={i}
-                  className="my-6 rounded-lg border border-emerald-700/30 bg-emerald-900/5 overflow-hidden"
+                  className="my-6 rounded-lg overflow-hidden"
+                  style={{
+                    backgroundColor: "hsl(var(--example-ds-bg))",
+                    border: "1px solid hsl(var(--example-ds-border))",
+                  }}
                 >
-                  <div className="px-5 py-3 bg-emerald-900/10 border-b border-emerald-700/20">
-                    <p className="font-sans text-sm md:text-[0.95rem] font-semibold text-emerald-900 dark:text-emerald-300 flex items-center gap-2">
+                  <div
+                    className="px-5 py-3"
+                    style={{
+                      backgroundColor: "hsl(var(--example-ds-header-bg))",
+                      borderBottom: "1px solid hsl(var(--example-ds-border))",
+                    }}
+                  >
+                    <p
+                      className="font-sans text-sm md:text-[0.95rem] font-semibold flex items-center gap-2"
+                      style={{ color: "hsl(var(--example-ds))" }}
+                    >
                       <span aria-hidden>🐍</span>
                       <span>{renderInlineMarkdown(title)}</span>
                     </p>
@@ -394,7 +407,13 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
                     </div>
                   )}
                   {codeText && (
-                    <pre className="mx-3 mb-3 mt-1 rounded-md bg-[hsl(220_15%_12%)] text-[hsl(140_60%_85%)] p-4 overflow-x-auto font-mono text-xs md:text-sm leading-relaxed border border-foreground/10">
+                    <pre
+                      className="mx-3 mb-3 mt-1 rounded-md p-4 overflow-x-auto font-mono text-xs md:text-sm leading-relaxed border border-foreground/10"
+                      style={{
+                        backgroundColor: "hsl(var(--code-bg))",
+                        color: "hsl(var(--code-fg))",
+                      }}
+                    >
                       {codeText.split("\n").map((line, li) => (
                         <div key={li}>
                           {line.length === 0 ? "\u00A0" : line}
