@@ -1157,9 +1157,10 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Lógica Relacional",
     "subtitle": "Capítulo 4",
     "paragraphs": [
-      "A Lógica Proposicional, estudada nos capítulos anteriores, é poderosa para expressar relações entre proposições fixas. Contudo, ela apresenta uma limitação fundamental: é impossível enunciar afirmações gerais sobre objetos sem enumerá-los explicitamente. Em ciência de dados, esse problema é onipresente. Queremos dizer coisas como 'todo registro com valor ausente deve ser imputado' ou 'existe algum cliente cujo score supera o limiar', sem precisar escrever uma regra separada para cada registro ou cada cliente.",
-      "A Lógica Relacional resolve essa limitação ao introduzir dois recursos linguísticos essenciais: **variáveis** e **quantificadores**. Com eles, podemos expressar informações sobre múltiplos objetos sem enumerá-los, e afirmar a existência de objetos que satisfazem certas condições sem especificar quais são. Esse salto expressivo é decisivo para a formalização de regras de negócio, restrições de qualidade de dados e propriedades de modelos.",
-      "Neste capítulo, percorremos a Lógica Relacional em quatro etapas: **sintaxe** (como escrever sentenças), **semântica** (o que elas significam), **avaliação** (como verificar se são verdadeiras) e **análise** (como determinar propriedades lógicas e relações entre sentenças). Em cada etapa, ancoramos os conceitos em exemplos diretamente relevantes para a prática de ciência de dados."
+      "## Além do verdadeiro e falso — raciocínio sobre objetos, propriedades e relações",
+      "Nos capítulos anteriores estudamos a lógica proposicional: aprendemos a representar afirmações simples como p e q, a combiná-las com conectivos (E, OU, NÃO, SE...ENTÃO), a verificar equivalências, e a construir provas formais usando sistemas como Fitch e Hilbert.",
+      "Toda essa lógica trabalha com proposições inteiras — afirmações que são simplesmente verdadeiras ou falsas. Mas a lógica proposicional tem uma limitação importante: ela não enxerga o interior das proposições. Para ela, *“Ana tem renda alta”* e *“Bob tem renda alta”* são duas coisas completamente diferentes, sem nenhuma relação entre si.",
+      "A **Lógica Relacional** — também chamada de **Lógica de Primeira Ordem** ou **Lógica de Predicados** — vai além. Ela nos permite falar sobre objetos, suas propriedades e as relações entre eles. Com ela, podemos expressar coisas como *“todo cliente com renda alta é elegível”* — uma afirmação que vale para qualquer cliente, não apenas para um específico."
     ]
   },
 
@@ -1168,9 +1169,20 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Vocabulário: Constantes, Variáveis e Relações",
     "subtitle": "Capítulo 4, Sintaxe da Lógica Relacional",
     "paragraphs": [
-      "Na Lógica Proposicional, o vocabulário é composto por constantes proposicionais. Na Lógica Relacional, o vocabulário é estruturado em três categorias distintas:",
-      "- **Constantes de objeto**: representam entidades individuais do domínio. Por convenção, começam com letras que não sejam u, v, w, x, y, z ou com dígitos. Exemplos: `cliente_001`, `produto_42`, `regiao_sul`.\n- **Constantes de relação**: representam predicados ou propriedades. Cada constante de relação tem uma *aridade*, o número de argumentos que aceita. Exemplos: `ativo` (unário), `comprou` (binário), `transferiu` (ternário).\n- **Variáveis**: começam por letras do final do alfabeto (u, v, w, x, y, z). Funcionam como placeholders para objetos arbitrários do domínio. Exemplos: `x`, `y`, `cliente_var`.",
-      "Um **vocabulário** é um conjunto finito e não vazio de constantes de objeto, um conjunto finito e não vazio de constantes de relação, e uma atribuição de aridade para cada constante de relação. Um **termo** é uma variável ou uma constante de objeto, os 'substantivos' da linguagem."
+      "Para raciocinar sobre objetos, precisamos de um vocabulário mais rico do que o da lógica proposicional. A lógica relacional introduz três tipos de elementos fundamentais: **constantes**, **variáveis** e **relações**.",
+      "### 1.1 Constantes — nomes de objetos específicos",
+      "Uma **constante** é um nome que se refere a um objeto particular e fixo do mundo. É como um substantivo próprio: sempre aponta para a mesma coisa.",
+      "Exemplos de constantes: `ana`, `bob`, `produto_x`, `brasil`, `2024`. Cada um desses nomes representa um objeto específico. Quando usamos `ana` em uma fórmula lógica, estamos sempre falando da mesma pessoa.",
+      "### 1.2 Variáveis — coringas que representam qualquer objeto",
+      "Uma **variável** não representa um objeto fixo — ela é um *coringa* que pode representar qualquer objeto do domínio. Usamos letras como `x`, `y`, `z` para variáveis.",
+      "A diferença é sutil, mas crucial: uma constante sempre se refere ao mesmo objeto; uma variável pode ser substituída por qualquer constante.",
+      "| **Constante vs. Variável — a diferença em prática:**<br/><br/>`RendaAlta(ana)` → afirmação sobre a Ana especificamente (constante)<br/>`RendaAlta(x)` → afirmação sobre *“algum x qualquer”* (variável) — quem é x depende do contexto |",
+      "### 1.3 Relações (Predicados) — propriedades e conexões",
+      "Uma **relação** — também chamada de **predicado** — é uma propriedade ou conexão entre objetos. Ela recebe um ou mais objetos como argumentos e resulta em verdadeiro ou falso.",
+      "O número de argumentos que uma relação aceita é chamado de **aridade**:",
+      "1. **Aridade 1 (unária)**: descreve uma propriedade de um único objeto. Ex: `Aprovado(ana)` — *“Ana está aprovada”*.\n2. **Aridade 2 (binária)**: descreve uma conexão entre dois objetos. Ex: `MaiorQue(renda_ana, renda_bob)` — *“a renda de Ana é maior que a de Bob”*.\n3. **Aridade n (n-ária)**: conexão entre n objetos. Ex: `Transferiu(ana, bob, 500)` — *“Ana transferiu 500 para Bob”*.",
+      "| **📊 Ciência de Dados — Constantes, Variáveis e Relações em dados tabulares** |\n| Uma tabela de banco de dados é uma relação no sentido lógico! Cada coluna é um predicado, cada linha é uma instância, e cada célula é uma constante. A **Tabela 4.1** ilustra a correspondência entre os conceitos lógicos e os elementos de um banco de dados. |",
+      "```\n| Conceito lógico | Equivalente em dados | Exemplo |\n| Constante | Valor fixo numa célula | ana, 7000, 'aprovado' |\n| Variável | Nome de coluna (parâmetro) | cliente, renda, status |\n| Relação unária | Coluna booleana ou filtro | Aprovado(x) → coluna 'aprovado = true' |\n| Relação binária | JOIN entre tabelas / comparação | MaiorQue(x, y) → renda_x > renda_y |\n| Relação n-ária | Tabela com n colunas | Transacao(cliente, valor, data, tipo) |\nTabela 4.1 — Correspondência entre conceitos da lógica relacional e elementos de bancos de dados.\n```"
     ]
   },
 
@@ -1179,20 +1191,27 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Três Tipos de Sentenças",
     "subtitle": "Capítulo 4, Sintaxe da Lógica Relacional",
     "paragraphs": [
-      "A Lógica Relacional possui três tipos de sentenças, que se combinam para formar expressões cada vez mais ricas:",
-      "### Sentenças Relacionais (Átomos)",
-      "Uma sentença relacional é formada por uma constante de relação n-ária seguida de n termos. É o elemento atômico da linguagem, o equivalente das constantes proposicionais, mas com estrutura interna. Exemplos:",
-      "```\nativo(cliente_001)                    -- cliente_001 é um cliente ativo\ncomprou(joao, produto_42)             -- joao comprou produto_42\ntransferiu(alice, bob, valor_x)       -- alice transferiu valor_x para bob\n```",
-      "### Sentenças Lógicas",
-      "Sentenças lógicas são formadas combinando sentenças menores com os mesmos operadores da Lógica Proposicional: negação (~), conjunção (∧), disjunção (∨), implicação (⇒), e bicondicional (⇔). A sintaxe é idêntica, apenas os átomos são mais ricos.",
-      "```\n~inadimplente(x)                      -- x não é inadimplente\nativo(x) ∧ sem_divida(x)              -- x é ativo E sem dívida\nscore_alto(x) ⇒ pre_aprovado(x)       -- score alto implica pré-aprovação\naprovado(x) ⇔ score_alto(x) ∧ ativo(x)  -- bicondicional de aprovação\n```",
-      "### Sentenças Quantificadas",
-      "Sentenças quantificadas são o grande diferencial da Lógica Relacional. Há dois tipos:",
-      "- **Quantificador Universal** (para todo, ∀): afirma que todos os objetos do domínio satisfazem uma propriedade.\n- **Quantificador Existencial** (existe algum, ∃): afirma que pelo menos um objeto do domínio satisfaz uma propriedade.",
-      "```\n∀x.(ativo(x) ⇒ score_valido(x))       -- todo cliente ativo tem score válido\n∃x.(score_alto(x) ∧ inadimplente(x))  -- existe cliente com score alto e inadimplente\n∀x.∃y.(comprou(x,y))                  -- todo cliente comprou algum produto\n∃y.∀x.(recomendado(x,y))              -- existe produto recomendado para todos\n```",
-      "A ordem dos quantificadores é crítica. As duas últimas sentenças acima expressam conceitos radicalmente diferentes: a terceira diz que cada cliente tem seu próprio produto comprado (pode ser um produto diferente para cada um); a quarta diz que existe um único produto que é recomendado para todos os clientes simultaneamente.",
-      "#### Precedência de Operadores na Lógica Relacional",
-      "Os quantificadores têm precedência sobre os operadores lógicos. Isso significa que `∀x.p(x) ⇒ q(x)` é lido como `(∀x.p(x)) ⇒ q(x)`, e não como `∀x.(p(x) ⇒ q(x))`. Para aplicar um quantificador a uma sentença composta, use parênteses explicitamente: `∀x.(p(x) ⇒ q(x))`. Em ciência de dados, esse erro de parênteses é equivalente a um erro de escopo em programação, a variável quantificada não alcança a subexpressão desejada."
+      "Na lógica relacional, uma **sentença** é uma afirmação que pode ser verdadeira ou falsa. Existem três tipos fundamentais.",
+      "### 2.1 Sentenças atômicas — os tijolos básicos",
+      "Uma **sentença atômica** é a forma mais simples possível: uma relação aplicada a objetos específicos (constantes). Ela não pode ser decomposta em partes menores que ainda façam sentido lógico.",
+      "| **Forma:** `Relação(arg1, arg2, ...)`<br/><br/>`Aprovado(ana)` → *“Ana está aprovada”*<br/>`MaiorQue(7000, 5000)` → *“7000 é maior que 5000”*<br/>`Amigo(ana, bob)` → *“Ana e Bob são amigos”* |",
+      "Note que sentenças atômicas só usam constantes — nenhuma variável. Quando há variáveis, a sentença pode ser verdadeira para alguns objetos e falsa para outros, e precisa de quantificadores (que veremos em breve) para ser completamente interpretada.",
+      "### 2.2 Sentenças complexas — combinando com conectivos",
+      "Sentenças atômicas podem ser combinadas com os mesmos conectivos da lógica proposicional que já estudamos: ∧ (E), ∨ (OU), ¬ (NÃO), ⇒ (SE...ENTÃO), ↔ (SE E SOMENTE SE).",
+      "| **Exemplos de sentenças complexas:**<br/><br/>`Aprovado(ana) ∧ RendaAlta(ana)` → *“Ana está aprovada E tem renda alta”*<br/>`¬Inadimplente(bob) ⇒ Elegivel(bob)` → *“Se Bob não é inadimplente, então é elegível”*<br/>`RendaAlta(x) ∨ ScoreAlto(x)` → *“x tem renda alta OU score alto”* (ainda depende de x) |",
+      "### 2.3 Sentenças quantificadas — afirmações sobre conjuntos de objetos",
+      "Este é o grande salto da lógica relacional em relação à proposicional. Os **quantificadores** permitem fazer afirmações sobre *todos* os objetos ou sobre a *existência* de pelo menos um objeto — sem precisar listar cada um individualmente.",
+      "#### O quantificador universal — ∀ (*“para todo”*)",
+      "O símbolo ∀ (lê-se: *“para todo”*) indica que uma afirmação vale para todos os objetos do domínio.",
+      "| **Forma:** `∀x Condição(x)`<br/><br/>`∀x (RendaAlta(x) ⇒ Elegivel(x))` → *“Todo cliente com renda alta é elegível”*<br/>`∀x (Cliente(x) ⇒ TemCPF(x))` → *“Todo cliente tem CPF”*<br/><br/>*Lembre-se: o ∀ sozinho não afirma que algo existe. `∀x Voador(x)` diz “tudo que existe é voador” — mas se o domínio for vazio, a sentença é trivialmente verdadeira.* |",
+      "#### O quantificador existencial — ∃ (*“existe pelo menos um”*)",
+      "O símbolo ∃ (lê-se: *“existe”*) indica que há pelo menos um objeto no domínio que satisfaz a condição.",
+      "| **Forma:** `∃x Condição(x)`<br/><br/>`∃x (Cliente(x) ∧ Inadimplente(x))` → *“Existe pelo menos um cliente inadimplente”*<br/>`∃x (Produto(x) ∧ Preco(x, 0))` → *“Existe pelo menos um produto gratuito”* |",
+      "#### Combinando quantificadores",
+      "Quantificadores podem ser aninhados para expressar afirmações mais sofisticadas. **A ordem importa.** A **Tabela 4.2** apresenta exemplos de sentenças com quantificadores combinados.",
+      "```\n| Sentença lógica | Leitura em português | Verdadeiro se... |\n| ∀x ∃y MaiorQue(y, x) | 'Para todo x, existe um y maior que x' | Não existe máximo no domínio |\n| ∃x ∀y MaiorQue(x, y) | 'Existe um x maior que todo y' | Existe um máximo no domínio |\n| ∀x ∀y (Amigo(x,y) ⇒ Amigo(y,x)) | 'Amizade é simétrica' | A relação Amigo é simétrica |\n| ∃x ∃y (Cliente(x) ∧ Cliente(y) ∧ x≠y) | 'Existem pelo menos dois clientes' | O domínio tem ≥ 2 clientes |\nTabela 4.2 — Exemplos de sentenças com quantificadores aninhados e sua leitura em português.\n```",
+      "| **📊 Ciência de Dados — Quantificadores como consultas** |\n| Os quantificadores têm equivalentes diretos em consultas de dados. O ∀ corresponde a verificar se uma condição vale para todos os registros; o ∃ corresponde a verificar se há pelo menos um registro que satisfaz a condição. A **Tabela 4.3** apresenta exemplos dessa correspondência. |",
+      "```\n| Lógica relacional | Pergunta em dados | Como verificar |\n| ∀x (Cliente(x) ⇒ TemEmail(x)) | 'Todos os clientes têm e-mail?' | Verificar se há algum cliente sem e-mail (zero registros = verdadeiro) |\n| ∃x (Compra(x) ∧ Valor(x) > 10000) | 'Existe alguma compra acima de R$10.000?' | Verificar se o filtro retorna ao menos 1 resultado |\n| ∀x ∀y (Pedido(x,y) ⇒ Cliente(x)) | 'Todo pedido pertence a um cliente válido?' | Checar integridade referencial — nenhum pedido órfão |\n| ∃x ∀y (Score(x) ≥ Score(y)) | 'Existe cliente com maior score de todos?' | Encontrar o máximo da coluna score |\nTabela 4.3 — Correspondência entre quantificadores lógicos e consultas em ciência de dados.\n```"
     ]
   },
 
@@ -1201,11 +1220,18 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Variáveis Livres e Ligadas",
     "subtitle": "Capítulo 4, Sintaxe da Lógica Relacional",
     "paragraphs": [
-      "Uma ocorrência de variável é **ligada** se está dentro do escopo de um quantificador daquela variável; caso contrário, é **livre**. Uma sentença é **aberta** se tem variáveis livres, e **fechada** (ou sentença) caso contrário.",
-      "```\n∃x.comprou(x, y)             -- x é ligada; y é livre ⇒ sentença aberta\n∀y.(∃x.comprou(x,y))         -- x e y são ambas ligadas ⇒ sentença fechada\nscore_alto(x)                -- x é livre ⇒ sentença aberta\n```",
-      "Em ciência de dados, sentenças abertas correspondem a templates parametrizados de regras. Uma sentença aberta como `score_alto(x)` pode ser lida como uma função de x para um valor booleano, ela representa uma condição aplicável a qualquer cliente específico. Sentenças fechadas, por sua vez, fazem afirmações completas sobre o domínio, sem dependência de parâmetros externos.",
-      "Para sintetizar essas distinções, a **Tabela 4.1** apresenta os três tipos de sentenças com suas definições e analogias em dados.",
-      "```\n| Tipo de Sentença | Definição | Analogia em Dados |\n|---|---|---|\n| Sentença ground | Sem variáveis | Registro específico: score_alto(cliente_007) |\n| Sentença aberta | Com variáveis livres | Template de regra: score_alto(x) |\n| Sentença fechada | Sem variáveis livres | Afirmação geral: ∀x.(ativo(x) ⇒ score_valido(x)) |\nTabela 4.1: Tipos de sentenças relacionais quanto à presença de variáveis livres.\n```"
+      "Quando usamos variáveis em fórmulas lógicas, precisamos distinguir dois estados diferentes: uma variável pode estar **ligada** a um quantificador ou **livre** — sem quantificador nenhum. Essa distinção muda completamente o significado da fórmula.",
+      "### 3.1 Variável ligada — controlada por um quantificador",
+      "Uma variável é **ligada** quando está dentro do escopo de um quantificador que a captura. O quantificador define o domínio da variável — ela percorre todos os objetos (∀) ou representa um objeto que existe (∃).",
+      "| **Exemplo:**<br/><br/>`∀x (RendaAlta(x) ⇒ Elegivel(x))`<br/><br/>Aqui, `x` é **ligada** — ela está sob o controle do ∀x. Não faz sentido perguntar *“qual é o valor de x?”* porque x percorre todos os objetos do domínio. |",
+      "### 3.2 Variável livre — sem quantificador",
+      "Uma variável é **livre** quando aparece na fórmula sem nenhum quantificador controlando-a. Fórmulas com variáveis livres não são sentenças completas — elas dependem de um valor externo para ter sentido.",
+      "| **Exemplo:**<br/><br/>`RendaAlta(x) ⇒ Elegivel(x)`<br/><br/>Aqui, `x` é **livre** — não há ∀ nem ∃ controlando-a. Essa fórmula não é verdadeira nem falsa por si só: ela é como uma função que aguarda um valor para x. Se substituirmos x = ana, vira `RendaAlta(ana) ⇒ Elegivel(ana)`, que pode ser avaliada. |",
+      "### 3.3 Escopo do quantificador",
+      "O **escopo** de um quantificador é a parte da fórmula que ele controla — geralmente delimitada por parênteses. Uma mesma variável pode ser livre em uma parte da fórmula e ligada em outra. A **Tabela 4.4** ilustra diferentes casos de escopo.",
+      "```\n| Fórmula | Status de x | Status de y |\n| ∀x Aprovado(x) | Ligada (por ∀x) | — |\n| Aprovado(x) | Livre | — |\n| ∀x (Aprovado(x) ∧ Elegivel(y)) | Ligada (por ∀x) | Livre |\n| ∀x ∃y MaiorQue(y, x) | Ligada (por ∀x) | Ligada (por ∃y) |\n| ∃y Amigo(x, y) | Livre | Ligada (por ∃y) |\nTabela 4.4 — Exemplos de variáveis livres e ligadas em fórmulas da lógica relacional.\n```",
+      "| **⚠️ Por que isso importa?**<br/><br/>Uma **sentença** (afirmação completa) não pode ter variáveis livres. Toda variável deve estar sob o controle de algum quantificador. Se uma fórmula tem variáveis livres, ela é uma **fórmula aberta** — útil como parte de expressões maiores, mas incapaz de ser avaliada como verdadeira ou falsa por si só. |",
+      "| **📊 Ciência de Dados — Variáveis livres como parâmetros de função** |\n| Em análise de dados, uma fórmula com variável livre é como uma expressão de filtro com parâmetro:<br/><br/>`RendaAlta(x) ∧ ScoreAlto(x)` → expressão de filtro com parâmetro x<br/><br/>Para avaliá-la, precisamos substituir x por um cliente concreto — assim como uma consulta parametrizada em banco de dados recebe o valor do parâmetro antes de executar. A fórmula sozinha é a receita; a instância concreta é a aplicação da receita. |"
     ]
   },
 
@@ -1214,12 +1240,15 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Base de Herbrand",
     "subtitle": "Capítulo 4, Semântica",
     "paragraphs": [
-      "A semântica da Lógica Relacional adotada aqui é chamada de **Semântica de Herbrand**, em homenagem ao lógico Jacques Herbrand. Sua ideia central é que o universo de discurso é exatamente o conjunto de constantes de objeto presentes no vocabulário, nada mais, nada menos.",
-      "A **base de Herbrand** de um vocabulário é o conjunto de todas as sentenças relacionais ground (sem variáveis) que podem ser formadas com as constantes do vocabulário. Formalmente, para cada constante de relação r de aridade n e cada n-upla de constantes de objeto (t1,...,tn), a sentença r(t1,...,tn) pertence à base de Herbrand.",
-      "#### Tamanho da Base de Herbrand",
-      "Para b constantes de objeto e uma constante de relação de aridade n, há **b^n** sentenças atômicas ground. O total da base de Herbrand é a soma sobre todas as constantes de relação.",
-      "Exemplo: com 3 objetos {a, b, c} e uma relação binária q, há 3² = 9 sentenças ground: `q(a,a)`, `q(a,b)`, `q(a,c)`, `q(b,a)`, `q(b,b)`, `q(b,c)`, `q(c,a)`, `q(c,b)`, `q(c,c)`.",
-      "Em bases de dados reais, cada linha de uma tabela corresponde a um átomo ground positivo, e cada ausência de linha corresponde a um átomo ground negativo (hipótese do mundo fechado)."
+      "Quando trabalhamos com lógica relacional, precisamos saber qual é o universo de objetos sobre os quais nossas afirmações se referem. A **Base de Herbrand** é uma forma sistemática de definir esse universo.",
+      "### 4.1 O que é a Base de Herbrand?",
+      "A **Base de Herbrand** de um conjunto de fórmulas é o conjunto de todas as sentenças atômicas que podem ser formadas com as constantes e relações presentes nessas fórmulas. Ela representa o espaço completo de afirmações básicas possíveis sobre aquele mundo.",
+      "| **Exemplo:**<br/><br/>Suponha que temos as constantes `ana` e `bob`, e as relações `Aprovado` e `Amigo` (binária).<br/><br/>**Base de Herbrand:**<br/>`Aprovado(ana)`, `Aprovado(bob)`, `Amigo(ana, ana)`, `Amigo(ana, bob)`, `Amigo(bob, ana)`, `Amigo(bob, bob)`<br/><br/>Esse é o conjunto de todas as afirmações atômicas possíveis. Cada uma pode ser verdadeira ou falsa — a base apenas enumera as possibilidades. |",
+      "### 4.2 Para que serve?",
+      "A Base de Herbrand define o **espaço de interpretações possíveis** para um conjunto de fórmulas. Cada interpretação é uma atribuição de verdadeiro ou falso para cada elemento da base.",
+      "Ela é especialmente útil para:",
+      "1. **Verificar se uma fórmula é satisfazível** — existe alguma interpretação que a torna verdadeira?\n2. **Verificar consequência lógica** — uma conclusão é verdadeira em todas as interpretações que satisfazem as premissas?\n3. **Definir o espaço de busca** para provadores automáticos de teoremas.",
+      "| **📊 Ciência de Dados — A Base de Herbrand como esquema de dados** |\n| A Base de Herbrand é análoga ao **esquema de um banco de dados**: ela define todas as afirmações possíveis sobre o domínio, assim como um esquema define todas as colunas e tabelas possíveis. Os dados concretos (linhas da tabela) correspondem às afirmações que são verdadeiras na interpretação atual.<br/><br/>Por exemplo: se a base contém `Aprovado(ana)`, `Aprovado(bob)`, `Aprovado(carla)`, e os dados dizem que apenas Ana e Carla estão aprovadas, então a interpretação é: `Aprovado(ana)` = V, `Aprovado(bob)` = F, `Aprovado(carla)` = V. |"
     ]
   },
 
@@ -1228,16 +1257,20 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Atribuições de Verdade",
     "subtitle": "Capítulo 4, Semântica",
     "paragraphs": [
-      "Uma **atribuição de verdade** para uma linguagem relacional é uma função que mapeia cada sentença ground da base de Herbrand a um valor booleano (0 ou 1). Isso é exatamente análogo a uma linha de uma tabela-verdade na Lógica Proposicional, mas agora as 'proposições' têm estrutura interna (um predicado aplicado a constantes).",
-      "Uma vez fixada a atribuição para os átomos ground, a verdade de sentenças mais complexas é determinada recursivamente pelos mesmos operadores lógicos da Lógica Proposicional. A novidade está nos quantificadores:",
-      "- `∀x.φ(x)` é verdadeira se e somente se φ(t) é verdadeira para **toda** constante de objeto t do vocabulário.\n- `∃x.φ(x)` é verdadeira se e somente se φ(t) é verdadeira para **pelo menos uma** constante de objeto t do vocabulário.",
-      "Em outras palavras, o universal age como uma conjunção sobre todas as instâncias, e o existencial age como uma disjunção sobre todas as instâncias. Essa correspondência é fundamental para entender a avaliação de sentenças quantificadas.",
-      "### Exemplo Detalhado: Dataset de Clientes",
-      "Considere um vocabulário com constantes de objeto {alice, bob, carol} e constantes de relação `ativo` (unário), `comprou` (binário). A atribuição de verdade abaixo representa um estado parcial de um sistema de CRM:",
-      "```\nativo(alice) = 1    ativo(bob) = 1    ativo(carol) = 0\n\ncomprou(alice, alice) = 0   comprou(alice, bob) = 0   comprou(alice, carol) = 1\ncomprou(bob, alice) = 1     comprou(bob, bob) = 0     comprou(bob, carol) = 1\ncomprou(carol, alice) = 0   comprou(carol, bob) = 0   comprou(carol, carol) = 0\n```",
-      "Avaliemos a sentença `∀x. ∃y.comprou(x,y)`: 'todo cliente comprou algum produto (representado por outro cliente no vocabulário)'. Expandindo:",
-      "```\n∃y.comprou(alice, y): comprou(alice,alice)=0, comprou(alice,bob)=0, comprou(alice,carol)=1 ⇒ TRUE\n∃y.comprou(bob, y):   comprou(bob,alice)=1 ⇒ TRUE\n∃y.comprou(carol, y): comprou(carol,alice)=0, comprou(carol,bob)=0, comprou(carol,carol)=0 ⇒ FALSE\n\nComo nem todas as instâncias do universal são verdadeiras, ∀x.∃y.comprou(x,y) ⇒ FALSE\n```",
-      "Carol nunca comprou nada, portanto a afirmação universal falha. Em ciência de dados, esse tipo de avaliação é o que ocorre quando validamos uma restrição de integridade: verificamos se ela vale para todos os registros do dataset."
+      "Na lógica proposicional, uma interpretação era simplesmente uma atribuição de V ou F para cada variável proposicional. Na lógica relacional, o conceito se expande: uma interpretação precisa definir um **domínio de objetos** e especificar quais relações valem para quais objetos.",
+      "### 5.1 Componentes de uma interpretação",
+      "Uma interpretação na lógica relacional tem dois componentes:",
+      "1. **Domínio (D)**: o conjunto de todos os objetos sobre os quais as fórmulas falam. Ex: o conjunto de todos os clientes de um banco.\n2. **Interpretação das relações**: para cada relação R de aridade n, define-se o conjunto de tuplas de objetos para os quais R é verdadeira. Ex: `Aprovado = {ana, carla, davi}` — a relação Aprovado é verdadeira para esses três objetos.",
+      "### 5.2 Satisfação de sentenças",
+      "Dizemos que uma interpretação I **satisfaz** uma sentença φ quando φ é verdadeira nessa interpretação. A notação é:",
+      "`I ⊨ φ` (*“I satisfaz φ”*)",
+      "As regras de satisfação seguem a intuição e estão resumidas na **Tabela 4.5**.",
+      "```\n| Tipo de sentença | Quando é satisfeita por I |\n| R(a₁, ..., aₙ) (atômica) | A tupla (a₁,...,aₙ) pertence à extensão de R em I |\n| ¬φ | I não satisfaz φ |\n| φ ∧ ψ | I satisfaz φ E I satisfaz ψ |\n| φ ∨ ψ | I satisfaz φ OU I satisfaz ψ (ou ambos) |\n| φ ⇒ ψ | Se I satisfaz φ, então I satisfaz ψ |\n| ∀x φ(x) | Para todo objeto d em D: I satisfaz φ(x) com x = d |\n| ∃x φ(x) | Existe pelo menos um objeto d em D: I satisfaz φ(x) com x = d |\nTabela 4.5 — Regras de satisfação para cada tipo de sentença na lógica relacional.\n```",
+      "### 5.3 Exemplo completo",
+      "**Domínio:** `{ana, bob, carla}`<br/>**Aprovado** = `{ana, carla}` (ana e carla estão aprovadas; bob não)<br/>**RendaAlta** = `{ana, bob}` (ana e bob têm renda alta; carla não)",
+      "Avaliando `∀x (RendaAlta(x) ⇒ Aprovado(x))`:",
+      "1. **x = ana**: RendaAlta(ana) = V, Aprovado(ana) = V → V ⇒ V = **V**\n2. **x = bob**: RendaAlta(bob) = V, Aprovado(bob) = F → V ⇒ F = **F** ← a sentença é FALSA nesta interpretação\n3. **x = carla**: RendaAlta(carla) = F → F ⇒ qualquer = **V**",
+      "Como há pelo menos um objeto (bob) para o qual a implicação é falsa, a sentença universal é **falsa** nesta interpretação."
     ]
   },
 
@@ -1246,23 +1279,18 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Propriedades Lógicas de Sentenças",
     "subtitle": "Capítulo 4",
     "paragraphs": [
-      "No Capítulo 2, definimos três propriedades que classificam sentenças pelo seu comportamento em todas as atribuições possíveis: **validade**, **insatisfatibilidade** e **contingência**. Essas mesmas categorias se aplicam integralmente à Lógica Relacional, a diferença está no que conta como 'todas as atribuições possíveis'.",
-      "Em lógica proposicional, uma atribuição era um mapeamento de símbolos para {0,1}. Na Lógica Relacional, uma atribuição é um subconjunto da base de Herbrand, uma escolha de quais átomos ground são verdadeiros. O espaço é exponencialmente maior, mas a estrutura das três propriedades é idêntica:",
-      "A **Tabela 4.2** apresenta as quatro propriedades com definição e exemplo na Lógica Relacional, evidenciando a continuidade conceitual em relação ao Capítulo 2.",
-      "```\n| Propriedade | Definição | Exemplo |\n|---|---|---|\n| Válida (tautologia) | Verdadeira em toda atribuição | ∀x.p(x) ⇒ ∃x.p(x) |\n| Contingente | Verdadeira em algumas, falsa em outras | ∃x.ativo(x) |\n| Insatisfatível | Falsa em toda atribuição | ∀x.(p(x) ∧ ~p(x)) |\n| Satisfatível | Verdadeira em ao menos uma atribuição | ativo(alice) ∧ ativo(bob) |\nTabela 4.2: Propriedades lógicas das sentenças relacionais.\n```",
-      "O que a Lógica Relacional acrescenta são **valididades que não existem na lógica proposicional**, tautologias que envolvem a interação entre quantificadores. Essas são as novidades genuínas desta seção.",
-      "### Reversão de quantificadores do mesmo tipo",
-      "A ordem de quantificadores do mesmo tipo pode ser invertida sem alterar o valor de verdade, análogo a trocar a ordem de iteração em loops aninhados:",
-      "```\n∀x.∀y.q(x,y) ⇔ ∀y.∀x.q(x,y)    -- válido\n∃x.∃y.q(x,y) ⇔ ∃y.∃x.q(x,y)    -- válido\n```",
-      "Esse resultado não tem equivalente em lógica proposicional, é exclusivo de linguagens com variáveis e quantificadores.",
-      "### Distribuição existencial",
-      "Um existencial pode ser movido para dentro de um universal, mas o inverso não é válido. Essa **assimetria** é uma das propriedades mais importantes da Lógica Relacional:",
-      "```\n∃y.∀x.q(x,y) ⇒ ∀x.∃y.q(x,y)    -- válido (o inverso NÃO é válido)\n\nInterpretação em dados:\n∃y.∀x.q(x,y): existe um produto recomendado para TODOS os clientes\n∀x.∃y.q(x,y): cada cliente tem ALGUM produto recomendado (pode ser diferente)\n```",
-      "A sentença da esquerda é mais forte: garante um único testemunho para todos. A da direita permite testemunhos distintos para cada indivíduo. Essa distinção não tem paralelo em lógica proposicional e é frequentemente fonte de erros na formalização de regras de negócio.",
-      "### Distribuição da negação sobre quantificadores (Leis de De Morgan quantificadas)",
-      "A negação distribui sobre quantificadores invertendo seu tipo, generalização direta das leis de De Morgan do Capítulo 2:",
-      "```\n~∀x.p(x) ≡ ∃x.~p(x)    -- não é verdade que todos são p ⇔ existe algum que não é p\n~∃x.p(x) ≡ ∀x.~p(x)    -- não existe nenhum p ⇔ todos não são p\n```",
-      "Compare com De Morgan proposicional: `~(p ∧ q) ≡ (~p ∨ ~q)`. O universal se comporta como conjunção infinita e o existencial como disjunção infinita, a negação inverte ambos exatamente como esperado. Em ciência de dados, essa equivalência permite reformular restrições de qualidade em formas mais convenientes para implementação sem alterar seu significado.",
+      "As propriedades que estudamos na lógica proposicional — **validade**, **satisfazibilidade**, **contradição** — continuam existindo na lógica relacional, com definições análogas mas aplicadas ao espaço mais rico de interpretações.",
+      "### 6.1 Sentença válida — verdadeira em toda interpretação",
+      "Uma sentença é **válida** (tautologia) se é verdadeira em qualquer interpretação possível — independente de quais objetos existem e de como as relações são definidas.",
+      "**Exemplo:** `∀x (P(x) ⇒ P(x))` → *“todo objeto que é P, é P”* — trivialmente verdadeira em qualquer mundo.",
+      "### 6.2 Sentença satisfazível — verdadeira em alguma interpretação",
+      "Uma sentença é **satisfazível** se existe pelo menos uma interpretação que a torna verdadeira. Toda sentença válida é satisfazível, mas nem toda satisfazível é válida.",
+      "**Exemplo:** `∃x RendaAlta(x)` → *“Existe alguém com renda alta”*. Essa sentença é satisfazível: ela é verdadeira se o domínio contiver ao menos um objeto com renda alta. Mas não é válida: se o domínio só contiver pessoas com renda baixa, ela seria falsa.",
+      "### 6.3 Sentença insatisfazível — contradição",
+      "Uma sentença é **insatisfazível** (contradição) se não existe nenhuma interpretação que a torne verdadeira — ela é falsa em qualquer mundo possível.",
+      "**Exemplo:** `∃x (Aprovado(x) ∧ ¬Aprovado(x))` → *“Existe algo que está e não está aprovado ao mesmo tempo”*. Isso nunca pode ser verdade — é uma contradição direta.",
+      "Essas três propriedades aparecem diretamente na validação de dados e regras de negócio, conforme a **Tabela 4.6**.",
+      "```\n| Propriedade | Em lógica | Em dados — o que verificar |\n| Válida (tautologia) | Verdadeira em toda interpretação | Regra de negócio que sempre vale — ex: 'todo pedido tem data' → integridade estrutural |\n| Satisfazível | Verdadeira em alguma interpretação | Regra que pode ser satisfeita — ex: 'existe cliente inadimplente' → verificar se há registros |\n| Insatisfazível | Falsa em toda interpretação | Regra contraditória — ex: 'cliente ativo E inativo ao mesmo tempo' → detectar inconsistência nos dados |\nTabela 4.6 — Propriedades lógicas de sentenças e sua aplicação na validação de dados.\n```"
     ]
   },
 
@@ -1271,16 +1299,23 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Relações Lógicas entre Sentenças",
     "subtitle": "Capítulo 4",
     "paragraphs": [
-      "No Capítulo 2, definimos três relações entre sentenças: **equivalência lógica**, **consequência lógica** e **consistência**. As definições formais são idênticas na Lógica Relacional, o que muda é o espaço de atribuições sobre o qual essas relações são verificadas.",
-      "| **Relação** | **Definição (igual ao Cap. 2)** | **Diferença na Lógica Relacional** |\n|---|---|---|\n| Equivalência lógica (φ ≡ ψ) | Mesmas atribuições satisfazem φ e ψ | Atribuições agora incluem átomos com quantificadores |\n| Consequência lógica (Δ ⊨ φ) | Toda atribuição que satisfaz Δ satisfaz φ | Premissas e conclusões podem conter ∀ e ∃ |\n| Consistência (φ consistente com Δ) | Existe atribuição que satisfaz ambos | Verificação pode requerer instanciar variáveis |",
-      "O valor desta seção não está em redefinir esses conceitos, mas em mostrar **como eles se comportam com quantificadores**, situações que não existem em lógica proposicional.",
-      "### Exemplos de consequência lógica com quantificadores",
-      "Os exemplos a seguir ilustram implicações que dependem essencialmente da interação entre quantificadores:",
-      "```\n-- 'existe produto único para todos' implica 'produto para cada um'\n∃y.∀x.q(x,y) |= ∀x.∃y.q(x,y)\n\n-- relação total implica sua simétrica\n∀x.∀y.q(x,y) |= ∀x.∀y.q(y,x)\n\n-- fato específico implica sua disjunção\np(a) |= p(a) ∨ p(b)\n\n-- dois fatos implicam sua conjunção\np(a), p(b) |= p(a) ∧ p(b)\n```",
-      "O primeiro exemplo é o mais importante: a implicação é estritamente unidirecional, o inverso não vale. Em ciência de dados, 'existe um modelo de ML adequado para todos os datasets' é uma afirmação muito mais forte do que 'para cada dataset existe algum modelo adequado'.",
-      "### Consistência e adição de regras de negócio",
-      "A situação mais comum em que a consistência é testada é ao **adicionar uma nova regra de negócio** a um sistema existente. A nova regra é consistente com o conjunto anterior se existe ao menos uma atribuição de verdade que satisfaça simultaneamente todas as regras antigas e a nova.",
-      "Se a nova regra for inconsistente, o sistema não terá nenhum estado válido possível, e qualquer conclusão poderá ser derivada dele, tornando o raciocínio inútil. Esse princípio é idêntico ao do Capítulo 2; o que a Lógica Relacional acrescenta é a capacidade de expressar essas regras com quantificadores, tornando a verificação computacionalmente mais desafiadora mas conceitualmente equivalente.",
+      "Assim como na lógica proposicional, podemos comparar sentenças entre si. As relações mais importantes são a **equivalência lógica** e a **consequência lógica** — que já conhecemos, mas agora operam no espaço mais rico da lógica relacional.",
+      "### 7.1 Equivalência lógica — mesmas condições, mesma verdade",
+      "Duas sentenças são **logicamente equivalentes** se são verdadeiras exatamente nas mesmas interpretações. A notação é `φ ≡ ψ`.",
+      "Algumas equivalências importantes envolvendo quantificadores estão listadas na **Tabela 4.7**.",
+      "```\n| Sentença original | Equivalente | Nome / intuição |\n| ¬∀x P(x) | ∃x ¬P(x) | Negar 'todos' = 'existe algum que não' |\n| ¬∃x P(x) | ∀x ¬P(x) | Negar 'existe' = 'nenhum satisfaz' |\n| ∀x (P(x) ∧ Q(x)) | ∀x P(x) ∧ ∀x Q(x) | Universal distribui sobre conjunção |\n| ∃x (P(x) ∨ Q(x)) | ∃x P(x) ∨ ∃x Q(x) | Existencial distribui sobre disjunção |\nTabela 4.7 — Equivalências lógicas envolvendo quantificadores universais e existenciais.\n```",
+      "### 7.2 Consequência lógica — o que segue necessariamente",
+      "Uma sentença φ é **consequência lógica** de um conjunto de premissas Δ — escrevemos `Δ ⊨ φ` — se toda interpretação que satisfaz todas as premissas de Δ também satisfaz φ. Já conhecemos esse conceito; agora ele opera sobre interpretações da lógica relacional.",
+      "| **Exemplo:**<br/><br/>**Premissa 1:** `∀x (RendaAlta(x) ⇒ Elegivel(x))` → *“Todo cliente com renda alta é elegível”*<br/>**Premissa 2:** `RendaAlta(ana)` → *“Ana tem renda alta”*<br/>**Conclusão:** `Elegivel(ana)` → *“Ana é elegível”*<br/><br/>Essa conclusão é consequência lógica das premissas: em toda interpretação onde as duas premissas são verdadeiras, a conclusão também é. Reconhece o padrão? É o **Modus Ponens** — agora com quantificadores. |",
+      "### 7.3 Inferência na lógica relacional",
+      "Assim como na lógica proposicional (Capítulo 2), também podemos realizar inferências na lógica relacional. A diferença é que agora as premissas podem envolver quantificadores e relações entre objetos — o que torna as regras muito mais expressivas.",
+      "O exemplo abaixo mostra o padrão mais comum: aplicar uma **regra geral a um caso específico**.",
+      "**Premissa 1 (regra geral):** `∀x (RendaAlta(x) ⇒ Elegivel(x))`<br/>**Premissa 2 (caso específico):** `RendaAlta(ana)`<br/>**Conclusão:** `Elegivel(ana)`",
+      "Esse padrão é uma generalização do Modus Ponens: a regra universal fornece uma implicação válida para qualquer objeto; ao instanciar x = ana, obtemos uma implicação concreta e aplicamos eliminação da implicação (⇒E) normalmente.",
+      "**Conexão com o Capítulo 3:** as regras do Sistema de Fitch — em especial ⇒E — continuam se aplicando. A novidade é que o antecedente agora pode conter quantificadores.",
+      "Os quantificadores ∀ e ∃ têm também uma leitura computacional direta. O código abaixo mostra como verificar sentenças quantificadas sobre uma lista de clientes em Python — cada linha é a tradução literal de uma fórmula lógica:",
+      "```python\nclientes = ['ana', 'bob', 'carla']\nrenda_alta = lambda c: c in {'ana', 'bob'}\nelegivel  = lambda c: c in {'ana', 'carla'}\n\n# ∃x RendaAlta(x)\nany(renda_alta(c) for c in clientes)        # True\n\n# ∀x (RendaAlta(x) ⇒ Elegivel(x))\nall((not renda_alta(c)) or elegivel(c)\n    for c in clientes)                       # False (Bob viola)\n\n# Modus Ponens instanciado para Ana\nif renda_alta('ana'):\n    print('Elegivel(ana)')\n```",
+      "**Lendo o código como lógica:** `any(...)` implementa ∃ — verdadeiro se ao menos um elemento satisfaz a condição. `all(...)` implementa ∀ — verdadeiro somente se todos os elementos satisfazem a condição. O bloco `if renda_alta('ana')` é o Modus Ponens: verificamos a premissa concreta e, se verdadeira, concluímos `Elegivel(ana)`."
     ]
   },
 
@@ -1289,18 +1324,21 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Formalizando Cenários de Dados",
     "subtitle": "Capítulo 4",
     "paragraphs": [
-      "### Sistema de Recomendação",
-      "Considere um sistema de recomendação com quatro usuários (alice, bob, carol, dana) e um conjunto de itens. Queremos formalizar diversas propriedades do sistema usando a Lógica Relacional. Adotamos as constantes de relação: `curtiu` (binário: usuário × item), `recomendado` (binário: usuário × item), `ativo` (unário: usuário).",
-      "```\n-- Alice curtiu o item i_001 ou o item i_002\ncurtiu(alice, i_001) ∨ curtiu(alice, i_002)\n\n-- Todo usuário ativo recebe ao menos uma recomendação\n∀x.(ativo(x) ⇒ ∃y.recomendado(x, y))\n\n-- Se um usuário curtiu um item, esse item pode ser recomendado para ele\n∀x.∀y.(curtiu(x,y) ⇒ recomendado(x,y))\n\n-- Nenhum usuário recebe recomendações de itens que já curtiu\n~∃x.∃y.(curtiu(x,y) ∧ recomendado(x,y))\n```",
-      "Observe que a última sentença é uma restrição de negócio comum em sistemas de recomendação: não faz sentido recomendar algo que o usuário já gosta. Usando as leis de De Morgan quantificadas, podemos reescrever essa restrição em uma forma equivalente:",
-      "```\n~∃x.∃y.(curtiu(x,y) ∧ recomendado(x,y))\n≡ ∀x.∀y.~(curtiu(x,y) ∧ recomendado(x,y))\n≡ ∀x.∀y.(curtiu(x,y) ⇒ ~recomendado(x,y))\n```",
-      "### Pipeline de Qualidade de Dados",
-      "Um caso de uso central em ciência de dados é a verificação de qualidade de dados. Considere um dataset com registros representados por constantes de objeto e propriedades representadas por constantes de relação unárias: `completo`, `sem_outlier`, `normalizado`, `valido_para_treino`.",
-      "```\n-- Todo registro completo e sem outlier pode ser normalizado\n∀x.(completo(x) ∧ sem_outlier(x) ⇒ normalizado(x))\n\n-- Um registro é válido para treino se e somente se estiver normalizado\n∀x.(valido_para_treino(x) ⇔ normalizado(x))\n\n-- Existe ao menos um registro válido para treino\n∃x.valido_para_treino(x)\n\n-- Nenhum registro com outlier é válido para treino\n∀x.(sem_outlier(x) ∨ ~valido_para_treino(x))\n-- equivalente a: ∀x.(valido_para_treino(x) ⇒ sem_outlier(x))\n```",
-      "### Relações Hierárquicas em Dados",
-      "Muitos problemas de dados envolvem relações hierárquicas ou transitivas: árvores de categorias de produtos, hierarquias organizacionais, grafos de dependência entre tarefas. A Lógica Relacional permite definir tais relações de forma concisa usando quantificadores.",
-      "Considere uma relação de dependência entre tarefas de um pipeline de dados, onde `depende_de(x,y)` significa 'a tarefa x depende diretamente da tarefa y'. Podemos definir a relação de dependência transitiva recursivamente:",
-      "```\n-- Dependência transitiva: x depende de z se depende diretamente\n-- ou depende de alguma tarefa intermediária que depende de z\n∀x.∀z.(antecede(x,z) ⇔\n  depende_de(x,z) ∨\n  ∃y.(depende_de(x,y) ∧ antecede(y,z)))\n\n-- Restrição de aciclicidade: nenhuma tarefa antecede a si mesma\n~∃x.antecede(x,x)\n```"
+      "Uma das aplicações mais diretas da lógica relacional é a **formalização de cenários do mundo real** — transformar descrições em linguagem natural em fórmulas precisas e verificáveis. Isso é especialmente valioso em ciência de dados para definir regras de negócio, validações e consultas.",
+      "### 8.1 Do texto à fórmula — o processo de formalização",
+      "Formalizar um cenário envolve três etapas:",
+      "1. **Identificar o domínio:** quais objetos existem? Clientes, produtos, transações...\n2. **Definir as relações:** quais propriedades e conexões são relevantes? Aprovado, RendaAlta, Comprou...\n3. **Traduzir as afirmações:** converter cada regra em linguagem natural para uma fórmula com quantificadores e conectivos.",
+      "### 8.2 Exemplos de formalização",
+      "Considere o cenário de aprovação de crédito de um banco. Em linguagem natural, temos as seguintes regras:",
+      "1. *“Todo cliente com renda alta e bom histórico é elegível para crédito.”*\n2. *“Existe pelo menos um cliente inadimplente.”*\n3. *“Nenhum cliente inadimplente é elegível.”*\n4. *“Se um cliente é elegível, então não é inadimplente.”*",
+      "Formalizando:",
+      "```\n1. ∀x ((RendaAlta(x) ∧ BomHistorico(x)) ⇒ Elegivel(x))\n2. ∃x Inadimplente(x)\n3. ¬∃x (Inadimplente(x) ∧ Elegivel(x))\n4. ∀x (Elegivel(x) ⇒ ¬Inadimplente(x))\n```",
+      "Note que as regras 3 e 4 são **logicamente equivalentes** — pelas leis de De Morgan quantificadas: `¬∃x (P(x) ∧ Q(x)) ≡ ∀x (P(x) ⇒ ¬Q(x))`. A escolha entre uma forma ou outra é apenas estilística.",
+      "### 8.3 Verificando consistência das regras",
+      "Uma vez formalizadas, podemos verificar se o conjunto de regras é **consistente** — ou seja, se existe alguma interpretação que satisfaz todas elas simultaneamente. Se não existir, as regras se contradizem.",
+      "**Exemplo de inconsistência:**",
+      "```\n1. ∀x (Cliente(x) ⇒ Aprovado(x))   -- 'todo cliente é aprovado'\n2. Cliente(bob)                      -- 'bob é cliente'\n3. ¬Aprovado(bob)                    -- 'bob não é aprovado'\n```",
+      "Esse conjunto é **insatisfazível**: as regras 1 e 2 forçam `Aprovado(bob)`, mas a regra 3 afirma o contrário. Detectar esse tipo de contradição é fundamental antes de implementar regras de negócio em sistemas reais."
     ]
   },
 
@@ -1309,23 +1347,20 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Equivalência e Decidibilidade",
     "subtitle": "Capítulo 4",
     "paragraphs": [
-      "### O Processo de Grounding",
-      "Um resultado teórico fundamental é que a Lógica Relacional com um vocabulário finito é expressivamente equivalente à Lógica Proposicional. Isso significa que, para qualquer conjunto de sentenças relacionais, podemos construir um conjunto equivalente de sentenças proposicionais.",
-      "O procedimento envolve três etapas: (1) converter as sentenças para a **forma prenex** (todos os quantificadores na parte externa), (2) realizar o **grounding** (instanciar variáveis com todas as constantes de objeto possíveis), e (3) substituir os átomos ground por constantes proposicionais.",
-      "#### Forma Prenex",
-      "Uma sentença está em forma prenex se é fechada e todos os quantificadores estão fora de todos os operadores lógicos. Para converter uma sentença para a forma prenex, renomeamos variáveis para evitar conflitos e aplicamos as regras de distribuição de quantificadores em reverso.",
-      "```\nOriginal:  ∀y.p(x,y) ∨ ∃y.q(y)\nRenomear:  ∀y.p(x,y) ∨ ∃z.q(z)         -- evitar conflito de variáveis\nMover:     ∀y.∃z.(p(x,y) ∨ q(z))        -- distribuição reversa\nFechar:    ∀x.∀y.∃z.(p(x,y) ∨ q(z))     -- quantificar variáveis livres\n```",
-      "#### Grounding: Instanciação de Variáveis",
-      "O grounding substitui cada sentença quantificada por um conjunto de sentenças ground. As regras são:",
-      "- **Sentença ground**: mover diretamente para o conjunto de saída.\n- **∀v.φ(v)**: substituir por uma cópia de φ para cada constante de objeto.\n- **∃v.φ(v)**: substituir por uma disjunção de φ para cada constante de objeto.",
-      "Exemplo com vocabulário {a, b} e sentenças {p(a), ∀x.(p(x) ⇒ q(x)), ∃x.~q(x)}:",
-      "A **Tabela 4.3** mostra a execução passo a passo do grounding sobre esse exemplo, com Δ representando as sentenças a processar e Γ as sentenças já produzidas.",
-      "```\n| Passo | Δ (a processar) | Γ (resultado) |\n|---|---|---|\n| 0 | {p(a), ∀x.(p(x)⇒q(x)), ∃x.~q(x)} | {} |\n| 1 | {∀x.(p(x)⇒q(x)), ∃x.~q(x)} | {p(a)} |\n| 2 | {p(a)⇒q(a), p(b)⇒q(b), ∃x.~q(x)} | {p(a)} |\n| 3 | {p(b)⇒q(b), ∃x.~q(x)} | {p(a), p(a)⇒q(a)} |\n| 4 | {∃x.~q(x)} | {p(a), p(a)⇒q(a), p(b)⇒q(b)} |\n| 5 | {~q(a) ∨ ~q(b)} | {p(a), p(a)⇒q(a), p(b)⇒q(b)} |\n| 6 | {} | {p(a), p(a)⇒q(a), p(b)⇒q(b), ~q(a) ∨ ~q(b)} |\nTabela 4.3: Execução passo a passo do grounding sobre {p(a), ∀x.(p(x)⇒q(x)), ∃x.~q(x)} no vocabulário {a, b}.\n```",
-      "Após o grounding, substituímos cada átomo ground por uma constante proposicional: p(a) → pa, q(a) → qa, etc. O resultado é um conjunto de sentenças puramente proposicionais equivalente ao original.",
-      "### Consequências Teóricas: Decidibilidade e Compacidade",
-      "A equivalência entre Lógica Relacional (com vocabulário finito) e Lógica Proposicional tem duas consequências teóricas de grande importância prática:",
-      "- **Decidibilidade**: como a insatisfatibilidade da Lógica Proposicional é decidível (verificável em tempo finito via tabelas-verdade ou algoritmos de SAT), a insatisfatibilidade da Lógica Relacional com vocabulário finito também é decidível. Isso garante que podemos, em princípio, verificar automaticamente se um conjunto de regras de negócio é consistente.\n- **Compacidade**: assim como a Lógica Proposicional, a Lógica Relacional (com vocabulário finito) é compacta: todo conjunto insatisfatível de sentenças contém um subconjunto finito insatisfatível. Isso é importante porque garante que a insatisfatibilidade pode sempre ser demonstrada analisando apenas um número finito de sentenças.",
-      "Essas propriedades, decidibilidade e compacidade, distinguem a Lógica Relacional com vocabulário finito da Lógica de Primeira Ordem (que permite funções e vocabulários infinitos). Quando introduzimos termos funcionais (que geram vocabulários infinitos), perdemos a decidibilidade e, com ela, a garantia de provas finitas."
+      "Chegamos a um dos tópicos mais importantes — e mais surpreendentes — da lógica relacional: a questão de **o que é possível verificar automaticamente**.",
+      "### 9.1 Equivalência entre sentenças",
+      "Duas sentenças da lógica relacional são equivalentes se são verdadeiras nas mesmas interpretações. Para verificar isso, podemos usar as mesmas técnicas que aprendemos nos capítulos anteriores — substituindo equivalências conhecidas — agora incluindo as equivalências dos quantificadores.",
+      "### 9.2 O problema da decidibilidade",
+      "Na lógica proposicional, qualquer questão lógica é **decidível**: existe sempre um algoritmo que termina com a resposta certa (por exemplo, a tabela-verdade). Mas na lógica relacional, a situação é mais complexa.",
+      "| **⚠️ Resultado fundamental de Church e Turing (anos 1930):**<br/><br/>Verificar se uma sentença da lógica de primeira ordem é consequência lógica de um conjunto de premissas é, em geral, **indecidível** — não existe algoritmo que sempre termine com a resposta certa para qualquer sentença. |",
+      "**Nota:** mencionamos esse resultado brevemente no Capítulo 3 ao falar sobre os limites do Sistema de Fitch. Aqui entendemos por que: o espaço de interpretações da lógica relacional é infinito (o domínio pode ter qualquer número de objetos), e não há como enumerá-lo completamente em tempo finito.",
+      "### 9.3 Semi-decidibilidade — o que ainda é possível",
+      "Embora a lógica de primeira ordem seja indecidível em geral, ela é **semi-decidível** para consequência lógica positiva:",
+      "1. Se φ é de fato consequência lógica das premissas, um provador automático sempre encontrará a prova em tempo finito.\n2. Se φ não é consequência lógica, o provador pode rodar indefinidamente sem conseguir provar nem refutar.",
+      "Sistemas de raciocínio automático — como os usados em IA e bancos de dados — se aproveitam da semi-decidibilidade: para consultas bem comportadas (que terminam), eles funcionam perfeitamente. Para consultas que envolvem raciocínio aberto sobre domínios infinitos, é preciso impor restrições (como limitar a profundidade de inferência) para garantir terminação.",
+      "### 9.4 Casos decidíveis — fragmentos úteis",
+      "Existem **fragmentos** da lógica de primeira ordem que são decidíveis — ou seja, subconjuntos de fórmulas para os quais existe um algoritmo completo. A **Tabela 4.8** apresenta os principais fragmentos usados na prática.",
+      "```\n| Fragmento | Restrição | Uso típico em dados |\n| Lógica proposicional | Sem quantificadores, sem relações | Avaliação de expressões booleanas |\n| Lógica monádica de primeira ordem | Apenas predicados unários (1 argumento) | Consultas sobre propriedades individuais |\n| Datalog | Regras sem funções, domínio finito | Consultas recursivas em bancos de dados |\n| Lógicas de descrição (DL) | Fragmentos controlados | Ontologias, Web Semântica, OWL |\nTabela 4.8 — Fragmentos decidíveis da lógica de primeira ordem e seus usos em ciência de dados.\n```"
     ]
   },
 
@@ -1333,7 +1368,12 @@ export const chapterContents: Record<string, ChapterContent> = {
     "id": "cap4-sec10",
     "title": "Resumo do Capítulo",
     "paragraphs": [
-      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Constante de objeto | Entidade individual do domínio (ex: cliente_001, produto_42) |\n| Constante de relação | Predicado com aridade definida (ex: comprou/2, ativo/1) |\n| Variável | Placeholder para objetos arbitrários do domínio |\n| Sentença relacional | Átomo formado por constante de relação aplicada a termos |\n| Quantificador universal (∀) | \"Para todo x\": afirmação vale para todos os objetos do domínio |\n| Quantificador existencial (∃) | \"Existe x\": afirmação vale para ao menos um objeto |\n| Semântica de Herbrand | Interpretação sobre universo finito de constantes nomeadas |\n| Grounding | Substituição de variáveis por todas as constantes do vocabulário |\n| Decidibilidade | Possibilidade de determinar algoritmicamente qualquer propriedade lógica |"
+      "A **Tabela 4.9** apresenta um mapa completo de todos os conceitos estudados neste capítulo e como cada um se conecta ao restante.",
+      "```\n| Conceito | Definição Resumida |\n| Constante | Nome de um objeto específico e fixo (ex: ana, produto_x) |\n| Variável | Coringa que representa qualquer objeto do domínio (ex: x, y) |\n| Relação (predicado) | Propriedade ou conexão entre objetos, com aridade definida |\n| Sentença atômica | Relação aplicada a constantes (ex: Aprovado(ana)) |\n| Sentença complexa | Sentenças combinadas por ∧, ∨, ¬, ⇒, ↔ |\n| Quantificador universal (∀) | 'Para todo x': afirmação vale para todos os objetos |\n| Quantificador existencial (∃) | 'Existe x': afirmação vale para ao menos um objeto |\n| Variável ligada | Sob o controle de um quantificador |\n| Variável livre | Sem quantificador — fórmula aberta |\n| Base de Herbrand | Conjunto de todas as sentenças atômicas possíveis |\n| Interpretação | Domínio + atribuição de verdade para cada relação |\n| Sentença válida | Verdadeira em toda interpretação (tautologia) |\n| Sentença satisfazível | Verdadeira em alguma interpretação |\n| Sentença insatisfazível | Falsa em toda interpretação (contradição) |\n| Consequência lógica (⊨) | Conclusão verdadeira sempre que premissas são |\n| Decidibilidade | Em geral, indecidível; semi-decidível para consequência positiva |\nTabela 4.9 — Resumo dos conceitos centrais do Capítulo 4 — Lógica Relacional.\n```",
+      "### A mensagem central deste capítulo",
+      "A lógica relacional estende a proposicional em uma direção fundamental: ela nos permite falar sobre **objetos, propriedades e relações** entre eles, usando quantificadores para expressar regras que valem para qualquer objeto (∀) ou para a existência de algum objeto (∃). Isso torna a linguagem muito mais expressiva — e também mais desafiadora de verificar automaticamente.",
+      "Em ciência de dados, essa expressividade aparece naturalmente: tabelas são relações, consultas são quantificadores, regras de negócio são implicações universais, e a verificação de integridade é consequência lógica. A lógica relacional é, em essência, a **linguagem formal dos dados estruturados**.",
+      "**Próximo capítulo:** *Validação, Modelos e Provas Relacionais* — aprofundamento em interpretações, modelos e o sistema de prova para lógica relacional."
     ]
   },
 
