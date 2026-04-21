@@ -962,7 +962,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "##Atenção: regras só valem para a fórmula toda, não para partes dela",
       "Este é um erro muito comum quando se está aprendendo. Regras de inferência se aplicam a fórmulas completas — não a pedaços de uma fórmula maior.",
       "Imagine que você tem a premissa (p ∧ q) ⇒ r. Você poderia pensar: 'tenho uma conjunção aqui, vou extrair o p'. Mas não pode! A conjunção (p ∧ q) não é uma fórmula de nível superior — ela está aninhada dentro de uma implicação. A fórmula de nível superior é a implicação inteira.",
-      "> tipo:aviso\n**Regra importante**\nAs regras de inferência só se aplicam a fórmulas que estejam no nível mais externo da linha em que aparecem — nunca a subfórmulas escondidas dentro de operadores maiores. Permitido: você tem p ∧ q como premissa → pode extrair p ou q. Não permitido: você tem (p ∧ q) ⇒ r → não pode extrair p diretamente daqui.",
+      "| **Regra importante:**<br/><br/>As regras de inferência só se aplicam a fórmulas que estejam no nível mais externo da linha em que aparecem — nunca a subfórmulas escondidas dentro de operadores maiores.<br/><br/>**Permitido:** você tem `p ∧ q` como premissa → pode extrair `p` ou `q`.<br/>**Não permitido:** você tem `(p ∧ q) ⇒ r` → não pode extrair `p` diretamente daqui. |",
     ],
   },
 
