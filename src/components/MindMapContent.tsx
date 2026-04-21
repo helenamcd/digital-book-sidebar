@@ -68,6 +68,7 @@ const mindMapData: MapNode = {
           id: "pr", label: "Propriedades\ne Relações",
           children: [
             { id: "pr-equiv", label: "Equivalência\nLógica" },
+            { id: "pr-conjuntos", label: "Proposições\ncomo Conjuntos" },
             { id: "pr-consist", label: "Consistência" },
             { id: "pr-arit", label: "Aritmética\nFormal" },
           ],
@@ -175,6 +176,7 @@ const DEFAULT_LINKS: Record<string, string> = {
   "tm-conseq": "cap2-sec3",
   pr: "cap2-sec1",
   "pr-equiv": "cap2-sec2",
+  "pr-conjuntos": "cap2-sec2b",
   "pr-consist": "cap2-sec4",
   "pr-arit": "cap7-sec5",
   // Métodos de Raciocínio
