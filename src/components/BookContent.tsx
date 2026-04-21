@@ -2,12 +2,12 @@ import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { chapterContents, chapters, hiddenChapterPrefixes } from "@/data/bookContent";
 import ReferenceTooltip from "@/components/ReferenceTooltip";
-import conjuntosFig1 from "@/assets/conjuntos-fig1-proposicao.jpg";
-import conjuntosFig2 from "@/assets/conjuntos-fig2-conjuncao.jpg";
-import conjuntosFig3 from "@/assets/conjuntos-fig3-disjuncao.jpg";
-import conjuntosFig4 from "@/assets/conjuntos-fig4-negacao.jpg";
-import conjuntosFig5 from "@/assets/conjuntos-fig5-tautologia.jpg";
-import conjuntosFig6 from "@/assets/conjuntos-fig6-contradicao.jpg";
+import conjuntosFig1 from "@/assets/conjuntos-fig1-proposicao.svg";
+import conjuntosFig2 from "@/assets/conjuntos-fig2-conjuncao.svg";
+import conjuntosFig3 from "@/assets/conjuntos-fig3-disjuncao.svg";
+import conjuntosFig4 from "@/assets/conjuntos-fig4-negacao.svg";
+import conjuntosFig5 from "@/assets/conjuntos-fig5-tautologia.svg";
+import conjuntosFig6 from "@/assets/conjuntos-fig6-contradicao.svg";
 import {
   Table,
   TableHeader,
