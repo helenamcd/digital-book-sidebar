@@ -1220,11 +1220,18 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Variáveis Livres e Ligadas",
     "subtitle": "Capítulo 4, Sintaxe da Lógica Relacional",
     "paragraphs": [
-      "Uma ocorrência de variável é **ligada** se está dentro do escopo de um quantificador daquela variável; caso contrário, é **livre**. Uma sentença é **aberta** se tem variáveis livres, e **fechada** (ou sentença) caso contrário.",
-      "```\n∃x.comprou(x, y)             -- x é ligada; y é livre ⇒ sentença aberta\n∀y.(∃x.comprou(x,y))         -- x e y são ambas ligadas ⇒ sentença fechada\nscore_alto(x)                -- x é livre ⇒ sentença aberta\n```",
-      "Em ciência de dados, sentenças abertas correspondem a templates parametrizados de regras. Uma sentença aberta como `score_alto(x)` pode ser lida como uma função de x para um valor booleano, ela representa uma condição aplicável a qualquer cliente específico. Sentenças fechadas, por sua vez, fazem afirmações completas sobre o domínio, sem dependência de parâmetros externos.",
-      "Para sintetizar essas distinções, a **Tabela 4.1** apresenta os três tipos de sentenças com suas definições e analogias em dados.",
-      "```\n| Tipo de Sentença | Definição | Analogia em Dados |\n|---|---|---|\n| Sentença ground | Sem variáveis | Registro específico: score_alto(cliente_007) |\n| Sentença aberta | Com variáveis livres | Template de regra: score_alto(x) |\n| Sentença fechada | Sem variáveis livres | Afirmação geral: ∀x.(ativo(x) ⇒ score_valido(x)) |\nTabela 4.1: Tipos de sentenças relacionais quanto à presença de variáveis livres.\n```"
+      "Quando usamos variáveis em fórmulas lógicas, precisamos distinguir dois estados diferentes: uma variável pode estar **ligada** a um quantificador ou **livre** — sem quantificador nenhum. Essa distinção muda completamente o significado da fórmula.",
+      "### 3.1 Variável ligada — controlada por um quantificador",
+      "Uma variável é **ligada** quando está dentro do escopo de um quantificador que a captura. O quantificador define o domínio da variável — ela percorre todos os objetos (∀) ou representa um objeto que existe (∃).",
+      "| **Exemplo:**<br/><br/>`∀x (RendaAlta(x) ⇒ Elegivel(x))`<br/><br/>Aqui, `x` é **ligada** — ela está sob o controle do ∀x. Não faz sentido perguntar *“qual é o valor de x?”* porque x percorre todos os objetos do domínio. |",
+      "### 3.2 Variável livre — sem quantificador",
+      "Uma variável é **livre** quando aparece na fórmula sem nenhum quantificador controlando-a. Fórmulas com variáveis livres não são sentenças completas — elas dependem de um valor externo para ter sentido.",
+      "| **Exemplo:**<br/><br/>`RendaAlta(x) ⇒ Elegivel(x)`<br/><br/>Aqui, `x` é **livre** — não há ∀ nem ∃ controlando-a. Essa fórmula não é verdadeira nem falsa por si só: ela é como uma função que aguarda um valor para x. Se substituirmos x = ana, vira `RendaAlta(ana) ⇒ Elegivel(ana)`, que pode ser avaliada. |",
+      "### 3.3 Escopo do quantificador",
+      "O **escopo** de um quantificador é a parte da fórmula que ele controla — geralmente delimitada por parênteses. Uma mesma variável pode ser livre em uma parte da fórmula e ligada em outra. A **Tabela 4.4** ilustra diferentes casos de escopo.",
+      "```\n| Fórmula | Status de x | Status de y |\n| ∀x Aprovado(x) | Ligada (por ∀x) | — |\n| Aprovado(x) | Livre | — |\n| ∀x (Aprovado(x) ∧ Elegivel(y)) | Ligada (por ∀x) | Livre |\n| ∀x ∃y MaiorQue(y, x) | Ligada (por ∀x) | Ligada (por ∃y) |\n| ∃y Amigo(x, y) | Livre | Ligada (por ∃y) |\nTabela 4.4 — Exemplos de variáveis livres e ligadas em fórmulas da lógica relacional.\n```",
+      "| **⚠️ Por que isso importa?**<br/><br/>Uma **sentença** (afirmação completa) não pode ter variáveis livres. Toda variável deve estar sob o controle de algum quantificador. Se uma fórmula tem variáveis livres, ela é uma **fórmula aberta** — útil como parte de expressões maiores, mas incapaz de ser avaliada como verdadeira ou falsa por si só. |",
+      "| **📊 Ciência de Dados — Variáveis livres como parâmetros de função** |\n| Em análise de dados, uma fórmula com variável livre é como uma expressão de filtro com parâmetro:<br/><br/>`RendaAlta(x) ∧ ScoreAlto(x)` → expressão de filtro com parâmetro x<br/><br/>Para avaliá-la, precisamos substituir x por um cliente concreto — assim como uma consulta parametrizada em banco de dados recebe o valor do parâmetro antes de executar. A fórmula sozinha é a receita; a instância concreta é a aplicação da receita. |"
     ]
   },
 
@@ -1233,12 +1240,15 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Base de Herbrand",
     "subtitle": "Capítulo 4, Semântica",
     "paragraphs": [
-      "A semântica da Lógica Relacional adotada aqui é chamada de **Semântica de Herbrand**, em homenagem ao lógico Jacques Herbrand. Sua ideia central é que o universo de discurso é exatamente o conjunto de constantes de objeto presentes no vocabulário, nada mais, nada menos.",
-      "A **base de Herbrand** de um vocabulário é o conjunto de todas as sentenças relacionais ground (sem variáveis) que podem ser formadas com as constantes do vocabulário. Formalmente, para cada constante de relação r de aridade n e cada n-upla de constantes de objeto (t1,...,tn), a sentença r(t1,...,tn) pertence à base de Herbrand.",
-      "#### Tamanho da Base de Herbrand",
-      "Para b constantes de objeto e uma constante de relação de aridade n, há **b^n** sentenças atômicas ground. O total da base de Herbrand é a soma sobre todas as constantes de relação.",
-      "Exemplo: com 3 objetos {a, b, c} e uma relação binária q, há 3² = 9 sentenças ground: `q(a,a)`, `q(a,b)`, `q(a,c)`, `q(b,a)`, `q(b,b)`, `q(b,c)`, `q(c,a)`, `q(c,b)`, `q(c,c)`.",
-      "Em bases de dados reais, cada linha de uma tabela corresponde a um átomo ground positivo, e cada ausência de linha corresponde a um átomo ground negativo (hipótese do mundo fechado)."
+      "Quando trabalhamos com lógica relacional, precisamos saber qual é o universo de objetos sobre os quais nossas afirmações se referem. A **Base de Herbrand** é uma forma sistemática de definir esse universo.",
+      "### 4.1 O que é a Base de Herbrand?",
+      "A **Base de Herbrand** de um conjunto de fórmulas é o conjunto de todas as sentenças atômicas que podem ser formadas com as constantes e relações presentes nessas fórmulas. Ela representa o espaço completo de afirmações básicas possíveis sobre aquele mundo.",
+      "| **Exemplo:**<br/><br/>Suponha que temos as constantes `ana` e `bob`, e as relações `Aprovado` e `Amigo` (binária).<br/><br/>**Base de Herbrand:**<br/>`Aprovado(ana)`, `Aprovado(bob)`, `Amigo(ana, ana)`, `Amigo(ana, bob)`, `Amigo(bob, ana)`, `Amigo(bob, bob)`<br/><br/>Esse é o conjunto de todas as afirmações atômicas possíveis. Cada uma pode ser verdadeira ou falsa — a base apenas enumera as possibilidades. |",
+      "### 4.2 Para que serve?",
+      "A Base de Herbrand define o **espaço de interpretações possíveis** para um conjunto de fórmulas. Cada interpretação é uma atribuição de verdadeiro ou falso para cada elemento da base.",
+      "Ela é especialmente útil para:",
+      "1. **Verificar se uma fórmula é satisfazível** — existe alguma interpretação que a torna verdadeira?\n2. **Verificar consequência lógica** — uma conclusão é verdadeira em todas as interpretações que satisfazem as premissas?\n3. **Definir o espaço de busca** para provadores automáticos de teoremas.",
+      "| **📊 Ciência de Dados — A Base de Herbrand como esquema de dados** |\n| A Base de Herbrand é análoga ao **esquema de um banco de dados**: ela define todas as afirmações possíveis sobre o domínio, assim como um esquema define todas as colunas e tabelas possíveis. Os dados concretos (linhas da tabela) correspondem às afirmações que são verdadeiras na interpretação atual.<br/><br/>Por exemplo: se a base contém `Aprovado(ana)`, `Aprovado(bob)`, `Aprovado(carla)`, e os dados dizem que apenas Ana e Carla estão aprovadas, então a interpretação é: `Aprovado(ana)` = V, `Aprovado(bob)` = F, `Aprovado(carla)` = V. |"
     ]
   },
 
@@ -1247,16 +1257,20 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Atribuições de Verdade",
     "subtitle": "Capítulo 4, Semântica",
     "paragraphs": [
-      "Uma **atribuição de verdade** para uma linguagem relacional é uma função que mapeia cada sentença ground da base de Herbrand a um valor booleano (0 ou 1). Isso é exatamente análogo a uma linha de uma tabela-verdade na Lógica Proposicional, mas agora as 'proposições' têm estrutura interna (um predicado aplicado a constantes).",
-      "Uma vez fixada a atribuição para os átomos ground, a verdade de sentenças mais complexas é determinada recursivamente pelos mesmos operadores lógicos da Lógica Proposicional. A novidade está nos quantificadores:",
-      "- `∀x.φ(x)` é verdadeira se e somente se φ(t) é verdadeira para **toda** constante de objeto t do vocabulário.\n- `∃x.φ(x)` é verdadeira se e somente se φ(t) é verdadeira para **pelo menos uma** constante de objeto t do vocabulário.",
-      "Em outras palavras, o universal age como uma conjunção sobre todas as instâncias, e o existencial age como uma disjunção sobre todas as instâncias. Essa correspondência é fundamental para entender a avaliação de sentenças quantificadas.",
-      "### Exemplo Detalhado: Dataset de Clientes",
-      "Considere um vocabulário com constantes de objeto {alice, bob, carol} e constantes de relação `ativo` (unário), `comprou` (binário). A atribuição de verdade abaixo representa um estado parcial de um sistema de CRM:",
-      "```\nativo(alice) = 1    ativo(bob) = 1    ativo(carol) = 0\n\ncomprou(alice, alice) = 0   comprou(alice, bob) = 0   comprou(alice, carol) = 1\ncomprou(bob, alice) = 1     comprou(bob, bob) = 0     comprou(bob, carol) = 1\ncomprou(carol, alice) = 0   comprou(carol, bob) = 0   comprou(carol, carol) = 0\n```",
-      "Avaliemos a sentença `∀x. ∃y.comprou(x,y)`: 'todo cliente comprou algum produto (representado por outro cliente no vocabulário)'. Expandindo:",
-      "```\n∃y.comprou(alice, y): comprou(alice,alice)=0, comprou(alice,bob)=0, comprou(alice,carol)=1 ⇒ TRUE\n∃y.comprou(bob, y):   comprou(bob,alice)=1 ⇒ TRUE\n∃y.comprou(carol, y): comprou(carol,alice)=0, comprou(carol,bob)=0, comprou(carol,carol)=0 ⇒ FALSE\n\nComo nem todas as instâncias do universal são verdadeiras, ∀x.∃y.comprou(x,y) ⇒ FALSE\n```",
-      "Carol nunca comprou nada, portanto a afirmação universal falha. Em ciência de dados, esse tipo de avaliação é o que ocorre quando validamos uma restrição de integridade: verificamos se ela vale para todos os registros do dataset."
+      "Na lógica proposicional, uma interpretação era simplesmente uma atribuição de V ou F para cada variável proposicional. Na lógica relacional, o conceito se expande: uma interpretação precisa definir um **domínio de objetos** e especificar quais relações valem para quais objetos.",
+      "### 5.1 Componentes de uma interpretação",
+      "Uma interpretação na lógica relacional tem dois componentes:",
+      "1. **Domínio (D)**: o conjunto de todos os objetos sobre os quais as fórmulas falam. Ex: o conjunto de todos os clientes de um banco.\n2. **Interpretação das relações**: para cada relação R de aridade n, define-se o conjunto de tuplas de objetos para os quais R é verdadeira. Ex: `Aprovado = {ana, carla, davi}` — a relação Aprovado é verdadeira para esses três objetos.",
+      "### 5.2 Satisfação de sentenças",
+      "Dizemos que uma interpretação I **satisfaz** uma sentença φ quando φ é verdadeira nessa interpretação. A notação é:",
+      "`I ⊨ φ` (*“I satisfaz φ”*)",
+      "As regras de satisfação seguem a intuição e estão resumidas na **Tabela 4.5**.",
+      "```\n| Tipo de sentença | Quando é satisfeita por I |\n| R(a₁, ..., aₙ) (atômica) | A tupla (a₁,...,aₙ) pertence à extensão de R em I |\n| ¬φ | I não satisfaz φ |\n| φ ∧ ψ | I satisfaz φ E I satisfaz ψ |\n| φ ∨ ψ | I satisfaz φ OU I satisfaz ψ (ou ambos) |\n| φ ⇒ ψ | Se I satisfaz φ, então I satisfaz ψ |\n| ∀x φ(x) | Para todo objeto d em D: I satisfaz φ(x) com x = d |\n| ∃x φ(x) | Existe pelo menos um objeto d em D: I satisfaz φ(x) com x = d |\nTabela 4.5 — Regras de satisfação para cada tipo de sentença na lógica relacional.\n```",
+      "### 5.3 Exemplo completo",
+      "**Domínio:** `{ana, bob, carla}`<br/>**Aprovado** = `{ana, carla}` (ana e carla estão aprovadas; bob não)<br/>**RendaAlta** = `{ana, bob}` (ana e bob têm renda alta; carla não)",
+      "Avaliando `∀x (RendaAlta(x) ⇒ Aprovado(x))`:",
+      "1. **x = ana**: RendaAlta(ana) = V, Aprovado(ana) = V → V ⇒ V = **V**\n2. **x = bob**: RendaAlta(bob) = V, Aprovado(bob) = F → V ⇒ F = **F** ← a sentença é FALSA nesta interpretação\n3. **x = carla**: RendaAlta(carla) = F → F ⇒ qualquer = **V**",
+      "Como há pelo menos um objeto (bob) para o qual a implicação é falsa, a sentença universal é **falsa** nesta interpretação."
     ]
   },
 
