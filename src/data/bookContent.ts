@@ -835,7 +835,7 @@ export const chapterContents: Record<string, ChapterContent> = {
       "###Reescrevendo sentenças em formas equivalentes",
       "Também podemos transformar um problema em outro do mesmo tipo reescrevendo sentenças por equivalência. Considere `((¬p ∨ q) ⇒ (p ⇒ q)) ∧ q`. Como `¬p ∨ q` é equivalente a `p ⇒ q`, reescrevemos como `((p ⇒ q) ⇒ (p ⇒ q)) ∧ q`. A primeira parte é válida; **q** é contingente; logo, a sentença completa é contingente.",
       "###Equivalências lógicas fundamentais",
-      "```\\\n¬¬φ ⇔ φ\n¬(φ ∧ ψ) ⇔ (¬φ ∨ ¬ψ)\n¬(φ ∨ ψ) ⇔ (¬φ ∧ ¬ψ)\n(φ ⇒ ψ) ⇔ (¬φ ∨ ψ)\n(φ ⇔ ψ) ⇔ (φ ⇒ ψ) ∧ (ψ ⇒ φ)\n```",
+      "```\n¬¬φ ⇔ φ\n¬(φ ∧ ψ) ⇔ (¬φ ∨ ¬ψ)\n¬(φ ∨ ψ) ⇔ (¬φ ∧ ¬ψ)\n(φ ⇒ ψ) ⇔ (¬φ ∨ ψ)\n(φ ⇔ ψ) ⇔ (φ ⇒ ψ) ∧ (ψ ⇒ φ)\n```",
       "Essas equivalências são base para normalização e conversão para formas padronizadas, como a forma clausal estudada no Capítulo 6.",
       "###Reescritas aplicadas a conjuntos de sentenças",
       "Também é possível reescrever conjuntos. Por exemplo, `{p, p ⇒ q}` é equivalente a `{p, q}`, o que reduz redundância sem mudar o significado lógico.",
