@@ -1478,9 +1478,11 @@ export const chapterContents: Record<string, ChapterContent> = {
       "### Exemplo Completo de Refutação",
       "Demonstremos a validade de `(p ⇒ (q ⇒ p))`, o esquema de Criação de Implicação, sem nenhuma premissa. A prova é puramente por refutação: negamos a sentença, convertemos para forma clausal e derivamos a cláusula vazia.",
       "**Passo 1 — Negar a conclusão e converter para forma clausal**",
-      "```\n| Passo | Expressão |\n|---|---|\n| Original | ~(p ⇒ (q ⇒ p)) |\n| I | ~(~p ∨ (~q ∨ p)) |\n| N | ~~p ∧ ~(~q ∨ p) ⇒ p ∧ (~~q ∧ ~p) ⇒ p ∧ q ∧ ~p |\n| D | p ∧ q ∧ ~p |\n| O | {p} e {q} e {~p} |\n```",
+      "A **Tabela 6.7** mostra a conversão da negação `~(p ⇒ (q ⇒ p))` para forma clausal, passo a passo.",
+      "```\n| Passo | Expressão |\n|---|---|\n| Original | ~(p ⇒ (q ⇒ p)) |\n| I | ~(~p ∨ (~q ∨ p)) |\n| N | ~~p ∧ ~(~q ∨ p) ⇒ p ∧ (~~q ∧ ~p) ⇒ p ∧ q ∧ ~p |\n| D | p ∧ q ∧ ~p |\n| O | {p} e {q} e {~p} |\nTabela 6.7: Conversão para forma clausal da negação `~(p ⇒ (q ⇒ p))`.\n```",
       "**Passo 2 — Derivação por resolução**",
-      "```\n| Linha | Cláusula | Origem |\n|---|---|---|\n| 1 | {p} | Premissa (da negação) |\n| 2 | {q} | Premissa (da negação) |\n| 3 | {~p} | Premissa (da negação) |\n| 4 | {} | Resolução: 1 e 3 (cancelar p e ~p), CONTRADIÇÃO |\n```",
+      "A **Tabela 6.8** mostra a derivação por resolução até a cláusula vazia.",
+      "```\n| Linha | Cláusula | Origem |\n|---|---|---|\n| 1 | {p} | Premissa (da negação) |\n| 2 | {q} | Premissa (da negação) |\n| 3 | {~p} | Premissa (da negação) |\n| 4 | {} | Resolução: 1 e 3 (cancelar p e ~p), CONTRADIÇÃO |\nTabela 6.8: Derivação por resolução da cláusula vazia para `~(p ⇒ (q ⇒ p))`.\n```",
       "A cláusula vazia é derivada em um único passo, confirmando que a sentença é uma **tautologia**, verdadeira independentemente de qualquer premissa."
     ]
   },
