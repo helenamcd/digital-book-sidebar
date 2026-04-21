@@ -708,7 +708,8 @@ export const chapterContents: Record<string, ChapterContent> = {
       "Para muitos propósitos, agrupamos essas propriedades em dois conceitos mais gerais.",
       "Uma sentença é **satisfatível** se existe pelo menos uma atribuição que a torna verdadeira (inclui válidas e contingentes). Ela responde: *existe algum cenário em que esta regra funciona?*",
       "Uma sentença é **falsificável** se existe pelo menos uma atribuição que a torna falsa (inclui contingentes e insatisfatíveis). Ela responde: *é possível violar esta restrição?*",
-      "```\n| Propriedade | Satisfatível? | Falsificável? |\n|---|---|---|\n| Válida | Sim | Não |\n| Contingente | Sim | Sim |\n| Insatisfatível | Não | Sim |\n```",
+      "Esses dois conceitos permitem reagrupar as três propriedades anteriores. A **Tabela 2.1** sintetiza essa correspondência, indicando para cada propriedade se a sentença é satisfatível e/ou falsificável.",
+      "```\n| Propriedade | Satisfatível? | Falsificável? |\n|---|---|---|\n| Válida | Sim | Não |\n| Contingente | Sim | Sim |\n| Insatisfatível | Não | Sim |\nTabela 2.1: Classificação das propriedades lógicas das sentenças quanto à satisfatibilidade e à falsificabilidade.\n```",
     ]
   },
 
