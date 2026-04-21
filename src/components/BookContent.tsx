@@ -334,11 +334,6 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
               );
             }
 
-            // Code block
-            if (p.startsWith("```")) {
-              // (handled below)
-            }
-
             // Markdown image: ![caption](key)  — renders as <figure>
             const imgMatch = p.match(/^!\[(.*?)\]\(([^)]+)\)\s*$/);
             if (imgMatch) {
