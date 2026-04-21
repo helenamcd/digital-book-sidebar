@@ -714,11 +714,11 @@ export const chapterContents: Record<string, ChapterContent> = {
 
   "cap2-sec2": {
     id: "cap2-sec2",
-    title: "Equivalência Lógica",
+    title: "Equivalência Lógica (⇔)",
     subtitle: "Capítulo 2",
     paragraphs: [
-      "Dizemos que duas sentenças são equivalentes quando expressam a mesma ideia, ainda que escritas de formas diferentes. Em termos formais, isso significa que elas são verdadeiras exatamente nos mesmos cenários.",
-      "Mais precisamente, uma sentença φ é **logicamente equivalente** a uma sentença ψ se, e somente se, toda atribuição que satisfaz φ também satisfaz ψ, e vice-versa. Assim, as duas sentenças aceitam e rejeitam exatamente os mesmos cenários.",
+      "Dizemos que duas sentenças são equivalentes quando expressam a mesma ideia, ainda que escritas de formas diferentes. Em termos formais, isso significa que elas são verdadeiras exatamente nos mesmos cenários. Denotamos essa relação pelo símbolo **⇔**: escrevemos `φ ⇔ ψ` para indicar que φ e ψ são logicamente equivalentes.",
+      "Mais precisamente, uma sentença φ é **logicamente equivalente** a uma sentença ψ (em símbolos, `φ ⇔ ψ`) se, e somente se, toda atribuição que satisfaz φ também satisfaz ψ, e vice-versa. Assim, as duas sentenças aceitam e rejeitam exatamente os mesmos cenários.",
       "###Equivalência como identidade comportamental",
       "Considere `¬(p ∨ q)` e `¬p ∧ ¬q`. Ambas são verdadeiras somente quando **p** e **q** são falsos; nos demais casos, são falsas. Como são satisfeitas pelas mesmas atribuições, são logicamente equivalentes.",
       "Em termos aplicados, isso corresponde a duas regras de filtragem distintas que selecionam exatamente o mesmo subconjunto de registros.",
