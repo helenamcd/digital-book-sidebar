@@ -497,8 +497,12 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
                   const content = headers[0];
                   const htmlContent = content.replace(/<br\s*\/?>/gi, "\n");
                   const lines = htmlContent.split("\n");
+                  const isDS = /Ciência de Dados/i.test(content);
+                  const calloutClass = isDS
+                    ? "my-6 border-l-4 border-purple-400 bg-purple-100/50 rounded-r-lg px-5 py-4"
+                    : "my-6 border-l-4 border-accent bg-accent/5 rounded-r-lg px-5 py-4";
                   return (
-                    <div key={i} className="my-6 border-l-4 border-accent bg-accent/5 rounded-r-lg px-5 py-4">
+                    <div key={i} className={calloutClass}>
                       {lines.map((line, li) => (
                         <p key={li} className={`font-serif-book text-sm md:text-[0.95rem] leading-[1.85] text-[hsl(var(--book-text))] ${li > 0 ? "mt-1" : ""}`}>
                           {renderInlineMarkdown(line)}
@@ -510,8 +514,12 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
 
                 if (isSingleCol && rows.length > 0) {
                   // Single-column with header + body rows = callout box
+                  const isDS = /Ciência de Dados/i.test(headers[0]);
+                  const calloutClass = isDS
+                    ? "my-6 border-l-4 border-purple-400 bg-purple-100/50 rounded-r-lg px-5 py-4"
+                    : "my-6 border-l-4 border-accent bg-accent/5 rounded-r-lg px-5 py-4";
                   return (
-                    <div key={i} className="my-6 border-l-4 border-accent bg-accent/5 rounded-r-lg px-5 py-4">
+                    <div key={i} className={calloutClass}>
                       <p className="font-serif-book text-sm md:text-[0.95rem] leading-[1.85] text-[hsl(var(--book-text))] font-semibold mb-2">
                         {renderInlineMarkdown(headers[0])}
                       </p>
