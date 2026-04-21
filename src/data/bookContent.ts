@@ -65,7 +65,7 @@ export const chapters: Chapter[] = [
     id: "cap3",
     title: "Capítulo 3 - Inferência e Prova",
     sections: [
-      { id: "cap3-sec1", title: "Esquemas de Axiomas e Regras de Inferência" },
+      { id: "cap3-sec1", title: "Regras de inferência" },
       { id: "cap3-sec2", title: "Provas Diretas" },
       { id: "cap3-sec3", title: "O Sistema de Fitch e a Dedução Natural" },
       { id: "cap3-sec4", title: "Exemplo Completo: Validação de Pipeline de Dados" },
@@ -919,7 +919,7 @@ export const chapterContents: Record<string, ChapterContent> = {
 
   "cap3-sec1": {
     id: "cap3-sec1",
-    title: "Esquemas de Axiomas e Regras de Inferência",
+    title: "Regras de inferência",
     subtitle: "Capítulo 3",
     paragraphs: [
       "##Esquemas de Axiomas",
