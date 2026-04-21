@@ -336,6 +336,32 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
 
             // Code block
             if (p.startsWith("```")) {
+              // (handled below)
+            }
+
+            // Markdown image: ![caption](key)  — renders as <figure>
+            const imgMatch = p.match(/^!\[(.*?)\]\(([^)]+)\)\s*$/);
+            if (imgMatch) {
+              const caption = imgMatch[1];
+              const key = imgMatch[2];
+              const src = figureAssets[key] || key;
+              return (
+                <figure key={i} className="my-6 flex flex-col items-center">
+                  <img
+                    src={src}
+                    alt={caption}
+                    className="max-w-full h-auto rounded-md border border-border"
+                  />
+                  {caption && (
+                    <figcaption className="font-serif-book text-xs italic text-muted-foreground text-center mt-2">
+                      {caption}
+                    </figcaption>
+                  )}
+                </figure>
+              );
+            }
+
+            if (p.startsWith("```")) {
               // Remove opening/closing ``` and split lines (handle both real \n and literal \\n)
               let code = p.replace(/^```/, "").replace(/```$/, "");
               // Strip leading/trailing literal \\n and real \n
