@@ -331,15 +331,16 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
               if (isTable) {
                 const isSeparator = (line: string) => /^\|[\s\-:|]+\|$/.test(line.trim());
                 const tableLines = lines.filter((l) => l.trim().startsWith("|") && l.trim().endsWith("|") && !isSeparator(l));
-                // Optional caption: first non-table line matching ":::caption: ...:::" or starting with "Tabela "
+                // Optional caption: any non-table line matching ":::caption: ...:::" or starting with "Tabela "
+                // Accepts caption either before OR after the table rows.
                 let caption: string | null = null;
                 for (const l of lines) {
                   const t = l.trim();
                   if (!t) continue;
-                  if (t.startsWith("|")) break;
+                  if (t.startsWith("|")) continue;
                   const capMatch = t.match(/^:::caption:\s*(.+?):::$/);
                   if (capMatch) { caption = capMatch[1]; break; }
-                  if (/^Tabela\s+\d+/i.test(t)) { caption = t; break; }
+                  if (/^Tabela\s+[\d.]+/i.test(t)) { caption = t; break; }
                 }
                 const parseRow = (line: string) =>
                   line.split("|").slice(1, -1).map((c) => c.trim());
