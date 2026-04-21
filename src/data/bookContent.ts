@@ -1324,18 +1324,21 @@ export const chapterContents: Record<string, ChapterContent> = {
     "title": "Formalizando Cenários de Dados",
     "subtitle": "Capítulo 4",
     "paragraphs": [
-      "### Sistema de Recomendação",
-      "Considere um sistema de recomendação com quatro usuários (alice, bob, carol, dana) e um conjunto de itens. Queremos formalizar diversas propriedades do sistema usando a Lógica Relacional. Adotamos as constantes de relação: `curtiu` (binário: usuário × item), `recomendado` (binário: usuário × item), `ativo` (unário: usuário).",
-      "```\n-- Alice curtiu o item i_001 ou o item i_002\ncurtiu(alice, i_001) ∨ curtiu(alice, i_002)\n\n-- Todo usuário ativo recebe ao menos uma recomendação\n∀x.(ativo(x) ⇒ ∃y.recomendado(x, y))\n\n-- Se um usuário curtiu um item, esse item pode ser recomendado para ele\n∀x.∀y.(curtiu(x,y) ⇒ recomendado(x,y))\n\n-- Nenhum usuário recebe recomendações de itens que já curtiu\n~∃x.∃y.(curtiu(x,y) ∧ recomendado(x,y))\n```",
-      "Observe que a última sentença é uma restrição de negócio comum em sistemas de recomendação: não faz sentido recomendar algo que o usuário já gosta. Usando as leis de De Morgan quantificadas, podemos reescrever essa restrição em uma forma equivalente:",
-      "```\n~∃x.∃y.(curtiu(x,y) ∧ recomendado(x,y))\n≡ ∀x.∀y.~(curtiu(x,y) ∧ recomendado(x,y))\n≡ ∀x.∀y.(curtiu(x,y) ⇒ ~recomendado(x,y))\n```",
-      "### Pipeline de Qualidade de Dados",
-      "Um caso de uso central em ciência de dados é a verificação de qualidade de dados. Considere um dataset com registros representados por constantes de objeto e propriedades representadas por constantes de relação unárias: `completo`, `sem_outlier`, `normalizado`, `valido_para_treino`.",
-      "```\n-- Todo registro completo e sem outlier pode ser normalizado\n∀x.(completo(x) ∧ sem_outlier(x) ⇒ normalizado(x))\n\n-- Um registro é válido para treino se e somente se estiver normalizado\n∀x.(valido_para_treino(x) ⇔ normalizado(x))\n\n-- Existe ao menos um registro válido para treino\n∃x.valido_para_treino(x)\n\n-- Nenhum registro com outlier é válido para treino\n∀x.(sem_outlier(x) ∨ ~valido_para_treino(x))\n-- equivalente a: ∀x.(valido_para_treino(x) ⇒ sem_outlier(x))\n```",
-      "### Relações Hierárquicas em Dados",
-      "Muitos problemas de dados envolvem relações hierárquicas ou transitivas: árvores de categorias de produtos, hierarquias organizacionais, grafos de dependência entre tarefas. A Lógica Relacional permite definir tais relações de forma concisa usando quantificadores.",
-      "Considere uma relação de dependência entre tarefas de um pipeline de dados, onde `depende_de(x,y)` significa 'a tarefa x depende diretamente da tarefa y'. Podemos definir a relação de dependência transitiva recursivamente:",
-      "```\n-- Dependência transitiva: x depende de z se depende diretamente\n-- ou depende de alguma tarefa intermediária que depende de z\n∀x.∀z.(antecede(x,z) ⇔\n  depende_de(x,z) ∨\n  ∃y.(depende_de(x,y) ∧ antecede(y,z)))\n\n-- Restrição de aciclicidade: nenhuma tarefa antecede a si mesma\n~∃x.antecede(x,x)\n```"
+      "Uma das aplicações mais diretas da lógica relacional é a **formalização de cenários do mundo real** — transformar descrições em linguagem natural em fórmulas precisas e verificáveis. Isso é especialmente valioso em ciência de dados para definir regras de negócio, validações e consultas.",
+      "### 8.1 Do texto à fórmula — o processo de formalização",
+      "Formalizar um cenário envolve três etapas:",
+      "1. **Identificar o domínio:** quais objetos existem? Clientes, produtos, transações...\n2. **Definir as relações:** quais propriedades e conexões são relevantes? Aprovado, RendaAlta, Comprou...\n3. **Traduzir as afirmações:** converter cada regra em linguagem natural para uma fórmula com quantificadores e conectivos.",
+      "### 8.2 Exemplos de formalização",
+      "Considere o cenário de aprovação de crédito de um banco. Em linguagem natural, temos as seguintes regras:",
+      "1. *“Todo cliente com renda alta e bom histórico é elegível para crédito.”*\n2. *“Existe pelo menos um cliente inadimplente.”*\n3. *“Nenhum cliente inadimplente é elegível.”*\n4. *“Se um cliente é elegível, então não é inadimplente.”*",
+      "Formalizando:",
+      "```\n1. ∀x ((RendaAlta(x) ∧ BomHistorico(x)) ⇒ Elegivel(x))\n2. ∃x Inadimplente(x)\n3. ¬∃x (Inadimplente(x) ∧ Elegivel(x))\n4. ∀x (Elegivel(x) ⇒ ¬Inadimplente(x))\n```",
+      "Note que as regras 3 e 4 são **logicamente equivalentes** — pelas leis de De Morgan quantificadas: `¬∃x (P(x) ∧ Q(x)) ≡ ∀x (P(x) ⇒ ¬Q(x))`. A escolha entre uma forma ou outra é apenas estilística.",
+      "### 8.3 Verificando consistência das regras",
+      "Uma vez formalizadas, podemos verificar se o conjunto de regras é **consistente** — ou seja, se existe alguma interpretação que satisfaz todas elas simultaneamente. Se não existir, as regras se contradizem.",
+      "**Exemplo de inconsistência:**",
+      "```\n1. ∀x (Cliente(x) ⇒ Aprovado(x))   -- 'todo cliente é aprovado'\n2. Cliente(bob)                      -- 'bob é cliente'\n3. ¬Aprovado(bob)                    -- 'bob não é aprovado'\n```",
+      "Esse conjunto é **insatisfazível**: as regras 1 e 2 forçam `Aprovado(bob)`, mas a regra 3 afirma o contrário. Detectar esse tipo de contradição é fundamental antes de implementar regras de negócio em sistemas reais."
     ]
   },
 
