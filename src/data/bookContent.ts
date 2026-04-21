@@ -745,7 +745,7 @@ export const chapterContents: Record<string, ChapterContent> = {
     subtitle: "Capítulo 2",
     paragraphs: [
       "Em Ciência de Dados, partimos frequentemente de premissas (regras, hipóteses, restrições) e queremos saber o que pode ser afirmado com garantia. A noção que formaliza isso é a **consequência lógica**.",
-      "Dizemos que φ **logicamente implica** ψ (φ ⊨ ψ) quando toda atribuição que satisfaz φ também satisfaz ψ. Mais geralmente, um conjunto Δ implica ψ (Δ ⊨ ψ) quando toda atribuição que satisfaz todas as sentenças em Δ também satisfaz ψ.",
+      "Dizemos que φ **logicamente implica** ψ (φ ⊨ ψ) quando toda atribuição que satisfaz φ também satisfaz ψ. Mais geralmente, usamos a letra grega **Δ** (delta maiúsculo) para representar um *conjunto de sentenças* (tipicamente, o conjunto de premissas em consideração). Assim, dizemos que um conjunto Δ implica ψ (Δ ⊨ ψ) quando toda atribuição que satisfaz todas as sentenças em Δ também satisfaz ψ.",
       "###Consequência lógica como garantia",
       "A sentença `p` implica `p ∨ q`, pois sempre que **p** é verdadeiro, a disjunção também é, independentemente de **q**.",
       "Por outro lado, `p` não implica `p ∧ q`, já que **q** pode ser falso.",
