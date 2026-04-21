@@ -497,7 +497,7 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
                   const content = headers[0];
                   const htmlContent = content.replace(/<br\s*\/?>/gi, "\n");
                   const lines = htmlContent.split("\n");
-                  const isDS = /Ciência de Dados|Conexão com a lógica|A ideia central/i.test(content);
+                  const isDS = /Ciência de Dados|Conexão com a lógica|A ideia central|Exemplo narrado/i.test(content);
                   const calloutClass = isDS
                     ? "my-6 border-l-4 border-purple-400 bg-purple-100/50 rounded-r-lg px-5 py-4"
                     : "my-6 border-l-4 border-accent bg-accent/5 rounded-r-lg px-5 py-4";
@@ -514,7 +514,7 @@ const BookContent = ({ activeChapter, onNavigate }: BookContentProps) => {
 
                 if (isSingleCol && rows.length > 0) {
                   // Single-column with header + body rows = callout box
-                  const isDS = /Ciência de Dados|Conexão com a lógica|A ideia central/i.test(headers[0]);
+                  const isDS = /Ciência de Dados|Conexão com a lógica|A ideia central|Exemplo narrado/i.test(headers[0]);
                   const calloutClass = isDS
                     ? "my-6 border-l-4 border-purple-400 bg-purple-100/50 rounded-r-lg px-5 py-4"
                     : "my-6 border-l-4 border-accent bg-accent/5 rounded-r-lg px-5 py-4";
