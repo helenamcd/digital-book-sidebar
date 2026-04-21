@@ -714,7 +714,7 @@ export const chapterContents: Record<string, ChapterContent> = {
 
   "cap2-sec2": {
     id: "cap2-sec2",
-    title: "Equivalência Lógica (≡)",
+    title: "Equivalência Lógica",
     subtitle: "Capítulo 2",
     paragraphs: [
       "Dizemos que duas sentenças são equivalentes quando expressam a mesma ideia, ainda que escritas de formas diferentes. Em termos formais, isso significa que elas são verdadeiras exatamente nos mesmos cenários. Denotamos essa relação pelo símbolo **≡**: escrevemos `φ ≡ ψ` para indicar que φ e ψ são logicamente equivalentes.",
