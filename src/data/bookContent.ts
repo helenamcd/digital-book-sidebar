@@ -1382,7 +1382,10 @@ export const chapterContents: Record<string, ChapterContent> = {
     title: "Validação, Modelos e Provas Relacionais",
     subtitle: "Capítulo 5",
     paragraphs: [
-      "| **📌 O que já sabemos**<br/><br/>No Capítulo 4 aprendemos o vocabulário da lógica relacional: constantes, variáveis, relações, quantificadores ∀ e ∃, variáveis livres e ligadas, e a Base de Herbrand. Aprendemos também o que é uma interpretação — uma *“fotografia do mundo”* que atribui verdadeiro ou falso a cada sentença atômica — e como avaliar se uma sentença é válida, satisfazível ou insatisfazível.<br/><br/>**🎯 O que veremos agora**<br/><br/>Neste capítulo aprofundamos dois eixos complementares: o **eixo semântico** (verificação por modelos — o que é verdadeiro?) e o **eixo sintático** (provas formais — o que é demonstrável?). Veremos como o **Sistema de Fitch** — que estudamos no Capítulo 3 — se estende para a lógica relacional com quatro novas regras envolvendo quantificadores. Ao final, conectamos os dois eixos com os teoremas de **correção e completude**, e introduzimos técnicas avançadas usadas em sistemas automáticos de prova. |"
+      "## Dois eixos da lógica — o que é verdadeiro e o que pode ser provado",
+      "No Capítulo 4 aprendemos o vocabulário da lógica relacional: constantes, variáveis, relações, quantificadores ∀ e ∃, variáveis livres e ligadas, e a Base de Herbrand. Aprendemos também o que é uma interpretação — uma *“fotografia do mundo”* que atribui verdadeiro ou falso a cada sentença atômica — e como avaliar se uma sentença é válida, satisfazível ou insatisfazível.",
+      "Neste capítulo aprofundamos dois eixos complementares: o **eixo semântico** (verificação por modelos — o que é verdadeiro?) e o **eixo sintático** (provas formais — o que é demonstrável?). Veremos como o **Sistema de Fitch** — que estudamos no Capítulo 3 — se estende para a lógica relacional com quatro novas regras envolvendo quantificadores.",
+      "Ao final, conectamos os dois eixos com os teoremas de **correção e completude**, e introduzimos técnicas avançadas usadas em sistemas automáticos de prova."
     ]
   },
 
