@@ -1544,211 +1544,147 @@ export const chapterContents: Record<string, ChapterContent> = {
 
   "cap6": {
     id: "cap6",
-    title: "Resolução Automática",
+    title: "Resolução e Prova por Refutação",
     subtitle: "Capítulo 6",
     paragraphs: [
-      "Os métodos de prova estudados nos capítulos anteriores, o sistema de Hilbert e o sistema de Fitch, são poderosos, mas exigem que o humano guie cada passo da derivação: escolher qual regra aplicar, a quais sentenças, em que ordem. Para problemas de pequeno porte, isso é gerenciável. Para sistemas de dados com centenas de regras de negócio ou pipelines com dezenas de restrições encadeadas, o processo manual se torna inviável.",
-      "O **Princípio da Resolução** oferece uma solução elegante: uma única regra de inferência que, aplicada sistematicamente, é suficiente para verificar qualquer propriedade lógica expressável, sem necessidade de axiomas adicionais ou de guia humano nos passos intermediários. Esse é o fundamento teórico dos modernos motores de inferência automática, dos SAT solvers e dos sistemas de verificação formal utilizados em produção.",
-      "Neste capítulo, estudamos a Resolução em duas versões progressivamente mais ricas: primeiro para a Lógica Proposicional (Seções 6.2 a 6.5), depois estendida para a Lógica Relacional com o uso de unificação (Seções 6.6 a 6.10). Em cada versão, cobrimos a forma clausal, a regra de inferência, o raciocínio por refutação, a extração de respostas e as estratégias de otimização. Ao longo do capítulo, ancoramos cada conceito em exemplos aplicados à ciência de dados."
+      "## Como o computador prova por contradição",
+      "Nos capítulos anteriores estudamos dois sistemas de prova: Hilbert e Fitch. Ambos exigem que um humano construa a prova passo a passo, escolhendo cada regra com intuição.",
+      "No Capítulo 3, o Sistema de Fitch incluía uma estratégia chamada prova por contradição: assumir que a conclusão é falsa e mostrar que isso leva ao absurdo. Essa estratégia funcionava — mas ainda dependia da intuição do estudante para escolher os passos.",
+      "A **Resolução** é um sistema de prova que automatiza exatamente esse processo. Ela usa uma única regra simples, aplicada repetidamente por um computador, até encontrar a contradição. Sem intuição. Sem escolha criativa. Só mecânica."
     ]
   },
 
   "cap6-sec1": {
     id: "cap6-sec1",
-    title: "Forma Clausal",
-    subtitle: "6.2, Literais, Cláusulas e Conversão",
+    title: "O que é Resolução?",
+    subtitle: "Capítulo 6, Uma única regra aplicada mecanicamente",
     paragraphs: [
-      "### Literais, Cláusulas e Conjuntos de Cláusulas",
-      "O Princípio da Resolução opera exclusivamente sobre expressões em **forma clausal**. Antes de aplicar a regra, todas as premissas e conclusões devem ser convertidas para esse formato. As definições são:",
-      "- **Literal**: uma sentença atômica ou sua negação. Exemplos: `score_alto(x)`, `~inadimplente(cliente_7)`, `p(a,b)`.\n- **Cláusula**: um conjunto de literais, interpretado como sua disjunção. Exemplo: `{~p(x), q(x)}` representa `p(x) ⇒ q(x)`.\n- **Cláusula vazia {}**: disjunção de zero literais, sempre falsa. Sua derivação sinaliza uma contradição no conjunto de premissas.\n- **Conjunto de cláusulas**: um conjunto de cláusulas, interpretado como sua conjunção.",
-      "A tradução entre a notação habitual e a forma clausal é direta para literais e disjunções. Para implicações, usamos a equivalência `(φ ⇒ ψ) ≡ (~φ ∨ ψ)`, que transforma a implicação em uma cláusula de dois literais. Isso é fundamental: a maioria das regras de negócio e restrições de pipelines tem a forma de implicação, e a forma clausal as representa compactamente.",
-      "A **Tabela 6.1** apresenta as principais formas sintáticas e suas correspondências em forma clausal, servindo de referência para a conversão.",
-      "```\n| Sentença Original | Forma Clausal | Interpretação |\n|---|---|---|\n| p | {p} | p é verdadeiro |\n| ~p | {~p} | p é falso |\n| p ∨ q | {p, q} | p ou q |\n| p ⇒ q | {~p, q} | se p então q |\n| p ⇔ q | {~p, q} e {p, ~q} | p se e somente se q |\n| p ∧ q | {p} e {q} | dois fatos separados |\n| {} | {} | contradição (cláusula vazia) |\nTabela 6.1: Correspondência entre sentenças proposicionais e suas formas clausais.\n```",
-      "### Procedimento de Conversão para a Forma Clausal",
-      "Qualquer sentença proposicional pode ser convertida para um conjunto equivalente de cláusulas seguindo quatro passos em ordem. Os passos são aplicados de forma mecânica e sempre terminam em tempo finito.",
-      "A **Tabela 6.2** sintetiza os quatro passos do procedimento, identificados pelas letras I, N, D e O.",
-      "```\n| Passo | Operação e Regras |\n|---|---|\n| I, Impl. | Eliminar ⇒ e ⇔: (φ⇒ψ) → (~φ ∨ ψ); (φ⇔ψ) → (~φ ∨ ψ) ∧ (φ ∨ ~ψ) |\n| N, Neg. | Mover negações para dentro: ~~φ→φ; ~(φ∧ψ)→(~φ ∨ ~ψ); ~(φ ∨ ψ)→(~φ ∧ ~ψ) |\n| D, Dist. | Distribuir ∨ sobre ∧: φ ∨ (ψ∧χ) → (φ ∨ ψ) ∧ (φ ∨ χ); e variantes simétricas |\n| O, Oper. | Eliminar operadores: separar conjunções em cláusulas; escrever cada disjunção como conjunto |\nTabela 6.2: Passos I, N, D e O do procedimento de conversão para a forma clausal.\n```",
-      "A seguir, dois exemplos de conversão lado a lado, um para uma sentença e outro para sua negação, que ilustram como uma pequena diferença na entrada pode gerar resultados muito diferentes na forma clausal:",
-      "### Exemplo A: g ∧ (r ⇒ f)",
-      "Aplicando os passos da Tabela 6.2 a `g ∧ (r ⇒ f)`, obtemos a derivação resumida na **Tabela 6.3**.",
-      "```\n| Passo | Expressão |\n|---|---|\n| Original | g ∧ (r ⇒ f) |\n| I | g ∧ (~r ∨ f) |\n| N | g ∧ (~r ∨ f) [sem mudança] |\n| D | g ∧ (~r ∨ f) [sem mudança] |\n| O | {g} e {~r, f} |\nTabela 6.3: Conversão passo a passo de `g ∧ (r ⇒ f)` para forma clausal.\n```",
-      "### Exemplo B: ~(g ∧ (r ⇒ f)), negação do Exemplo A",
-      "Aplicando os mesmos passos à negação da expressão anterior, chegamos à derivação apresentada na **Tabela 6.4**.",
-      "```\n| Passo | Expressão |\n|---|---|\n| Original | ~(g ∧ (r ⇒ f)) |\n| I | ~(g ∧ (~r ∨ f)) |\n| N | ~g ∨ (~(~r ∨ f)) ⇒ ~g ∨ (~~r ∧ ~f) ⇒ ~g ∨ (r ∧ ~f) |\n| D | (~g ∨ r) ∧ (~g ∨ ~f) |\n| O | {~g, r} e {~g, ~f} |\nTabela 6.4: Conversão passo a passo de `~(g ∧ (r ⇒ f))` para forma clausal.\n```",
-      "Observe que, apesar de diferirem em apenas uma negação, os dois exemplos resultam em conjuntos de cláusulas completamente distintos. Isso ilustra por que a conversão para forma clausal deve ser feita cuidadosamente, passo a passo.",
-      "#### Analogia com Filtros em SQL",
-      "A forma clausal é, em essência, a **Forma Normal Conjuntiva (CNF)**, uma conjunção de disjunções. Em SQL, a cláusula `WHERE` de uma query complexa pode ser vista como uma CNF: cada condição de filtragem é uma 'cláusula', e o conjunto de todas elas é satisfeito quando cada cláusula individualmente é satisfeita. A conversão para CNF em lógica é o análogo formal de reescrever uma condição SQL complexa em uma forma em que cada subcondição pode ser avaliada independentemente, base dos otimizadores de query modernos."
+      "Resolução é um método de prova automática. Em vez de construir a prova diretamente — como fazemos no Fitch —, ela trabalha ao contrário: assume que a conclusão é falsa e tenta derivar uma contradição a partir daí.",
+      "Se chegar à contradição, a prova está feita: a conclusão é verdadeira. Se não chegar, a conclusão não se segue das premissas.",
+      "| **Ideia central:**<br/><br/>A resolução não constrói a prova diretamente. Ela mostra que negar a conclusão leva a um absurdo.<br/><br/>*Se é impossível que a conclusão seja falsa, então ela é necessariamente verdadeira.* |\n|---|",
+      "### Conexão com o Capítulo 3 — Sistema de Fitch",
+      "No Fitch, a regra **¬I (Introdução da Negação)** usava exatamente esse raciocínio: assumia φ como hipótese, derivava uma contradição dentro da subprova, e concluía ¬φ.",
+      "A Resolução automatiza esse processo inteiro. Em vez de um humano construindo a subprova e escolhendo os passos, um algoritmo aplica uma única regra repetidamente até encontrar a contradição.",
+      "*É o mesmo raciocínio — agora executado por uma máquina.*",
+      "A Resolução é a base dos principais sistemas automáticos de raciocínio lógico: verificadores de programas, sistemas especialistas, bancos de dados dedutivos e a linguagem de programação Prolog."
     ]
   },
 
   "cap6-sec2": {
     id: "cap6-sec2",
-    title: "O Princípio da Resolução Proposicional",
-    subtitle: "6.3, A Regra e Exemplo Prático",
+    title: "Forma Clausal",
+    subtitle: "Capítulo 6, Literais, cláusulas e conversão",
     paragraphs: [
-      "### A Regra",
-      "O Princípio da Resolução é surpreendentemente simples: dadas duas cláusulas que contêm um par de literais complementares (um positivo e um negativo sobre o mesmo átomo), podemos derivar uma nova cláusula contendo todos os demais literais de ambas, excluindo o par complementar.",
-      "```\n{φ₁, ..., χ, ..., φₘ}\n{ψ₁, ..., ~χ, ..., ψₙ}\n--------------------------------\n{φ₁, ..., φₘ, ψ₁, ..., ψₙ}\n```",
-      "A cláusula derivada é chamada de **resolvente**. Como cláusulas são conjuntos, literais duplicados aparecem apenas uma vez no resolvente. Quando as duas cláusulas de entrada são singleton com literais complementares, o resolvente é a cláusula vazia, sinal de contradição.",
-      "A **Tabela 6.5** ilustra a aplicação da regra em diferentes pares de cláusulas, destacando casos típicos e a derivação da cláusula vazia.",
-      "```\n| Cláusula 1 | Cláusula 2 | Resolvente | Observação |\n|---|---|---|---|\n| {p, q} | {~q, r} | {p, r} | Eliminação de q e ~q |\n| {~p, q} | {p, q} | {q} | Literal q aparece uma vez (união de conjuntos) |\n| {p, q, r} | {~p} | {q, r} | Cláusula unitária elimina p |\n| {p} | {~p} | {} | Cláusula vazia: contradição detectada |\n| {~p, q, r} | {p, ~q, ~r} | {q, r, ~q, ~r} ou {r, ~r} | Múltiplos resolventes possíveis |\nTabela 6.5: Exemplos de aplicação do Princípio da Resolução proposicional.\n```",
-      "#### Atenção: Uma Resolução por Vez",
-      "Quando duas cláusulas têm múltiplos pares de literais complementares, apenas **UM** par pode ser resolvido por vez. Por exemplo, de `{p, q}` e `{~p, ~q}`, podemos derivar `{q, ~q}` ou `{p, ~p}`, mas NÃO a cláusula vazia `{}` diretamente. Tentar resolver dois pares simultaneamente é um erro lógico: `{p ∨ q}` e `{~p ∨ ~q}` são satisfatíveis (basta p=1, q=0), portanto não implicam a cláusula vazia.",
-      "### Exemplo: Regras de Negócio em Pipeline",
-      "Considere um pipeline de decisão de crédito com as seguintes regras (já em forma clausal):",
-      "A **Tabela 6.6** mostra a derivação completa, das premissas até a cláusula vazia.",
-      "```\n| Linha | Cláusula | Origem |\n|---|---|---|\n| 1 | {~p, r} | Se score_alto(p) então pré_aprovado(r) [Premissa] |\n| 2 | {~q, r} | Se histórico_limpo(q) então pré_aprovado(r) [Premissa] |\n| 3 | {p, q} | Score alto OU histórico limpo [Premissa] |\n| 4 | {~r} | Negação do objetivo: ~pré_aprovado [Meta negada] |\n| 5 | {q, r} | Resolução: 1 e 3 (cancelar p e ~p) |\n| 6 | {r} | Resolução: 2 e 5 (cancelar q e ~q) |\n| 7 | {} | Resolução: 4 e 6 (cancelar r e ~r), CONTRADIÇÃO |\nTabela 6.6: Derivação por resolução para o pipeline de decisão de crédito.\n```",
-      "A cláusula vazia na linha 7 demonstra que a negação do objetivo é inconsistente com as premissas, portanto, o objetivo (pré_aprovado) é uma consequência lógica inevitável das regras. Essa técnica de negar o objetivo e buscar uma contradição é chamada de **refutação por resolução**."
+      "Para que o algoritmo de Resolução funcione, todas as fórmulas precisam estar em um formato específico: a **forma clausal**. Esse formato simplifica o problema ao máximo — tudo vira listas de alternativas.",
+      "### 2.1 Literais e cláusulas",
+      "- **Literal:** uma proposição simples (p) ou sua negação (¬p). É a unidade mínima.\n- **Cláusula:** uma lista de literais ligados por OU. Pelo menos um deve ser verdadeiro. Exemplo: `{ ¬p, q }` significa 'ou não-p, ou q'.\n- **Conjunto de cláusulas:** o problema representado como várias cláusulas que precisam ser satisfeitas ao mesmo tempo — ligadas por E.",
+      "### 2.2 Como converter uma fórmula para cláusulas",
+      "Três transformações cobrem a maioria dos casos. Em problemas mais complexos, outras podem ser necessárias — mas essas três são suficientes para todos os exemplos deste capítulo:",
+      "1. **Eliminar ⇒**: trocar `p ⇒ q` por `¬p ∨ q`.\n2. **De Morgan**: empurrar ¬ para dentro — `¬(p ∨ q)` vira `¬p ∧ ¬q`; `¬(p ∧ q)` vira `¬p ∨ ¬q`.\n3. **Separar**: cada parte de uma conjunção vira uma cláusula separada — `A ∧ B` vira `{ A }` e `{ B }`.",
+      "A Tabela 6.1 mostra um exemplo completo de conversão, passo a passo.",
+      "```\n| Passo | Expressão |\n|---|---|\n| Original | p ⇒ (q ∧ r) |\n| Elimina ⇒ | ¬p ∨ (q ∧ r) |\n| Distribui ∨ sobre ∧ | (¬p ∨ q) ∧ (¬p ∨ r) |\n| Separa em cláusulas | { ¬p, q } e { ¬p, r } |\nTabela 6.1 — Conversão de `p ⇒ (q ∧ r)` para forma clausal.\n```",
+      "### 2.3 A cláusula vazia — □",
+      "| **A cláusula vazia □ é sempre falsa — é um OU sem termos.**<br/><br/>Quando o algoritmo de Resolução deriva □, ele chegou à contradição. Isso significa que o conjunto de cláusulas é impossível de satisfazer — e a prova por refutação está completa. |\n|---|"
     ]
   },
 
   "cap6-sec3": {
     id: "cap6-sec3",
-    title: "Raciocínio por Refutação",
-    subtitle: "6.4, O Teorema da Refutação",
+    title: "A Regra de Resolução",
+    subtitle: "Capítulo 6, Uma única regra para todo o sistema",
     paragraphs: [
-      "### O Teorema da Refutação",
-      "A Resolução não é gerativalmente completa: nem toda cláusula logicamente implicada pelas premissas pode ser derivada diretamente por resolução. Por exemplo, de `{p}` e `{q}`, não se pode derivar `{p, q}` por resolução, mesmo que essa cláusula seja implicada.",
-      "Porém, a Resolução é **completa por refutação**: um conjunto de cláusulas Δ é insatisfatível se e somente se existe uma derivação por resolução da cláusula vazia a partir de Δ. Combinando esse resultado com o Teorema da Refutação (Δ ⊨ φ se e somente se Δ ∪ {~φ} é insatisfatível), obtemos um procedimento completo para verificar implicação lógica.",
-      "```\nProcedimento de Refutação por Resolução:\n\n1. Negar a conclusão desejada φ ⇒ obter ~φ\n2. Converter Δ ∪ {~φ} para forma clausal\n3. Aplicar o Princípio da Resolução até:\n   (a) Derivar a cláusula vazia {} ⇒ φ é implicado por Δ\n   (b) Não haver mais resoluções possíveis ⇒ φ não é implicado\n```",
-      "Esse procedimento é a base de todos os sistemas de prova automática modernos. A negação da conclusão é adicionada ao conjunto de premissas para criar uma 'tensão' que, se a conclusão for de fato implicada, necessariamente leva a uma contradição detectável pela resolução.",
-      "#### Por que Refutação Funciona",
-      "A lógica por trás da refutação é elegante: se φ é verdadeiro em todo modelo que satisfaz Δ, então ~φ é falso em todo modelo que satisfaz Δ. Logo, Δ ∪ {~φ} não tem nenhum modelo, é insatisfatível. A resolução detecta essa insatisfatibilidade derivando a cláusula vazia. Em ciência de dados, isso corresponde a testar uma hipótese por contraposição: em vez de provar diretamente que 'todo modelo treinado em dados limpos generaliza bem', negamos a conclusão ('existe um modelo treinado em dados limpos que não generaliza') e mostramos que essa afirmação é inconsistente com as premissas do sistema.",
-      "### Exemplo Completo de Refutação",
-      "Demonstremos a validade de `(p ⇒ (q ⇒ p))`, o esquema de Criação de Implicação, sem nenhuma premissa. A prova é puramente por refutação: negamos a sentença, convertemos para forma clausal e derivamos a cláusula vazia.",
-      "**Passo 1 — Negar a conclusão e converter para forma clausal**",
-      "A **Tabela 6.7** mostra a conversão da negação `~(p ⇒ (q ⇒ p))` para forma clausal, passo a passo.",
-      "```\n| Passo | Expressão |\n|---|---|\n| Original | ~(p ⇒ (q ⇒ p)) |\n| I | ~(~p ∨ (~q ∨ p)) |\n| N | ~~p ∧ ~(~q ∨ p) ⇒ p ∧ (~~q ∧ ~p) ⇒ p ∧ q ∧ ~p |\n| D | p ∧ q ∧ ~p |\n| O | {p} e {q} e {~p} |\nTabela 6.7: Conversão para forma clausal da negação `~(p ⇒ (q ⇒ p))`.\n```",
-      "**Passo 2 — Derivação por resolução**",
-      "A **Tabela 6.8** mostra a derivação por resolução até a cláusula vazia.",
-      "```\n| Linha | Cláusula | Origem |\n|---|---|---|\n| 1 | {p} | Premissa (da negação) |\n| 2 | {q} | Premissa (da negação) |\n| 3 | {~p} | Premissa (da negação) |\n| 4 | {} | Resolução: 1 e 3 (cancelar p e ~p), CONTRADIÇÃO |\nTabela 6.8: Derivação por resolução da cláusula vazia para `~(p ⇒ (q ⇒ p))`.\n```",
-      "A cláusula vazia é derivada em um único passo, confirmando que a sentença é uma **tautologia**, verdadeira independentemente de qualquer premissa."
+      "O sistema inteiro usa apenas uma regra. Ela combina duas cláusulas que têm literais opostos — cancela esses literais e produz uma nova cláusula com o que sobrou das duas.",
+      "| **Regra de Resolução:**<br/><br/>Se uma cláusula tem `p` e outra tem `¬p`, cancela-se o par e une-se o restante:<br/><br/>**{ A, p }   +   { ¬p, B }   ⟹   { A, B }**<br/><br/>*p e ¬p se cancelam. O resultado — chamado de resolvente — é a união do que sobrou.* |\n|---|",
+      "A Tabela 6.2 mostra a regra em ação em diferentes situações típicas.",
+      "```\n| Cláusula 1 | Cláusula 2 | Cancela | Resolvente |\n|---|---|---|---|\n| { p } | { ¬p } | p e ¬p | □ — contradição! |\n| { p, q } | { ¬p } | p e ¬p | { q } |\n| { p, q } | { ¬p, r } | p e ¬p | { q, r } |\n| { ¬p, q } | { p } | p e ¬p | { q } |\nTabela 6.2 — Exemplos da regra de resolução.\n```",
+      "**Quando descartar um resolvente:** se o resolvente contém `p` e `¬p` juntos — como `{ p, ¬p }` — ele é sempre verdadeiro e não ajuda a provar nada. Pode ser descartado."
     ]
   },
 
   "cap6-sec4": {
     id: "cap6-sec4",
-    title: "Estratégias de Resolução",
-    subtitle: "6.5, Otimizações para Reduzir o Espaço de Busca",
+    title: "Prova por Refutação",
+    subtitle: "Capítulo 6, A estratégia em três passos",
     paragraphs: [
-      "Sem restrições, a resolução pode gerar um número muito grande de cláusulas intermediárias, muitas delas redundantes ou irrelevantes para a conclusão desejada. As estratégias a seguir reduzem o espaço de busca sem comprometer a completude por refutação.",
-      "### Eliminação de Literais Puros",
-      "Um literal é **puro** em um conjunto de cláusulas se ele aparece sempre com o mesmo sinal (sempre positivo ou sempre negativo), nunca há um complementar. Cláusulas com literais puros nunca contribuem para a derivação da cláusula vazia (pois o literal nunca será cancelado) e podem ser removidas com segurança.",
-      "```\nExemplo: {~p, ~q, r}, {~p, s}, {~q, s}, {p}, {q}, {~r}\n\nO literal 's' aparece apenas positivo ⇒ 's' é puro ⇒ remover {~p, s} e {~q, s}\nO conjunto restante {~p, ~q, r}, {p}, {q}, {~r} ainda é insatisfatível e suficiente.\n```",
-      "### Eliminação de Tautologias",
-      "Uma cláusula é uma **tautologia** se contém um par de literais complementares (por exemplo, `{p, ~p, q}`). Tautologias são sempre verdadeiras e, portanto, não afetam a satisfatibilidade do conjunto, podem ser removidas sem consequências.",
-      "### Eliminação por Subsunção",
-      "Uma cláusula Φ **subsume** uma cláusula Ψ se existe uma substituição σ tal que Φ·σ é um subconjunto de Ψ. Cláusulas mais específicas (subsumíveis) podem ser eliminadas, pois a cláusula mais geral (que as subsume) já cobre toda a informação relevante.",
-      "```\nExemplo: {p(x), q(y)} subsume {p(a), q(v), r(w)}\npois {p(x), q(y)}{x←a, y←v} = {p(a), q(v)} ⊆ {p(a), q(v), r(w)}\n\nLogo {p(a), q(v), r(w)} pode ser eliminada, ela é redundante.\n```",
-      "### Resolução Unitária e Resolução Linear",
-      "A **resolução unitária** restringe cada passo a usar ao menos uma cláusula unitária (com um único literal). Isso garante que cada resolução reduz o tamanho das cláusulas, focando a busca em direção à cláusula vazia. A resolução unitária é completa para cláusulas de Horn (ao máximo um literal positivo por cláusula), exatamente o formato de regras de negócio do tipo 'se... então...'.",
-      "A **resolução linear** (ou resolução filtrada por ancestralidade) é uma generalização: cada resolução deve ter ao menos um pai que seja uma cláusula inicial ou um ancestral do outro pai. Ela gera provas com estrutura linear, mais fáceis de inspecionar e auditável, e é refutativamente completa para qualquer conjunto de cláusulas.",
-      "### Resolução com Conjunto de Suporte",
-      "A estratégia de **conjunto de suporte** é especialmente útil quando as premissas são satisfatíveis e apenas a adição da conclusão negada cria a insatisfatibilidade. Nesse caso, designamos as cláusulas derivadas da conclusão negada como o conjunto de suporte: cada resolução deve envolver ao menos uma cláusula do conjunto de suporte ou descendente dele. O efeito prático é orientar a busca a partir da conclusão negada (raciocínio regressivo), evitando resoluções entre premissas que não têm relação com o objetivo.",
-      "A **Tabela 6.9** consolida as estratégias discutidas, comparando completude, eficiência e usos típicos.",
-      "```\n| Estratégia | Completude | Eficiência | Uso Típico |\n|---|---|---|---|\n| Irrestrita | Completa | Baixa (muitas cláusulas redundantes) | Referência teórica |\n| Lit. puro | Completa | Média (poupa cláusulas inúteis) | Pré-processamento |\n| Tautologia | Completa | Média | Pré-processamento |\n| Subsunção | Completa | Alta (elimina redundâncias) | Sistemas de produção |\n| Unitária | Incompleta (geral) / Completa (Horn) | Alta | Regras de negócio (Horn) |\n| Linear | Completa | Alta (provas lineares) | Auditoria e explicabilidade |\n| Conj. suporte | Completa | Alta (orientada ao objetivo) | Verificação de propriedades |\nTabela 6.9: Comparação entre as principais estratégias de resolução.\n```"
+      "### 4.1 A estratégia",
+      "A prova por refutação segue sempre três passos:",
+      "1. **Negar a conclusão:** se quer provar φ, adicione ¬φ ao conjunto de premissas. Estamos assumindo temporariamente que a conclusão é falsa.\n2. **Converter tudo para cláusulas:** todas as premissas e ¬φ viram cláusulas usando as transformações da seção anterior.\n3. **Resolver até □:** aplique a regra de resolução repetidamente. Se derivar □, chegou à contradição — a conclusão φ é verdadeira.",
+      "### Reforçando a conexão com o Capítulo 3",
+      "No Sistema de Fitch, a prova por contradição funcionava assim: assumia-se ¬φ como hipótese de subprova, derivava-se *false* dentro dela, e concluía-se φ pela regra ¬E.",
+      "A Resolução faz exatamente o mesmo — mas de forma mecânica e automatizável. A 'subprova' vira o conjunto de cláusulas. O *false* vira a cláusula vazia □. E a regra única de resolução substitui todas as escolhas que o estudante faria manualmente.",
+      "**Fitch:** prova por contradição feita por humanos. | **Resolução:** prova por contradição feita por máquinas.",
+      "### 4.2 Exemplo 1 — Modus Ponens",
+      "**Objetivo:** provar `q`, dado `p` e `p ⇒ q`.",
+      "**Passo 1** — Negamos `q` e listamos tudo:",
+      "- `p` (premissa)\n- `p ⇒ q` (premissa)\n- `¬q` (negação da conclusão — assumimos que q é falso)",
+      "**Passo 2** — Convertemos para cláusulas:",
+      "- `{ p }` (já é cláusula)\n- `{ ¬p, q }` (`p ⇒ q` vira `¬p ∨ q`)\n- `{ ¬q }` (já é cláusula)",
+      "**Passo 3** — Resolução, mostrada na Tabela 6.3.",
+      "```\n| Passo | Cláusula 1 | Cláusula 2 | Resolvente |\n|---|---|---|---|\n| 1 | { p } | { ¬p, q } | { q } (cancelamos p e ¬p) |\n| 2 | { q } | { ¬q } | □ — contradição! q é verdadeiro. |\nTabela 6.3 — Modus Ponens por refutação — 2 passos.\n```",
+      "**Conclusão:** assumimos que `q` era falso. Em 2 passos chegamos a uma contradição. Logo, `q` não pode ser falso — `q` é verdadeiro.",
+      "### 4.3 Exemplo 2 — Três premissas encadeadas",
+      "**Objetivo:** provar que Ana está aprovada, dado que renda alta implica elegível, elegível implica aprovado, e Ana tem renda alta.",
+      "- Renda alta ⇒ elegível: `{ ¬p, q }`\n- Elegível ⇒ aprovado: `{ ¬q, r }`\n- Ana tem renda alta: `{ p }`\n- Negação da conclusão: `{ ¬r }`",
+      "A derivação completa está na Tabela 6.4.",
+      "```\n| Passo | Cláusula 1 | Cláusula 2 | Resolvente |\n|---|---|---|---|\n| 1 | { p } | { ¬p, q } | { q } (cancela p e ¬p) |\n| 2 | { q } | { ¬q, r } | { r } (cancela q e ¬q) |\n| 3 | { r } | { ¬r } | □ — Ana está aprovada. |\nTabela 6.4 — Três premissas encadeadas — 3 passos.\n```",
+      "### 4.4 Exemplo 3 — Com OU nas premissas",
+      "**Objetivo:** provar `r`, dado que (p ou q), (p implica r) e (q implica r).",
+      "- p ou q: `{ p, q }`\n- p ⇒ r: `{ ¬p, r }`\n- q ⇒ r: `{ ¬q, r }`\n- Negação: `{ ¬r }`",
+      "A Tabela 6.5 mostra como a resolução lida naturalmente com a disjunção.",
+      "```\n| Passo | Cláusula 1 | Cláusula 2 | Resolvente |\n|---|---|---|---|\n| 1 | { ¬p, r } | { ¬r } | { ¬p } (cancela r e ¬r) |\n| 2 | { ¬q, r } | { ¬r } | { ¬q } (cancela r e ¬r) |\n| 3 | { p, q } | { ¬p } | { q } (cancela p e ¬p) |\n| 4 | { q } | { ¬q } | □ — r é verdadeiro. |\nTabela 6.5 — Disjunção nas premissas — 4 passos.\n```",
+      "**O que esse exemplo mostra:** a Resolução lidou naturalmente com o 'ou' na premissa. Sem nenhuma regra especial — a mesma regra única explorou os dois casos e chegou à contradição."
     ]
   },
 
   "cap6-sec5": {
     id: "cap6-sec5",
-    title: "Resolução Relacional e Unificação",
-    subtitle: "6.6, O Salto para a Lógica Relacional",
+    title: "Resolução com Variáveis",
+    subtitle: "Capítulo 6, Estendendo o método para a lógica relacional",
     paragraphs: [
-      "### O Salto para a Lógica Relacional",
-      "A Resolução Proposicional opera sobre átomos ground, sem variáveis. Para aplicar o mesmo princípio à Lógica Relacional, precisamos de um mecanismo que identifique literais 'essencialmente complementares', mesmo quando expressos com variáveis diferentes. Esse mecanismo é a **unificação**.",
-      "Na Resolução Proposicional, dois literais são complementares se um é a negação exata do outro: `p` e `~p`. Na Resolução Relacional, a condição é relaxada: φ e ~ψ são complementares se existe uma substituição de variáveis que os torna idênticos. A busca por essa substituição é o processo de unificação.",
-      "#### Analogia com Casamento de Padrões em Dados",
-      "A unificação é o análogo lógico do casamento de padrões (*pattern matching*) em linguagens de programação e do `JOIN` em SQL. Em SQL, ao fazer `tabela_a JOIN tabela_b ON a.id = b.id`, estamos 'unificando' as colunas de chave. Na Resolução Relacional, ao unificar `p(x,a)` com `p(b,y)`, estamos encontrando os valores `(x=b, y=a)` que fazem as duas expressões coincidirem. A diferença crucial: o casamento de padrões em SQL opera sobre valores concretos; a unificação opera sobre expressões com variáveis, e o resultado é a substituição mais geral que realiza o casamento.",
-      "### Substituições e Unificadores",
-      "Uma **substituição** é um mapeamento finito de variáveis para termos, escrito como um conjunto de regras de reescrita. Quando aplicada a uma expressão, cada variável no domínio da substituição é substituída pelo termo correspondente.",
-      "```\nSubstituição σ = {x←a, y←f(b), z←v}\n\nq(x, y) aplicada a σ ⇒ q(a, f(b))\nq(x, x) aplicada a σ ⇒ q(a, a)\nq(z, v) aplicada a σ ⇒ q(v, v) [z→v; v sem binding, permanece v]\n```",
-      "Uma substituição σ é um **unificador** de φ e ψ se φ·σ = ψ·σ, ou seja, aplicar σ a ambas as expressões produz o mesmo resultado. Se duas expressões têm um unificador, são unificáveis; caso contrário, não-unificáveis. Entre todos os unificadores de um par de expressões, o mais útil é o **Unificador Mais Geral (UMG)**: aquele que faz as substituições mínimas necessárias, preservando o máximo de liberdade nas variáveis restantes.",
-      "A **Tabela 6.10** apresenta exemplos de pares de expressões com seus respectivos UMGs (quando existem) ou os motivos da falha de unificação.",
-      "```\n| Expressão 1 | Expressão 2 | Unificável? | UMG |\n|---|---|---|---|\n| p(x, b) | p(a, y) | Sim | {x←a, y←b} |\n| p(x, x) | p(a, y) | Sim | {x←a, y←a} |\n| p(x, f(x)) | p(a, y) | Sim | {x←a, y←f(a)} |\n| p(x, x) | p(f(y), y) | Não (occur check) |, |\n| p(a, b) | p(b, a) | Não (constantes diferentes) |, |\n| p(x) | q(x) | Não (predicados diferentes) |, |\nTabela 6.10: Exemplos de unificação de pares de expressões e seus UMGs.\n```",
-      "#### O Occur Check",
-      "Antes de unificar uma variável `x` com um termo `t`, é necessário verificar se `x` não ocorre dentro de `t`. Sem essa verificação, a unificação de `p(x)` e `p(f(x))` produziria a substituição `{x←f(x)}`, que ao ser aplicada gera `p(f(x))`, depois `p(f(f(x)))`, ad infinitum, uma substituição circular sem solução finita. Na prática, muitos sistemas de produção omitem o occur check por razões de desempenho. Em sistemas críticos de verificação formal, o occur check deve ser mantido.",
-      "### O Algoritmo de Unificação",
-      "O algoritmo de unificação é recursivo: compara as duas expressões subexpressão por subexpressão, acumulando a substituição à medida que avança. Em cada passo:",
-      "- Se as subexpressões (após aplicar a substituição acumulada) são idênticas: sucesso, nada a fazer.\n- Se uma é uma variável e a outra não a contém (occur check): adicionar o binding variável ← expressão à substituição.\n- Se nenhuma é variável e pelo menos uma é uma constante diferente da outra: falha, não unificáveis.\n- Se ambas são termos compostos com o mesmo símbolo de função: comparar recursivamente os argumentos.",
-      "A seguir, um trace completo para a unificação de `p(x, b)` e `p(a, y)`:",
-      "A **Tabela 6.11** apresenta o trace passo a passo do algoritmo, mostrando como a substituição σ é construída incrementalmente.",
-      "```\n| Passo | Comparação e Resultado |\n|---|---|\n| Início | Comparar p(x,b) com p(a,y), σ={} |\n| Nível 1 | Comparar 'p' com 'p' ⇒ idênticos, σ={} |\n| Nível 1 | Comparar x com a ⇒ x é variável, não ocorre em a ⇒ σ={x←a} |\n| Nível 1 | Comparar b com y (após aplicar σ) ⇒ y é variável, não ocorre em b ⇒ σ={x←a, y←b} |\n| Resultado | UMG = {x←a, y←b}; p(x,b){x←a,y←b}=p(a,b)=p(a,y){x←a,y←b} |\nTabela 6.11: Trace do algoritmo de unificação para `p(x, b)` e `p(a, y)`.\n```"
+      "Até aqui trabalhamos apenas com proposições simples — p, q, r. Agora estendemos o método para lidar com objetos e variáveis, conectando com o que estudamos nos Capítulos 4 e 5.",
+      "### 5.1 O problema",
+      "Na lógica relacional, as cláusulas podem conter variáveis. Para cancelar dois literais opostos, eles precisam ser idênticos. A **unificação** encontra a substituição que os iguala.",
+      "Para cancelar `RendaAlta(x)` com `RendaAlta(ana)`, aplicamos a substituição `x = ana`.",
+      "### 5.2 Dois exemplos de unificação",
+      "A Tabela 6.6 mostra como a unificação atua em casos simples.",
+      "```\n| Expressão 1 | Expressão 2 | Substituição | Resultado |\n|---|---|---|---|\n| RendaAlta(x) | RendaAlta(ana) | x = ana | RendaAlta(ana) |\n| Amigo(x, y) | Amigo(ana, bob) | x = ana, y = bob | Amigo(ana, bob) |\nTabela 6.6 — Exemplos de unificação.\n```",
+      "### 5.3 Exemplo completo",
+      "**Objetivo:** provar `Elegivel(ana)` a partir de:",
+      "- Regra geral: `∀x (RendaAlta(x) ⇒ Elegivel(x))`\n- Fato concreto: `RendaAlta(ana)`",
+      "Cláusulas (após converter e negar a conclusão):",
+      "- `{ ¬RendaAlta(x), Elegivel(x) }` (x é variável — vale para qualquer objeto)\n- `{ RendaAlta(ana) }`\n- `{ ¬Elegivel(ana) }` (negação da conclusão)",
+      "A derivação completa está na Tabela 6.7, mostrando a unificação em ação.",
+      "```\n| Passo | Cláusula 1 | Cláusula 2 | Substituição | Resolvente |\n|---|---|---|---|---|\n| 1 | { ¬RendaAlta(x), Elegivel(x) } | { RendaAlta(ana) } | x = ana | { Elegivel(ana) } |\n| 2 | { Elegivel(ana) } | { ¬Elegivel(ana) } | — | □ — prova completa! |\nTabela 6.7 — Resolução com variáveis: unificação em ação.\n```",
+      "**Quando há variáveis:** o processo é o mesmo — mas antes de cancelar os literais opostos, o algoritmo encontra automaticamente a substituição que os iguala. Em implementações reais, existem estratégias para tornar essa busca mais eficiente."
     ]
   },
 
   "cap6-sec6": {
     id: "cap6-sec6",
-    title: "O Princípio da Resolução Relacional",
-    subtitle: "6.7, A Regra com Unificação",
+    title: "Aplicações em Ciência de Dados",
+    subtitle: "Capítulo 6, Da teoria à prática",
     paragraphs: [
-      "### A Regra com Unificação",
-      "O Princípio da Resolução para a Lógica Relacional é análogo ao proposicional, com a adição da unificação. Dados uma cláusula com um literal φ e outra cláusula com um literal ~ψ tais que φ e ψ têm um UMG σ, o resolvente é obtido aplicando σ ao conjunto dos literais restantes de ambas as cláusulas.",
-      "```\n{φ₁, ..., φ, ..., φₘ}\n{ψ₁, ..., ~ψ, ..., ψₙ}\n------------------------------------------\n{φ₁, ..., φₘ, ψ₁, ..., ψₙ} · σ\n\nonde σ = mgu(φ, ψ)\ne as cláusulas foram renomeadas para evitar variáveis em comum\n```",
-      "Dois refinamentos são necessários em relação à versão proposicional: (1) antes de tentar a resolução, uma das cláusulas tem suas variáveis renomeadas para evitar conflitos com as da outra; (2) para lidar com casos em que múltiplos literais em uma mesma cláusula podem ser unificados entre si, usa-se o conceito de **fator**, uma cláusula derivada aplicando um UMG a um subconjunto de seus próprios literais.",
-      "### Exemplo: Derivação em Relações de Parentesco",
-      "Considere uma base de conhecimento sobre relações de parentesco e o objetivo de provar que Art é avô de Coe:",
-      "A **Tabela 6.12** apresenta a derivação completa, listando cada cláusula derivada com sua origem e a substituição usada.",
-      "```\n| Lin | Cláusula | Origem |\n|---|---|---|\n| 1 | {p(art, bob)} | Art é pai de Bob [Premissa] |\n| 2 | {p(art, bud)} | Art é pai de Bud [Premissa] |\n| 3 | {p(bob, cal)} | Bob é pai de Cal [Premissa] |\n| 4 | {p(bud, coe)} | Bud é pai de Coe [Premissa] |\n| 5 | {~p(x,y), ~p(y,z), g(x,z)} | Avô = pai do pai [Premissa] |\n| 6 | {~p(bob, z), g(art, z)} | Resolução 1 e 5: σ={x←art, y←bob} |\n| 7 | {g(art, cal)} | Resolução 3 e 6: σ={z←cal} [avô de Cal, caminho morto] |\n| 8 | {~p(bud, z), g(art, z)} | Resolução 2 e 5: σ={x←art, y←bud} |\n| 9 | {g(art, coe)} | Resolução 4 e 8: σ={z←coe}, OBJETIVO ATINGIDO |\nTabela 6.12: Derivação por resolução relacional para a relação de avô.\n```",
-      "Observe que a linha 7 é um caminho morto, Art também é avô de Cal, mas esse não era o objetivo. A resolução explora o espaço de consequências sem necessidade de guia humano, terminando ao atingir o objetivo. Note também que, ao contrário do sistema de Fitch, nenhuma suposição arbitrária foi feita, as substituições de variáveis foram todas determinadas pela unificação."
+      "### 6.1 Verificando consistência de regras de negócio",
+      "| **📊 Ciência de Dados — Consistência de regras**<br/><br/>Um conjunto de regras de negócio é consistente se não leva a contradições. A Resolução detecta automaticamente quando regras se contradizem — derivando □.<br/><br/>**Cenário:** duas regras coexistem em um sistema de crédito: (R1) cliente inadimplente não é elegível; (R2) cliente VIP é sempre elegível. Quando aplicadas a um cliente inadimplente e VIP ao mesmo tempo, a Resolução deriva □ — sinal de inconsistência. |\n|---|",
+      "### 6.2 Resolução em Python",
+      "O código abaixo é uma versão simplificada do algoritmo de refutação por resolução, com fins didáticos. Em sistemas reais, implementações otimizadas são muito mais complexas — mas a lógica central é exatamente essa. Cada cláusula é um conjunto de strings — positivas (`'p'`) ou negadas (`'-p'`):",
+      "```python\ndef resolver(c1, c2):\n    \"\"\"Tenta resolver duas cláusulas. Retorna o resolvente ou None.\"\"\"\n    for lit in c1:\n        complemento = lit[1:] if lit.startswith('-') else '-' + lit\n        if complemento in c2:\n            novo = (c1 - {lit}) | (c2 - {complemento})\n            return frozenset(novo)\n    return None\n\ndef refutacao(clausulas):\n    \"\"\"Aplica resolução até derivar a cláusula vazia ou esgotar.\"\"\"\n    clausulas = set(map(frozenset, clausulas))\n    while True:\n        novos = set()\n        pares = [(c1, c2) for c1 in clausulas for c2 in clausulas if c1 != c2]\n        for c1, c2 in pares:\n            res = resolver(c1, c2)\n            if res is None:\n                continue\n            if len(res) == 0:\n                return True   # cláusula vazia: contradição!\n            novos.add(res)\n        if novos.issubset(clausulas):\n            return False      # nenhum progresso: não há prova\n        clausulas |= novos\n\n# Exemplo: provar q a partir de p e (p ⇒ q)\nclausulas = [{'p'}, {'-p', 'q'}, {'-q'}]  # inclui ¬q (negação da conclusão)\nprint(refutacao(clausulas))  # True: q é consequência\n```",
+      "### 6.3 Verificação de integridade de dados",
+      "| **📊 Ciência de Dados — Regras de negócio com pandas**<br/><br/>Regras de integridade em bancos de dados são, na prática, cláusulas lógicas. O código abaixo verifica automaticamente se registros violam regras de negócio. |\n|---|",
+      "```python\nimport pandas as pd\n\nclientes = pd.DataFrame({\n    'nome':         ['Ana',  'Bob',  'Carla', 'Davi'],\n    'inadimplente': [False,  True,   False,   True ],\n    'vip':          [True,   False,  False,   True ],\n    'elegivel':     [True,   False,  False,   False],\n})\n\n# Regra: inadimplente ⇒ ¬elegivel  (cláusula: {¬inadimplente, ¬elegivel})\nviolacoes = clientes[clientes['inadimplente'] & clientes['elegivel']]\nprint(violacoes)\n# Saída: Davi viola a regra — está inadimplente E elegível.\n```",
+      "A Resolução é a base dos principais sistemas automáticos de raciocínio: verificadores de programas, sistemas especialistas, bancos de dados dedutivos e a linguagem Prolog. Em todos esses casos, o motor por trás é o mesmo — uma única regra, aplicada repetidamente, até derivar a contradição."
     ]
   },
 
   "cap6-sec7": {
     id: "cap6-sec7",
-    title: "Forma Clausal Relacional: Skolemização",
-    subtitle: "6.8, Eliminação de Quantificadores Existenciais",
-    paragraphs: [
-      "Para aplicar a resolução a sentenças relacionais com quantificadores, é necessário um passo adicional na conversão para a forma clausal: a eliminação dos quantificadores existenciais por **Skolemização**.",
-      "### O Procedimento Completo de Conversão",
-      "A conversão de sentenças relacionais para forma clausal segue sete passos, em ordem:",
-      "A **Tabela 6.13** lista, em ordem, os sete passos do procedimento, identificados pelas letras I, N, S, E, A, D e O.",
-      "```\n| Passo | Nome | Operação |\n|---|---|---|\n| I | Implicações fora | Eliminar ⇒, ⇐, ⇔ usando equivalências booleanas |\n| N | Negações dentro | Mover negações até literais atômicos (De Morgan + quantificadores) |\n| S | Padronizar variáveis | Renomear variáveis para que cada quantificador use uma variável única |\n| E | Existenciais fora | Skolemização: substituir variáveis existenciais por constantes/funções de Skolem |\n| A | Universais fora | Remover todos os quantificadores universais (variáveis ficam implicitamente universais) |\n| D | Disjunções dentro | Distribuir ∨ sobre ∧ para atingir a forma normal conjuntiva |\n| O | Operadores fora | Separar conjunções em cláusulas e escrever disjunções como conjuntos |\nTabela 6.13: Sete passos do procedimento de conversão de sentenças relacionais para forma clausal.\n```",
-      "### Skolemização: A Chave para Eliminar Existenciais",
-      "A Skolemização é o passo menos intuitivo, mas conceitualmente elegante. A ideia: um quantificador existencial ∃y dentro do escopo de universais ∀x₁,...,∀xₙ diz que 'existe um y que depende dos valores de x₁,...,xₙ'. Esse y pode ser representado por uma **função de Skolem** f(x₁,...,xₙ).",
-      "A Skolemização não preserva equivalência lógica, o conjunto de cláusulas resultante está em um vocabulário expandido e pode ter modelos diferentes. Porém, ela preserva a **satisfatibilidade**: o conjunto original é satisfatível se e somente se o conjunto skolemizado é satisfatível. Para a resolução por refutação, isso é tudo que precisamos."
-    ]
-  },
-
-  "cap6-sec8": {
-    id: "cap6-sec8",
-    title: "Extração de Respostas",
-    subtitle: "6.9, Respondendo Perguntas com Resolução",
-    paragraphs: [
-      "Até aqui, usamos a resolução para responder perguntas do tipo verdadeiro/falso: 'o conjunto de premissas implica esta conclusão?'. Mas a resolução também pode ser usada para responder perguntas do tipo **preencha-o-espaço**: 'quais valores satisfazem esta condição?'.",
-      "### Literais de Resposta",
-      "Para extrair respostas, adicionamos ao processo um literal especial de resposta: `goal(v₁,...,vₙ)`, onde v₁,...,vₙ são as variáveis livres da pergunta. Esse literal acompanha a cláusula derivada da pergunta negada e é propagado pelas resoluções. O processo termina não quando a cláusula vazia é derivada, mas quando uma cláusula contendo apenas literais de resposta é produzida.",
-      "Exemplo: 'Quem é o pai de Jon?' A pergunta é `p(x, jon)`. O literal de resposta é `goal(x)`. A cláusula objetivo é `{~p(x, jon), goal(x)}`.",
-      "A **Tabela 6.14** apresenta a derivação completa, mostrando como o literal de resposta `goal(x)` é instanciado ao longo das resoluções até produzir a resposta.",
-      "```\n| Linha | Cláusula | Origem |\n|---|---|---|\n| 1 | {p(art, jon)} | Art é pai de Jon [Premissa] |\n| 2 | {p(bob, kim)} | Bob é pai de Kim [Premissa] |\n| 3 | {~p(x,y), pai(x,y)} | Definição de pai [Premissa] |\n| 4 | {~p(x,jon), goal(x)} | Pergunta negada com literal de resposta |\n| 5 | {~p(x,jon), goal(x)} | Resolução 3 e 4: σ={y←jon} |\n| 6 | {goal(art)} | Resolução 1 e 5: σ={x←art}, RESPOSTA: art |\nTabela 6.14: Extração de resposta por resolução para a pergunta `p(x, jon)`.\n```",
-      "### Respostas Múltiplas e Ambiguidade",
-      "Quando o problema tem múltiplas respostas corretas, diferentes caminhos de resolução produzem diferentes literais de resposta. O processo pode ser continuado até que respostas suficientes sejam encontradas.",
-      "Em casos de incerteza, quando se sabe que uma de várias respostas é correta, mas não qual delas, a resolução pode produzir cláusulas com múltiplos literais de resposta, como `{goal(art), goal(bob)}`. Isso não significa duas respostas simultâneas, mas sim a informação de que ao menos uma das opções é correta.",
-      "#### Extração de Respostas em Sistemas de Recomendação",
-      "A extração de respostas por resolução é o fundamento lógico de sistemas de busca e recomendação baseados em regras. Em vez de filtrar um dataset linha por linha, o sistema deriva as respostas possíveis por encadeamento de regras, equivalente a um `JOIN` com resolução automática de variáveis. Por exemplo: dado um sistema de regras de elegibilidade para crédito e um conjunto de clientes, a extração de respostas identifica automaticamente o conjunto de clientes elegíveis sem inspeção exaustiva de cada combinação possível de atributos."
-    ]
-  },
-
-  "cap6-sec9": {
-    id: "cap6-sec9",
-    title: "Aplicações em Ciência de Dados",
-    subtitle: "6.10, Verificação, Cláusulas de Horn e Sistemas de Regras",
-    paragraphs: [
-      "### Verificação Automática de Restrições de Qualidade",
-      "A aplicação mais direta da resolução em ciência de dados é a verificação automática de restrições de qualidade. Cada restrição de qualidade, unicidade de chaves, integridade referencial, ausência de nulos, faixas de valores, pode ser expressa como um conjunto de cláusulas. A verificação de que o dataset satisfaz todas as restrições equivale a verificar que o conjunto cláusulas `{restrições} ∪ {~propriedade_desejada}` é insatisfatível.",
-      "```\nRestrição: nenhum cliente aprovado tem histórico negativo\n  Formal: ∀x.(aprovado(x) ⇒ ~histórico_negativo(x))\n  Clausal: {~aprovado(x), ~histórico_negativo(x)}\n\nDados: aprovado(c42), histórico_negativo(c42)\n  Clausal: {aprovado(c42)}, {histórico_negativo(c42)}\n\nNegação da propriedade: 'existe cliente aprovado com histórico negativo'\n  Clausal: {aprovado(a)}, {histórico_negativo(a)}  [a: constante de Skolem]\n\nDerivação:\n  {~aprovado(x), ~histórico_negativo(x)} + {aprovado(c42)} ⇒\n{~histórico_negativo(c42)}\n  {~histórico_negativo(c42)} + {histórico_negativo(c42)} ⇒ {}\n\nCláusula vazia derivada ⇒ VIOLAÇÃO DETECTADA em c42.\n```",
-      "### Cláusulas de Horn e Sistemas de Regras",
-      "Uma **cláusula de Horn** é uma cláusula com no máximo um literal positivo. Toda regra do tipo 'se A e B então C' pode ser escrita como a cláusula de Horn `{~A, ~B, C}`. Conjuntos de cláusulas de Horn têm propriedades especiais: a resolução unitária é completa para eles, e o algoritmo de resolução é equivalente ao encadeamento progressivo (*forward chaining*) de sistemas de regras.",
-      "Esse é o fundamento teórico de linguagens como **Datalog** e **Prolog**, e das engines de regras (como Drools) usadas em sistemas de decisão automatizada. Cada regra de negócio é uma cláusula de Horn; a resolução automática é o mecanismo de inferência que deriva conclusões.",
-      "```\nRegras de negócio em cláusulas de Horn:\n\n  {~dados_limpos(x), ~modelo_treinado(x), pronto_para_deploy(x)}\n    'se dados limpos E modelo treinado, então pronto para deploy'\n\n  {~pronto_para_deploy(x), ~aprovado_equipe(x), em_produção(x)}\n    'se pronto para deploy E aprovado pela equipe, então em produção'\n\n  {dados_limpos(pipeline_v3)}  [fato]\n  {modelo_treinado(pipeline_v3)} [fato]\n  {aprovado_equipe(pipeline_v3)} [fato]\n\nDerivação automática:\n  Passo 1: {pronto_para_deploy(pipeline_v3)}\n  Passo 2: {em_produção(pipeline_v3)}\n```"
-    ]
-  },
-
-  "cap6-sec10": {
-    id: "cap6-sec10",
     title: "Resumo do Capítulo",
+    subtitle: "Capítulo 6, Conceitos centrais",
     paragraphs: [
-      "| **Conceito** | **Definição Resumida** |\n|---|---|\n| Forma Clausal | Representação de sentenças como conjunção de disjunções de literais |\n| Princípio da Resolução | De duas cláusulas com literais complementares, deriva-se uma nova cláusula |\n| Completude por Refutação | Cláusula vazia é derivável sse o conjunto é insatisfatível |\n| Prova por Refutação | Para provar Δ⊨φ, acrescentar ¬φ e derivar contradição |\n| Unificação | Substituição de variáveis que torna dois literais idênticos (UMG) |\n| Skolemização | Eliminação de ∃ por constantes/funções de Skolem; preserva satisfatibilidade |\n| Extração de Respostas | Extensão da resolução para perguntas \"qual valor?\" com literais goal(x) |\n| Cláusulas de Horn | Cláusulas com no máximo um literal positivo; base de Datalog e Prolog |\n| Estratégias de Resolução | Eliminação de literais puros, subsunção, resolução unitária e linear |"
+      "**A Resolução automatiza a prova por contradição** — o mesmo raciocínio que o Fitch usa com ¬I, agora executado mecanicamente por um computador. Uma única regra, aplicada repetidamente, até derivar a contradição (□).",
+      "O processo sempre segue três passos: (1) negar a conclusão, (2) converter tudo para cláusulas, (3) resolver até □. A Tabela 6.8 reúne os conceitos centrais do capítulo.",
+      "```\n| Conceito | O que é | Para que serve |\n|---|---|---|\n| Resolução | Sistema de prova automático baseado em uma única regra | Provar conclusões sem intervenção humana |\n| Refutação | Assumir ¬conclusão e derivar □ por contradição | Mecanismo central da Resolução |\n| Literal | Proposição simples (p) ou sua negação (¬p) | Bloco mínimo de uma cláusula |\n| Cláusula | Disjunção de literais — pelo menos um deve ser verdadeiro | Formato padrão para a Resolução |\n| Cláusula vazia □ | Disjunção sem literais — sempre falsa | Derivar □ conclui a refutação |\n| Regra de resolução | Cancela literais opostos de duas cláusulas e une o restante | Única regra de inferência do sistema |\n| Unificação | Substituição que iguala duas expressões com variáveis | Extensão da Resolução para lógica relacional |\nTabela 6.8 — Resumo dos conceitos do Capítulo 6.\n```",
+      "Esses fundamentos sustentam aplicações modernas em verificação de regras de negócio, validação de integridade de dados e nos sistemas de raciocínio automático que estão por trás de motores de inferência, SAT solvers e linguagens declarativas como Prolog e Datalog."
     ]
   },
 
