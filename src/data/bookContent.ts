@@ -1701,6 +1701,172 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
+  cap7: {
+    id: "cap7",
+    title: "Raciocínio Não-Clássico",
+    subtitle: "Capítulo 7",
+    paragraphs: [
+      "## Lógica Probabilística · Teorema de Bayes · Redes Bayesianas · Lógica Fuzzy",
+      "Imagine que você acorda de manhã e olha pela janela: o céu está nublado. Você pensa: *“pode chover hoje”*. Mas não tem certeza. Você não sabe se vai chover de verdade. Mesmo assim, toma uma decisão: leva o guarda-chuva.",
+      "Isso é **raciocínio sob incerteza**, e os humanos fazem isso o tempo todo. O problema é que a lógica clássica que estudamos até aqui não consegue lidar com isso muito bem.",
+      "Na lógica clássica, toda proposição é verdadeira (1) ou falsa (0), sem meio-termo. Mas e quando não sabemos? E quando algo é *“provável mas não certo”*? E quando uma frase como *“está quente”* não tem uma fronteira clara?",
+      "Este capítulo apresenta duas extensões da lógica clássica criadas exatamente para esses casos: a **lógica probabilística**, que substitui o verdadeiro/falso por um número entre 0 e 1, representando o quanto acreditamos que algo é verdade; e a **lógica fuzzy**, que permite que uma proposição seja parcialmente verdadeira, como *“a água está um pouco quente”*."
+    ]
+  },
+
+  "cap7-sec1": {
+    id: "cap7-sec1",
+    title: "A Lógica Não Resolve Tudo, e Tudo Bem",
+    subtitle: "Capítulo 7, Quando o mundo não cabe em verdadeiro ou falso",
+    paragraphs: [
+      "Na lógica clássica, toda proposição é verdadeira (1) ou falsa (0), sem meio-termo. Mas e quando não sabemos? E quando algo é *“provável mas não certo”*? E quando uma frase como *“está quente”* não tem uma fronteira clara?",
+      "Este capítulo apresenta duas extensões da lógica clássica criadas exatamente para esses casos:",
+      "- A **lógica probabilística**, que substitui o verdadeiro/falso por um número entre 0 e 1, representando o quanto acreditamos que algo é verdade.\n- A **lógica fuzzy**, que permite que uma proposição seja parcialmente verdadeira, como *“a água está um pouco quente”*.",
+      "| **Conexão com o que já vimos**<br/><br/>*A lógica clássica é o caso especial em que a probabilidade é exatamente 0 ou exatamente 1. Quando não temos certeza, precisamos de algo mais flexível, mas que ainda siga regras precisas.* |\n|---|"
+    ]
+  },
+
+  "cap7-sec2": {
+    id: "cap7-sec2",
+    title: "Probabilidade: o Quanto Você Acredita?",
+    subtitle: "Capítulo 7, A ideia central e suas regras",
+    paragraphs: [
+      "### 2.1 A ideia principal",
+      "Em vez de dizer *“isso é verdade”* ou *“isso é mentira”*, a lógica probabilística diz: *“acredito nisso com 70% de confiança”*, ou 80%, ou 30%.",
+      "Esse número é chamado de **probabilidade** e sempre fica entre 0 e 1:",
+      "- P = 0: impossível, 0% de confiança\n- P = 1: certeza absoluta, 100% de confiança\n- P = 0,7: provável, mas não garantido",
+      "Exemplo do dia a dia: um médico olha seus exames e diz *“há 80% de chance de ser algo benigno”*. Ele não sabe com certeza — está usando probabilidade para comunicar seu grau de confiança no diagnóstico.",
+      "### 2.2 As três regras que tudo governam",
+      "Toda atribuição de probabilidades que faz sentido precisa seguir três regras básicas. São tão simples que parecem óbvias, mas são a fundação de tudo. A Tabela 7.1 as resume.",
+      "```\n| Regra | O que diz | Exemplo |\n|---|---|---|\n| Não pode ser negativo | Qualquer probabilidade é ≥ 0 | P(chover) = −0,3 não faz sentido |\n| O total é sempre 1 | A soma de tudo que pode acontecer é 100% | P(chover) + P(não chover) = 1 |\n| Eventos separados somam | Se A e B não acontecem juntos: P(A ou B) = P(A) + P(B) | P(cara ou coroa) = 0,5 + 0,5 = 1 |\nTabela 7.1 — As três regras básicas da probabilidade.\n```",
+      "A segunda regra ecoa a lei do terceiro excluído: algo ou é verdade ou é falso. Aqui: ou acontece ou não acontece, e as chances somam 1. A lógica probabilística respeita esse princípio, mas o generaliza para quando ainda não sabemos o resultado.",
+      "### 2.3 Probabilidade condicional: aprender com evidências",
+      "Imagine que você quer saber a chance de chover. Aí você olha para fora e vê que o céu está nublado. Essa nova informação muda sua estimativa.",
+      "Isso se chama **probabilidade condicional**: a probabilidade de algo dado que já sabemos outra coisa.",
+      "| **Notação:** **P(A | B)** — lê-se *“probabilidade de A dado B”*.<br/><br/>Exemplo: qual a probabilidade de você pegar guarda-chuva, dado que o céu está nublado? Certamente maior do que sem saber nada sobre o tempo. A evidência *“céu nublado”* atualiza sua crença. |\n|---|",
+      "Essa ideia de atualizar crenças com base em evidências é o coração de toda a lógica probabilística — e vai aparecer em todo algoritmo de aprendizado de máquina que você estudar."
+    ]
+  },
+
+  "cap7-sec3": {
+    id: "cap7-sec3",
+    title: "Teorema de Bayes",
+    subtitle: "Capítulo 7, A lógica da atualização de crenças",
+    paragraphs: [
+      "### 3.1 O que é e de onde vem",
+      "O **Teorema de Bayes** é uma consequência direta das regras da probabilidade. Ele emerge naturalmente quando combinamos a probabilidade condicional com as regras básicas.",
+      "Lembra que a lógica clássica tem regras de inferência, como o Modus Ponens? O Teorema de Bayes faz algo parecido, mas para o mundo das probabilidades. Ele é a **regra de inferência da lógica probabilística**.",
+      "A pergunta que ele responde é: *“Eu tinha uma crença inicial. Observei uma evidência nova. Como atualizo minha crença de forma racional?”*",
+      "| **A fórmula:**<br/><br/>*P(H | E) = P(E | H) × P(H) ÷ P(E)* |\n|---|",
+      "Cada pedaço tem um nome e um papel bem definido, conforme a Tabela 7.2.",
+      "```\n| Parte da fórmula | Nome | Significa na prática |\n|---|---|---|\n| P(H) | Priori | O que você acreditava ANTES de ver a evidência |\n| P(E | H) | Verossimilhança | Se H fosse verdade, qual a chance de E aparecer? |\n| P(E) | Evidência total | Qual a chance de E aparecer em qualquer cenário? |\n| P(H | E) | Posteriori | O que você passa a acreditar DEPOIS de ver a evidência |\nTabela 7.2 — Os componentes do Teorema de Bayes.\n```",
+      "### 3.2 Conexão direta com a lógica",
+      "Na lógica clássica, o Modus Ponens parte de premissas certas e chega a uma conclusão certa. O Teorema de Bayes faz o mesmo raciocínio em graus: parte de uma crença inicial e de uma evidência, e calcula o grau de confiança que devo ter depois.",
+      "| **Conexão com a lógica**<br/><br/>*Assim como o Modus Ponens é a regra fundamental de inferência na lógica proposicional, o Teorema de Bayes é a regra fundamental na lógica probabilística. Os dois fazem a mesma coisa: dado o que sabemos, o que podemos concluir? A diferença é apenas o tipo de conhecimento: certeza na lógica clássica, graus de confiança na probabilística.* |\n|---|",
+      "### 3.3 Um exemplo do começo ao fim",
+      "**Situação:** uma doença afeta 1 em cada 100 pessoas. Um teste existe para detectá-la. Se a pessoa está doente, o teste dá positivo em 99% dos casos. Se a pessoa é saudável, o teste dá positivo por engano em 5% dos casos. Você fez o teste e deu positivo. Qual a chance real de você estar doente?",
+      "A maioria das pessoas chuta *“99%”*. A resposta real é cerca de **17%**.",
+      "Por que tão baixo? Porque a doença é rara. A grande maioria das pessoas que fazem o teste é saudável, e mesmo com 5% de falso positivo, isso gera muitos alarmes falsos. O Teorema de Bayes captura exatamente isso: pondera a evidência contra o que já sabíamos antes.",
+      "| **Por que isso importa**<br/><br/>*Sistemas de IA que ignoram a raridade de um evento fazem exatamente esse erro: confundem “o modelo disse X” com “X é verdade”. Bayes nos lembra que a priori sempre precisa ser levada em conta.* |\n|---|",
+      "| **📊 Ciência de Dados — Calculando Bayes na prática**<br/><br/>O exemplo do teste médico acima pode ser calculado diretamente em Python. |\n|---|",
+      "```python\n# Dados do problema\np_doente = 0.01                     # P(H): 1% da população tem a doença\np_positivo_dado_doente = 0.99       # P(E|H): teste acerta doentes em 99%\np_positivo_dado_saudavel = 0.05     # falso positivo: 5%\n\n# P(E): probabilidade total de testar positivo\np_saudavel = 1 - p_doente\np_positivo = (p_positivo_dado_doente * p_doente +\n              p_positivo_dado_saudavel * p_saudavel)\n\n# P(H|E): probabilidade de estar doente dado positivo\np_doente_dado_positivo = (p_positivo_dado_doente * p_doente) / p_positivo\n\nprint(f'Chance de estar doente dado teste positivo: {p_doente_dado_positivo:.1%}')\n# Saída: Chance de estar doente dado teste positivo: 16.7%\n```",
+      "### 3.4 Atualização sequencial: aprender passo a passo",
+      "Uma das características mais elegantes do framework bayesiano é que ele permite **aprendizado incremental**. A posteriori de hoje se torna a priori de amanhã.",
+      "Exemplo: após um primeiro teste positivo, sua crença na doença sobe de 1% para 17%. Se você fizer um segundo teste independente e ele também der positivo, você usa 17% como nova priori e aplica Bayes novamente — o resultado será próximo de 80%. Dois testes positivos seguidos são muito mais informativos do que um só.",
+      "Esse comportamento — atualizar crenças à medida que novas evidências chegam — é exatamente o que acontece no treinamento de modelos de Machine Learning."
+    ]
+  },
+
+  "cap7-sec4": {
+    id: "cap7-sec4",
+    title: "Redes Bayesianas",
+    subtitle: "Capítulo 7, Quando as causas se encadeiam",
+    paragraphs: [
+      "### 4.1 O problema",
+      "O Teorema de Bayes funciona muito bem quando temos uma hipótese e uma evidência. Mas e quando o mundo é mais complexo? Quando várias causas influenciam vários efeitos ao mesmo tempo?",
+      "Exemplo: fumar aumenta a chance de câncer de pulmão. Câncer de pulmão aumenta a chance de tosse. Mas tosse também pode ter outras causas, como uma gripe. E gripe também causa febre. Como modelar todas essas relações ao mesmo tempo?",
+      "### 4.2 A ideia de uma rede",
+      "Uma **Rede Bayesiana** é um diagrama que representa as relações de causa e efeito entre variáveis, junto com as probabilidades associadas a cada relação. Cada variável é um **nó** no diagrama. As **setas** mostram quem influencia quem.",
+      "No exemplo acima, a rede teria:",
+      "- Fumar → Câncer de Pulmão (fumar aumenta a chance de câncer)\n- Câncer de Pulmão → Tosse (câncer aumenta a chance de tosse)\n- Gripe → Tosse (gripe também causa tosse)\n- Gripe → Febre (gripe causa febre)",
+      "Cada seta carrega uma tabela de probabilidades condicionais: dado que o nó pai tem determinado valor, qual a probabilidade do nó filho?",
+      "### 4.3 Para que serve na prática?",
+      "Redes Bayesianas permitem dois tipos de raciocínio:",
+      "- **Predição (para frente):** dado que alguém é fumante, qual a chance de desenvolver câncer e ter tosse? A rede propaga as probabilidades da causa para os efeitos.\n- **Diagnóstico (para trás):** dado que alguém está com tosse, qual a chance de ser por câncer? A rede *“sobe”* pelas setas para estimar as causas a partir dos sintomas.",
+      "| **Conexão com a lógica**<br/><br/>*Redes Bayesianas são a versão probabilística dos sistemas de regras da lógica clássica. Em vez de “SE fumante ENTÃO certamente risco de câncer”, temos “SE fumante ENTÃO com probabilidade P risco de câncer”. A estrutura do raciocínio — encadear causas e efeitos — é a mesma. O que muda é o tratamento da incerteza.* |\n|---|"
+    ]
+  },
+
+  "cap7-sec5": {
+    id: "cap7-sec5",
+    title: "Naive Bayes no Machine Learning",
+    subtitle: "Capítulo 7, Do teorema ao algoritmo",
+    paragraphs: [
+      "### 5.1 Da teoria ao algoritmo",
+      "O Teorema de Bayes diz como atualizar uma crença quando vemos uma evidência. O **Naive Bayes** é um algoritmo que aplica esse teorema de forma direta e simplificada para classificação de dados.",
+      "Ele aparece em filtros de spam, na classificação automática de notícias, na análise de sentimentos em redes sociais e em sistemas de recomendação.",
+      "### 5.2 O problema que ele resolve",
+      "Exemplo: você recebe um e-mail com as palavras *“promoção”*, *“grátis”* e *“clique aqui”*. Qual a probabilidade de ser spam?",
+      "Usando o Teorema de Bayes, queremos calcular P(spam | *“promoção”*, *“grátis”*, *“clique aqui”*). O problema é que precisaríamos saber a probabilidade de um e-mail conter exatamente essa combinação de palavras — com milhares de palavras possíveis, isso é inviável.",
+      "### 5.3 A suposição “ingênua”",
+      "O Naive Bayes resolve isso tratando cada palavra como **independente** das outras. Com essa suposição, o cálculo se torna:",
+      "*P(spam | palavras) ∝ P(spam) × P(“promoção”|spam) × P(“grátis”|spam) × P(“clique aqui”|spam)*",
+      "Cada fator pode ser estimado separadamente a partir dos dados de treinamento: basta contar quantas vezes cada palavra aparece em e-mails de spam e em e-mails legítimos.",
+      "| **Por que “ingênuo”?**<br/><br/>*Na prática, palavras não são independentes. “Banco” e “senha” juntas são mais suspeitas do que cada uma separada. Mas ignorar essa dependência simplifica muito o cálculo, e mesmo assim o algoritmo funciona bem para classificação de texto.* |\n|---|",
+      "### 5.4 Naive Bayes versus Teorema de Bayes",
+      "Essa é uma confusão frequente. A Tabela 7.3 esclarece a diferença.",
+      "```\n| Aspecto | Teorema de Bayes | Naive Bayes |\n|---|---|---|\n| O que é | Uma fórmula matemática, uma regra lógica de inferência | Um algoritmo de ML baseado nessa fórmula |\n| Para que serve | Atualizar uma crença com base em uma evidência | Classificar exemplos com múltiplas evidências |\n| Sobre as evidências | Nenhuma suposição — usa probabilidade conjunta exata | Assume independência entre as evidências |\n| Quando aparece | Em qualquer raciocínio probabilístico | Classificadores de texto, spam, sentimentos |\n| Exatidão | Exato dentro do modelo probabilístico | Aproximado, mas eficiente e preciso na prática |\nTabela 7.3 — Diferença entre o Teorema de Bayes e o algoritmo Naive Bayes.\n```",
+      "| **📊 Ciência de Dados — Naive Bayes para spam**<br/><br/>O esqueleto abaixo mostra a estrutura básica de um classificador Naive Bayes contando palavras por classe. |\n|---|",
+      "```python\nfrom collections import defaultdict\n\n# Contar palavras por classe\ncontagem = {'spam': defaultdict(int), 'ham': defaultdict(int)}\ntotais  = {'spam': 0, 'ham': 0}\n\nfor email, classe in dados_treino:\n    for palavra in email.split():\n        contagem[classe][palavra] += 1\n        totais[classe] += 1\n\ndef prob_palavra(palavra, classe):\n    # Suavização de Laplace evita probabilidade zero\n    return (contagem[classe][palavra] + 1) / (totais[classe] + len(vocabulario))\n```"
+    ]
+  },
+
+  "cap7-sec6": {
+    id: "cap7-sec6",
+    title: "Lógica Fuzzy",
+    subtitle: "Capítulo 7, E quando não há linha clara?",
+    paragraphs: [
+      "### 6.1 O problema da fronteira",
+      "Responda rápido: uma pessoa com 1,75m é alta?",
+      "Depende do contexto. Alta para uma mulher brasileira, talvez. Baixa para um jogador de basquete. Mediana para muita gente.",
+      "A lógica clássica te obrigaria a escolher: alto = verdadeiro (1) ou alto = falso (0). Mas *“alto”* é uma propriedade gradual, não binária.",
+      "A **lógica fuzzy**, criada pelo matemático Lotfi Zadeh em 1965, resolve isso: ela permite que uma proposição seja parcialmente verdadeira. Em vez de 0 ou 1, qualquer valor entre 0 e 1 é válido.",
+      "### 6.2 Grau de pertinência",
+      "Na lógica fuzzy, em vez de perguntar *“X pertence ao conjunto A?”*, perguntamos: *“em que grau X pertence ao conjunto A?”*",
+      "Exemplo — o conjunto *“água quente”*:",
+      "- Água a 20°C: grau de pertinência 0,0 (não é quente)\n- Água a 40°C: grau de pertinência 0,4 (um pouco quente)\n- Água a 60°C: grau de pertinência 0,8 (bastante quente)\n- Água a 80°C: grau de pertinência 1,0 (muito quente)",
+      "Essa gradação é muito mais fiel à linguagem humana e à realidade.",
+      "### 6.3 Como operar com lógica fuzzy",
+      "As operações lógicas que já conhecemos (E, OU, NÃO) também existem na lógica fuzzy, adaptadas para valores entre 0 e 1. A Tabela 7.4 mostra a comparação.",
+      "```\n| Operação | Na lógica clássica | Na lógica fuzzy | Exemplo |\n|---|---|---|---|\n| E (AND) | Ambos verdadeiros | Pega o menor dos dois graus | 'quente'(0,8) E 'salgada'(0,6): resultado 0,6 |\n| OU (OR) | Pelo menos um verdadeiro | Pega o maior dos dois graus | 'quente'(0,8) OU 'salgada'(0,6): resultado 0,8 |\n| NÃO (NOT) | Inverte verdadeiro/falso | Subtrai de 1 | NÃO 'quente'(0,8): resultado 0,2 |\nTabela 7.4 — Operações lógicas na lógica clássica versus lógica fuzzy.\n```",
+      "Se os graus forem 0 ou 1, a lógica fuzzy se comporta exatamente como a lógica clássica. Ela é uma **generalização**, não uma substituição.",
+      "### 6.4 Lógica fuzzy em sistemas de controle",
+      "A aplicação mais consolidada da lógica fuzzy está em **sistemas de controle** — situações em que uma máquina precisa tomar decisões baseadas em informações imprecisas:",
+      "- **Ar-condicionado inteligente:** decide a potência com base em *“a temperatura está um pouco quente”*, não em um limiar rígido de 25°C exatos.\n- **Câmera fotográfica:** ajusta o foco com base em *“a imagem está razoavelmente desfocada”*.\n- **Máquina de lavar roupa:** decide o tempo de lavagem com base em *“a roupa está bastante suja”*.",
+      "### 6.5 Lógica fuzzy e linguagem natural",
+      "Talvez a aplicação mais rica da lógica fuzzy em IA seja o **Processamento de Linguagem Natural**. Palavras têm fronteiras naturalmente vagas: *“bom”*, *“perto”*, *“rápido”* — tudo depende do contexto.",
+      "A lógica fuzzy é especialmente útil em:",
+      "- **Análise de sentimentos:** classificar um texto como *“0,7 positivo”* e *“0,3 neutro”*, capturando ambiguidade real.\n- **Recuperação de informação:** interpretar *“restaurantes bons e baratos”* como conceitos graduais, não limiares rígidos.\n- **Tradução automática:** palavras em uma língua frequentemente não têm equivalente exato em outra.",
+      "### 6.6 Fuzzy não é probabilidade",
+      "É comum confundir as duas ideias. A diferença é sutil, mas importante, conforme a Tabela 7.5.",
+      "```\n| Aspecto | Probabilidade | Lógica Fuzzy |\n|---|---|---|\n| Pergunta que responde | Com que frequência isso acontece? | Em que grau isso é verdade agora? |\n| Fonte da incerteza | Não sabemos o resultado ainda | A linguagem é imprecisa por natureza |\n| Exemplo | '30% de chance de chover amanhã' | 'Está 0,7 nublado agora' |\nTabela 7.5 — Diferença entre probabilidade e lógica fuzzy.\n```",
+      "| **📊 Ciência de Dados — Fuzzy em análise de sentimentos**<br/><br/>Em vez de classificar um comentário como positivo ou negativo (0 ou 1), podemos usar graus fuzzy para capturar nuances. |\n|---|",
+      "```python\ndef sentimento_fuzzy(texto, palavras_pos, palavras_neg):\n    tokens = texto.lower().split()\n    pos = sum(1 for t in tokens if t in palavras_pos)\n    neg = sum(1 for t in tokens if t in palavras_neg)\n    total = max(pos + neg, 1)\n    return {\n        'positivo': pos / total,\n        'negativo': neg / total,\n    }\n\nprint(sentimento_fuzzy('o produto é bom mas a entrega foi ruim',\n                       palavras_pos={'bom', 'ótimo'},\n                       palavras_neg={'ruim', 'péssimo'}))\n# Saída: {'positivo': 0.5, 'negativo': 0.5}\n```"
+    ]
+  },
+
+  "cap7-sec7": {
+    id: "cap7-sec7",
+    title: "Resumo do Capítulo",
+    subtitle: "Capítulo 7, Conceitos centrais",
+    paragraphs: [
+      "A lógica clássica funciona bem quando as coisas são certas e precisas. Mas o mundo real é cheio de dúvidas e imprecisões. Este capítulo apresentou quatro formas de lidar com isso:",
+      "- A **lógica probabilística** trata a incerteza como um número entre 0 e 1. O **Teorema de Bayes** é a regra de inferência dessa lógica: diz exatamente como atualizar uma crença quando novas evidências aparecem.\n- As **Redes Bayesianas** estendem o Teorema de Bayes para situações com múltiplas variáveis interligadas, permitindo raciocinar sobre causas e efeitos encadeados com incerteza.\n- O **Naive Bayes** aplica o Teorema de Bayes em algoritmos de Machine Learning, com uma simplificação (independência entre evidências) que o torna viável computacionalmente.\n- A **lógica fuzzy** trata a imprecisão da linguagem, permitindo que proposições sejam *“mais ou menos”* verdadeiras. Isso é especialmente valioso no Processamento de Linguagem Natural.",
+      "Todas essas abordagens são extensões da lógica clássica. Quando temos certeza absoluta e precisão total, elas se comportam exatamente como a lógica que já conhecemos. A Tabela 7.6 reúne os conceitos centrais.",
+      "```\n| Conceito | O que é | Para que serve |\n|---|---|---|\n| Probabilidade | Número entre 0 e 1 que representa grau de crença | Raciocinar sob incerteza |\n| Probabilidade condicional | P(A|B): chance de A dado que B ocorreu | Atualizar crenças com base em evidências |\n| Teorema de Bayes | Regra que combina priori, verossimilhança e evidência | Inferência probabilística racional |\n| Rede Bayesiana | Grafo de variáveis com probabilidades condicionais | Modelar causas e efeitos múltiplos |\n| Naive Bayes | Algoritmo de classificação que assume independência | Classificar texto, spam, sentimentos |\n| Lógica fuzzy | Lógica com valores de verdade entre 0 e 1 | Lidar com fronteiras vagas e linguagem natural |\nTabela 7.6 — Resumo dos conceitos do Capítulo 7.\n```"
+    ]
+  },
+
   cap9: {
     id: "cap9",
     title: "Conclusão: Lógica, Raciocínio e Inteligência Artificial",
