@@ -121,6 +121,19 @@ export const chapters: Chapter[] = [
     ]
   },
   {
+    id: "cap7",
+    title: "Capítulo 7 - Raciocínio Não-Clássico",
+    sections: [
+      { id: "cap7-sec1", title: "A Lógica Não Resolve Tudo, e Tudo Bem" },
+      { id: "cap7-sec2", title: "Probabilidade: o Quanto Você Acredita?" },
+      { id: "cap7-sec3", title: "Teorema de Bayes" },
+      { id: "cap7-sec4", title: "Redes Bayesianas" },
+      { id: "cap7-sec5", title: "Naive Bayes no Machine Learning" },
+      { id: "cap7-sec6", title: "Lógica Fuzzy" },
+      { id: "cap7-sec7", title: "Resumo do Capítulo" },
+    ]
+  },
+  {
     id: "cap9",
     title: "Capítulo 9 - Conclusão",
     sections: [
