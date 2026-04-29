@@ -1880,6 +1880,166 @@ export const chapterContents: Record<string, ChapterContent> = {
     ]
   },
 
+  cap8: {
+    id: "cap8",
+    title: "Ética e Argumentação",
+    subtitle: "Capítulo 8",
+    paragraphs: [
+      "## Argumentos válidos · Falácias · Viés em IA · Lógica da Argumentação",
+      "Vamos começar com uma cena do cotidiano: *“Esse algoritmo de contratação usa dados históricos. Dados históricos são objetivos. Portanto, o algoritmo é justo.”*",
+      "Parece razoável? Para muita gente parece. Mas esse argumento tem um problema sério, e a lógica consegue mostrar exatamente onde ele falha.",
+      "Este capítulo conecta os fundamentos lógicos a uma habilidade essencial: identificar quando um argumento é válido, quando ele é sólido, e quando ele está usando uma falácia — uma armadilha que parece lógica mas não é.",
+      "Isso importa quando você analisa dados, lê um artigo científico, avalia um modelo de IA ou ouve uma justificativa técnica para uma decisão importante."
+    ]
+  },
+
+  "cap8-sec1": {
+    id: "cap8-sec1",
+    title: "Lógica não é só matemática",
+    subtitle: "Capítulo 8, O fio condutor",
+    paragraphs: [
+      "Tudo o que veremos neste capítulo parte da mesma pergunta central da lógica: dado o que sabemos, o que podemos concluir com segurança? Quando essa pergunta é mal formulada, surgem os erros de raciocínio que chamamos de falácias.",
+      "A lógica, mais do que uma ferramenta matemática, é um instrumento ético: ela nos permite distinguir entre argumentos que merecem nossa confiança e argumentos que apenas se disfarçam de racionais. Em um mundo em que decisões importantes são cada vez mais delegadas a sistemas automatizados, essa distinção se torna parte essencial da responsabilidade técnica."
+    ]
+  },
+
+  "cap8-sec2": {
+    id: "cap8-sec2",
+    title: "Argumentos: validade e solidez",
+    subtitle: "Capítulo 8, A estrutura básica do raciocínio",
+    paragraphs: [
+      "### 2.1 O que é um argumento?",
+      "No sentido lógico, um argumento não é uma briga. É uma estrutura composta de duas partes:",
+      "- **Premissas**: as afirmações que apresentamos como ponto de partida.\n- **Conclusão**: a afirmação que queremos provar a partir das premissas.",
+      "Exemplo simples:",
+      "- Premissa 1: Todo ser humano é mortal.\n- Premissa 2: Sócrates é um ser humano.\n- Conclusão: Sócrates é mortal.",
+      "Esse argumento funciona porque a conclusão segue necessariamente das premissas. Mas nem todo argumento funciona assim tão bem.",
+      "### 2.2 Argumento válido",
+      "Um argumento é **válido** quando sua estrutura lógica está correta: se as premissas fossem verdadeiras, a conclusão seria obrigatoriamente verdadeira também. A validade é uma propriedade da forma do argumento, não do conteúdo.",
+      "Exemplo de argumento válido (mas com premissa falsa):",
+      "- Premissa 1: Todo brasileiro fala mandarim.\n- Premissa 2: Renato é brasileiro.\n- Conclusão: Renato fala mandarim.",
+      "A estrutura é válida. Se P1 e P2 fossem verdadeiras, a conclusão seguiria sem dúvida. Mas P1 é claramente falsa — o que nos leva ao próximo conceito.",
+      "### 2.3 Argumento sólido",
+      "Um argumento é **sólido** quando é válido e as premissas são verdadeiras de fato. Só argumentos sólidos merecem nossa confiança. A Tabela 8.1 organiza os tipos.",
+      "```\n| Tipo de argumento | Estrutura correta? | Premissas verdadeiras? | Conclusão confiável? |\n|---|---|---|---|\n| Válido e sólido | Sim | Sim | Sim |\n| Válido mas não sólido | Sim | Não | Não |\n| Inválido | Não | Pode ser | Não |\nTabela 8.1 — Tipos de argumento: validade versus solidez.\n```",
+      "Um argumento válido com premissas falsas pode chegar a qualquer conclusão, inclusive absurdas. Por isso, na prática, sempre precisamos checar duas coisas separadamente: a estrutura lógica e a verdade das premissas.",
+      "### 2.4 Por que isso importa em IA?",
+      "Muitos argumentos sobre sistemas de IA são tecnicamente válidos, mas não são sólidos. A conclusão parece seguir, mas uma das premissas é questionável. Voltando ao exemplo do início:",
+      "- Premissa 1: Esse algoritmo usa dados históricos. (verdadeira)\n- Premissa 2: Dados históricos são objetivos. (questionável)\n- Conclusão: O algoritmo é justo. (não garantida)",
+      "O argumento é válido: se P2 fosse verdadeira, a conclusão seguiria. Mas P2 é discutível: dados históricos registram o passado, inclusive práticas discriminatórias. O problema está na premissa, não na forma."
+    ]
+  },
+
+  "cap8-sec3": {
+    id: "cap8-sec3",
+    title: "Falácias formais: erros na estrutura do argumento",
+    subtitle: "Capítulo 8, Quando a forma falha",
+    paragraphs: [
+      "Uma **falácia formal** é um erro na forma do argumento. O argumento parece válido mas não é: a conclusão não segue das premissas, mesmo que você não perceba à primeira vista.",
+      "### 3.1 Afirmação do consequente",
+      "Esta é uma das falácias mais frequentes em argumentos técnicos. Para entendê-la, precisamos recordar a estrutura do condicional *“Se P, então Q”*.",
+      "Forma correta — Modus Ponens:",
+      "- Se está chovendo, então a rua está molhada.\n- Está chovendo.\n- Portanto: a rua está molhada. ✓",
+      "A falácia — afirmar Q para concluir P:",
+      "- Se está chovendo, então a rua está molhada.\n- A rua está molhada.\n- Portanto: está chovendo. ✗",
+      "A rua pode estar molhada por um caminhão-pipa, por uma torneira aberta. Ter Q não garante P.",
+      "Em sistemas de IA: um modelo aprende que inadimplentes costumam ter renda baixa. Aí o sistema inverte: essa pessoa tem renda baixa, portanto vai ser inadimplente. É a mesma falácia, com consequências reais para a vida de alguém.",
+      "### 3.2 Negação do antecedente",
+      "A falácia nega o antecedente diretamente para concluir a negação do consequente:",
+      "- Se você estudou, então vai bem na prova.\n- Você não estudou.\n- Portanto: não vai bem na prova. ✗",
+      "Pode ser que você já dominasse o conteúdo antes. Não estudar não garante o fracasso.",
+      "A forma válida seria o **Modus Tollens**:",
+      "- Se você estudou, então vai bem na prova.\n- Você não foi bem na prova.\n- Portanto: você não estudou. ✓",
+      "O Modus Tollens é a forma válida de raciocinar *“de trás para frente”* num condicional. As duas falácias acima erram exatamente por tentar ir de trás para frente de forma inválida."
+    ]
+  },
+
+  "cap8-sec4": {
+    id: "cap8-sec4",
+    title: "Falácias informais: erros no conteúdo do argumento",
+    subtitle: "Capítulo 8, Quando o conteúdo falha",
+    paragraphs: [
+      "As **falácias informais** não são erros de estrutura lógica. A forma do argumento pode até estar correta. O problema está no conteúdo: premissas escondidas, distorcidas, insuficientes, ou que apelam para o emocional em vez do racional.",
+      "### 4.1 Generalização indevida",
+      "Consiste em tirar uma conclusão geral a partir de um número insuficiente de casos ou de casos que não representam bem o todo.",
+      "- Com 3 casos: *“os três últimos candidatos contratados eram homens → o processo favorece homens.”* ✗\n- Com evidência suficiente: *“87% dos contratados em 5 anos eram homens, desproporcional ao mercado.”* ✓",
+      "Em ciência de dados, chamamos isso de problema de amostragem: uma amostra pequena ou enviesada leva a generalizações indevidas, e os modelos aprendem os preconceitos das amostras que recebem.",
+      "### 4.2 Petição de princípio",
+      "Também chamada de argumento circular. Acontece quando a conclusão já está escondida dentro de uma das premissas.",
+      "Exemplo: *“Esse modelo é justo porque foi desenvolvido com práticas justas.”* O que são *“práticas justas”*? Se a resposta é *“práticas que produzem modelos justos”*, então a justificativa é circular.",
+      "Em IA: *“Nosso algoritmo é objetivo porque usa dados.”* Mas e se os dados refletem décadas de discriminação? A premissa *“dados são objetivos”* é justamente o que precisaria ser provado, não assumido.",
+      "### 4.3 Espantalho",
+      "Consiste em distorcer o argumento do outro para atacar uma versão mais fraca ou mais extrema do que foi dito.",
+      "- Argumento original: *“Devemos auditar os algoritmos usados em decisões de crédito.”*\n- Espantalho: *“Meu oponente quer eliminar a tecnologia das empresas.”* ✗",
+      "Auditar não é eliminar. Pedir transparência não é rejeitar a tecnologia.",
+      "### 4.4 Apelo à autoridade",
+      "Consiste em aceitar algo como verdadeiro simplesmente porque uma pessoa importante disse, sem avaliar as evidências por conta própria.",
+      "Exemplo: *“O diretor de tecnologia da empresa disse que o modelo não tem viés. Portanto, não tem.”* Cargo não é evidência.",
+      "A Tabela 8.2 resume as principais falácias informais.",
+      "```\n| Falácia | Resumo | Sinal de alerta |\n|---|---|---|\n| Generalização indevida | Poucos casos para uma grande conclusão | 'Todo mundo faz assim' com base em 3 exemplos |\n| Petição de princípio | A conclusão está escondida nas premissas | A justificativa usa as mesmas palavras da conclusão |\n| Espantalho | Ataca versão distorcida do argumento | A resposta vai para um extremo que ninguém defendeu |\n| Apelo à autoridade | Cargo substitui evidência | 'Fulano disse, então é verdade' sem outras provas |\nTabela 8.2 — Resumo das principais falácias informais.\n```"
+    ]
+  },
+
+  "cap8-sec5": {
+    id: "cap8-sec5",
+    title: "Viés algorítmico: falácias dentro das máquinas",
+    subtitle: "Capítulo 8, Quando o argumento técnico esconde o viés",
+    paragraphs: [
+      "### 5.1 O que é viés algorítmico?",
+      "Viés algorítmico acontece quando um sistema de IA trata grupos de pessoas de forma sistematicamente diferente e injustificada. O problema central é que esse viés frequentemente se esconde atrás de argumentos que parecem lógicos e técnicos.",
+      "Exemplo real documentado: um sistema de reconhecimento facial apresentava taxas de erro muito maiores na identificação de rostos de mulheres negras do que de homens brancos. A empresa argumentou que o modelo foi *“treinado com dados reais e passou por testes rigorosos”*.",
+      "O que estava errado? Os dados de treinamento tinham muito mais fotos de homens brancos. O modelo aprendeu a reconhecer bem o grupo super-representado. Chamar isso de *“objetivo”* é uma generalização indevida.",
+      "### 5.2 Dissecando o argumento com lógica",
+      "Voltando ao argumento do início do capítulo:",
+      "- Premissa 1: Esse algoritmo usa dados históricos. (verdadeira)\n- Premissa 2: Dados históricos são objetivos. (questionável)\n- Conclusão: O algoritmo é justo. (não garantida)",
+      "Dados históricos registram o passado, incluindo discriminações passadas. Se no passado mulheres eram sistematicamente preteridas em promoções, os dados vão registrar exatamente isso. Um algoritmo treinado nesses dados vai perpetuar esse padrão.",
+      "Chamar dados de *“objetivos”* sem verificar o que eles registram é uma generalização indevida. Concluir *“justo”* a partir de *“usa dados”* é uma petição de princípio: a objetividade dos dados é justamente o que precisaria ser provado, não assumido.",
+      "### 5.3 Catálogo de argumentos enganosos sobre IA",
+      "A Tabela 8.3 lista os argumentos mais comuns sobre sistemas de IA e as falácias que eles escondem.",
+      "```\n| Argumento comum | Falácia presente | O que está errado |\n|---|---|---|\n| 'O modelo acerta 95%, então é confiável para todos' | Generalização indevida | 95% geral pode esconder 60% para grupos específicos. A média esconde a desigualdade. |\n| 'A IA não tem preconceito porque não tem emoções' | Afirmação do consequente | Preconceito em IA vem dos dados, não de emoções. Ausência de emoções não garante ausência de viés. |\n| 'Esse sistema foi aprovado por especialistas renomados' | Apelo à autoridade | Aprovação inicial não substitui monitoramento contínuo nem avaliação de todos os grupos afetados. |\n| 'Quem questiona o algoritmo quer parar o progresso' | Espantalho | Auditar e questionar um sistema não é rejeitar tecnologia. São posturas completamente diferentes. |\nTabela 8.3 — Argumentos enganosos comuns sobre sistemas de IA e as falácias associadas.\n```",
+      "| **📊 Ciência de Dados — Detectando generalização indevida em dados**<br/><br/>Uma das formas mais comuns de generalização indevida em ML é avaliar um modelo apenas pela acurácia geral, ignorando o desempenho por grupo. |\n|---|",
+      "```python\nimport pandas as pd\n\n# Resultados de um modelo de crédito\ndados = pd.DataFrame({\n    'grupo':    ['A','A','A','B','B','B','B','B'],\n    'previsto': [1,  1,  0,  1,  1,  0,  0,  0],\n    'real':     [1,  1,  1,  0,  0,  0,  0,  0],\n})\n\nacuracia_geral = (dados['previsto'] == dados['real']).mean()\nprint(f'Acurácia geral: {acuracia_geral:.0%}')  # 75%\n\n# Mas por grupo:\nfor grupo, df in dados.groupby('grupo'):\n    acc = (df['previsto'] == df['real']).mean()\n    print(f'Acurácia grupo {grupo}: {acc:.0%}')\n# Acurácia grupo A: 67%  ← pior\n# Acurácia grupo B: 80%  ← melhor\n\n# Conclusão: a acurácia geral escondia desigualdade entre grupos.\n# 'O modelo acerta 75%' é uma generalização indevida.\n```"
+    ]
+  },
+
+  "cap8-sec6": {
+    id: "cap8-sec6",
+    title: "Lógica da Argumentação: quando dois lados têm razão em partes",
+    subtitle: "Capítulo 8, Argumentos em conflito",
+    paragraphs: [
+      "### 6.1 O problema de argumentos conflitantes",
+      "Até aqui, tratamos argumentos isolados. Mas na vida real, situações complexas envolvem múltiplos argumentos que apontam em direções diferentes, e alguns se contradizem.",
+      "Exemplo: uma empresa quer usar reconhecimento facial para controle de acesso:",
+      "- Argumento A: *“O sistema aumenta a segurança e elimina crachás físicos.”*\n- Argumento B: *“O sistema tem taxas de erro maiores para trabalhadores de pele mais escura.”*\n- Argumento C: *“Houve atualizações no modelo desde os estudos de viés. As taxas foram equiparadas.”*\n- Argumento D: *“Mesmo sem viés técnico, a vigilância biométrica contínua levanta questões de privacidade.”*",
+      "Como raciocinar sobre isso? A lógica clássica não resolve facilmente — não há uma premissa única que decida o debate.",
+      "### 6.2 A teoria de Dung",
+      "Em 1995, o cientista da computação Phan Minh Dung propôs uma estrutura formal para lidar com exatamente esse tipo de situação. A **Lógica da Argumentação** pergunta quais argumentos conseguem sobreviver ao debate.",
+      "Formalmente:",
+      "- Cada argumento pode atacar outro argumento.\n- Um argumento é *“aceito”* se todos os argumentos que o atacam são derrotados por outros argumentos.\n- Um argumento é *“derrotado”* se existe pelo menos um argumento que o ataca e que não foi derrubado.",
+      "Aplicando ao exemplo: B ataca A. C ataca B. Se C for aceito, B perde força e A volta a ter mais peso. Mas D não é derrubado por nenhum dos outros — a questão da privacidade continua de pé mesmo que o viés técnico tenha sido resolvido.",
+      "### 6.3 Conexão com a lógica não-monotônica",
+      "A lógica clássica é monotônica: adicionar mais premissas não desfaz conclusões. Mas a argumentação real não funciona assim. Um novo argumento pode mudar completamente o cenário.",
+      "A lógica da argumentação formaliza o raciocínio não-monotônico: conclusões podem ser revistas quando novas informações chegam. Isso é muito mais próximo de como decisões reais são tomadas — em ética, em direito, em política de IA — do que a lógica clássica sozinha permite.",
+      "### 6.4 Para que serve em IA explicável?",
+      "A lógica da argumentação é uma das ferramentas teóricas para IA Explicável (XAI):",
+      "- Um sistema de crédito poderia mostrar: *“Aprovei esse pedido com base nos argumentos X e Y. O argumento Z sugeria rejeição, mas foi superado por W.”*\n- Um sistema de diagnóstico médico poderia apresentar os fatores que pesaram para cada hipótese, permitindo que o médico avalie e conteste.",
+      "Em todos esses casos, o objetivo é o mesmo: não esconder o raciocínio dentro de uma caixa preta, mas torná-lo auditável, contestável e compreensível.",
+      "Uma forma simples de implementar o conceito de argumentação em ML é registrar os fatores que levaram a cada decisão e quais regras se *“atacam”*:",
+      "```python\n# Simulando argumentos para uma decisão de crédito\ndef avaliar_credito(cliente):\n    argumentos_favor = []\n    argumentos_contra = []\n\n    if cliente['renda'] > 5000:\n        argumentos_favor.append('Renda alta (argumento A)')\n    if cliente['score'] >= 700:\n        argumentos_favor.append('Score de crédito bom (argumento B)')\n    if cliente['inadimplente']:\n        argumentos_contra.append('Histórico de inadimplência (argumento C)')\n    if cliente['tempo_emprego'] < 6:\n        argumentos_contra.append('Emprego recente – risco (argumento D)')\n\n    aprovado = len(argumentos_favor) > len(argumentos_contra)\n    return aprovado, argumentos_favor, argumentos_contra\n```"
+    ]
+  },
+
+  "cap8-sec7": {
+    id: "cap8-sec7",
+    title: "Resumo do Capítulo",
+    subtitle: "Capítulo 8",
+    paragraphs: [
+      "A lógica não existe em um vácuo. Ela aparece em toda decisão, debate e sistema técnico que você vai encontrar. Este capítulo mostrou como usar as ferramentas lógicas para analisar argumentos reais:",
+      "- Um argumento **válido** tem estrutura correta: se as premissas fossem verdadeiras, a conclusão seria verdadeira. Um argumento **sólido** precisa também de premissas verdadeiras — só ele garante conclusões confiáveis.\n- **Falácias formais** são erros de estrutura: afirmação do consequente e negação do antecedente são os casos mais frequentes, e aparecem constantemente em argumentos sobre sistemas de IA.\n- **Falácias informais** são erros de conteúdo: generalização indevida, petição de princípio, espantalho e apelo à autoridade costumam se disfarçar de argumentos técnicos.\n- **Viés algorítmico** é frequentemente sustentado por argumentos que parecem sólidos mas escondem falácias nas premissas. Identificar essas falácias é uma competência técnica e ética essencial para quem trabalha com dados e IA.\n- A **Lógica da Argumentação**, desenvolvida por Dung, oferece uma estrutura formal para lidar com múltiplos argumentos em conflito — muito mais próximo da complexidade das decisões reais do que a lógica clássica sozinha.",
+      "Saber lógica não é só resolver problemas formais com símbolos. É ter um instrumento para pensar com clareza, identificar manipulação e exigir qualidade nos argumentos que guiam decisões — especialmente quando essas decisões são tomadas por máquinas e afetam vidas."
+    ]
+  },
+
   cap9: {
     id: "cap9",
     title: "Conclusão: Lógica, Raciocínio e Inteligência Artificial",
