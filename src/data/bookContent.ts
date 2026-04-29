@@ -134,6 +134,19 @@ export const chapters: Chapter[] = [
     ]
   },
   {
+    id: "cap8",
+    title: "Capítulo 8 - Ética e Argumentação",
+    sections: [
+      { id: "cap8-sec1", title: "Lógica não é só matemática" },
+      { id: "cap8-sec2", title: "Argumentos: validade e solidez" },
+      { id: "cap8-sec3", title: "Falácias formais" },
+      { id: "cap8-sec4", title: "Falácias informais" },
+      { id: "cap8-sec5", title: "Viés algorítmico" },
+      { id: "cap8-sec6", title: "Lógica da Argumentação" },
+      { id: "cap8-sec7", title: "Resumo do Capítulo" },
+    ]
+  },
+  {
     id: "cap9",
     title: "Capítulo 9 - Conclusão",
     sections: [
