@@ -150,15 +150,12 @@ export const chapters: Chapter[] = [
     id: "cap9",
     title: "Capítulo 9 - Conclusão",
     sections: [
-      { id: "cap9-sec1", title: "Introdução" },
-      { id: "cap9-sec2", title: "Revisão Integrada: Uma Lógica, Três Perspectivas" },
-      { id: "cap9-sec3", title: "Mapa Conceitual do Livro" },
-      { id: "cap9-sec4", title: "Tipos de Raciocínio em IA" },
-      { id: "cap9-sec5", title: "Lógica e Aprendizado de Máquina" },
-      { id: "cap9-sec6", title: "Limites Fundamentais do Raciocínio Formal" },
-      { id: "cap9-sec7", title: "Caminhos para Estudo Avançado" },
-      { id: "cap9-sec8", title: "Princípios para o Profissional de IA" },
-      { id: "cap9-sec9", title: "Palavras Finais" },
+      { id: "cap9-sec1", title: "O que foi construído ao longo destes capítulos" },
+      { id: "cap9-sec2", title: "A progressão: dois eixos em diálogo constante" },
+      { id: "cap9-sec3", title: "Conceitos centrais: uma recapitulação articulada" },
+      { id: "cap9-sec4", title: "A lógica como competência transversal" },
+      { id: "cap9-sec5", title: "Limites e extensões: o que este livro não cobre" },
+      { id: "cap9-sec6", title: "Palavras finais" },
     ]
   },
   {
