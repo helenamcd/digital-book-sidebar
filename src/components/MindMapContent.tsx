@@ -17,7 +17,8 @@ const BRANCH_COLORS: Record<string, { bg: string; text: string; line: string; ba
   linguagens:   { bg: "hsl(220,55%,95%)",  text: "hsl(220,55%,35%)",  line: "hsl(220,55%,75%)",  badge: "hsl(220,55%,50%)" },
   semantica:    { bg: "hsl(28,80%,94%)",    text: "hsl(28,70%,32%)",   line: "hsl(28,70%,75%)",   badge: "hsl(28,80%,52%)" },
   metodos:      { bg: "hsl(340,50%,94%)",   text: "hsl(340,50%,32%)",  line: "hsl(340,50%,75%)",  badge: "hsl(340,55%,50%)" },
-  limites:      { bg: "hsl(260,45%,94%)",   text: "hsl(260,45%,35%)",  line: "hsl(260,45%,75%)",  badge: "hsl(260,45%,50%)" },
+  incerteza:    { bg: "hsl(160,45%,94%)",   text: "hsl(160,45%,28%)",  line: "hsl(160,45%,72%)",  badge: "hsl(160,55%,42%)" },
+  etica:        { bg: "hsl(260,45%,94%)",   text: "hsl(260,45%,35%)",  line: "hsl(260,45%,75%)",  badge: "hsl(260,45%,50%)" },
 };
 
 const ROOT_STYLE = { bg: "hsl(var(--accent))", text: "hsl(var(--accent-foreground))" };
@@ -34,20 +35,19 @@ const mindMapData: MapNode = {
         {
           id: "lp", label: "Lógica\nProposicional",
           children: [
-            { id: "lp-sint", label: "Sintaxe" },
-            { id: "lp-sem", label: "Semântica" },
-            { id: "lp-aval", label: "Avaliação" },
+            { id: "lp-sint", label: "Sintaxe e\nConectivos" },
+            { id: "lp-sem", label: "Tabelas-\nVerdade" },
+            { id: "lp-conj", label: "Proposições\ncomo Conjuntos" },
             { id: "lp-sat", label: "Satisfatibilidade" },
           ],
         },
         {
-          id: "lpo", label: "Lógica de\nPrimeira Ordem",
+          id: "lpo", label: "Lógica\nRelacional",
           children: [
-            { id: "lpo-sint", label: "Sintaxe LPO" },
-            { id: "lpo-quant", label: "Quantificadores" },
-            { id: "lpo-interp", label: "Interpretações" },
-            { id: "lpo-igual", label: "Igualdade" },
-            { id: "lpo-arit", label: "Aritmética" },
+            { id: "lpo-sint", label: "Constantes,\nVariáveis e\nPredicados" },
+            { id: "lpo-quant", label: "Quantificadores\n∀ e ∃" },
+            { id: "lpo-rel", label: "Relações\ne Funções" },
+            { id: "lpo-bd", label: "Bancos de\nDados e SQL" },
           ],
         },
       ],
@@ -57,20 +57,20 @@ const mindMapData: MapNode = {
       label: "Semântica\ne Modelos",
       children: [
         {
-          id: "tm", label: "Teoria de\nModelos",
+          id: "tm", label: "Modelos e\nInterpretações",
           children: [
-            { id: "tm-herb", label: "Herbrand" },
+            { id: "tm-interp", label: "Interpretação\nem LPO" },
             { id: "tm-val", label: "Validade" },
             { id: "tm-conseq", label: "Consequência\nLógica" },
+            { id: "tm-completude", label: "Completude\nde Gödel" },
           ],
         },
         {
-          id: "pr", label: "Propriedades\ne Relações",
+          id: "pr", label: "Propriedades\nLógicas",
           children: [
             { id: "pr-equiv", label: "Equivalência\nLógica" },
-            { id: "pr-conjuntos", label: "Proposições\ncomo Conjuntos" },
             { id: "pr-consist", label: "Consistência" },
-            { id: "pr-arit", label: "Aritmética\nFormal" },
+            { id: "pr-taut", label: "Tautologias e\nContradições" },
           ],
         },
       ],
@@ -83,47 +83,61 @@ const mindMapData: MapNode = {
           id: "pf", label: "Provas\nFormais",
           children: [
             { id: "pf-dn", label: "Dedução\nNatural" },
-            { id: "pf-tab", label: "Tableaux" },
-            { id: "pf-ax", label: "Sistemas de\nAxiomas" },
+            { id: "pf-fitch", label: "Sistema\nde Fitch" },
+            { id: "pf-regras", label: "Modus Ponens\ne Tollens" },
+            { id: "pf-quant", label: "Regras de\nQuantificadores" },
           ],
         },
         {
-          id: "res", label: "Resolução",
+          id: "res", label: "Resolução\nAutomática",
           children: [
             { id: "res-cl", label: "Forma\nClausal" },
             { id: "res-unif", label: "Unificação" },
             { id: "res-sld", label: "Resolução\nSLD" },
-          ],
-        },
-        {
-          id: "gen", label: "Generalização",
-          children: [
-            { id: "gen-lin", label: "Linear" },
-            { id: "gen-arv", label: "Em Árvore" },
-            { id: "gen-est", label: "Estrutural" },
-            { id: "gen-multi", label: "Multidimensional" },
+            { id: "res-prolog", label: "Prolog" },
           ],
         },
       ],
     },
     {
-      id: "limites",
-      label: "Limites e\nPerspectivas",
+      id: "incerteza",
+      label: "Raciocínio\nNão-Clássico",
       children: [
         {
-          id: "indec", label: "Indecidibilidade",
+          id: "prob", label: "Lógica\nProbabilística",
           children: [
-            { id: "indec-par", label: "Problema\nda Parada" },
-            { id: "indec-god", label: "Teorema\nde Gödel" },
-            { id: "indec-comp", label: "Complexidade\nComputacional" },
+            { id: "prob-bayes", label: "Teorema\nde Bayes" },
+            { id: "prob-redes", label: "Redes\nBayesianas" },
+            { id: "prob-naive", label: "Naive Bayes\nem ML" },
           ],
         },
         {
-          id: "iaml", label: "Lógica e\nIA / ML",
+          id: "fuzzy", label: "Lógica\nFuzzy",
           children: [
-            { id: "iaml-rac", label: "Raciocínio\nem IA" },
-            { id: "iaml-ml", label: "Lógica\ne ML" },
-            { id: "iaml-prog", label: "Programação\nLógica" },
+            { id: "fuzzy-grad", label: "Predicados\nGraduais" },
+            { id: "fuzzy-aplic", label: "Aplicações\nem IA" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "etica",
+      label: "Ética e\nArgumentação",
+      children: [
+        {
+          id: "arg", label: "Argumentação",
+          children: [
+            { id: "arg-val", label: "Validade\ne Solidez" },
+            { id: "arg-falformal", label: "Falácias\nFormais" },
+            { id: "arg-falinformal", label: "Falácias\nInformais" },
+            { id: "arg-dung", label: "Lógica da\nArgumentação" },
+          ],
+        },
+        {
+          id: "vies", label: "Viés e IA",
+          children: [
+            { id: "vies-alg", label: "Viés\nAlgorítmico" },
+            { id: "vies-conc", label: "Síntese\n(Conclusão)" },
           ],
         },
       ],
@@ -158,52 +172,57 @@ const DEFAULT_LINKS: Record<string, string> = {
   // Linguagens Lógicas
   linguagens: "intro",
   lp: "cap2",
-  "lp-sint": "cap1-sec1",
-  "lp-sem": "cap1-sec2",
-  "lp-aval": "cap1-sec3",
-  "lp-sat": "cap1-sec4",
-  lpo: "cap7",
-  "lpo-sint": "cap7-sec2",
+  "lp-sint": "cap2-sec1",
+  "lp-sem": "cap2-sec2",
+  "lp-conj": "cap2-sec2b",
+  "lp-sat": "cap2-sec4",
+  lpo: "cap4",
+  "lpo-sint": "cap4-sec1",
   "lpo-quant": "cap4-sec2",
-  "lpo-interp": "cap7-sec3",
-  "lpo-igual": "cap7-sec6",
-  "lpo-arit": "cap7-sec5",
+  "lpo-rel": "cap4-sec1",
+  "lpo-bd": "cap4-sec3",
   // Semântica e Modelos
   semantica: "cap5",
   tm: "cap5",
-  "tm-herb": "cap4-sec4",
+  "tm-interp": "cap5-sec1",
   "tm-val": "cap5-sec2",
   "tm-conseq": "cap2-sec3",
+  "tm-completude": "cap5-sec3",
   pr: "cap2-sec1",
   "pr-equiv": "cap2-sec2",
-  "pr-conjuntos": "cap2-sec2b",
   "pr-consist": "cap2-sec4",
-  "pr-arit": "cap7-sec5",
+  "pr-taut": "cap2-sec3",
   // Métodos de Raciocínio
   metodos: "cap3",
   pf: "cap3",
   "pf-dn": "cap3-sec3",
-  "pf-tab": "cap5-sec2",
-  "pf-ax": "cap3-sec1",
+  "pf-fitch": "cap3-sec3",
+  "pf-regras": "cap3-sec1",
+  "pf-quant": "cap5-sec2",
   res: "cap6",
   "res-cl": "cap6-sec1",
   "res-unif": "cap6-sec5",
   "res-sld": "cap6-sec6",
-  gen: "cap8",
-  "gen-lin": "cap8-sec3",
-  "gen-arv": "cap8-sec4",
-  "gen-est": "cap8-sec5",
-  "gen-multi": "cap8-sec6",
-  // Limites e Perspectivas
-  limites: "cap9",
-  indec: "cap9-sec6",
-  "indec-par": "cap9-sec6",
-  "indec-god": "cap9-sec6",
-  "indec-comp": "cap9-sec6",
-  iaml: "cap9-sec4",
-  "iaml-rac": "cap9-sec4",
-  "iaml-ml": "cap9-sec5",
-  "iaml-prog": "cap6-sec9",
+  "res-prolog": "cap6",
+  // Raciocínio Não-Clássico
+  incerteza: "cap7",
+  prob: "cap7-sec2",
+  "prob-bayes": "cap7-sec3",
+  "prob-redes": "cap7-sec4",
+  "prob-naive": "cap7-sec5",
+  fuzzy: "cap7-sec6",
+  "fuzzy-grad": "cap7-sec6",
+  "fuzzy-aplic": "cap7-sec6",
+  // Ética e Argumentação
+  etica: "cap8",
+  arg: "cap8-sec2",
+  "arg-val": "cap8-sec2",
+  "arg-falformal": "cap8-sec3",
+  "arg-falinformal": "cap8-sec4",
+  "arg-dung": "cap8-sec6",
+  vies: "cap8-sec5",
+  "vies-alg": "cap8-sec5",
+  "vies-conc": "cap9",
 };
 
 /* ── Available chapters for linking ───────────────────────────── */
@@ -352,7 +371,7 @@ TreeNode.displayName = "TreeNode";
 
 /* ── Main component ──────────────────────────────────────────── */
 const MindMapContent = ({ onNavigate }: MindMapContentProps) => {
-  const [expanded, setExpanded] = useState<Set<string>>(() => new Set(["root", "linguagens", "semantica", "metodos", "limites"]));
+  const [expanded, setExpanded] = useState<Set<string>>(() => new Set(["root", "linguagens", "semantica", "metodos", "incerteza", "etica"]));
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
@@ -514,7 +533,8 @@ const MindMapContent = ({ onNavigate }: MindMapContentProps) => {
             { label: "Linguagens Lógicas", key: "linguagens" },
             { label: "Semântica e Modelos", key: "semantica" },
             { label: "Métodos de Raciocínio", key: "metodos" },
-            { label: "Limites e Perspectivas", key: "limites" },
+            { label: "Raciocínio Não-Clássico", key: "incerteza" },
+            { label: "Ética e Argumentação", key: "etica" },
           ].map((item) => (
             <div key={item.key} className="flex items-center gap-1.5 text-[10px] font-sans-book text-muted-foreground">
               <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: BRANCH_COLORS[item.key].badge }} />
