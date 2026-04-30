@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<title>Capítulo 2 — Lógica Proposicional · Slides</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f7f2e8;
+    --paper-2:#efe7d4;
+    --ink:#1f2937;
+    --ink-soft:#374151;
+    --navy:#2a3550;
+    --navy-deep:#1a2238;
+    --accent:#e07a1f;
+    --accent-soft:#f3a96b;
+    --rule:#cbbfa3;
+    --muted:#6b6452;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#0d1018;color:var(--ink);font-family:'Source Sans 3',system-ui,sans-serif}
+  .deck{display:flex;flex-direction:column;align-items:center;gap:28px;padding:32px 16px 80px}
+  .slide{
+    width:min(1180px,96vw);
+    aspect-ratio:16/9;
+    background:var(--paper);
+    border-radius:14px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.55), 0 8px 18px -10px rgba(0,0,0,.4);
+    position:relative;
+    overflow:hidden;
+    padding:56px 64px;
+    display:flex;
+    flex-direction:column;
+    background-image:
+      radial-gradient(1200px 600px at -10% -20%, rgba(224,122,31,.08), transparent 60%),
+      radial-gradient(800px 500px at 110% 120%, rgba(42,53,80,.10), transparent 60%);
+  }
+  .slide::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:var(--accent);
+  }
+  .slide::after{
+    content:"";position:absolute;right:24px;bottom:18px;font-family:'Merriweather',serif;
+    color:var(--muted);font-size:13px;letter-spacing:.08em;
+  }
+  .slide .num{
+    position:absolute;right:28px;top:22px;font-family:'Playfair Display',serif;
+    color:var(--navy);opacity:.55;font-weight:700;font-size:14px;letter-spacing:.18em
+  }
+  .slide .foot{
+    position:absolute;left:64px;right:64px;bottom:18px;display:flex;justify-content:space-between;
+    font-family:'Source Sans 3';color:var(--muted);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    border-top:1px solid var(--rule);padding-top:10px;
+  }
+  .eyebrow{
+    font-family:'Source Sans 3';color:var(--accent);font-weight:700;font-size:13px;
+    letter-spacing:.22em;text-transform:uppercase;margin-bottom:14px;
+  }
+  h1.title{
+    font-family:'Playfair Display',serif;color:var(--navy-deep);
+    font-size:64px;line-height:1.05;margin:0 0 18px;font-weight:900;letter-spacing:-.01em
+  }
+  h2.title{
+    font-family:'Playfair Display',serif;color:var(--navy-deep);
+    font-size:44px;line-height:1.1;margin:0 0 22px;font-weight:800;letter-spacing:-.005em
+  }
+  h3.sub{
+    font-family:'Merriweather',serif;color:var(--navy);
+    font-size:22px;line-height:1.3;margin:0 0 24px;font-weight:400;font-style:italic
+  }
+  p, li{font-family:'Merriweather',serif;color:var(--ink-soft);font-size:20px;line-height:1.55;margin:0 0 12px}
+  ul{padding-left:22px;margin:0 0 14px}
+  li{margin-bottom:10px}
+  .lead{font-size:24px;line-height:1.5;color:var(--ink)}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:36px;flex:1;align-items:start}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;flex:1;align-items:stretch}
+  .card{
+    background:rgba(255,255,255,.6);border:1px solid var(--rule);border-radius:10px;
+    padding:22px 22px;display:flex;flex-direction:column;gap:8px
+  }
+  .card .tag{font-family:'Source Sans 3';font-weight:700;color:var(--accent);
+    text-transform:uppercase;letter-spacing:.18em;font-size:12px}
+  .card h4{font-family:'Playfair Display',serif;color:var(--navy-deep);
+    font-size:24px;margin:0;font-weight:700}
+  .card p{font-size:17px;margin:0;line-height:1.5}
+  .formula{
+    font-family:'Cambria','Merriweather',serif;font-size:24px;color:var(--navy-deep);
+    background:#fff;border:1px solid var(--rule);border-left:4px solid var(--accent);
+    padding:14px 18px;border-radius:8px;display:inline-block;margin:6px 0
+  }
+  .formula.lg{font-size:30px;padding:18px 24px}
+  table.tt{
+    border-collapse:collapse;font-family:'Cambria',serif;font-size:18px;
+    background:#fff;border:1px solid var(--rule);border-radius:8px;overflow:hidden;
+    box-shadow:0 4px 12px -8px rgba(0,0,0,.2)
+  }
+  table.tt th,table.tt td{
+    border:1px solid var(--rule);padding:8px 16px;text-align:center;color:var(--ink)
+  }
+  table.tt th{background:var(--navy);color:#f7f2e8;font-family:'Source Sans 3';
+    font-weight:600;letter-spacing:.05em;font-size:15px}
+  table.tt caption{caption-side:bottom;font-family:'Source Sans 3';color:var(--muted);
+    font-size:13px;padding-top:8px;font-style:italic}
+  .pill{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--accent);
+    color:#fff;font-family:'Source Sans 3';font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+  .pill.navy{background:var(--navy)}
+  .quote{
+    border-left:4px solid var(--accent);padding:6px 0 6px 18px;margin:14px 0;
+    font-family:'Merriweather',serif;font-style:italic;color:var(--navy-deep);font-size:20px
+  }
+  .cover{
+    background:linear-gradient(135deg,#1a2238 0%,#2a3550 60%,#3a4870 100%);
+    color:#f7f2e8;justify-content:center;
+  }
+  .cover::before{background:var(--accent)}
+  .cover .eyebrow{color:var(--accent-soft)}
+  .cover h1.title{color:#f7f2e8;font-size:84px}
+  .cover h3.sub{color:#cbbfa3}
+  .cover .foot{color:#9ca3af;border-top-color:rgba(255,255,255,.15)}
+  .closing{background:linear-gradient(135deg,#2a3550 0%,#1a2238 100%);color:#f7f2e8;justify-content:center;text-align:center;align-items:center}
+  .closing::before{background:var(--accent)}
+  .closing h1{font-family:'Playfair Display',serif;font-size:72px;color:#f7f2e8;margin:0 0 16px}
+  .closing p{color:#cbbfa3;font-size:22px;max-width:780px;margin:0 auto}
+  .closing .foot{color:#9ca3af;border-top-color:rgba(255,255,255,.15)}
+  .two-col-text{column-count:2;column-gap:36px}
+  .two-col-text p{margin-bottom:14px;break-inside:avoid}
+  .nav-hint{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);color:#9ca3af;
+    font-family:'Source Sans 3';font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+  .row{display:flex;gap:18px;flex-wrap:wrap}
+  .stat{
+    background:#fff;border:1px solid var(--rule);border-radius:10px;padding:18px 22px;flex:1;min-width:200px;
+  }
+  .stat .big{font-family:'Playfair Display',serif;color:var(--accent);font-size:48px;font-weight:900;line-height:1}
+  .stat .lbl{font-family:'Source Sans 3';color:var(--navy-deep);font-size:14px;letter-spacing:.14em;text-transform:uppercase;margin-top:6px}
+  .center-block{display:flex;align-items:center;justify-content:center;flex:1;flex-direction:column;gap:18px;text-align:center}
+  @media print{
+    html,body{background:#fff}
+    .deck{gap:0;padding:0}
+    .slide{margin:0;border-radius:0;box-shadow:none;page-break-after:always;width:100%;height:100vh;aspect-ratio:auto}
+    .nav-hint{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- 1. COVER -->
+<section class="slide cover">
+  <div class="num">CAP. 02 · 01/16</div>
+  <div class="eyebrow">Fundamentos de Lógica Aplicada à Ciência de Dados</div>
+  <h1 class="title">Lógica<br/>Proposicional</h1>
+  <h3 class="sub">Sintaxe, semântica e as relações que tornam o raciocínio formal possível</h3>
+  <div class="foot"><span>Capítulo 2</span><span>ALICCE · Helena Macedo Reis &amp; Anderson P. Avila Provin</span></div>
+</section>
+
+<!-- 2. ABERTURA -->
+<section class="slide">
+  <div class="num">02 / 16</div>
+  <div class="eyebrow">Abertura</div>
+  <h2 class="title">O ponto de partida formal</h2>
+  <h3 class="sub">Uma linguagem para descrever o que pode ser verdadeiro ou falso</h3>
+  <div class="grid-2">
+    <div>
+      <p>A <b>Lógica Proposicional</b> ocupa-se de <b>proposições</b> — possíveis condições do mundo que podem ser avaliadas como <b>verdadeiras ou falsas</b> — e das relações entre elas.</p>
+      <p class="quote">"Está chovendo", "o usuário clicou em ajuda", "o modelo classificou o aluno como em risco".</p>
+    </div>
+    <div>
+      <p>Uma proposição <b>não precisa ser conhecida como verdadeira</b> para existir como proposição: ela é uma possibilidade sobre o estado do mundo.</p>
+      <p>Em ciência de dados lidamos o tempo todo com proposições cujo valor ainda é desconhecido ou depende de outras condições.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Capítulo 2 · Lógica Proposicional</span><span>ALICCE</span></div>
+</section>
+
+<!-- 3. ROTEIRO -->
+<section class="slide">
+  <div class="num">03 / 16</div>
+  <div class="eyebrow">Roteiro do capítulo</div>
+  <h2 class="title">De sentenças a relações</h2>
+  <div class="grid-3">
+    <div class="card"><span class="tag">Parte I</span><h4>Linguagem</h4><p>Sintaxe, conectivos, parênteses e precedência.</p></div>
+    <div class="card"><span class="tag">Parte II</span><h4>Significado</h4><p>Semântica, atribuições de verdade e tabelas-verdade.</p></div>
+    <div class="card"><span class="tag">Parte III</span><h4>Avaliação</h4><p>Calcular o valor de uma sentença em um cenário dado.</p></div>
+    <div class="card"><span class="tag">Parte IV</span><h4>Propriedades</h4><p>Validade, contingência e insatisfatibilidade.</p></div>
+    <div class="card"><span class="tag">Parte V</span><h4>Relações</h4><p>Equivalência, consequência e consistência.</p></div>
+    <div class="card"><span class="tag">Parte VI</span><h4>Reescritas</h4><p>Equivalências fundamentais e simplificações.</p></div>
+  </div>
+  <div class="foot"><span>Capítulo 2</span><span>Roteiro</span></div>
+</section>
+
+<!-- 4. SINTAXE -->
+<section class="slide">
+  <div class="num">04 / 16</div>
+  <div class="eyebrow">Sintaxe</div>
+  <h2 class="title">Sentenças simples e compostas</h2>
+  <div class="grid-2">
+    <div>
+      <p><b>Sentenças simples</b> (proposições atômicas) são unidades indivisíveis representadas por símbolos:</p>
+      <span class="formula">erro · ajuda · abandono · log</span>
+      <p style="margin-top:14px">Identificadores com letras minúsculas, números e sublinhados — como variáveis em uma linguagem de programação.</p>
+    </div>
+    <div>
+      <p><b>Sentenças compostas</b> são formadas por <b>conectivos lógicos</b>:</p>
+      <ul>
+        <li><b>¬</b> Negação</li>
+        <li><b>∧</b> Conjunção</li>
+        <li><b>∨</b> Disjunção</li>
+        <li><b>⇒</b> Implicação</li>
+        <li><b>⇔</b> Bicondicional</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Capítulo 2 · Seção 2.1</span><span>Sintaxe</span></div>
+</section>
+
+<!-- 5. CONECTIVOS EM AÇÃO -->
+<section class="slide">
+  <div class="num">05 / 16</div>
+  <div class="eyebrow">Conectivos em ação</div>
+  <h2 class="title">Cinco operadores, infinitas regras</h2>
+  <div class="grid-3">
+    <div class="card"><span class="tag">¬ Negação</span><span class="formula">¬erro</span><p>É falso que o estudante cometeu erro.</p></div>
+    <div class="card"><span class="tag">∧ Conjunção</span><span class="formula">(erro ∧ ajuda)</span><p>Cometeu erro <b>e</b> clicou em ajuda.</p></div>
+    <div class="card"><span class="tag">∨ Disjunção</span><span class="formula">(erro ∨ abandono)</span><p>Cometeu erro <b>ou</b> abandonou.</p></div>
+    <div class="card"><span class="tag">⇒ Implicação</span><span class="formula">(erro ⇒ ajuda)</span><p>Se houve erro, então houve ajuda.</p></div>
+    <div class="card"><span class="tag">⇔ Bicondicional</span><span class="formula">(aprovado ⇔ media≥7)</span><p>Aprovado se, e somente se, média ≥ 7.</p></div>
+    <div class="card"><span class="tag">Aninhamento</span><span class="formula">((erro ∨ abandono) ⇒ log)</span><p>Sentenças compostas dentro de sentenças compostas.</p></div>
+  </div>
+  <div class="foot"><span>Capítulo 2 · Seção 2.1</span><span>Conectivos</span></div>
+</section>
+
+<!-- 6. PARÊNTESES E PRECEDÊNCIA -->
+<section class="slide">
+  <div class="num">06 / 16</div>
+  <div class="eyebrow">Sintaxe</div>
+  <h2 class="title">Parênteses, precedência e ambiguidade</h2>
+  <div class="grid-2">
+    <div>
+      <p>Sem parênteses, expressões ficam ambíguas:</p>
+      <span class="formula">erro ∨ ajuda ⇒ log</span>
+      <p>pode significar:</p>
+      <span class="formula">((erro ∨ ajuda) ⇒ log)</span><br/>
+      <span class="formula">(erro ∨ (ajuda ⇒ log))</span>
+    </div>
+    <div>
+      <p><b>Precedência</b> (do mais forte ao mais fraco):</p>
+      <span class="formula lg">¬ &nbsp;»&nbsp; ∧ &nbsp;»&nbsp; ∨ &nbsp;»&nbsp; ⇒ &nbsp;»&nbsp; ⇔</span>
+      <p style="margin-top:14px">Exemplo:</p>
+      <span class="formula">¬ erro ∧ ajuda &nbsp;≡&nbsp; ((¬ erro) ∧ ajuda)</span>
+      <p class="quote">Na dúvida, parentize. Clareza vence concisão.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Capítulo 2 · Seção 2.1</span><span>Precedência</span></div>
+</section>
+
+<!-- 7. SEMÂNTICA -->
+<section class="slide">
+  <div class="num">07 / 16</div>
+  <div class="eyebrow">Semântica</div>
+  <h2 class="title">Atribuições de verdade dão sentido às sentenças</h2>
+  <div class="grid-2">
+    <div>
+      <p>Como na álgebra, o que importa não é o conteúdo das proposições, mas <b>como seus valores determinam o valor das compostas</b>.</p>
+      <p>Uma <b>atribuição</b> associa cada símbolo a um valor: <b>1</b> (verdadeiro) ou <b>0</b> (falso).</p>
+      <p class="quote">Em um sistema educacional: <b>e</b>=1, <b>f</b>=0, <b>r</b>=1 é apenas uma fotografia possível do mundo.</p>
+    </div>
+    <div>
+      <table class="tt">
+        <caption>Tabela 2.1 — Negação (¬)</caption>
+        <thead><tr><th>φ</th><th>¬φ</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>0</td></tr>
+          <tr><td>0</td><td>1</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:14px;font-size:17px;color:var(--muted)">A semântica dos conectivos é dada por <b>tabelas-verdade</b>.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Capítulo 2 · Seção 2.2</span><span>Semântica</span></div>
+</section>
+
+<!-- 8. TABELAS-VERDADE DOS CONECTIVOS BINÁRIOS -->
+<section class="slide">
+  <div class="num">08 / 16</div>
+  <div class="eyebrow">Semântica</div>
+  <h2 class="title">As quatro tabelas que tudo definem</h2>
+  <div class="grid-2" style="gap:24px">
+    <div class="row" style="gap:16px;justify-content:center">
+      <table class="tt">
+        <caption>∧ Conjunção</caption>
+        <thead><tr><th>φ</th><th>ψ</th><th>φ∧ψ</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td>1</td><td>0</td><td>0</td></tr>
+          <tr><td>0</td><td>1</td><td>0</td></tr>
+          <tr><td>0</td><td>0</td><td>0</td></tr>
+        </tbody>
+      </table>
+      <table class="tt">
+        <caption>∨ Disjunção</caption>
+        <thead><tr><th>φ</th><th>ψ</th><th>φ∨ψ</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td>1</td><td>0</td><td>1</td></tr>
+          <tr><td>0</td><td>1</td><td>1</td></tr>
+          <tr><td>0</td><td>0</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row" style="gap:16px;justify-content:center">
+      <table class="tt">
+        <caption>⇒ Implicação</caption>
+        <thead><tr><th>φ</th><th>ψ</th><th>φ⇒ψ</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td>1</td><td>0</td><td>0</td></tr>
+          <tr><td>0</td><td>1</td><td>1</td></tr>
+          <tr><td>0</td><td>0</td><td>1</td></tr>
+        </tbody>
+      </table>
+      <table class="tt">
+        <caption>⇔ Bicondicional</caption>
+        <thead><tr><th>φ</th><th>ψ</th><th>φ⇔ψ</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td>1</td><td>0</td><td>0</td></tr>
+          <tr><td>0</td><td>1</td><td>0</td></tr>
+          <tr><td>0</td><td>0</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span>Capítulo 2 · Seção 2.2</span><span>Tabelas-verdade</span></div>
+</section>
+
+<!-- 9. AVALIAÇÃO -->
+<section class="slide">
+  <div class="num">09 / 16</div>
+  <div class="eyebrow">Avaliação</div>
+  <h2 class="title">Do interior para o exterior</h2>
+  <div class="grid-2">
+    <div>
+      <p>Para avaliar uma sentença composta:</p>
+      <ul>
+        <li>Substituímos cada átomo pelo seu valor.</li>
+        <li>Resolvemos as subexpressões pela semântica dos conectivos.</li>
+        <li>Repetimos até obter um único valor.</li>
+      </ul>
+      <p class="quote">Mecânico, determinístico e independente do significado real das proposições.</p>
+    </div>
+    <div>
+      <p>Considere <span class="formula">(p ∨ q) ∧ (¬q ∨ r)</span> com <b>p=1, q=0, r=1</b>:</p>
+      <pre style="font-family:'Cambria',serif;font-size:20px;background:#fff;border:1px solid var(--rule);border-left:4px solid var(--accent);padding:14px 18px;border-radius:8px;color:var(--navy-deep);margin:6px 0;line-height:1.55">(p ∨ q) ∧ (¬q ∨ r)
+(1 ∨ 0) ∧ (¬0 ∨ 1)
+   1    ∧   (1 ∨ 1)
+   1    ∧      1
+            <b>1</b></pre>
+      <p>A mesma sentença com <b>p=0, q=1, r=0</b> avalia para <b>0</b>: a regra depende dos dados.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Capítulo 2 · Seção 2.3</span><span>Avaliação</span></div>
+</section>
+
+<!-- 10. PROPRIEDADES LÓGICAS -->
+<section class="slide">
+  <div class="num">10 / 16</div>
+  <div class="eyebrow">Propriedades das sentenças</div>
+  <h2 class="title">Três comportamentos possíveis</h2>
+  <div class="grid-3">
+    <div class="card"><span class="tag">Válida</span><h4>Sempre verdadeira</h4>
+      <span class="formula">p ∨ ¬p</span>
+      <p>Tautologia: nunca falha, mas também não discrimina cenários.</p></div>
+    <div class="card"><span class="tag">Insatisfatível</span><h4>Sempre falsa</h4>
+      <span class="formula">p ∧ ¬p</span>
+      <p>Contradição: indica regras incompatíveis ou erro de modelagem.</p></div>
+    <div class="card"><span class="tag">Contingente</span><h4>Depende dos dados</h4>
+      <span class="formula">p ∧ q</span>
+      <p>A única que <b>informa</b>: separa cenários e fundamenta decisões.</p></div>
+  </div>
+  <table class="tt" style="margin-top:18px;align-self:center">
+    <caption>Tabela 2.2 — Satisfatibilidade × falsificabilidade</caption>
+    <thead><tr><th>Propriedade</th><th>Satisfatível?</th><th>Falsificável?</th></tr></thead>
+    <tbody>
+      <tr><td>Válida</td><td>Sim</td><td>Não</td></tr>
+      <tr><td>Contingente</td><td>Sim</td><td>Sim</td></tr>
+      <tr><td>Insatisfatível</td><td>Não</td><td>Sim</td></tr>
+    </tbody>
+  </table>
+  <div class="foot"><span>Capítulo 2 · Seção 2.4</span><span>Propriedades</span></div>
+</section>
+
+<!-- 11. EQUIVALÊNCIA -->
+<section class="slide">
+  <div class="num">11 / 16</div>
+  <div class="eyebrow">Equivalência lógica</div>
+  <h2 class="title">Mesma verdade, escritas diferentes</h2>
+  <div class="grid-2">
+    <div>
+      <p><b>φ ≡ ψ</b> quando as duas sentenças são satisfeitas exatamente pelas mesmas atribuições.</p>
+      <p>Em ciência de dados: dois filtros distintos que selecionam <b>o mesmo subconjunto</b> de registros.</p>
+      <p class="quote">Equivalência permite <b>substituibilidade</b>: trocar uma pela outra sem alterar o sistema.</p>
+    </div>
+    <div>
+      <table class="tt">
+        <caption>Tabela 2.3 — ¬(p∨q) ≡ ¬p∧¬q</caption>
+        <thead><tr><th>p</th><th>q</th><th>¬(p∨q)</th><th>¬p∧¬q</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+          <tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+          <tr><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:17px;color:var(--muted);margin-top:10px">Colunas idênticas em todas as linhas → equivalência confirmada.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Capítulo 2 · Seção 2.5</span><span>Equivalência</span></div>
+</section>
+
+<!-- 12. PROPOSIÇÕES COMO CONJUNTOS -->
+<section class="slide">
+  <div class="num">12 / 16</div>
+  <div class="eyebrow">Visão geométrica</div>
+  <h2 class="title">Proposições como conjuntos de situações</h2>
+  <div class="grid-2">
+    <div>
+      <p>Cada proposição = <b>conjunto das situações</b> em que ela é verdadeira, dentro de um <b>Universo U</b> de cenários possíveis.</p>
+      <p>Conectivos viram operações geométricas:</p>
+      <ul>
+        <li><b>p ∧ q</b> &nbsp;=&nbsp; p ∩ q (interseção)</li>
+        <li><b>p ∨ q</b> &nbsp;=&nbsp; p ∪ q (união)</li>
+        <li><b>¬p</b> &nbsp;=&nbsp; U ∖ p (complemento)</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card"><span class="tag">Tautologia</span>
+        <p>Cobre o <b>universo inteiro U</b> — verdadeira em qualquer cenário.</p></div>
+      <div class="card" style="margin-top:14px"><span class="tag">Contradição</span>
+        <p>Corresponde ao <b>conjunto vazio ∅</b> — nenhum cenário a satisfaz.</p></div>
+      <p class="quote" style="margin-top:14px">A lógica proposicional é uma álgebra de conjuntos.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Capítulo 2 · Seção 2.5b</span><span>Conjuntos</span></div>
+</section>
+
+<!-- 13. CONSEQUÊNCIA LÓGICA -->
+<section class="slide">
+  <div class="num">13 / 16</div>
+  <div class="eyebrow">Consequência lógica</div>
+  <h2 class="title">Quando as premissas garantem a conclusão</h2>
+  <div class="grid-2">
+    <div>
+      <p><b>Δ ⊨ ψ</b> quando toda atribuição que satisfaz todas as sentenças de Δ também satisfaz ψ.</p>
+      <p><b>p ⊨ (p ∨ q)</b> ✓ — sempre que p é verdadeiro, a disjunção também é.</p>
+      <p><b>p ⊭ (p ∧ q)</b> ✗ — q pode ser falso e quebrar a conclusão.</p>
+      <p class="quote">Consequência lógica é uma <b>garantia universal</b>, não uma verdade empírica.</p>
+    </div>
+    <div>
+      <table class="tt">
+        <caption>Tabela 2.5 — p ⊨ (p ∨ q)</caption>
+        <thead><tr><th>p</th><th>q</th><th>p</th><th>p∨q</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+          <tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+          <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:17px;color:var(--muted);margin-top:10px">Não há linha com premissa 1 e conclusão 0.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Capítulo 2 · Seção 2.6</span><span>Consequência</span></div>
+</section>
+
+<!-- 14. CONSISTÊNCIA -->
+<section class="slide">
+  <div class="num">14 / 16</div>
+  <div class="eyebrow">Consistência lógica</div>
+  <h2 class="title">As regras são compatíveis entre si?</h2>
+  <div class="grid-2">
+    <div>
+      <p>Um conjunto Δ é <b>consistente</b> se existe pelo menos uma atribuição que satisfaz todas as suas sentenças simultaneamente.</p>
+      <p><b>p∨q</b> e <b>¬p∨¬q</b> são consistentes: com p=1, q=0 ambas valem.</p>
+      <p><b>{p, ¬p}</b> é inconsistente — e por <b>vacuidade</b> implica logicamente <i>qualquer</i> sentença.</p>
+      <p class="quote">Inconsistência é perigosa: dela é possível derivar qualquer coisa, inclusive conclusões opostas.</p>
+    </div>
+    <div>
+      <table class="tt">
+        <caption>Tabela 2.8 — Comportamento da consequência</caption>
+        <thead><tr><th>Premissas</th><th>Consequências</th></tr></thead>
+        <tbody>
+          <tr><td>Conjunto vazio { }</td><td>Apenas tautologias</td></tr>
+          <tr><td>Satisfatível</td><td>Depende do conteúdo</td></tr>
+          <tr><td>Insatisfatível</td><td>Toda sentença</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span>Capítulo 2 · Seção 2.7</span><span>Consistência</span></div>
+</section>
+
+<!-- 15. METATEOREMAS E REESCRITAS -->
+<section class="slide">
+  <div class="num">15 / 16</div>
+  <div class="eyebrow">Conexões e reescritas</div>
+  <h2 class="title">Metateoremas que conectam tudo</h2>
+  <div class="grid-2">
+    <div>
+      <div class="card"><span class="tag">Equivalência</span><p>φ ≡ ψ &nbsp;⇔&nbsp; <b>φ ⇔ ψ</b> é válida.</p></div>
+      <div class="card" style="margin-top:10px"><span class="tag">Dedução</span><p>Δ ⊨ ψ &nbsp;⇔&nbsp; <b>(φ₁ ∧ … ∧ φₙ) ⇒ ψ</b> é válida.</p></div>
+      <div class="card" style="margin-top:10px"><span class="tag">Insatisfatibilidade</span><p>Δ ⊨ φ &nbsp;⇔&nbsp; <b>Δ ∪ {¬φ}</b> é insatisfatível. <i>(Base da prova por refutação e dos SAT solvers.)</i></p></div>
+    </div>
+    <div>
+      <p><b>Equivalências fundamentais</b> usadas na normalização (CNF) e nos próximos capítulos:</p>
+      <pre style="font-family:'Cambria',serif;font-size:19px;background:#fff;border:1px solid var(--rule);border-left:4px solid var(--accent);padding:14px 18px;border-radius:8px;color:var(--navy-deep);line-height:1.6;margin:6px 0">¬¬φ            ⇔  φ
+¬(φ ∧ ψ)       ⇔  (¬φ ∨ ¬ψ)
+¬(φ ∨ ψ)       ⇔  (¬φ ∧ ¬ψ)
+(φ ⇒ ψ)        ⇔  (¬φ ∨ ψ)
+(φ ⇔ ψ)        ⇔  (φ⇒ψ) ∧ (ψ⇒φ)</pre>
+      <p class="quote">Monotonicidade: novas premissas nunca invalidam conclusões já garantidas — desde que o conjunto continue consistente.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Capítulo 2 · Seções 2.8 e 2.9</span><span>Metateoremas</span></div>
+</section>
+
+<!-- 16. FECHAMENTO -->
+<section class="slide closing">
+  <div class="num">16 / 16</div>
+  <div class="center-block">
+    <span class="pill">Fim do Capítulo 2</span>
+    <h1>O alfabeto do raciocínio formal</h1>
+    <p>Sintaxe, semântica, propriedades e relações compõem a base sobre a qual se erguem inferência, prova, lógica relacional e os métodos automáticos dos próximos capítulos.</p>
+    <div class="row" style="margin-top:14px;justify-content:center">
+      <div class="stat"><div class="big">5</div><div class="lbl">Conectivos</div></div>
+      <div class="stat"><div class="big">3</div><div class="lbl">Propriedades</div></div>
+      <div class="stat"><div class="big">4</div><div class="lbl">Relações centrais</div></div>
+      <div class="stat"><div class="big">6</div><div class="lbl">Metateoremas</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>ALICCE · Lógica Aplicada à Ciência de Dados</span><span>Capítulo 2</span></div>
+</section>
+
+</div>
+<div class="nav-hint">Role para navegar · Imprima como PDF para exportar</div>
+</body>
+</html>
