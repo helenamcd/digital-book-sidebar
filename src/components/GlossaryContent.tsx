@@ -12,7 +12,7 @@ export const glossaryTerms: GlossaryTerm[] = [
   {
     term: "Implicação",
     definition:
-      "Relação lógica entre duas proposições na qual a verdade da primeira (antecedente) garante a verdade da segunda (consequente). Em lógica formal, é representada pelo conectivo →. Por exemplo: \"Se o usuário apresentou erro, então o sistema exibe uma mensagem de apoio\" é uma implicação.",
+      "Conectivo lógico (⇒ ou →) que liga duas proposições — antecedente e consequente — e é falso somente quando o antecedente é verdadeiro e o consequente é falso. Não exige relação causal entre as partes. Exemplo: \"Se o usuário apresentou erro, então o sistema exibe uma mensagem de apoio\".",
     firstAppearance: "intro",
   },
   {
@@ -52,15 +52,15 @@ export const glossaryTerms: GlossaryTerm[] = [
     firstAppearance: "intro",
   },
   {
-    term: "Implicação lógica válida",
+    term: "Argumento válido",
     definition:
-      "Relação entre premissas e conclusão em que, se todas as premissas forem verdadeiras, a conclusão é necessariamente verdadeira. Diferente da implicação material, aqui há uma conexão lógica genuína entre antecedente e consequente.",
+      "Argumento em que, se todas as premissas forem verdadeiras, a conclusão é necessariamente verdadeira. A validade depende apenas da forma do argumento — não do conteúdo das proposições. É a noção pragmática associada à consequência lógica (Δ ⊨ φ).",
     firstAppearance: "intro-sec2",
   },
   {
     term: "Implicação material",
     definition:
-      "Conectivo lógico (→) que é falso apenas quando o antecedente é verdadeiro e o consequente é falso. Diferente da implicação do dia a dia, não exige relação de causa entre as proposições — basta que a combinação V→F não ocorra.",
+      "Outro nome para o conectivo de implicação (→) na lógica clássica. É falso apenas quando o antecedente é verdadeiro e o consequente é falso. Diferente da implicação do dia a dia, não exige relação de causa entre as proposições.",
     firstAppearance: "cap2",
   },
   {
