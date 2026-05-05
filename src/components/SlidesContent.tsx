@@ -146,9 +146,15 @@ const SlidesContent = ({ onNavigate }: SlidesContentProps) => {
                 última lâmina sempre que utilizar o material em aulas, palestras
                 ou trabalhos derivados.
               </p>
-              <p className="mt-3 font-sans-book text-xs text-muted-foreground italic">
-                Sugestão: <span className="text-foreground not-italic">Fundamentos de Lógica Aplicada à Ciência de Dados — Os Autores, 2026.</span>
-              </p>
+              <div className="mt-4 p-4 rounded-lg bg-background border border-border">
+                <p className="font-sans-book text-[10px] uppercase tracking-widest text-muted-foreground mb-2">
+                  Referência sugerida (ABNT)
+                </p>
+                <p className="font-serif-book text-sm text-foreground leading-relaxed">
+                  REIS, Helena Macedo; MARCOLINO, Anderson da Silva.
+                  <em> Fundamentos de Lógica Aplicada à Ciência de Dados</em>. 2026.
+                </p>
+              </div>
             </div>
           </div>
         </div>
