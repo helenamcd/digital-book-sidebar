@@ -163,6 +163,10 @@ export const chapters: Chapter[] = [
     title: "Mapa Mental do Livro",
   },
   {
+    id: "slides-aula",
+    title: "Slides de Aula",
+  },
+  {
     id: "glossario",
     title: "Glossário",
   },

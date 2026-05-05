@@ -4,6 +4,7 @@ import BookContent from "@/components/BookContent";
 import BookCover from "@/components/BookCover";
 import GlossaryContent from "@/components/GlossaryContent";
 import MindMapContent from "@/components/MindMapContent";
+import SlidesContent from "@/components/SlidesContent";
 
 const Index = () => {
   const getInitialChapter = () => {
@@ -54,6 +55,8 @@ const Index = () => {
         <GlossaryContent onNavigate={handleNavigate} />
       ) : activeChapter === "mapa-mental" ? (
         <MindMapContent onNavigate={handleNavigate} />
+      ) : activeChapter === "slides-aula" ? (
+        <SlidesContent onNavigate={handleNavigate} />
       ) : (
         <BookContent activeChapter={activeChapter} onNavigate={handleNavigate} />
       )}
