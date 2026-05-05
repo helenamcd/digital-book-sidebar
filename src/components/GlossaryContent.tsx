@@ -84,7 +84,7 @@ export const glossaryTerms: GlossaryTerm[] = [
   {
     term: "Implicação causal",
     definition:
-      "Relação em que um evento (causa) produz ou influencia diretamente outro evento (efeito). Diferente da implicação lógica, exige uma conexão real de causa e efeito no mundo. Exemplo: \"Aquecer água a 100 °C causa sua ebulição.\"",
+      "Relação em que um evento (causa) produz ou influencia diretamente outro evento (efeito). Diferente da consequência lógica, exige uma conexão real de causa e efeito no mundo. Exemplo: \"Aquecer água a 100 °C causa sua ebulição.\"",
     firstAppearance: "intro-sec2",
   },
   {
@@ -353,6 +353,85 @@ export const glossaryTerms: GlossaryTerm[] = [
     definition:
       "Sequência encadeada de etapas de processamento em que a saída de uma fase alimenta a entrada da seguinte. Em ciência de dados, um pipeline pode incluir coleta, pré-processamento, modelagem e inferência. Do ponto de vista lógico, cada etapa envolve decisões formalizáveis como regras ou implicações.",
     firstAppearance: "intro-sec1",
+  },
+  // Termos adicionais — fundamentais ao livro
+  {
+    term: "Modus Ponens",
+    definition:
+      "Regra de inferência clássica: dadas as premissas φ ⇒ ψ e φ, conclui-se ψ. É a forma mais elementar de aplicar uma implicação para extrair conclusões.",
+    firstAppearance: "cap3-sec1",
+  },
+  {
+    term: "Modus Tollens",
+    definition:
+      "Regra de inferência: dadas as premissas φ ⇒ ψ e ¬ψ, conclui-se ¬φ. É o raciocínio por contrapositiva — se a consequência é falsa, o antecedente também é.",
+    firstAppearance: "cap3-sec1",
+  },
+  {
+    term: "Mundos possíveis",
+    definition:
+      "Cada atribuição de valores-verdade para os átomos de uma linguagem proposicional. O conjunto de mundos possíveis representa todas as situações concebíveis; uma sentença é verdadeira em alguns mundos e falsa em outros.",
+    firstAppearance: "cap2",
+  },
+  {
+    term: "SAT",
+    definition:
+      "Problema da Satisfatibilidade Booleana: dado um conjunto de cláusulas, decidir se existe uma atribuição de verdade que satisfaça todas. É o problema NP-completo canônico e está no coração de muitos algoritmos modernos de IA.",
+    firstAppearance: "cap5",
+  },
+  {
+    term: "DPLL",
+    definition:
+      "Algoritmo Davis–Putnam–Logemann–Loveland: procedimento de busca para resolver SAT, baseado em propagação unitária, eliminação de literais puros e backtracking. Base dos SAT solvers modernos.",
+    firstAppearance: "cap5-sec2",
+  },
+  {
+    term: "Prolog",
+    definition:
+      "Linguagem de programação lógica baseada em cláusulas de Horn e resolução SLD. Um programa Prolog é um conjunto de fatos e regras; consultas são respondidas por busca em profundidade.",
+    firstAppearance: "cap6-sec9",
+  },
+  {
+    term: "Datalog",
+    definition:
+      "Linguagem declarativa derivada do Prolog, restrita a cláusulas de Horn sem funções. Garante terminação e é amplamente usada em bancos de dados dedutivos e análise de programas.",
+    firstAppearance: "cap6-sec9",
+  },
+  {
+    term: "Ontologia",
+    definition:
+      "Especificação formal de um vocabulário compartilhado: conceitos, relações e axiomas que descrevem um domínio. Ontologias OWL são fundamentadas em lógicas de descrição e usadas na Web Semântica e em grafos de conhecimento.",
+    firstAppearance: "cap7",
+  },
+  {
+    term: "Grafo de conhecimento",
+    definition:
+      "Estrutura que representa entidades como nós e relações como arestas rotuladas, frequentemente fundamentada em uma ontologia. Permite consultas, inferências e integração de dados heterogêneos.",
+    firstAppearance: "cap7",
+  },
+  {
+    term: "Teorema de Bayes",
+    definition:
+      "Resultado fundamental da teoria das probabilidades: P(H|E) = P(E|H)·P(H)/P(E). Permite atualizar a crença em uma hipótese H à luz de uma evidência E. Base do raciocínio probabilístico em IA.",
+    firstAppearance: "cap7",
+  },
+  {
+    term: "Probabilidade condicional",
+    definition:
+      "Probabilidade de um evento A ocorrer dado que outro evento B ocorreu, denotada P(A|B). Mede como a informação de B atualiza a chance de A.",
+    firstAppearance: "cap7",
+  },
+  {
+    term: "IA neurossimbólica",
+    definition:
+      "Abordagem que combina aprendizado de máquina (redes neurais) com raciocínio simbólico (lógica formal). Busca unir a capacidade de generalização estatística com a interpretabilidade e o rigor da inferência lógica.",
+    firstAppearance: "cap9",
+  },
+  {
+    term: "Decidibilidade",
+    definition:
+      "Propriedade de um problema para o qual existe um algoritmo que sempre termina e responde corretamente. A Lógica Proposicional é decidível; a Lógica de Primeira Ordem é apenas semidecidível.",
+    firstAppearance: "cap9-sec5",
   },
 ];
 
