@@ -1,4 +1,4 @@
-import { Presentation, Download, FileText, MessageSquareText, Sparkles, BookOpen, ChevronLeft, ChevronRight } from "lucide-react";
+import { Presentation, Download, FileText, MessageSquareText, Sparkles, BookOpen, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { chapters, hiddenChapterPrefixes } from "@/data/bookContent";
 
 interface SlidesContentProps {
@@ -128,6 +128,30 @@ const SlidesContent = ({ onNavigate }: SlidesContentProps) => {
         <p className="mt-10 text-center font-sans-book text-xs text-muted-foreground italic">
           Material gerado com auxílio de IA. Revisão pedagógica recomendada antes do uso em sala.
         </p>
+
+        {/* Citation requirement */}
+        <div className="mt-8 p-6 rounded-2xl border-2 border-[hsl(var(--accent))] bg-[hsl(var(--accent)/0.08)]">
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))] flex items-center justify-center">
+              <Quote size={18} />
+            </div>
+            <div>
+              <h3 className="font-serif-display text-lg font-bold text-foreground mb-2">
+                Referência ao livro é <span className="text-[hsl(var(--accent))]">obrigatória</span>
+              </h3>
+              <p className="font-serif-book text-sm text-foreground leading-relaxed">
+                O uso destes slides é livre para fins educacionais, mas pedimos
+                <strong> apenas uma coisa em troca</strong>: que o livro seja
+                citado como fonte. Mantenha a referência visível na primeira ou
+                última lâmina sempre que utilizar o material em aulas, palestras
+                ou trabalhos derivados.
+              </p>
+              <p className="mt-3 font-sans-book text-xs text-muted-foreground italic">
+                Sugestão: <span className="text-foreground not-italic">Fundamentos de Lógica Aplicada à Ciência de Dados — Os Autores, 2026.</span>
+              </p>
+            </div>
+          </div>
+        </div>
 
         {/* Navigation */}
         <div className="flex items-center justify-between mt-14 pt-8 border-t border-border">
